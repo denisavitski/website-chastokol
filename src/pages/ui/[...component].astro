@@ -20,7 +20,6 @@ const Component = ComponentModule.default
 const modal = ComponentModule.modal || false
 const header = ComponentModule.header || false
 const footer = ComponentModule.footer || false
-const description = ComponentModule.componentDescription
 ---
 
 <Layout
@@ -28,36 +27,13 @@ const description = ComponentModule.componentDescription
   {footer}
 >
   {Component ? <Component /> : <h1>Компонент не найден</h1>}
-
-  {
-    description && (
-      <>
-        <e-popover-button
-          class="description-button"
-          target="description"
-        >
-          Описание
-        </e-popover-button>
-        <e-popover
-          class="description"
-          id="description"
-        >
-          <div
-            class="description__inner"
-            data-outside
-          >
-            <div
-              class="description__content"
-              set:html={description}
-            />
-          </div>
-        </e-popover>
-      </>
-    )
-  }
 </Layout>
 
 <style>
+  body {
+    background-color: var(--color-grayscale-300);
+  }
+
   :global(e-pixel-perfect) {
     padding-top: var(--header-height);
   }

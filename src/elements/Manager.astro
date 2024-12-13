@@ -1,0 +1,83 @@
+---
+import type { ImageDataProps } from './Image.astro'
+
+export interface Props {
+  class?: string
+  image?: ImageDataProps
+  title?: string
+  online?: string
+}
+
+const {
+  class: className,
+  image = { src: '/images/manager.jpg' },
+  title = 'Написать в WhatsApp',
+  online = 'менеджер online',
+  ...rest
+} = Astro.props
+---
+
+<a
+  {...rest}
+  class:list={[className, 'manager']}
+>
+  <img
+    {...image}
+    class="manager__image"
+    decoding="async"
+    loading="lazy"
+  />
+
+  <span class="manager__content">
+    <span
+      class="manager__title f-d-body-large-medium-16"
+      set:html={title}
+    />
+    <span
+      class="manager__online f-d-body-basic-regular-14"
+      set:html={online}
+    />
+  </span>
+</a>
+
+<style is:global>
+  .manager {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .manager__image {
+    width: 3.8rem;
+    height: 3.8rem;
+
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .manager__content {
+  }
+
+  .manager__title {
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .manager__online {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+
+    color: var(--color-grayscale-400);
+
+    &::before {
+      content: '';
+
+      width: 0.7rem;
+      height: 0.7rem;
+
+      background-color: var(--color-primary-0);
+      border-radius: 50%;
+    }
+  }
+</style>
