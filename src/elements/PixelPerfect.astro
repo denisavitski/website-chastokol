@@ -1,0 +1,36 @@
+---
+export interface PixelPerfectImage {
+  src: string
+  media?: string
+}
+
+export type PixelPerfectImages = Array<PixelPerfectImage>
+
+export interface Props {
+  images: PixelPerfectImages
+}
+
+const { images } = Astro.props
+---
+
+{
+  images.length ? (
+    <e-pixel-perfect opacity="0.4">
+      <picture>
+        {images.map((image) =>
+          image.media ? (
+            <source
+              media={`(${image.media})`}
+              srcset={image.src}
+            />
+          ) : null,
+        )}
+        {/* Default image as fallback */}
+        <img
+          src={images[0]!.src}
+          alt="Pixel Perfect Image"
+        />
+      </picture>
+    </e-pixel-perfect>
+  ) : null
+}

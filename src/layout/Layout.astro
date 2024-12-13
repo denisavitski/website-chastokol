@@ -1,0 +1,85 @@
+---
+import Header from '@singletons/Header.astro'
+import Footer from '@singletons/Footer.astro'
+import Scrollbar from '@singletons/Scrollbar.astro'
+
+import Head from './Head.astro'
+import { type Props as SeoProps } from './Seo.astro'
+import PixelPerfect, { type PixelPerfectImages } from '@elements/PixelPerfect.astro'
+
+export interface Props {
+  header?: boolean
+  headerBlackAndWhite?: boolean
+  footer?: boolean
+  cookies?: boolean
+  formResultModal?: boolean
+  ctaModal?: boolean
+  partnerModal?: boolean
+  seo?: SeoProps | undefined
+  pixelPerfectImages?: PixelPerfectImages
+}
+
+const { header = true, footer = true, pixelPerfectImages, seo } = Astro.props
+---
+
+<html
+  lang="ru"
+  data-order-type="delivery"
+>
+  <Head {seo} />
+
+  <body>
+    <div class="page">
+      {header && <Header />}
+
+      <div
+        class="scroll hidden-scrollbar"
+        id="page-scroll"
+      >
+        <Scrollbar />
+
+        {pixelPerfectImages && <PixelPerfect images={pixelPerfectImages} />}
+
+        <main>
+          <slot />
+        </main>
+
+        {footer && <Footer />}
+      </div>
+    </div>
+  </body></html
+>
+
+<style is:global>
+  .page {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    opacity: 0;
+    pointer-events: none;
+
+    .page-loaded & {
+      opacity: 1;
+      transition: opacity 1s;
+      pointer-events: auto;
+    }
+  }
+
+  .scroll {
+    width: 100%;
+    height: 100%;
+
+    padding-top: var(--header-height);
+
+    overflow: hidden auto;
+
+    .dragging & {
+      overflow: hidden;
+    }
+  }
+</style>
+
+<script>
+  import '@globals/main.ts'
+</script>

@@ -1,0 +1,16 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+export interface Props extends HTMLAttributes<'svg'> {
+  name: string
+}
+
+const { name, ...rest } = Astro.props
+---
+
+<svg
+  {...rest}
+  data-name={name}
+>
+  <use xlink:href={`/sprite.svg#sprite:${name}`}></use>
+</svg>

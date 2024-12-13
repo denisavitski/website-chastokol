@@ -1,0 +1,631 @@
+@font-face {
+  font-family: 'font-primary';
+  font-weight: 300;
+  src: url('/fonts/tt-norms-pro/light.otf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'font-primary';
+  font-weight: 400;
+  src: url('/fonts/tt-norms-pro/regular.otf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'font-primary';
+  font-weight: 500;
+  src: url('/fonts/tt-norms-pro/medium.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'font-primary';
+  font-weight: 700;
+  src: url('/fonts/tt-norms-pro/bold.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'font-additional';
+  font-weight: 900;
+  src: url('/fonts/halvar-breitschrift/black.ttf');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'font-additional';
+  font-weight: 700;
+  src: url('/fonts/halvar-breitschrift/bold.ttf');
+  font-display: swap;
+}
+
+.f-d-title-medium-112 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 110%;
+  font-size: 11.2rem;
+}
+
+.f-d-title-medium-96 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 110%;
+  font-size: 9.6rem;
+}
+
+.f-d-title-medium-76 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 105%;
+  font-size: 7.6rem;
+}
+
+.f-d-title-medium-64 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 110%;
+  font-size: 6.4rem;
+}
+
+.f-d-title-medium-45 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 105%;
+  font-size: 4.5rem;
+}
+
+.f-d-title-medium-42 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 105%;
+  font-size: 4.2rem;
+}
+
+.f-d-title-medium-32 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 115%;
+  font-size: 3.2rem;
+}
+
+.f-d-title-medium-30 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 115%;
+  font-size: 3rem;
+}
+
+.f-d-title-medium-28 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 110%;
+  font-size: 2.8rem;
+}
+
+.f-d-title-medium-24 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 110%;
+  font-size: 2.4rem;
+}
+
+.f-d-title-medium-20 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 115%;
+  font-size: 2rem;
+}
+
+.f-d-title-medium-18 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 120%;
+  font-size: 1.8rem;
+}
+
+.f-d-additionally-title-black-24 {
+  font-family: 'font-additional';
+  font-weight: 900;
+  line-height: 130%;
+  font-size: 2.4rem;
+}
+
+.f-d-additionally-title-black-20 {
+  font-family: 'font-additional';
+  font-weight: 900;
+  line-height: 130%;
+  font-size: 2rem;
+}
+
+.f-d-additionally-title-black-18 {
+  font-family: 'font-additional';
+  font-weight: 900;
+  line-height: 130%;
+  font-size: 1.8rem;
+}
+
+.f-d-additionally-title-black-16 {
+  font-family: 'font-additional';
+  font-weight: 900;
+  line-height: 130%;
+  font-size: 1.6rem;
+}
+
+.f-d-additionally-title-black-14 {
+  font-family: 'font-additional';
+  font-weight: 900;
+  line-height: 130%;
+  font-size: 1.4rem;
+}
+
+.f-d-additionally-title-bold-24 {
+  font-family: 'font-additional';
+  font-weight: 700;
+  line-height: 130%;
+  font-size: 2.4rem;
+}
+
+.f-d-additionally-title-bold-20 {
+  font-family: 'font-additional';
+  font-weight: 700;
+  line-height: 130%;
+  font-size: 2rem;
+}
+
+.f-d-additionally-title-bold-18 {
+  font-family: 'font-additional';
+  font-weight: 700;
+  line-height: 130%;
+  font-size: 1.8rem;
+}
+
+.f-d-additionally-title-bold-16 {
+  font-family: 'font-additional';
+  font-weight: 700;
+  line-height: 130%;
+  font-size: 1.6rem;
+}
+
+.f-d-additionally-title-bold-14 {
+  font-family: 'font-additional';
+  font-weight: 700;
+  line-height: 130%;
+  font-size: 1.4rem;
+}
+
+.f-d-body-large-bold-16 {
+  font-family: 'font-primary';
+  font-weight: 700;
+  line-height: 100%;
+  font-size: 1.6rem;
+}
+
+.f-d-body-large-medium-16 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 120%;
+  font-size: 1.6rem;
+}
+
+.f-d-body-large-regular-16 {
+  font-family: 'font-primary';
+  font-weight: 400;
+  line-height: 130%;
+  font-size: 1.6rem;
+}
+
+.f-d-body-large-light-16 {
+  font-family: 'font-primary';
+  font-weight: 300;
+  line-height: 130%;
+  font-size: 1.6rem;
+}
+
+.f-d-body-basic-bold-14 {
+  font-family: 'font-primary';
+  font-weight: 700;
+  line-height: 130%;
+  font-size: 1.4rem;
+}
+
+.f-d-body-basic-medium-14 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 125%;
+  font-size: 1.4rem;
+}
+
+.f-d-body-basic-regular-14 {
+  font-family: 'font-primary';
+  font-weight: 400;
+  line-height: 125%;
+  font-size: 1.4rem;
+}
+
+.f-d-body-basic-light-14 {
+  font-family: 'font-primary';
+  font-weight: 300;
+  line-height: 130%;
+  font-size: 1.4rem;
+}
+
+.f-d-footnote-bold-12 {
+  font-family: 'font-primary';
+  font-weight: 700;
+  line-height: 115%;
+  font-size: 1.2rem;
+}
+
+.f-d-footnote-medium-12 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 125%;
+  font-size: 1.2rem;
+}
+
+.f-d-footnote-regular-12 {
+  font-family: 'font-primary';
+  font-weight: 400;
+  line-height: 125%;
+  font-size: 1.2rem;
+}
+
+.f-d-footnote-light-12 {
+  font-family: 'font-primary';
+  font-weight: 300;
+  line-height: 115%;
+  font-size: 1.2rem;
+}
+
+.f-d-footnote-bold-10 {
+  font-family: 'font-primary';
+  font-weight: 700;
+  line-height: 115%;
+  font-size: 1rem;
+}
+
+.f-d-footnote-medium-10 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 120%;
+  font-size: 1rem;
+}
+
+.f-d-footnote-regular-10 {
+  font-family: 'font-primary';
+  font-weight: 400;
+  line-height: 120%;
+  font-size: 1rem;
+}
+
+.f-d-footnote-light-10 {
+  font-family: 'font-primary';
+  font-weight: 300;
+  line-height: 115%;
+  font-size: 1rem;
+}
+
+.f-d-footnote-bold-8 {
+  font-family: 'font-primary';
+  font-weight: 700;
+  line-height: 120%;
+  font-size: 0.8rem;
+}
+
+.f-d-footnote-medium-8 {
+  font-family: 'font-primary';
+  font-weight: 500;
+  line-height: 120%;
+  font-size: 0.8rem;
+}
+
+.f-d-footnote-regular-8 {
+  font-family: 'font-primary';
+  font-weight: 400;
+  line-height: 120%;
+  font-size: 0.8rem;
+}
+
+.f-d-footnote-light-8 {
+  font-family: 'font-primary';
+  font-weight: 300;
+  line-height: 120%;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .f-m-title-medium-112 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 110%;
+    font-size: 11.2rem;
+  }
+
+  .f-m-title-medium-96 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 110%;
+    font-size: 9.6rem;
+  }
+
+  .f-m-title-medium-76 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 105%;
+    font-size: 7.6rem;
+  }
+
+  .f-m-title-medium-64 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 110%;
+    font-size: 6.4rem;
+  }
+
+  .f-m-title-medium-45 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 105%;
+    font-size: 4.5rem;
+  }
+
+  .f-m-title-medium-42 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 105%;
+    font-size: 4.2rem;
+  }
+
+  .f-m-title-medium-32 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 115%;
+    font-size: 3.2rem;
+  }
+
+  .f-m-title-medium-30 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 115%;
+    font-size: 3rem;
+  }
+
+  .f-m-title-medium-28 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 110%;
+    font-size: 2.8rem;
+  }
+
+  .f-m-title-medium-24 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 110%;
+    font-size: 2.4rem;
+  }
+
+  .f-m-title-medium-20 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 115%;
+    font-size: 2rem;
+  }
+
+  .f-m-title-medium-18 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 120%;
+    font-size: 1.8rem;
+  }
+
+  .f-m-additionally-title-black-24 {
+    font-family: 'font-additional';
+    font-weight: 900;
+    line-height: 130%;
+    font-size: 2.4rem;
+  }
+
+  .f-m-additionally-title-black-20 {
+    font-family: 'font-additional';
+    font-weight: 900;
+    line-height: 130%;
+    font-size: 2rem;
+  }
+
+  .f-m-additionally-title-black-18 {
+    font-family: 'font-additional';
+    font-weight: 900;
+    line-height: 130%;
+    font-size: 1.8rem;
+  }
+
+  .f-m-additionally-title-black-16 {
+    font-family: 'font-additional';
+    font-weight: 900;
+    line-height: 130%;
+    font-size: 1.6rem;
+  }
+
+  .f-m-additionally-title-black-14 {
+    font-family: 'font-additional';
+    font-weight: 900;
+    line-height: 130%;
+    font-size: 1.4rem;
+  }
+
+  .f-m-additionally-title-bold-24 {
+    font-family: 'font-additional';
+    font-weight: 700;
+    line-height: 130%;
+    font-size: 2.4rem;
+  }
+
+  .f-m-additionally-title-bold-20 {
+    font-family: 'font-additional';
+    font-weight: 700;
+    line-height: 130%;
+    font-size: 2rem;
+  }
+
+  .f-m-additionally-title-bold-18 {
+    font-family: 'font-additional';
+    font-weight: 700;
+    line-height: 130%;
+    font-size: 1.8rem;
+  }
+
+  .f-m-additionally-title-bold-16 {
+    font-family: 'font-additional';
+    font-weight: 700;
+    line-height: 130%;
+    font-size: 1.6rem;
+  }
+
+  .f-m-additionally-title-bold-14 {
+    font-family: 'font-additional';
+    font-weight: 700;
+    line-height: 130%;
+    font-size: 1.4rem;
+  }
+
+  .f-m-body-large-bold-16 {
+    font-family: 'font-primary';
+    font-weight: 700;
+    line-height: 100%;
+    font-size: 1.6rem;
+  }
+
+  .f-m-body-large-medium-16 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 120%;
+    font-size: 1.6rem;
+  }
+
+  .f-m-body-large-regular-16 {
+    font-family: 'font-primary';
+    font-weight: 400;
+    line-height: 130%;
+    font-size: 1.6rem;
+  }
+
+  .f-m-body-large-light-16 {
+    font-family: 'font-primary';
+    font-weight: 300;
+    line-height: 130%;
+    font-size: 1.6rem;
+  }
+
+  .f-m-body-basic-bold-14 {
+    font-family: 'font-primary';
+    font-weight: 700;
+    line-height: 130%;
+    font-size: 1.4rem;
+  }
+
+  .f-m-body-basic-medium-14 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 125%;
+    font-size: 1.4rem;
+  }
+
+  .f-m-body-basic-regular-14 {
+    font-family: 'font-primary';
+    font-weight: 400;
+    line-height: 125%;
+    font-size: 1.4rem;
+  }
+
+  .f-m-body-basic-light-14 {
+    font-family: 'font-primary';
+    font-weight: 300;
+    line-height: 130%;
+    font-size: 1.4rem;
+  }
+
+  .f-m-footnote-bold-12 {
+    font-family: 'font-primary';
+    font-weight: 700;
+    line-height: 115%;
+    font-size: 1.2rem;
+  }
+
+  .f-m-footnote-medium-12 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 125%;
+    font-size: 1.2rem;
+  }
+
+  .f-m-footnote-regular-12 {
+    font-family: 'font-primary';
+    font-weight: 400;
+    line-height: 125%;
+    font-size: 1.2rem;
+  }
+
+  .f-m-footnote-light-12 {
+    font-family: 'font-primary';
+    font-weight: 300;
+    line-height: 115%;
+    font-size: 1.2rem;
+  }
+
+  .f-m-footnote-bold-10 {
+    font-family: 'font-primary';
+    font-weight: 700;
+    line-height: 115%;
+    font-size: 1rem;
+  }
+
+  .f-m-footnote-medium-10 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 120%;
+    font-size: 1rem;
+  }
+
+  .f-m-footnote-regular-10 {
+    font-family: 'font-primary';
+    font-weight: 400;
+    line-height: 120%;
+    font-size: 1rem;
+  }
+
+  .f-m-footnote-light-10 {
+    font-family: 'font-primary';
+    font-weight: 300;
+    line-height: 115%;
+    font-size: 1rem;
+  }
+
+  .f-m-footnote-bold-8 {
+    font-family: 'font-primary';
+    font-weight: 700;
+    line-height: 120%;
+    font-size: 0.8rem;
+  }
+
+  .f-m-footnote-medium-8 {
+    font-family: 'font-primary';
+    font-weight: 500;
+    line-height: 120%;
+    font-size: 0.8rem;
+  }
+
+  .f-m-footnote-regular-8 {
+    font-family: 'font-primary';
+    font-weight: 400;
+    line-height: 120%;
+    font-size: 0.8rem;
+  }
+
+  .f-m-footnote-light-8 {
+    font-family: 'font-primary';
+    font-weight: 300;
+    line-height: 120%;
+    font-size: 0.8rem;
+  }
+}
