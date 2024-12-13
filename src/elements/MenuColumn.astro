@@ -1,0 +1,82 @@
+---
+import MenuLink, { type Props as MenuLinkProps } from './MenuLink.astro'
+
+export interface Props {
+  class?: string
+  title?: string
+  href?: string
+  links?: Array<MenuLinkProps> | false
+}
+
+const {
+  class: className,
+  title = 'Металлические заборы',
+  href = '/',
+  links = [
+    {
+      href: '/',
+      name: 'Из профнастила',
+      image: { src: '/images/small-preview.jpg' },
+    },
+    {
+      href: '/',
+      name: 'Из евроштакетника',
+      image: { src: '/images/small-preview.jpg' },
+    },
+    {
+      href: '/',
+      name: 'Из сетки рабица',
+      image: { src: '/images/small-preview.jpg' },
+    },
+    {
+      href: '/',
+      name: 'Из профильной трубы',
+      image: { src: '/images/small-preview.jpg' },
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'menu-column']}
+>
+  <div class="menu-column__list">
+    <a
+      class="menu-column__title f-d-body-large-medium-16"
+      set:html={title}
+      {href}
+    />
+    {
+      Array.isArray(links)
+        ? links.map((link) => {
+            return (
+              <MenuLink
+                class="menu-column__link"
+                {...link}
+              />
+            )
+          })
+        : null
+    }
+  </div>
+</div>
+
+<style is:global>
+  .menu-column {
+  }
+
+  .menu-column__title {
+    margin-bottom: 1.8rem;
+  }
+
+  .menu-column__list {
+    display: grid;
+    gap: 1.5rem;
+    grid-auto-rows: max-content;
+  }
+
+  .menu-column__link {
+  }
+</style>

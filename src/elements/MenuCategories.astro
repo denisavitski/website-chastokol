@@ -1,0 +1,331 @@
+---
+import MenuCategoryButton, {
+  type Props as MenuCategoryButtonProps,
+} from './MenuCategoryButton.astro'
+
+import MenuCategory, {
+  type Props as MenuCategoryProps,
+} from './MenuCategory.astro'
+
+export const imagePaddingTop = '0'
+
+export interface Props {
+  class?: string
+  categories?: Array<{
+    id: string
+    button: Omit<MenuCategoryButtonProps, 'target'>
+    category: Omit<MenuCategoryProps, 'id'>
+  }>
+}
+
+const {
+  class: className,
+  categories = [
+    {
+      id: 'menu-fences',
+      button: {
+        icon: 'fence-1',
+        name: 'Заборы',
+      },
+      category: {
+        columns: [
+          {
+            title: 'Металлические заборы',
+            links: [
+              {
+                href: '/',
+                name: 'Из профнастила',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из евроштакетника',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из сетки рабица',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из профильной трубы',
+                image: { src: '/images/small-preview.jpg' },
+              },
+            ],
+          },
+          {
+            title: 'Деревянные заборы',
+            links: [
+              {
+                href: '/',
+                name: 'Горизонтальные',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Шахматка',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из штакетника',
+                image: { src: '/images/small-preview.jpg' },
+              },
+            ],
+          },
+          {
+            title: 'Заборы для дачи',
+            links: [
+              {
+                href: '/',
+                name: 'Из профнастила',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из евроштакетника',
+                image: { src: '/images/small-preview.jpg' },
+              },
+            ],
+          },
+          {
+            title: 'Заборы из пластика',
+            links: false,
+          },
+          {
+            title: 'Кованые заборы',
+            links: [
+              {
+                href: '/',
+                name: 'Из сетки рабица',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из профильной трубы',
+                image: { src: '/images/small-preview.jpg' },
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      id: 'menu-gates',
+      button: {
+        icon: 'fence-2',
+        name: 'Ворота',
+      },
+      category: {
+        columns: [
+          {
+            title: 'Металлические заборы',
+            links: [
+              {
+                href: '/',
+                name: 'Из профнастила',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из евроштакетника',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из сетки рабица',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из профильной трубы',
+                image: { src: '/images/small-preview.jpg' },
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      id: 'menu-wickets',
+      button: {
+        icon: 'fence-3',
+        name: 'Калитки',
+      },
+      category: {
+        columns: [
+          {
+            title: 'Металлические заборы',
+            links: [
+              {
+                href: '/',
+                name: 'Из профнастила',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из евроштакетника',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из сетки рабица',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из профильной трубы',
+                image: { src: '/images/small-preview.jpg' },
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      id: 'menu-awnings',
+      button: {
+        icon: 'fence-4',
+        name: 'Навесы',
+      },
+      category: {
+        columns: [
+          {
+            title: 'Металлические заборы',
+            links: [
+              {
+                href: '/',
+                name: 'Из профнастила',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из евроштакетника',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из сетки рабица',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из профильной трубы',
+                image: { src: '/images/small-preview.jpg' },
+              },
+            ],
+          },
+        ],
+      },
+    },
+    {
+      id: 'menu-piles',
+      button: {
+        icon: 'fence-5',
+        name: 'Сваи',
+      },
+      category: {
+        columns: [
+          {
+            title: 'Металлические заборы',
+            links: [
+              {
+                href: '/',
+                name: 'Из профнастила',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из евроштакетника',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из сетки рабица',
+                image: { src: '/images/small-preview.jpg' },
+              },
+              {
+                href: '/',
+                name: 'Из профильной трубы',
+                image: { src: '/images/small-preview.jpg' },
+              },
+            ],
+          },
+        ],
+      },
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'menu-categories']}
+>
+  <div class="menu-categories__buttons">
+    {
+      categories.map((category) => {
+        return (
+          <MenuCategoryButton
+            class="menu-categories__button"
+            {...category.button}
+            target={category.id}
+          />
+        )
+      })
+    }
+  </div>
+  <div class="menu-categories__list">
+    {
+      categories.map((category) => {
+        return (
+          <MenuCategory
+            class="menu-categories__category"
+            {...category.category}
+            id={category.id}
+          />
+        )
+      })
+    }
+  </div>
+</div>
+
+<style is:global>
+  .menu-categories {
+  }
+
+  .menu-categories__buttons {
+    border-top: 0.1rem solid var(--color-grayscale-300);
+    border-bottom: 0.1rem solid var(--color-grayscale-300);
+
+    padding: 0 var(--screen-horisontal-padding);
+  }
+
+  .menu-categories__button {
+    width: 29.8rem;
+    height: 100%;
+
+    &:first-child {
+      border-left: 0.1rem solid var(--color-grayscale-300);
+    }
+
+    & {
+      border-right: 0.1rem solid var(--color-grayscale-300);
+    }
+  }
+
+  .menu-categories__list {
+    display: grid;
+    padding: 0 var(--screen-horisontal-padding);
+  }
+
+  .menu-categories__category {
+    grid-column: 1/1;
+    grid-row: 1/1;
+
+    --group: menu-category;
+    --dominance: 1;
+  }
+</style>

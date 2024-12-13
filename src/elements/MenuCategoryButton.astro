@@ -1,0 +1,66 @@
+---
+import type { SpriteIconName } from '@utils/SpriteIconName'
+import IconBox from './IconBox.astro'
+
+export interface Props {
+  class?: string
+  icon?: SpriteIconName
+  name?: string
+  target?: string
+}
+
+const {
+  class: className,
+  icon = 'fence-1',
+  name = 'Заборы',
+  target = 'menu-category',
+  ...rest
+} = Astro.props
+---
+
+<e-popover-button
+  {...rest}
+  class:list={[className, 'category-button']}
+  {target}
+>
+  <IconBox
+    icon={icon}
+    class="category-button__icon"
+  />
+  <div
+    class="category-button__name f-d-additionally-title-bold-16"
+    set:html={name}
+  />
+</e-popover-button>
+
+<style is:global>
+  .category-button {
+    --icon-box-background-color: var(--color-grayscale-200);
+    --icon-box-border-color: transparent;
+    --icon-box-color: var(--color-grayscale-600);
+    --icon-size: 100%;
+
+    padding: 1rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    transition-property: background-color;
+    transition-duration: var(--duration-button);
+    transition-timing-function: ease;
+
+    &.opened {
+      --icon-box-background-color: var(--color-primary-100);
+      --icon-box-color: var(--color-grayscale-0);
+
+      background-color: var(--color-grayscale-100);
+    }
+  }
+
+  .category-button__icon {
+  }
+
+  .category-button__name {
+  }
+</style>

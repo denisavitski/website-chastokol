@@ -359,7 +359,7 @@ const {
     width: 100%;
     padding: 0 var(--screen-horisontal-padding);
     padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-bottom: 5rem;
 
     display: grid;
     grid-template-columns: 34.8rem 12.2rem 22.6rem 28.8rem 29.5rem 22.2rem;
@@ -377,6 +377,8 @@ const {
       'stats . . . social online';
 
     @media (max-width: 768px) {
+      padding-bottom: 4rem;
+
       display: grid;
       grid-template-columns: 18rem 1fr;
       grid-template-rows:
@@ -568,7 +570,7 @@ const {
   }
 
   .footer__agreement {
-    @media (max-width: 768px) {
+    @media (min-width: 769px) {
       width: 22.1rem;
     }
 

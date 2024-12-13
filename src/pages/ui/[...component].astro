@@ -20,22 +20,33 @@ const Component = ComponentModule.default
 const modal = ComponentModule.modal || false
 const header = ComponentModule.header || false
 const footer = ComponentModule.footer || false
+const imagePaddingTop =
+  typeof ComponentModule.imagePaddingTop !== 'undefined'
+    ? ComponentModule.imagePaddingTop
+    : 'var(--header-full-height)'
 ---
 
 <Layout
   {header}
   {footer}
 >
-  {Component ? <Component /> : <h1>Компонент не найден</h1>}
+  {
+    Component ? (
+      <div class="wrapper">
+        <Component />
+      </div>
+    ) : (
+      <h1>Компонент не найден</h1>
+    )
+  }
 </Layout>
 
 <style>
-  body {
-    background-color: var(--color-grayscale-300);
+  .wrapper {
   }
 
   :global(e-pixel-perfect) {
-    padding-top: var(--header-height);
+    padding-top: var(--imagePaddingTop);
   }
 
   .description-button {
@@ -162,7 +173,7 @@ const footer = ComponentModule.footer || false
   }
 </style>
 
-<script define:vars={{ modal }} is:inline>
+<script define:vars={{ modal, imagePaddingTop }} is:inline>
   document.documentElement.classList.add('ui')
 
   if (modal) {
@@ -173,6 +184,13 @@ const footer = ComponentModule.footer || false
         el.open()
       },
       100,
+    )
+  }
+
+  if (imagePaddingTop) {
+    document.documentElement.style.setProperty(
+      '--imagePaddingTop',
+      imagePaddingTop,
     )
   }
 </script>

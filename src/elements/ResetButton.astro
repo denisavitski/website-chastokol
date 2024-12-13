@@ -1,0 +1,33 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import IconBox from './IconBox.astro'
+
+export interface Props extends HTMLAttributes<'button'> {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<button
+  {...rest}
+  class:list={[className, 'reset-button']}
+  type="reset"
+>
+  <IconBox
+    icon={'plus'}
+    class="reset-button__icon"
+  />
+</button>
+
+<style is:global>
+  .reset-button {
+  }
+
+  .reset-button__icon {
+    --icon-box-size: 5rem;
+    --icon-size: 1.6rem;
+    --icon-box-rotation: 45deg;
+    --icon-box-border-color: var(--color-grayscale-300);
+  }
+</style>

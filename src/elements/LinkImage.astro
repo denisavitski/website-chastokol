@@ -1,0 +1,67 @@
+---
+import type { ImageDataProps } from './Image.astro'
+
+export interface Props {
+  class?: string
+  image?: ImageDataProps
+}
+
+const {
+  class: className,
+  image = { src: '/images/small-preview.jpg', alt: 'Альтернативный текст' },
+  ...rest
+} = Astro.props
+---
+
+<span
+  {...rest}
+  class:list={[className, 'link-image']}
+>
+  <img
+    {...image}
+    loading="lazy"
+    decoding="async"
+    class="link-image__image"
+  />
+</span>
+
+<style is:global>
+  .link-image {
+    position: relative;
+
+    width: 3.2rem;
+    height: 3.2rem;
+
+    display: block;
+
+    border-radius: 0.7rem;
+    border: 0.2rem solid var(--color-grayscale-300);
+
+    &::after {
+      content: '';
+
+      position: absolute;
+
+      z-index: -1;
+
+      left: 100%;
+      top: 50%;
+      transform: translate(-1px, -50%);
+
+      width: 1rem;
+      height: 1rem;
+
+      display: block;
+
+      clip-path: polygon(0 0, 0% 100%, 100% 50%);
+      background-color: var(--color-grayscale-300);
+    }
+  }
+
+  .link-image__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+</style>

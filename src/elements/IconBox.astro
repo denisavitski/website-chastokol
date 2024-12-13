@@ -22,8 +22,8 @@ const { class: className, icon = 'inst', ...rest } = Astro.props
 
 <style is:global>
   .icon-box {
-    width: 3.8rem;
-    height: 3.8rem;
+    width: var(--icon-box-size, 3.8rem);
+    height: var(--icon-box-size, 3.8rem);
 
     display: flex;
     align-items: center;
@@ -33,23 +33,30 @@ const { class: className, icon = 'inst', ...rest } = Astro.props
       var(--icon-box-border-color, var(--color-grayscale-600));
     background-color: var(--icon-box-background-color, transparent);
 
+    transition-property: color, background-color;
+    transition-duration: var(--duration-button);
+
     border-radius: 0.7rem;
 
     @media (max-width: 768px) {
-      width: 4rem;
-      height: 4rem;
+      width: var(--icon-box-size, 4rem);
+      height: var(--icon-box-size, 4rem);
     }
   }
 
   .icon-box__icon {
-    width: 1.8rem;
-    height: 1.8rem;
+    width: var(--icon-size, 1.8rem);
+    height: var(--icon-size, 1.8rem);
 
     fill: var(--icon-box-color, var(--color-grayscale-700));
 
+    transition-property: fill;
+    transition-duration: var(--duration-button);
+    transform: rotate(var(--icon-box-rotation, 0deg));
+
     @media (max-width: 768px) {
-      width: 1.895rem;
-      height: 1.895rem;
+      width: var(--icon-size, 1.895rem);
+      height: var(--icon-size, 1.895rem);
     }
   }
 </style>

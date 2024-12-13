@@ -1,0 +1,63 @@
+---
+import type { ImageDataProps } from './Image.astro'
+import LinkImage from './LinkImage.astro'
+
+export interface Props {
+  class?: string
+  href?: string
+  name?: string
+  image?: ImageDataProps
+}
+
+const {
+  class: className,
+  href,
+  name = 'Из профнастила',
+  image = { src: '/images/small-preview.jpg' },
+  ...rest
+} = Astro.props
+---
+
+<a
+  {...rest}
+  class:list={[className, 'menu-link']}
+  {href}
+>
+  <span
+    class="f-d-body-basic-regular-14 menu-link__name"
+    set:html={name}
+  />
+  <LinkImage
+    image={image}
+    class="menu-link__image"
+  />
+</a>
+
+<style is:global>
+  .menu-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .menu-link__name {
+    color: var(--color-grayscale-400);
+  }
+
+  .menu-link__image {
+    position: absolute;
+    right: calc(100% + 0.934rem);
+
+    opacity: 0;
+    transition-property: opacity;
+    transition-duration: var(--duration-button);
+    transition-timing-function: ease;
+    pointer-events: none;
+
+    @media (hover: hover) {
+      .menu-link:hover & {
+        opacity: 1;
+      }
+    }
+  }
+</style>
