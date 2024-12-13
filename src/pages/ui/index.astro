@@ -36,14 +36,17 @@ modules.forEach((module) => {
 
 <Layout
   header={false}
-  footer={false}>
+  footer={false}
+  pixelPerfectImages={[]}
+>
   <e-accordion class="nav">
     {
       Array.from(components).map(([folderName, componentNames], i) => {
         return (
           <div
             class="nav__folder"
-            data-opened={i === 0}>
+            data-opened={i === 0}
+          >
             <div class="nav__folder__title">{folderName}</div>
             <div class="nav__folder__list">
               <div class="nav__folder__list__inner">
@@ -59,7 +62,8 @@ modules.forEach((module) => {
                               '/',
                             )
                           : `/ui/${folderName}/${name}`
-                      }>
+                      }
+                    >
                       {name}
                     </a>
                   )
@@ -78,7 +82,7 @@ modules.forEach((module) => {
     width: 100%;
     height: 100%;
 
-    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
+    padding: 0rem var(--screen-horisontal-padding);
 
     display: grid;
     grid-auto-rows: max-content;

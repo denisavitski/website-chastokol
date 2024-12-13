@@ -1,5 +1,4 @@
 ---
-import { typography } from '@utils/typography'
 import type { HTMLAttributes } from 'astro/types'
 import Icon from './Icon.astro'
 
@@ -9,7 +8,7 @@ export interface Props extends HTMLAttributes<any> {
   href?: string
   name?: string
   theme?: 'default' | 'icon-right' | 'icon-left' | 'underline'
-  font?: string | Array<string>
+  font?: string
   hasLoadingState?: boolean
 }
 
@@ -19,7 +18,7 @@ const {
   target,
   href,
   theme = 'default',
-  font = [typography.desktop['body-large-medium-16']],
+  font = 'f-d-body-large-medium-16',
   hasLoadingState = true,
   ...rest
 } = Astro.props
@@ -39,7 +38,7 @@ const hasIcon = theme === 'icon-left' || theme === 'icon-right'
   {...rest}
   target={modal || target}
   href={href}
-  class:list={[[font].flat(), 'flat-button', className]}
+  class:list={[font, 'flat-button', className]}
   data-theme={theme}
 >
   <span class="flat-button__content">

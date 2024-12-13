@@ -1,0 +1,55 @@
+---
+import type { SpriteIconName } from '@utils/SpriteIconName'
+import IconBox from './IconBox.astro'
+
+export interface Props {
+  class?: string
+  list?:
+    | Array<{ title: string; icon: SpriteIconName; href: string }>
+    | undefined
+}
+
+const {
+  class: className,
+  list = [
+    { title: 'vkontakte', href: 'https://google.com', icon: 'vk' },
+    { title: 'youtube', href: 'https://google.com', icon: 'yt' },
+    { title: 'instagram', href: 'https://google.com', icon: 'inst' },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'social']}
+>
+  {
+    list.map((item) => {
+      return (
+        <a
+          href={item.href}
+          title={item.title}
+          class="social__link"
+          target="_blank"
+        >
+          <IconBox
+            class="social__icon"
+            icon={item.icon}
+          />
+        </a>
+      )
+    })
+  }
+</div>
+
+<style is:global>
+  .social {
+    display: flex;
+    gap: 1.5rem;
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+    }
+  }
+</style>

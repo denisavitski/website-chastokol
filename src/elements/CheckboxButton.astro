@@ -1,5 +1,4 @@
 ---
-import { typography } from '@utils/typography'
 import Icon from './Icon.astro'
 
 export interface Props {
@@ -7,7 +6,7 @@ export interface Props {
   type?: 'checkbox' | 'radio'
   name?: string
   value?: string
-  font?: string | Array<string>
+  font?: string
   disabled?: boolean
 }
 
@@ -16,7 +15,7 @@ const {
   type = 'checkbox',
   name = 'Text label',
   value = 'Value',
-  font = [typography.desktop['body-large-regular-16']],
+  font = 'f-dbody-large-regular-16',
   disabled,
   ...rest
 } = Astro.props
@@ -24,7 +23,7 @@ const {
 
 <label
   {...rest}
-  class:list={[[font].flat(), className, 'checkbox']}
+  class:list={[font, className, 'checkbox']}
 >
   <input
     class="visually-hidden checkbox__input"

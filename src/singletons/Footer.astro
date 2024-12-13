@@ -1,2 +1,579 @@
+---
+import LogoLink from '@elements/LogoLink.astro'
+import Stat, { type Props as StatProps } from '@elements/Stat.astro'
+import Social, { type Props as SocialProps } from '@elements/Social.astro'
+import SocialLink, {
+  type Props as SocialLinkProps,
+} from '@elements/SocialLink.astro'
+
+import { tryCreateHrefFromContact } from '@utils/href'
+
+export interface Props {
+  class?: string
+  description?: string
+  address?: string
+  rights?: string
+  sitemap?: { name: string; href: string }
+  agreement?: { name: string; href: string }
+  stats?: Array<StatProps>
+  social?: { title: string; list: SocialProps['list'] }
+  online?: { title: string; link: SocialLinkProps }
+  contacts?: { title: string; list: Array<string>; workingHours: string }
+  clients?: { title: string; links: Array<{ name: string; href: string }> }
+  catalog?: { title: string; links: Array<{ name: string; href: string }> }
+  gates?: { title: string; links: Array<{ name: string; href: string }> }
+  fences?: { title: string; links: Array<{ name: string; href: string }> }
+}
+
+const {
+  class: className,
+  description = 'Производство и монтаж заборов в&nbsp;Ленинградской области под ключ',
+  address = 'Каширское шоссе, вл63, к1',
+  rights = '© 2024. Все права защищены',
+  sitemap = { name: 'Карта сайта', href: '/sitemap' },
+  agreement = { name: 'Договор оферты', href: '/agreement' },
+  stats = [
+    {
+      icon: 'case',
+      name: 'Работаем с 2007 года',
+    },
+    {
+      icon: 'un',
+      name: 'Построили более 300 проектов',
+    },
+  ],
+  social = {
+    title: 'Мы в соц. сетях',
+    list: [
+      { title: 'vkontakte', href: 'https://google.com', icon: 'vk' },
+      { title: 'youtube', href: 'https://google.com', icon: 'yt' },
+      { title: 'instagram', href: 'https://google.com', icon: 'inst' },
+    ],
+  },
+  online = {
+    title: 'Напишите нам мы online',
+    link: {
+      href: 'https://google.com',
+      name: 'Написать в WhatsApp',
+      icon: 'wa',
+    },
+  },
+  contacts = {
+    title: 'Контакты',
+    list: ['+7 (499) 900-60-30', 'spb@stockade.ru'],
+    workingHours: 'c 10:00 до 19:00, ежедневно',
+  },
+  clients = {
+    title: 'Для клиентов',
+    links: [
+      { href: '/about', name: 'О компании' },
+      { href: '/delivery', name: 'Доставка и оплата' },
+      { href: '/guarantees', name: 'Гарантии' },
+      { href: '/installment', name: 'Рассрочка' },
+      { href: '/clients', name: 'Еще&nbsp;&nbsp;&nbsp;+' },
+    ],
+  },
+  catalog = {
+    title: 'Каталог',
+    links: [
+      { href: '/fences', name: 'Заборы' },
+      { href: '/gates', name: 'Ворота' },
+      { href: '/wickets', name: 'Калитки' },
+      { href: '/awnings', name: 'Навесы' },
+      { href: '/catalog', name: 'Еще&nbsp;&nbsp;&nbsp;+' },
+    ],
+  },
+  gates = {
+    title: 'Ворота',
+    links: [
+      { href: '/gates/sliding', name: 'Откатные' },
+      { href: '/gates/swing', name: 'Распашные' },
+      { href: '/gates/lift', name: 'Подъемные' },
+      { href: '/gates/wicket', name: 'С калиткой' },
+      { href: '/gates/corrugated-sheet', name: 'Из профнастила' },
+    ],
+  },
+  fences = {
+    title: 'Заборы',
+    links: [
+      { href: '/fences/metal', name: 'Металлические' },
+      { href: '/fences/wooden', name: 'Деревянные' },
+      { href: '/fences/plastic', name: 'Пластиковые' },
+      { href: '/fences/forged', name: 'Кованые' },
+      { href: '/catalog/#fences', name: 'Еще&nbsp;&nbsp;&nbsp;+' },
+    ],
+  },
+  ...rest
+} = Astro.props
+---
+
 <!-- SINGLETON -->
-<footer class="footer"></footer>
+<footer
+  {...rest}
+  class:list={[className, 'footer']}
+>
+  <div class="footer__main">
+    <LogoLink class="footer__logo" />
+    <p
+      class:list={[
+        'footer__description',
+        'f-d-body-large-regular-16',
+        'f-m-body-basic-regular-14',
+      ]}
+      set:html={description}
+    />
+    <div
+      class:list={[
+        'footer__address',
+        'f-d-body-large-medium-16',
+        'f-m-body-basic-medium-14',
+      ]}
+      set:html={address}
+    />
+
+    <div class="footer__stats"
+      >{
+        stats.map((stat) => {
+          return (
+            <Stat
+              class="footer__stat"
+              {...stat}
+            />
+          )
+        })
+      }</div
+    >
+
+    <div class="footer__col footer__col_fences">
+      <div
+        class:list={[
+          'footer__col__name',
+          'f-d-body-large-regular-16',
+          'f-m-body-basic-regular-14',
+        ]}
+        set:html={fences.title}
+      />
+      <div class="footer__col__list">
+        {
+          fences.links.map((link) => {
+            return (
+              <a
+                class:list={[
+                  'footer__col__link',
+                  'f-d-body-large-medium-16',
+                  'f-m-body-basic-medium-14',
+                ]}
+                href={link.href}
+                set:html={link.name}
+              />
+            )
+          })
+        }
+      </div>
+    </div>
+
+    <div class="footer__col footer__col_gates">
+      <div
+        class:list={[
+          'footer__col__name',
+          'f-d-body-large-regular-16',
+          'f-m-body-basic-regular-14',
+        ]}
+        set:html={gates.title}
+      />
+      <div class="footer__col__list">
+        {
+          gates.links.map((link) => {
+            return (
+              <a
+                class:list={[
+                  'footer__col__link',
+                  'f-d-body-large-medium-16',
+                  'f-m-body-basic-medium-14',
+                ]}
+                href={link.href}
+                set:html={link.name}
+              />
+            )
+          })
+        }
+      </div>
+    </div>
+
+    <div class="footer__col footer__col_clients">
+      <div
+        class:list={[
+          'footer__col__name',
+          'f-d-body-large-regular-16',
+          'f-m-body-basic-regular-14',
+        ]}
+        set:html={clients.title}
+      />
+      <div class="footer__col__list">
+        {
+          clients.links.map((link) => {
+            return (
+              <a
+                class:list={[
+                  'footer__col__link',
+                  'f-d-body-large-medium-16',
+                  'f-m-body-basic-medium-14',
+                ]}
+                href={link.href}
+                set:html={link.name}
+              />
+            )
+          })
+        }
+      </div>
+    </div>
+
+    <div class="footer__col footer__col_catalog">
+      <div
+        class:list={[
+          'footer__col__name',
+          'f-d-body-large-regular-16',
+          'f-m-body-basic-regular-14',
+        ]}
+        set:html={catalog.title}
+      />
+      <div class="footer__col__list">
+        {
+          catalog.links.map((link) => {
+            return (
+              <a
+                class:list={[
+                  'footer__col__link',
+                  'f-d-body-large-medium-16',
+                  'f-m-body-basic-medium-14',
+                ]}
+                href={link.href}
+                set:html={link.name}
+              />
+            )
+          })
+        }
+      </div>
+    </div>
+
+    <div class="footer__col footer__col_contacts">
+      <div
+        class:list={[
+          'footer__col__name',
+          'f-d-body-large-regular-16',
+          'f-m-body-basic-regular-14',
+        ]}
+        set:html={contacts.title}
+      />
+      <div class="footer__contacts">
+        <div class="footer__col__list">
+          {
+            contacts.list.map((contact) => {
+              const href = tryCreateHrefFromContact(contact)
+              return (
+                <a
+                  class:list={[
+                    'footer__col__link',
+                    'f-d-body-large-medium-16',
+                    'f-m-title-medium-18',
+                  ]}
+                  href={href.href}
+                  set:html={contact}
+                />
+              )
+            })
+          }
+        </div>
+        <div
+          class:list={[
+            'footer__contacts__hours',
+            'f-d-body-basic-regular-14',
+            'f-m-footnote-regular-12',
+          ]}
+          set:html={contacts.workingHours}
+        />
+      </div>
+    </div>
+
+    <div class="footer__col footer__col_social">
+      <div
+        class:list={[
+          'footer__col__name',
+          'f-d-body-large-regular-16',
+          'f-m-body-basic-regular-14',
+        ]}
+        set:html={social.title}
+      />
+      <Social
+        class="footer__social"
+        list={social.list}
+      />
+    </div>
+
+    <div class="footer__col footer__col_online">
+      <div
+        class:list={[
+          'footer__col__name',
+          'f-d-body-large-regular-16',
+          'f-m-body-basic-regular-14',
+        ]}
+        set:html={online.title}
+      />
+      <SocialLink
+        class="footer__social-link"
+        {...online.link}
+      />
+    </div>
+  </div>
+  <div
+    class:list={[
+      'footer__bottom',
+      'f-d-body-large-regular-16',
+      'f-m-body-basic-regular-14',
+    ]}
+  >
+    <div
+      class="footer__rights"
+      set:html={rights}
+    />
+    <a
+      class="footer__sitemap"
+      href={sitemap.href}
+      set:html={sitemap.name}
+    />
+    <a
+      class="footer__agreement"
+      href={agreement.href}
+      set:html={agreement.name}
+    />
+  </div>
+</footer>
+
+<style is:global>
+  .footer {
+    background-color: var(--color-grayscale-700);
+    color: var(--color-grayscale-0);
+  }
+
+  .footer__main {
+    width: 100%;
+    padding: 0 var(--screen-horisontal-padding);
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+
+    display: grid;
+    grid-template-columns: 34.8rem 12.2rem 22.6rem 28.8rem 29.5rem 22.2rem;
+    grid-template-rows: 0.5rem 4.1rem 4.2rem 2.2rem max-content max-content 5.3rem 1.2rem max-content;
+
+    grid-template-areas:
+      'logo . . . . .'
+      'logo . fences gates clients contacts'
+      'description . fences gates clients contacts'
+      '. . fences gates clients contacts'
+      'address . fences gates clients contacts'
+      'address . fences gates clients contacts'
+      '. . . . . .'
+      'stats . . . . .'
+      'stats . . . social online';
+
+    @media (max-width: 768px) {
+      display: grid;
+      grid-template-columns: 18rem 1fr;
+      grid-template-rows:
+        max-content
+        0.9rem
+        max-content
+        1.5rem
+        max-content
+        4rem
+        max-content
+        4rem
+        max-content
+        4rem
+        max-content
+        4rem
+        max-content;
+
+      grid-template-areas:
+        'logo logo'
+        '. .'
+        'description description'
+        '. .'
+        'address address'
+        '. .'
+        'contacts contacts'
+        '. .'
+        'social social'
+        '. .'
+        'clients catalog'
+        '. .'
+        'online online';
+    }
+  }
+
+  .footer__logo {
+    grid-area: logo;
+  }
+
+  .footer__description {
+    grid-area: description;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      max-width: 25rem;
+    }
+  }
+
+  .footer__address {
+    grid-area: address;
+  }
+
+  .footer__stats {
+    grid-area: stats;
+
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 1.5rem;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .footer__stat {
+  }
+
+  .footer__col {
+  }
+
+  .footer__col__name {
+    margin-bottom: 2rem;
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .footer__col__list {
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 1.3rem;
+
+    @media (max-width: 768px) {
+      gap: 1.05rem;
+    }
+  }
+
+  .footer__col__link {
+  }
+
+  .footer__col_fences {
+    grid-area: fences;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .footer__col_gates {
+    grid-area: gates;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .footer__col_clients {
+    grid-area: clients;
+  }
+
+  .footer__col_catalog {
+    grid-area: catalog;
+
+    @media (min-width: 769px) {
+      display: none;
+    }
+  }
+
+  .footer__col_contacts {
+    grid-area: contacts;
+
+    @media (max-width: 768px) {
+      .footer__col__name {
+        margin-bottom: 2.2rem;
+      }
+    }
+  }
+
+  .footer__col_social {
+    grid-area: social;
+
+    @media (max-width: 768px) {
+      .footer__col__name {
+        display: none;
+      }
+    }
+  }
+
+  .footer__col_online {
+    grid-area: online;
+  }
+
+  .footer__contacts {
+  }
+
+  .footer__contacts__hours {
+    margin-top: 2.3rem;
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-top: 1.6rem;
+    }
+  }
+
+  .footer__social {
+    --icon-box-color: var(--color-grayscale-0);
+  }
+
+  .footer__social-link {
+  }
+
+  .footer__bottom {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 2rem var(--screen-horisontal-padding);
+    color: var(--color-grayscale-400);
+    border-top: 0.1rem solid var(--color-grayscale-600);
+
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  .footer__rights {
+    @media (min-width: 769px) {
+      margin-right: 4rem;
+    }
+  }
+
+  .footer__sitemap {
+    margin-right: auto;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .footer__agreement {
+    @media (max-width: 768px) {
+      width: 22.1rem;
+    }
+
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+</style>

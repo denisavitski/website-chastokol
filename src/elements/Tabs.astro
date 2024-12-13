@@ -1,6 +1,4 @@
 ---
-import { typography } from '@utils/typography'
-
 export interface Props {
   class?: string
   name?: string
@@ -31,7 +29,7 @@ const {
 
 <e-radio
   {...rest}
-  class:list={[className, 'tabs', typography.desktop['body-large-medium-16']]}
+  class:list={[className, 'tabs', 'f-d-body-large-medium-16']}
   {name}
 >
   {

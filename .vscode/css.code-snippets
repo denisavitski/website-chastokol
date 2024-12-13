@@ -1,0 +1,851 @@
+{
+  "variables": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "var-",
+    "body": [
+      "var(--$1);"
+    ],
+    "description": "Template for CSS variable"
+  },
+  "color-grayscale-700": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-grayscale-700",
+    "body": [
+      "var(--color-grayscale-700);"
+    ],
+    "description": "Color Grayscale 700"
+  },
+  "color-grayscale-600": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-grayscale-600",
+    "body": [
+      "var(--color-grayscale-600);"
+    ],
+    "description": "Color Grayscale 600"
+  },
+  "color-grayscale-500": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-grayscale-500",
+    "body": [
+      "var(--color-grayscale-500);"
+    ],
+    "description": "Color Grayscale 500"
+  },
+  "color-grayscale-400": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-grayscale-400",
+    "body": [
+      "var(--color-grayscale-400);"
+    ],
+    "description": "Color Grayscale 400"
+  },
+  "color-grayscale-300": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-grayscale-300",
+    "body": [
+      "var(--color-grayscale-300);"
+    ],
+    "description": "Color Grayscale 300"
+  },
+  "color-grayscale-200": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-grayscale-200",
+    "body": [
+      "var(--color-grayscale-200);"
+    ],
+    "description": "Color Grayscale 200"
+  },
+  "color-grayscale-100": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-grayscale-100",
+    "body": [
+      "var(--color-grayscale-100);"
+    ],
+    "description": "Color Grayscale 100"
+  },
+  "color-grayscale-0": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-grayscale-0",
+    "body": [
+      "var(--color-grayscale-0);"
+    ],
+    "description": "Color Grayscale 0"
+  },
+  "color-primary-200": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-primary-200",
+    "body": [
+      "var(--color-primary-200);"
+    ],
+    "description": "Color Primary 200"
+  },
+  "color-primary-100": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-primary-100",
+    "body": [
+      "var(--color-primary-100);"
+    ],
+    "description": "Color Primary 100"
+  },
+  "color-primary-0": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-primary-0",
+    "body": [
+      "var(--color-primary-0);"
+    ],
+    "description": "Color Primary 0"
+  },
+  "color-button-text": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-button-text",
+    "body": [
+      "var(--color-button-text);"
+    ],
+    "description": "Button Text Color"
+  },
+  "color-button-disabled": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-button-disabled",
+    "body": [
+      "var(--color-button-disabled);"
+    ],
+    "description": "Button Disabled Color"
+  },
+  "color-lazy": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-lazy",
+    "body": [
+      "var(--color-lazy);"
+    ],
+    "description": "Lazy Color"
+  },
+  "color-page": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-page",
+    "body": [
+      "var(--color-page);"
+    ],
+    "description": "Page Color"
+  },
+	"color-font": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-font",
+    "body": [
+      "var(--color-font);"
+    ],
+    "description": "Font color"
+  },
+  "color-scrollbar-thumb": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-scrollbar-thumb",
+    "body": [
+      "var(--color-scrollbar-thumb);"
+    ],
+    "description": "Scrollbar thumb color"
+  },
+  "color-scrollbar-track": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "color-scrollbar-track",
+    "body": [
+      "var(--color-scrollbar-track);"
+    ],
+    "description": "Scrollbar track color"
+  },
+  "z-modal": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "z-modal",
+    "body": [
+      "var(--z-modal);"
+    ],
+    "description": "Modal z-index"
+  },
+  "z-scrollbar": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "z-scrollbar",
+    "body": [
+      "var(--z-scrollbar);"
+    ],
+    "description": "Scrollbar z-index"
+  },
+  "z-header": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "z-header",
+    "body": [
+      "var(--z-header);"
+    ],
+    "description": "Header z-index"
+  },
+  "screen-horisontal-padding": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "screen-horisontal-padding",
+    "body": [
+      "var(--screen-horisontal-padding);"
+    ],
+    "description": "Screen horizontal padding"
+  },
+  "header-height": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "header-height",
+    "body": [
+      "var(--header-height);"
+    ],
+    "description": "Header height"
+  },
+  "duration-button": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "duration-button",
+    "body": [
+      "var(--duration-button);"
+    ],
+    "description": "Button duration"
+  },
+  "viewport-height": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "viewport-height",
+    "body": [
+      "var(--viewport-height);"
+    ],
+    "description": "Viewport height"
+  },
+  "viewport-width": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "viewport-width",
+    "body": [
+      "var(--viewport-width);"
+    ],
+    "description": "Viewport width"
+  },
+  "offset-scroll": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "offset-scroll",
+    "body": [
+      "var(--offset-scroll);"
+    ],
+    "description": "Scroll offset"
+  },
+  "ease-in-sine": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-sine",
+    "body": [
+      "var(--ease-in-sine);"
+    ],
+    "description": "Ease-in sine"
+  },
+  "ease-out-sine": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-out-sine",
+    "body": [
+      "var(--ease-out-sine);"
+    ],
+    "description": "Ease-out sine"
+  },
+  "ease-in-out-sine": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-out-sine",
+    "body": [
+      "var(--ease-in-out-sine);"
+    ],
+    "description": "Ease-in-out sine"
+  },
+  "ease-in-quad": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-quad",
+    "body": [
+      "var(--ease-in-quad);"
+    ],
+    "description": "Ease-in quad"
+  },
+  "ease-out-quad": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-out-quad",
+    "body": [
+      "var(--ease-out-quad);"
+    ],
+    "description": "Ease-out quad"
+  },
+  "ease-in-out-quad": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-out-quad",
+    "body": [
+      "var(--ease-in-out-quad);"
+    ],
+    "description": "Ease-in-out quad"
+  },
+  "ease-in-cubic": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-cubic",
+    "body": [
+      "var(--ease-in-cubic);"
+    ],
+    "description": "Ease-in cubic"
+  },
+  "ease-out-cubic": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-out-cubic",
+    "body": [
+      "var(--ease-out-cubic);"
+    ],
+    "description": "Ease-out cubic"
+  },
+  "ease-in-out-cubic": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-out-cubic",
+    "body": [
+      "var(--ease-in-out-cubic);"
+    ],
+    "description": "Ease-in-out cubic"
+  },
+  "ease-in-quart": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-quart",
+    "body": [
+      "var(--ease-in-quart);"
+    ],
+    "description": "Ease-in quart"
+  },
+  "ease-out-quart": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-out-quart",
+    "body": [
+      "var(--ease-out-quart);"
+    ],
+    "description": "Ease-out quart"
+  },
+  "ease-in-out-quart": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-out-quart",
+    "body": [
+      "var(--ease-in-out-quart);"
+    ],
+    "description": "Ease-in-out quart"
+  },
+  "ease-in-quint": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-quint",
+    "body": [
+      "var(--ease-in-quint);"
+    ],
+    "description": "Ease-in quint"
+  },
+  "ease-out-quint": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-out-quint",
+    "body": [
+      "var(--ease-out-quint);"
+    ],
+    "description": "Ease-out quint"
+  },
+  "ease-in-out-quint": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-out-quint",
+    "body": [
+      "var(--ease-in-out-quint);"
+    ],
+    "description": "Ease-in-out quint"
+  },
+  "ease-in-expo": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-expo",
+    "body": [
+      "var(--ease-in-expo);"
+    ],
+    "description": "Ease-in expo"
+  },
+  "ease-out-expo": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-out-expo",
+    "body": [
+      "var(--ease-out-expo);"
+    ],
+    "description": "Ease-out expo"
+  },
+  "ease-in-out-expo": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-out-expo",
+    "body": [
+      "var(--ease-in-out-expo);"
+    ],
+    "description": "Ease-in-out expo"
+  },
+  "ease-in-circ": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-circ",
+    "body": [
+      "var(--ease-in-circ);"
+    ],
+    "description": "Ease-in circ"
+  },
+  "ease-out-circ": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-out-circ",
+    "body": [
+      "var(--ease-out-circ);"
+    ],
+    "description": "Ease-out circ"
+  },
+  "ease-in-out-circ": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-out-circ",
+    "body": [
+      "var(--ease-in-out-circ);"
+    ],
+    "description": "Ease-in-out circ"
+  },
+  "ease-in-back": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-back",
+    "body": [
+      "var(--ease-in-back);"
+    ],
+    "description": "Ease-in back"
+  },
+  "ease-out-back": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-out-back",
+    "body": [
+      "var(--ease-out-back);"
+    ],
+    "description": "Ease-out back"
+  },
+  "ease-in-out-back": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "ease-in-out-back",
+    "body": [
+      "var(--ease-in-out-back);"
+    ],
+    "description": "Ease-in-out back"
+  },
+  "morph-duration": {
+    "scope": "css,scss,less,postcss",
+    "prefix": "morph-duration",
+    "body": [
+      "var(--morph-duration);"
+    ],
+    "description": "Morph duration"
+  },
+  "f-d-title-medium-112": {
+    "prefix": "f-d-title-medium-112",
+    "body": "f-d-title-medium-112",
+    "description": "f-d-title-medium-112"
+  },
+  "f-d-title-medium-96": {
+    "prefix": "f-d-title-medium-96",
+    "body": "f-d-title-medium-96",
+    "description": "f-d-title-medium-96"
+  },
+  "f-d-title-medium-76": {
+    "prefix": "f-d-title-medium-76",
+    "body": "f-d-title-medium-76",
+    "description": "f-d-title-medium-76"
+  },
+  "f-d-title-medium-64": {
+    "prefix": "f-d-title-medium-64",
+    "body": "f-d-title-medium-64",
+    "description": "f-d-title-medium-64"
+  },
+  "f-d-title-medium-45": {
+    "prefix": "f-d-title-medium-45",
+    "body": "f-d-title-medium-45",
+    "description": "f-d-title-medium-45"
+  },
+  "f-d-title-medium-42": {
+    "prefix": "f-d-title-medium-42",
+    "body": "f-d-title-medium-42",
+    "description": "f-d-title-medium-42"
+  },
+  "f-d-title-medium-32": {
+    "prefix": "f-d-title-medium-32",
+    "body": "f-d-title-medium-32",
+    "description": "f-d-title-medium-32"
+  },
+  "f-d-title-medium-30": {
+    "prefix": "f-d-title-medium-30",
+    "body": "f-d-title-medium-30",
+    "description": "f-d-title-medium-30"
+  },
+  "f-d-title-medium-28": {
+    "prefix": "f-d-title-medium-28",
+    "body": "f-d-title-medium-28",
+    "description": "f-d-title-medium-28"
+  },
+  "f-d-title-medium-24": {
+    "prefix": "f-d-title-medium-24",
+    "body": "f-d-title-medium-24",
+    "description": "f-d-title-medium-24"
+  },
+  "f-d-title-medium-20": {
+    "prefix": "f-d-title-medium-20",
+    "body": "f-d-title-medium-20",
+    "description": "f-d-title-medium-20"
+  },
+  "f-d-title-medium-18": {
+    "prefix": "f-d-title-medium-18",
+    "body": "f-d-title-medium-18",
+    "description": "f-d-title-medium-18"
+  },
+  "f-d-additionally-title-black-24": {
+    "prefix": "f-d-additionally-title-black-24",
+    "body": "f-d-additionally-title-black-24",
+    "description": "f-d-additionally-title-black-24"
+  },
+  "f-d-additionally-title-black-20": {
+    "prefix": "f-d-additionally-title-black-20",
+    "body": "f-d-additionally-title-black-20",
+    "description": "f-d-additionally-title-black-20"
+  },
+  "f-d-additionally-title-black-18": {
+    "prefix": "f-d-additionally-title-black-18",
+    "body": "f-d-additionally-title-black-18",
+    "description": "f-d-additionally-title-black-18"
+  },
+  "f-d-additionally-title-black-16": {
+    "prefix": "f-d-additionally-title-black-16",
+    "body": "f-d-additionally-title-black-16",
+    "description": "f-d-additionally-title-black-16"
+  },
+  "f-d-additionally-title-black-14": {
+    "prefix": "f-d-additionally-title-black-14",
+    "body": "f-d-additionally-title-black-14",
+    "description": "f-d-additionally-title-black-14"
+  },
+  "f-d-additionally-title-bold-24": {
+    "prefix": "f-d-additionally-title-bold-24",
+    "body": "f-d-additionally-title-bold-24",
+    "description": "f-d-additionally-title-bold-24"
+  },
+  "f-d-additionally-title-bold-20": {
+    "prefix": "f-d-additionally-title-bold-20",
+    "body": "f-d-additionally-title-bold-20",
+    "description": "f-d-additionally-title-bold-20"
+  },
+  "f-d-additionally-title-bold-18": {
+    "prefix": "f-d-additionally-title-bold-18",
+    "body": "f-d-additionally-title-bold-18",
+    "description": "f-d-additionally-title-bold-18"
+  },
+  "f-d-additionally-title-bold-16": {
+    "prefix": "f-d-additionally-title-bold-16",
+    "body": "f-d-additionally-title-bold-16",
+    "description": "f-d-additionally-title-bold-16"
+  },
+  "f-d-additionally-title-bold-14": {
+    "prefix": "f-d-additionally-title-bold-14",
+    "body": "f-d-additionally-title-bold-14",
+    "description": "f-d-additionally-title-bold-14"
+  },
+  "f-d-body-large-bold-16": {
+    "prefix": "f-d-body-large-bold-16",
+    "body": "f-d-body-large-bold-16",
+    "description": "f-d-body-large-bold-16"
+  },
+  "f-d-body-large-medium-16": {
+    "prefix": "f-d-body-large-medium-16",
+    "body": "f-d-body-large-medium-16",
+    "description": "f-d-body-large-medium-16"
+  },
+  "f-d-body-large-regular-16": {
+    "prefix": "f-d-body-large-regular-16",
+    "body": "f-d-body-large-regular-16",
+    "description": "f-d-body-large-regular-16"
+  },
+  "f-d-body-large-light-16": {
+    "prefix": "f-d-body-large-light-16",
+    "body": "f-d-body-large-light-16",
+    "description": "f-d-body-large-light-16"
+  },
+  "f-d-body-basic-bold-14": {
+    "prefix": "f-d-body-basic-bold-14",
+    "body": "f-d-body-basic-bold-14",
+    "description": "f-d-body-basic-bold-14"
+  },
+  "f-d-body-basic-medium-14": {
+    "prefix": "f-d-body-basic-medium-14",
+    "body": "f-d-body-basic-medium-14",
+    "description": "f-d-body-basic-medium-14"
+  },
+  "f-d-body-basic-regular-14": {
+    "prefix": "f-d-body-basic-regular-14",
+    "body": "f-d-body-basic-regular-14",
+    "description": "f-d-body-basic-regular-14"
+  },
+  "f-d-body-basic-light-14": {
+    "prefix": "f-d-body-basic-light-14",
+    "body": "f-d-body-basic-light-14",
+    "description": "f-d-body-basic-light-14"
+  },
+  "f-d-footnote-bold-12": {
+    "prefix": "f-d-footnote-bold-12",
+    "body": "f-d-footnote-bold-12",
+    "description": "f-d-footnote-bold-12"
+  },
+  "f-d-footnote-medium-12": {
+    "prefix": "f-d-footnote-medium-12",
+    "body": "f-d-footnote-medium-12",
+    "description": "f-d-footnote-medium-12"
+  },
+  "f-d-footnote-regular-12": {
+    "prefix": "f-d-footnote-regular-12",
+    "body": "f-d-footnote-regular-12",
+    "description": "f-d-footnote-regular-12"
+  },
+  "f-d-footnote-light-12": {
+    "prefix": "f-d-footnote-light-12",
+    "body": "f-d-footnote-light-12",
+    "description": "f-d-footnote-light-12"
+  },
+  "f-d-footnote-bold-10": {
+    "prefix": "f-d-footnote-bold-10",
+    "body": "f-d-footnote-bold-10",
+    "description": "f-d-footnote-bold-10"
+  },
+  "f-d-footnote-medium-10": {
+    "prefix": "f-d-footnote-medium-10",
+    "body": "f-d-footnote-medium-10",
+    "description": "f-d-footnote-medium-10"
+  },
+  "f-d-footnote-regular-10": {
+    "prefix": "f-d-footnote-regular-10",
+    "body": "f-d-footnote-regular-10",
+    "description": "f-d-footnote-regular-10"
+  },
+  "f-d-footnote-light-10": {
+    "prefix": "f-d-footnote-light-10",
+    "body": "f-d-footnote-light-10",
+    "description": "f-d-footnote-light-10"
+  },
+  "f-d-footnote-bold-8": {
+    "prefix": "f-d-footnote-bold-8",
+    "body": "f-d-footnote-bold-8",
+    "description": "f-d-footnote-bold-8"
+  },
+  "f-d-footnote-medium-8": {
+    "prefix": "f-d-footnote-medium-8",
+    "body": "f-d-footnote-medium-8",
+    "description": "f-d-footnote-medium-8"
+  },
+  "f-d-footnote-regular-8": {
+    "prefix": "f-d-footnote-regular-8",
+    "body": "f-d-footnote-regular-8",
+    "description": "f-d-footnote-regular-8"
+  },
+  "f-d-footnote-light-8": {
+    "prefix": "f-d-footnote-light-8",
+    "body": "f-d-footnote-light-8",
+    "description": "f-d-footnote-light-8"
+  },
+  "f-m-title-medium-112": {
+    "prefix": "f-m-title-medium-112",
+    "body": "f-m-title-medium-112",
+    "description": "f-m-title-medium-112"
+  },
+  "f-m-title-medium-96": {
+    "prefix": "f-m-title-medium-96",
+    "body": "f-m-title-medium-96",
+    "description": "f-m-title-medium-96"
+  },
+  "f-m-title-medium-76": {
+    "prefix": "f-m-title-medium-76",
+    "body": "f-m-title-medium-76",
+    "description": "f-m-title-medium-76"
+  },
+  "f-m-title-medium-64": {
+    "prefix": "f-m-title-medium-64",
+    "body": "f-m-title-medium-64",
+    "description": "f-m-title-medium-64"
+  },
+  "f-m-title-medium-45": {
+    "prefix": "f-m-title-medium-45",
+    "body": "f-m-title-medium-45",
+    "description": "f-m-title-medium-45"
+  },
+  "f-m-title-medium-42": {
+    "prefix": "f-m-title-medium-42",
+    "body": "f-m-title-medium-42",
+    "description": "f-m-title-medium-42"
+  },
+  "f-m-title-medium-32": {
+    "prefix": "f-m-title-medium-32",
+    "body": "f-m-title-medium-32",
+    "description": "f-m-title-medium-32"
+  },
+  "f-m-title-medium-30": {
+    "prefix": "f-m-title-medium-30",
+    "body": "f-m-title-medium-30",
+    "description": "f-m-title-medium-30"
+  },
+  "f-m-title-medium-28": {
+    "prefix": "f-m-title-medium-28",
+    "body": "f-m-title-medium-28",
+    "description": "f-m-title-medium-28"
+  },
+  "f-m-title-medium-24": {
+    "prefix": "f-m-title-medium-24",
+    "body": "f-m-title-medium-24",
+    "description": "f-m-title-medium-24"
+  },
+  "f-m-title-medium-20": {
+    "prefix": "f-m-title-medium-20",
+    "body": "f-m-title-medium-20",
+    "description": "f-m-title-medium-20"
+  },
+  "f-m-title-medium-18": {
+    "prefix": "f-m-title-medium-18",
+    "body": "f-m-title-medium-18",
+    "description": "f-m-title-medium-18"
+  },
+  "f-m-additionally-title-black-24": {
+    "prefix": "f-m-additionally-title-black-24",
+    "body": "f-m-additionally-title-black-24",
+    "description": "f-m-additionally-title-black-24"
+  },
+  "f-m-additionally-title-black-20": {
+    "prefix": "f-m-additionally-title-black-20",
+    "body": "f-m-additionally-title-black-20",
+    "description": "f-m-additionally-title-black-20"
+  },
+  "f-m-additionally-title-black-18": {
+    "prefix": "f-m-additionally-title-black-18",
+    "body": "f-m-additionally-title-black-18",
+    "description": "f-m-additionally-title-black-18"
+  },
+  "f-m-additionally-title-black-16": {
+    "prefix": "f-m-additionally-title-black-16",
+    "body": "f-m-additionally-title-black-16",
+    "description": "f-m-additionally-title-black-16"
+  },
+  "f-m-additionally-title-black-14": {
+    "prefix": "f-m-additionally-title-black-14",
+    "body": "f-m-additionally-title-black-14",
+    "description": "f-m-additionally-title-black-14"
+  },
+  "f-m-additionally-title-bold-24": {
+    "prefix": "f-m-additionally-title-bold-24",
+    "body": "f-m-additionally-title-bold-24",
+    "description": "f-m-additionally-title-bold-24"
+  },
+  "f-m-additionally-title-bold-20": {
+    "prefix": "f-m-additionally-title-bold-20",
+    "body": "f-m-additionally-title-bold-20",
+    "description": "f-m-additionally-title-bold-20"
+  },
+  "f-m-additionally-title-bold-18": {
+    "prefix": "f-m-additionally-title-bold-18",
+    "body": "f-m-additionally-title-bold-18",
+    "description": "f-m-additionally-title-bold-18"
+  },
+  "f-m-additionally-title-bold-16": {
+    "prefix": "f-m-additionally-title-bold-16",
+    "body": "f-m-additionally-title-bold-16",
+    "description": "f-m-additionally-title-bold-16"
+  },
+  "f-m-additionally-title-bold-14": {
+    "prefix": "f-m-additionally-title-bold-14",
+    "body": "f-m-additionally-title-bold-14",
+    "description": "f-m-additionally-title-bold-14"
+  },
+  "f-m-body-large-bold-16": {
+    "prefix": "f-m-body-large-bold-16",
+    "body": "f-m-body-large-bold-16",
+    "description": "f-m-body-large-bold-16"
+  },
+  "f-m-body-large-medium-16": {
+    "prefix": "f-m-body-large-medium-16",
+    "body": "f-m-body-large-medium-16",
+    "description": "f-m-body-large-medium-16"
+  },
+  "f-m-body-large-regular-16": {
+    "prefix": "f-m-body-large-regular-16",
+    "body": "f-m-body-large-regular-16",
+    "description": "f-m-body-large-regular-16"
+  },
+  "f-m-body-large-light-16": {
+    "prefix": "f-m-body-large-light-16",
+    "body": "f-m-body-large-light-16",
+    "description": "f-m-body-large-light-16"
+  },
+  "f-m-body-basic-bold-14": {
+    "prefix": "f-m-body-basic-bold-14",
+    "body": "f-m-body-basic-bold-14",
+    "description": "f-m-body-basic-bold-14"
+  },
+  "f-m-body-basic-medium-14": {
+    "prefix": "f-m-body-basic-medium-14",
+    "body": "f-m-body-basic-medium-14",
+    "description": "f-m-body-basic-medium-14"
+  },
+  "f-m-body-basic-regular-14": {
+    "prefix": "f-m-body-basic-regular-14",
+    "body": "f-m-body-basic-regular-14",
+    "description": "f-m-body-basic-regular-14"
+  },
+  "f-m-body-basic-light-14": {
+    "prefix": "f-m-body-basic-light-14",
+    "body": "f-m-body-basic-light-14",
+    "description": "f-m-body-basic-light-14"
+  },
+  "f-m-footnote-bold-12": {
+    "prefix": "f-m-footnote-bold-12",
+    "body": "f-m-footnote-bold-12",
+    "description": "f-m-footnote-bold-12"
+  },
+  "f-m-footnote-medium-12": {
+    "prefix": "f-m-footnote-medium-12",
+    "body": "f-m-footnote-medium-12",
+    "description": "f-m-footnote-medium-12"
+  },
+  "f-m-footnote-regular-12": {
+    "prefix": "f-m-footnote-regular-12",
+    "body": "f-m-footnote-regular-12",
+    "description": "f-m-footnote-regular-12"
+  },
+  "f-m-footnote-light-12": {
+    "prefix": "f-m-footnote-light-12",
+    "body": "f-m-footnote-light-12",
+    "description": "f-m-footnote-light-12"
+  },
+  "f-m-footnote-bold-10": {
+    "prefix": "f-m-footnote-bold-10",
+    "body": "f-m-footnote-bold-10",
+    "description": "f-m-footnote-bold-10"
+  },
+  "f-m-footnote-medium-10": {
+    "prefix": "f-m-footnote-medium-10",
+    "body": "f-m-footnote-medium-10",
+    "description": "f-m-footnote-medium-10"
+  },
+  "f-m-footnote-regular-10": {
+    "prefix": "f-m-footnote-regular-10",
+    "body": "f-m-footnote-regular-10",
+    "description": "f-m-footnote-regular-10"
+  },
+  "f-m-footnote-light-10": {
+    "prefix": "f-m-footnote-light-10",
+    "body": "f-m-footnote-light-10",
+    "description": "f-m-footnote-light-10"
+  },
+  "f-m-footnote-bold-8": {
+    "prefix": "f-m-footnote-bold-8",
+    "body": "f-m-footnote-bold-8",
+    "description": "f-m-footnote-bold-8"
+  },
+  "f-m-footnote-medium-8": {
+    "prefix": "f-m-footnote-medium-8",
+    "body": "f-m-footnote-medium-8",
+    "description": "f-m-footnote-medium-8"
+  },
+  "f-m-footnote-regular-8": {
+    "prefix": "f-m-footnote-regular-8",
+    "body": "f-m-footnote-regular-8",
+    "description": "f-m-footnote-regular-8"
+  },
+  "f-m-footnote-light-8": {
+    "prefix": "f-m-footnote-light-8",
+    "body": "f-m-footnote-light-8",
+    "description": "f-m-footnote-light-8"
+  },
+  "visually-hidden": {
+    "prefix": "visually-hidden",
+    "body": "visually-hidden",
+    "description": "visually-hidden"
+  },
+}

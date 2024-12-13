@@ -5,7 +5,9 @@ import Scrollbar from '@singletons/Scrollbar.astro'
 
 import Head from './Head.astro'
 import { type Props as SeoProps } from './Seo.astro'
-import PixelPerfect, { type PixelPerfectImages } from '@elements/PixelPerfect.astro'
+import PixelPerfect, {
+  type PixelPerfectImages,
+} from '@elements/PixelPerfect.astro'
 
 export interface Props {
   header?: boolean
@@ -19,7 +21,25 @@ export interface Props {
   pixelPerfectImages?: PixelPerfectImages
 }
 
-const { header = true, footer = true, pixelPerfectImages, seo } = Astro.props
+let figmaImageName = Astro.url.pathname === '/' ? 'home' : Astro.url.pathname
+figmaImageName = figmaImageName.startsWith('/')
+  ? figmaImageName.slice(1)
+  : figmaImageName
+
+const {
+  header = true,
+  footer = true,
+  pixelPerfectImages = [
+    {
+      src: `/images/dev/figma/${figmaImageName}-desktop.jpg`,
+    },
+    {
+      src: `/images/dev/figma/${figmaImageName}-mobile.jpg`,
+      media: 'max-width: 768px',
+    },
+  ],
+  seo,
+} = Astro.props
 ---
 
 <html

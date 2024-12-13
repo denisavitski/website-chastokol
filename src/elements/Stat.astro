@@ -1,0 +1,45 @@
+---
+import type { SpriteIconName } from '@utils/SpriteIconName'
+import IconBox from './IconBox.astro'
+
+export interface Props {
+  class?: string
+  icon?: SpriteIconName
+  name?: string
+}
+
+const {
+  class: className,
+  icon = 'case',
+  name = 'Работаем с 2007 года',
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'stat']}
+>
+  <IconBox
+    class="stat__icon"
+    icon={icon}
+  />
+
+  <div
+    class:list={['f-d-body-large-medium-16']}
+    set:html={name}
+  />
+</div>
+
+<style is:global>
+  .stat {
+    display: inline-flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .stat__icon {
+    --icon-box-background-color: var(--color-grayscale-600);
+    --icon-box-color: var(--color-grayscale-0);
+  }
+</style>

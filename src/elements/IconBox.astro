@@ -1,0 +1,55 @@
+---
+import type { SpriteIconName } from '@utils/SpriteIconName'
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+  icon?: SpriteIconName
+}
+
+const { class: className, icon = 'inst', ...rest } = Astro.props
+---
+
+<span
+  {...rest}
+  class:list={[className, 'icon-box']}
+>
+  <Icon
+    name={icon}
+    class="icon-box__icon"
+  />
+</span>
+
+<style is:global>
+  .icon-box {
+    width: 3.8rem;
+    height: 3.8rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 0.1rem solid
+      var(--icon-box-border-color, var(--color-grayscale-600));
+    background-color: var(--icon-box-background-color, transparent);
+
+    border-radius: 0.7rem;
+
+    @media (max-width: 768px) {
+      width: 4rem;
+      height: 4rem;
+    }
+  }
+
+  .icon-box__icon {
+    width: 1.8rem;
+    height: 1.8rem;
+
+    fill: var(--icon-box-color, var(--color-grayscale-700));
+
+    @media (max-width: 768px) {
+      width: 1.895rem;
+      height: 1.895rem;
+    }
+  }
+</style>
