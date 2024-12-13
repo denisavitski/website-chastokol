@@ -1,0 +1,1 @@
+export type SpriteIconName = 'attention' | 'badge-check' | 'calendar' | 'case' | 'check' | 'circle' | 'fence-1' | 'fence-2' | 'fence-3' | 'fence-4' | 'fence-5' | 'inst' | 'loading' | 'marker' | 'plus-small' | 'plus' | 'tail-arrow' | 'tailless-arrow' | 'tg' | 'triangle' | 'un' | 'vk' | 'wa' | 'yt'

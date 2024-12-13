@@ -1,8 +1,9 @@
 ---
+import type { SpriteIconName } from '@utils/SpriteIconName'
 import type { HTMLAttributes } from 'astro/types'
 
 export interface Props extends HTMLAttributes<'svg'> {
-  name: string
+  name: SpriteIconName
 }
 
 const { name, ...rest } = Astro.props

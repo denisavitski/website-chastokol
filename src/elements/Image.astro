@@ -2,9 +2,10 @@
 import { getHref } from '@utils/url'
 import MediaWrapper from './MediaWrapper.astro'
 import { omit } from 'aptechka/utils'
+import type { ImageName } from '@utils/ImageName'
 
 export interface ImageDataProps {
-  src?: string | undefined
+  src?: ImageName | undefined | (string & {})
   alt?: string | undefined
 }
 

@@ -1,5 +1,7 @@
 import 'construct-style-sheets-polyfill'
 
+import 'aptechka/accordion'
+import 'aptechka/popover'
 import 'aptechka/pixel-perfect'
 import 'aptechka/custom-scrollbar'
 
