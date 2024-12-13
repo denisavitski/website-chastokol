@@ -1,0 +1,79 @@
+---
+import { typography } from '@utils/typography'
+
+export interface Props {
+  class?: string
+  name?: string
+  buttons?: Array<{ value: string; checked?: boolean; title?: string }>
+}
+
+const {
+  class: className,
+  name = 'radio',
+  buttons = [
+    {
+      value: 'Эконом',
+      checked: true,
+    },
+    {
+      value: 'Улучшенный',
+    },
+    {
+      value: 'Стандарт',
+    },
+    {
+      value: 'Премиум',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<e-radio
+  {...rest}
+  class:list={[className, 'tabs', typography.desktop['body-large-medium-16']]}
+  {name}
+>
+  {
+    buttons.map((button) => {
+      return (
+        <button
+          class="tabs__button"
+          data-value={button.value}
+          data-checked={button.checked}
+          set:html={button.title || button.value}
+          data-radio-button
+        />
+      )
+    })
+  }
+</e-radio>
+
+<style is:global>
+  .tabs {
+    display: inline-flex;
+    height: 5.1rem;
+
+    border-radius: 3rem;
+    border: 0.1rem solid var(--color-grayscale-200);
+    background-color: var(--color-grayscale-0);
+    overflow: hidden;
+  }
+
+  .tabs__button {
+    height: 100%;
+    padding: 0 2rem;
+
+    border-radius: 3rem;
+
+    color: var(--color-grayscale-400);
+
+    transition-property: color, background-color;
+    transition-duration: var(--duration-button);
+
+    &[data-checked] {
+      color: var(--color-grayscale-0);
+      background-color: var(--color-primary-100);
+    }
+  }
+</style>
