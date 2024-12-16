@@ -1,0 +1,177 @@
+---
+import Icon from '@elements/Icon.astro'
+import SearchButton from '@elements/SearchButton.astro'
+import SearchMatch, {
+  type Props as SearchMatchProps,
+} from '@elements/SearchMatch.astro'
+
+export interface Props {
+  class?: string
+  list?: Array<SearchMatchProps>
+}
+
+const {
+  class: className,
+  list = [
+    {
+      category: 'Часто задаваемые вопросы',
+      title: 'Готовы к широкомасштабной деятельности',
+      description:
+        'Для наших сотрудников он стал не только руководителем, но и духовным наставником, способным настроить на продуктивную деятельность вне зависимости от погодных условий. Егор крайне ответственно подходит к вопросам формирования рабочего графика. Он планирует...',
+    },
+    {
+      category: 'Часто задаваемые вопросы',
+      title: 'Готовы к широкомасштабной деятельности',
+      description:
+        'Для наших сотрудников он стал не только руководителем, но и духовным наставником, способным настроить на продуктивную деятельность вне зависимости от погодных условий. Егор крайне ответственно подходит к вопросам формирования рабочего графика. Он планирует...',
+    },
+    {
+      category: 'Часто задаваемые вопросы',
+      title: 'Готовы к широкомасштабной деятельности',
+      description:
+        'Для наших сотрудников он стал не только руководителем, но и духовным наставником, способным настроить на продуктивную деятельность вне зависимости от погодных условий. Егор крайне ответственно подходит к вопросам формирования рабочего графика. Он планирует...',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'search-result']}>
+  <div class="search-result__form-wrapper">
+    <form class="search-result__form">
+      <div class="search-result__form__input-field">
+        <input
+          type="text"
+          class="f-d-body-large-regular-16 f-d-body-basic-regular-14 search-result__form__input"
+        />
+        <button
+          class="search-result__form__reset-button"
+          type="reset"
+          ><Icon
+            class="search-result__form__reset-button__icon"
+            name={'plus'}
+          /></button
+        >
+      </div>
+      <SearchButton class="search-result__form__submit" />
+    </form>
+    <div
+      class="f-d-body-large-regular-16 f-d-body-basic-regular-14 search-result__amount">
+      <span
+        class="search-result__amount__title"
+        set:html="Найдено результатов:"
+      />
+      <span
+        class="search-result__amount__value"
+        set:html="3"
+      />
+    </div>
+  </div>
+
+  <ul class="search-result__list">
+    {
+      list.map((item) => {
+        return (
+          <li class="search-result__list__item">
+            <SearchMatch {...item} />
+          </li>
+        )
+      })
+    }
+  </ul>
+</div>
+
+<style is:global>
+  .search-result {
+    padding: 0 var(--screen-horisontal-padding);
+    padding-bottom: 8.2rem;
+
+    @media (max-width: 768px) {
+      padding-bottom: 4rem;
+    }
+  }
+
+  .search-result__form-wrapper {
+    margin-bottom: 7.8rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .search-result__form {
+    display: flex;
+    gap: 1.5rem;
+
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 1rem;
+
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .search-result__form__input-field {
+    width: 100%;
+    position: relative;
+  }
+
+  .search-result__form__input {
+    padding: 0 2rem;
+    width: 100%;
+    height: var(--input-height);
+
+    background-color: var(--color-grayscale-0);
+    border-radius: 0.7rem;
+  }
+
+  .search-result__form__reset-button {
+    position: absolute;
+    top: 50%;
+    right: 2rem;
+
+    width: 1.3rem;
+    height: 1.3rem;
+
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .search-result__form__reset-button__icon {
+    width: 100%;
+    height: 100%;
+
+    fill: var(--color-grayscale-600);
+  }
+
+  .search-result__form__submit {
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .search-result__amount {
+  }
+
+  .search-result__amount__title {
+    color: var(--color-grayscale-400);
+  }
+
+  .search-result__amount__value {
+  }
+
+  .search-result__list {
+    background-color: var(--color-grayscale-0);
+    border-radius: 0.7rem;
+    overflow: hidden;
+  }
+
+  .search-result__list__item {
+    &:not(:last-child) {
+      border-bottom: 0.1rem solid var(--color-grayscale-300);
+    }
+  }
+</style>

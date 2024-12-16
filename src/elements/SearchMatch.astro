@@ -1,16 +1,92 @@
 ---
 export interface Props {
   class?: string
+  category?: string
+  title?: string
+  description?: string
 }
 
-const { class: className, ...rest } = Astro.props
+const {
+  class: className,
+  category = 'Часто задаваемые вопросы',
+  title = 'Готовы к широкомасштабной деятельности',
+  description = 'Для наших сотрудников он стал не только руководителем, но и духовным наставником, способным настроить на продуктивную деятельность вне зависимости от погодных условий. Егор крайне ответственно подходит к вопросам формирования рабочего графика. Он планирует...',
+  ...rest
+} = Astro.props
 ---
 
 <div
   {...rest}
-  class:list={[className, 'search-match']}
-></div>
+  class:list={[className, 'search-match']}>
+  <div class="search-match__category">
+    <div
+      class="f-d-body-basic-regular-14 f-m-footnote-regular-12 search-match__category__title"
+      >Раздел</div
+    >
+    <div
+      class="f-d-body-basic-medium-14 f-m-footnote-medium-12 search-match__category__name"
+      set:html={category}
+    />
+  </div>
 
-<style is:global></style>
+  <div class="search-match__content">
+    <div
+      class="f-d-body-basic-medium-14 search-match__title"
+      set:html={title}
+    />
+    <div
+      class="f-d-body-basic-regular-14 search-match__description"
+      set:html={description}
+    />
+  </div>
+</div>
 
-<script></script>
+<style is:global>
+  .search-match {
+    padding: 3rem;
+
+    @media (min-width: 769px) {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      padding: 2rem;
+    }
+  }
+
+  .search-match__category {
+    @media (min-width: 769px) {
+      width: 47.3rem;
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      gap: 1rem;
+
+      margin-bottom: 4rem;
+    }
+  }
+
+  .search-match__category__title {
+    margin-bottom: 0.5rem;
+    color: var(--color-grayscale-400);
+  }
+
+  .search-match__category__name {
+    color: var(--color-primary-100);
+  }
+
+  .search-match__content {
+  }
+
+  .search-match__title {
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .search-match__description {
+  }
+</style>

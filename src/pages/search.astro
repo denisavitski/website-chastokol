@@ -1,5 +1,6 @@
 ---
 import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import SearchResult from '@blocks/SearchResult.astro'
 import Layout from '@layout/Layout.astro'
 ---
 
@@ -8,11 +9,12 @@ import Layout from '@layout/Layout.astro'
     title: 'Частокол: Результаты поиска',
     description: 'Металлические заборы в Санкт-Петербурге',
     cover: '/images/seo/home.jpg',
-  }}
-  ><Breadcrumbs
+  }}>
+  <Breadcrumbs
     links={[
       { name: 'Главная', href: '/' },
       { name: 'Поиск', href: '/search' },
     ]}
-  /></Layout
->
+  />
+  <SearchResult />
+</Layout>

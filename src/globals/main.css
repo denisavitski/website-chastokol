@@ -30,7 +30,7 @@ body {
 
   --color-lazy: var(--color-grayscale-300);
 
-  --color-page: var(--color-grayscale-0);
+  --color-page: var(--color-grayscale-200);
   --color-font: var(--color-grayscale-600);
 
   --color-scrollbar-thumb: var(--color-grayscale-600);
