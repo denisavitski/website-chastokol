@@ -3,6 +3,7 @@ import CatalogCard, {
   type Props as CatalogCardProps,
 } from '@elements/CatalogCard.astro'
 import SliderBullets from '@elements/SliderBullets.astro'
+import SliderButton from '@elements/SliderButton.astro'
 
 export interface Props {
   class?: string
@@ -58,7 +59,8 @@ const {
 <!-- BLOCK -->
 <section
   {...rest}
-  class:list={[className, 'structures-catalog bullets-padding']}>
+  class:list={[className, 'structures-catalog bullets-padding']}
+>
   <h2
     set:html={heading}
     class="structures-catalog__heading f-d-title-medium-56 f-m-title-medium-24"
@@ -75,6 +77,14 @@ const {
         )
       })
     }
+    <SliderButton
+      type={'prev'}
+      center
+    />
+    <SliderButton
+      type={'next'}
+      center
+    />
     <SliderBullets />
   </e-scroll>
 </section>
@@ -98,6 +108,8 @@ const {
     --overflow: hidden;
     --sectional: true;
     --sections-in-view: 3;
+    --auto-size: true;
+    --slider-button-color: var(--color-grayscale-300);
 
     display: flex;
     gap: var(--gap);

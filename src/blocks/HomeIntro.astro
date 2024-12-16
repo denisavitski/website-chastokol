@@ -28,7 +28,8 @@ const {
 
 <div
   {...rest}
-  class:list={[className, 'home-intro']}>
+  class:list={[className, 'home-intro']}
+>
   <h1
     class="home-intro__heading f-d-title-medium-76 f-m-title-medium-30"
     set:html={heading}
@@ -36,8 +37,8 @@ const {
   <LinkButton
     href="/"
     class="home-intro__installment"
-    >Рассрочка на 12 месяцев</LinkButton
-  >
+    name="Рассрочка на 12 месяцев"
+  />
   <Image
     class="home-intro__background"
     {...background}
