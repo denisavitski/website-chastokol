@@ -170,9 +170,12 @@ const {
 
 <style is:global>
   .header {
-    --header-submenu-color: var(--color-grayscale-0);
-    --location-button-color: var(--color-grayscale-0);
-    --background-ease: var(--ease-out-cubic);
+    --header-color: var(--color-grayscale-0);
+    --header-submenu-color: var(--header-color);
+    --location-button-color: var(--header-color);
+    --header-background-ease: var(--ease-out-cubic);
+    --header-background-color: transparent;
+    --header-border-color: rgba(255, 255, 255, 0.35);
 
     position: fixed;
     top: 0;
@@ -184,15 +187,27 @@ const {
 
     display: block;
 
-    transition-property: background-color;
+    transition-property: transform;
     transition-duration: var(--duration-menu);
 
     .menu-catalog-opened &,
     .menu-catalog-closing &,
     .menu-opened &,
-    .menu-closing & {
-      --header-submenu-color: var(--color-font);
-      --location-button-color: var(--color-font);
+    .menu-closing &,
+    .page-scrolled & {
+      --header-background-color: var(--color-grayscale-0);
+      --header-color: var(--color-font);
+      --header-border-color: var(--color-grayscale-300);
+    }
+
+    @media (min-width: 769px) {
+      .menu-catalog-opened &,
+      .menu-catalog-closing &,
+      .menu-opened &,
+      .menu-closing &,
+      .page-scrolled & {
+        transform: translateY(calc(var(--header-top-height) * -1));
+      }
     }
 
     @media (max-width: 768px) {
@@ -212,14 +227,15 @@ const {
       align-items: center;
       justify-content: space-between;
 
+      border-bottom: 0.1rem solid var(--header-border-color);
+
       transition-property: background-color;
       transition-duration: var(--duration-menu);
-      transition-timing-function: var(--background-ease);
+      transition-timing-function: var(--header-background-ease);
 
-      .menu-catalog-opened &,
-      .menu-catalog-closing & {
-        background-color: var(--color-grayscale-0);
-      }
+      will-change: background-color;
+
+      background-color: var(--header-background-color);
     }
 
     @media (max-width: 768px) {
@@ -254,14 +270,15 @@ const {
 
       padding: 0 var(--screen-horisontal-padding);
 
+      border-bottom: 0.1rem solid var(--header-border-color);
+
       transition-property: background-color;
       transition-duration: var(--duration-menu);
-      transition-timing-function: var(--background-ease);
+      transition-timing-function: var(--header-background-ease);
 
-      .menu-catalog-opened &,
-      .menu-catalog-closing & {
-        background-color: var(--color-grayscale-0);
-      }
+      will-change: background-color;
+
+      background-color: var(--header-background-color);
     }
 
     @media (max-width: 768px) {
@@ -282,12 +299,11 @@ const {
 
       transition-property: background-color;
       transition-duration: var(--duration-menu);
-      transition-timing-function: var(--background-ease);
+      transition-timing-function: var(--header-background-ease);
 
-      .menu-opened &,
-      .menu-closing & {
-        background-color: var(--color-grayscale-0);
-      }
+      will-change: background-color;
+
+      background-color: var(--header-background-color);
     }
   }
 
@@ -302,7 +318,8 @@ const {
     .menu-catalog-opened &,
     .menu-catalog-closing &,
     .menu-opened &,
-    .menu-closing & {
+    .menu-closing &,
+    .page-scrolled & {
       --logo-color: var(--color-primary-100);
     }
   }
@@ -461,6 +478,12 @@ const {
       gap: 8.8rem;
       margin-left: auto;
       margin-right: 11.3rem;
+
+      transition-property: color;
+      transition-duration: var(--duration-menu);
+      transition-timing-function: ease;
+
+      color: var(--header-color);
     }
 
     @media (max-width: 768px) {
@@ -478,6 +501,12 @@ const {
   }
 
   .header__online {
+    @media (min-width: 769px) {
+      transition-property: color;
+      transition-duration: var(--duration-menu);
+      color: var(--header-color);
+    }
+
     @media (max-width: 768px) {
       padding: 0 var(--screen-horisontal-padding);
     }
