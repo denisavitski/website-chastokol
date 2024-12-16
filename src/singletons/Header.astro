@@ -112,7 +112,7 @@ const {
   </div>
 
   <e-popover
-    class="header__menu"
+    class="header__menu custom-scrollbar"
     id="menu"
   >
     <div class="header__menu__first-sheet">
@@ -170,11 +170,17 @@ const {
 
 <style is:global>
   .header {
-    position: relative;
-
     --header-submenu-color: var(--color-grayscale-0);
     --location-button-color: var(--color-grayscale-0);
     --background-ease: var(--ease-out-cubic);
+
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: var(--z-header);
+
+    width: 100%;
 
     display: block;
 
@@ -404,6 +410,8 @@ const {
       display: none;
 
       width: 100%;
+      height: calc(var(--viewport-height) - var(--header-height));
+
       padding-bottom: 2rem;
 
       background-color: var(--color-grayscale-0);
@@ -412,6 +420,8 @@ const {
       transition-timing-function: var(--ease-out-circ);
 
       clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+
+      overflow: hidden auto;
 
       &.triggered {
         display: block;

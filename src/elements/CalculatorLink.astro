@@ -1,0 +1,52 @@
+---
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<a
+  {...rest}
+  href="/calculator"
+  class:list={[className, 'calculator-link']}
+>
+  <Icon
+    name={'calculator'}
+    class="calculator-link__icon"
+  />
+</a>
+
+<style is:global>
+  .calculator-link {
+    width: 6rem;
+    height: 6rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background-color: var(--color-primary-100);
+
+    @media (max-width: 768px) {
+      width: 4.5rem;
+      height: 4.5rem;
+    }
+  }
+
+  .calculator-link__icon {
+    width: 3rem;
+    height: 3rem;
+
+    fill: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      width: 2.234rem;
+      height: 2.234rem;
+    }
+  }
+</style>

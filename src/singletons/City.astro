@@ -1,0 +1,235 @@
+---
+import CommonModal from '@elements/CommonModal.astro'
+import Icon from '@elements/Icon.astro'
+import ModalCloseButton from '@elements/ModalCloseButton.astro'
+import SearchButton from '@elements/SearchButton.astro'
+
+export const modal = '#city'
+
+export interface Props {
+  cities?: Array<string>
+}
+
+const {
+  cities = [
+    'Санкт-Петербург',
+    'Москва',
+    'Екатеринбург',
+    'Краснодар',
+    'Нижний Новгород',
+    'Ростов-на-Дону',
+  ],
+} = Astro.props
+---
+
+<!-- SINGLETON -->
+<CommonModal
+  id="city"
+  class="city"
+>
+  <ModalCloseButton
+    class="city__close-button"
+    modal="city"
+  />
+  <div class="city__content">
+    <div
+      class="city__title f-d-additionally-title-bold-24 f-m-additionally-title-bold-20"
+      >Выберите город</div
+    >
+
+    <div class="city__form-wrapper">
+      <form class="city__form">
+        <input
+          type="text"
+          required
+          placeholder="Введите название города"
+          class="city__form__input f-d-body-large-regular-16 f-m-body-basic-regular-14"
+        />
+        <SearchButton class="city__form__search" />
+        <button
+          type="submit"
+          class="city__form__search-mobile"
+        >
+          <Icon
+            name={'loupe'}
+            class="city__form__search-mobile__icon"
+          />
+        </button>
+      </form>
+
+      <button class="city__detect f-d-footnote-medium-12"
+        >Определить автоматически</button
+      >
+    </div>
+
+    <ul class="city__list">
+      {
+        cities.map((city, i) => {
+          return (
+            <li class="city__list__item">
+              <a
+                href="/"
+                class:list={['city__list__link', { current: i === 0 }]}
+              >
+                <span
+                  class="city__list__link__name f-d-body-large-regular-16 f-m-body-basic-regular-14"
+                  set:html={city}
+                />
+                <Icon
+                  class="city__list__link__icon"
+                  name="check"
+                />
+              </a>
+            </li>
+          )
+        })
+      }
+    </ul>
+  </div>
+</CommonModal>
+
+<style is:global>
+  .city {
+  }
+
+  .city__close-button {
+    @media (max-width: 768px) {
+      top: 4.461rem;
+    }
+  }
+
+  .city__content {
+    width: 59.3rem;
+    padding: 5rem;
+    height: max-content;
+
+    border-radius: 2rem;
+
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      padding: 4rem var(--screen-horisontal-padding);
+    }
+
+    @media (max-width: 768px) {
+      border-radius: unset;
+      min-height: 100%;
+    }
+  }
+
+  .city__title {
+    margin-bottom: 2.5rem;
+  }
+
+  .city__form-wrapper {
+    margin-bottom: 4.2rem;
+  }
+
+  .city__form {
+    position: relative;
+
+    display: flex;
+    gap: 1.5rem;
+
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .city__form__input {
+    width: 100%;
+    height: 5rem;
+    padding: 0 2rem;
+
+    border: 0.1rem solid var(--color-grayscale-300);
+    border-radius: 0.7rem;
+
+    &::placeholder {
+      color: var(--color-grayscale-400);
+    }
+
+    @media (max-width: 768px) {
+      height: 4rem;
+      padding: 0 4.3rem;
+    }
+  }
+
+  .city__form__search {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .city__form__search-mobile {
+    @media (min-width: 769px) {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      position: absolute;
+      top: 1.4rem;
+      left: 1.5rem;
+
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+  }
+
+  .city__form__search-mobile__icon {
+    width: 100%;
+    height: 100%;
+
+    fill: var(--color-font);
+  }
+
+  .city__detect {
+    color: var(--color-primary-100);
+  }
+
+  .city__list {
+    width: 100%;
+    display: grid;
+    gap: 1.8rem;
+
+    @media (max-width: 768px) {
+      gap: 2rem;
+    }
+  }
+
+  .city__list__item {
+    width: 100%;
+  }
+
+  .city__list__link {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .city__list__link__name {
+    .city__list__link.current & {
+      color: var(--color-primary-100);
+    }
+  }
+
+  .city__list__link__icon {
+    width: 1.6rem;
+    height: 1.6rem;
+
+    display: none;
+
+    .city__list__link.current & {
+      display: block;
+      fill: var(--color-primary-100);
+    }
+
+    @media (max-width: 768px) {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+  }
+</style>

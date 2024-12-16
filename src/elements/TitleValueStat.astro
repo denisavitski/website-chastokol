@@ -1,0 +1,44 @@
+---
+export interface Props {
+  class?: string
+  title?: string
+  value?: string
+}
+
+const {
+  class: className,
+  title = 'Среднее время изготовления',
+  value = '7-14 дней',
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'title-value-stat']}
+>
+  <div
+    class="title-value-stat__value f-d-title-medium-32 f-m-title-medium-20"
+    set:html={value}
+  />
+  <div
+    class="title-value-stat__title f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    set:html={title}
+  />
+</div>
+
+<style is:global>
+  .title-value-stat {
+  }
+
+  .title-value-stat__value {
+    margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .title-value-stat__title {
+  }
+</style>

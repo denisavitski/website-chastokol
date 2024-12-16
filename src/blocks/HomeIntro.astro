@@ -1,0 +1,140 @@
+---
+import CalculatorLink from '@elements/CalculatorLink.astro'
+import Image, { type ImageDataProps } from '@elements/Image.astro'
+import LinkButton from '@elements/LinkButton.astro'
+import TitleValueStat, {
+  type Props as TitleValueStatProps,
+} from '@elements/TitleValueStat.astro'
+
+export interface Props {
+  class?: string
+  heading?: string
+  background?: ImageDataProps
+  stats?: Array<TitleValueStatProps>
+}
+
+const {
+  class: className,
+  heading = 'Металлические заборы в&nbsp;Санкт-Петербурге',
+  background = { src: '/images/home/background.jpg' },
+  stats = [
+    { title: 'Среднее время изготовления', value: '7-14 дней' },
+    { title: 'Заказов реализуем ежемесячно', value: '550+ заказов' },
+    { title: 'Довольных клиентов', value: '9 000+ клиентов' },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'home-intro']}
+>
+  <h1
+    class="home-intro__heading f-d-title-medium-76 f-m-title-medium-30"
+    set:html={heading}
+  />
+  <LinkButton
+    href="/"
+    class="home-intro__installment"
+    >Рассрочка на 12 месяцев</LinkButton
+  >
+  <Image
+    class="home-intro__background"
+    {...background}
+    lazy
+    lazyBackground
+    cover
+  />
+
+  <div class="home-intro__stats">
+    {
+      stats.map((stat) => {
+        return (
+          <TitleValueStat
+            class="home-intro__stat"
+            {...stat}
+          />
+        )
+      })
+    }
+  </div>
+
+  <CalculatorLink class="home-intro__calculator" />
+</div>
+
+<style is:global>
+  .home-intro {
+    position: relative;
+
+    min-height: 96.2rem;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 19.7rem var(--screen-horisontal-padding) 6rem
+      var(--screen-horisontal-padding);
+
+    margin-top: calc(var(--header-full-height) * -1);
+
+    color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      padding: 10.2rem var(--screen-horisontal-padding) 5.5rem
+        var(--screen-horisontal-padding);
+      min-height: 60.5rem;
+    }
+  }
+
+  .home-intro__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: -1;
+
+    width: 100%;
+    height: 100%;
+  }
+
+  .home-intro__heading {
+    margin-bottom: 8rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .home-intro__installment {
+    width: max-content;
+  }
+
+  .home-intro__stats {
+    display: flex;
+    gap: 12.8rem;
+
+    @media (min-width: 769px) {
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 4rem;
+
+      margin-top: 8rem;
+    }
+  }
+
+  .home-intro__stat {
+  }
+
+  .home-intro__calculator {
+    position: absolute;
+    right: var(--screen-horisontal-padding);
+    bottom: 6rem;
+
+    @media (max-width: 768px) {
+      bottom: 2.2rem;
+    }
+  }
+</style>

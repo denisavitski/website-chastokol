@@ -33,8 +33,8 @@ body {
   --color-page: var(--color-grayscale-0);
   --color-font: var(--color-grayscale-600);
 
-  --color-scrollbar-thumb: var(--color-primary-1);
-  --color-scrollbar-track: var(--color-primary-1);
+  --color-scrollbar-thumb: var(--color-grayscale-600);
+  --color-scrollbar-track: var(--color-grayscale-200);
 
   --z-modal: 102;
   --z-scrollbar: 101;

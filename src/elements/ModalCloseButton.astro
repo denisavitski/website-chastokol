@@ -1,0 +1,45 @@
+---
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+  modal?: string
+}
+
+const { class: className, modal, ...rest } = Astro.props
+---
+
+<e-popover-button
+  target={modal}
+  {...rest}
+  class:list={[className, 'modal-close-button']}
+  ><Icon
+    class="modal-close-button__icon"
+    name={'plus'}
+  /></e-popover-button
+>
+
+<style is:global>
+  .modal-close-button {
+    --type: close;
+
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+
+    width: 2rem;
+    height: 2rem;
+
+    @media (max-width: 768px) {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+  }
+
+  .modal-close-button__icon {
+    width: 100%;
+    height: 100%;
+    transform: rotate(45deg);
+    fill: var(--color-font);
+  }
+</style>

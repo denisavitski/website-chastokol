@@ -1,0 +1,71 @@
+---
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+  href?: string
+}
+
+const { class: className, href, ...rest } = Astro.props
+
+const Tag = href ? 'a' : 'button'
+---
+
+<Tag
+  {...rest}
+  class:list={['link-button', className]}
+>
+  <span
+    class="link-button__name f-d-body-large-medium-16 f-d-body-basic-medium-14"
+    ><slot>Кнопка</slot></span
+  >
+  <span class="link-button__icon-box">
+    <Icon
+      name={'tail-arrow'}
+      class="link-button__icon"
+    />
+  </span>
+</Tag>
+
+<style is:global>
+  .link-button {
+    height: 4.5rem;
+    padding-left: 2rem;
+    padding-right: 0.5rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 3rem;
+
+    background-color: var(--color-primary-100);
+  }
+
+  .link-button__name {
+    display: var(--name-display, block);
+    color: var(--color-grayscale-0);
+    margin-right: 1.5rem;
+  }
+
+  .link-button__icon-box {
+    width: 3.5rem;
+    height: 3.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background-color: var(--color-grayscale-0);
+  }
+
+  .link-button__icon {
+    width: 2.1rem;
+    height: 2.1rem;
+
+    transform: rotate(-45deg);
+
+    fill: var(--color-primary-100);
+  }
+</style>

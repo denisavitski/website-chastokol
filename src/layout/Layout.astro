@@ -8,6 +8,7 @@ import { type Props as SeoProps } from './Seo.astro'
 import PixelPerfect, {
   type PixelPerfectImages,
 } from '@elements/PixelPerfect.astro'
+import City from '@singletons/City.astro'
 
 export interface Props {
   header?: boolean
@@ -65,6 +66,8 @@ const {
         </main>
 
         {footer && <Footer />}
+
+        <City />
       </div>
     </div>
   </body></html

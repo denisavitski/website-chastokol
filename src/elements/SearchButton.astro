@@ -1,0 +1,24 @@
+---
+import PrimaryButton from './PrimaryButton.astro'
+
+export interface Props {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<PrimaryButton
+  {...rest}
+  type="submit"
+  class={`search-button ${className || ''}`}
+  >Поиск</PrimaryButton
+>
+
+<style is:global>
+  .search-button {
+    flex-shrink: 0;
+    width: 12.8rem;
+    border-radius: 0.7rem;
+  }
+</style>
