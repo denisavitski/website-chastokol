@@ -1,0 +1,192 @@
+---
+import { categoriesData } from '@dev-data/categoriesData'
+import MenuCatalogCategoryColumn, {
+  type Props as MenuCatalogCategoryColumnProps,
+} from './MenuCatalogCategoryColumn.astro'
+import Search from './Search.astro'
+import HeaderBackButton from './HeaderBackButton.astro'
+import Icon from './Icon.astro'
+
+export const modal = '#menu-catalog-category'
+
+export interface Props {
+  class?: string
+  name?: string | undefined
+  columns?: Array<MenuCatalogCategoryColumnProps>
+  id?: string | undefined
+}
+
+const firstCategory = categoriesData[0]
+
+const {
+  class: className,
+  id = firstCategory?.id || 'menu-catalog-category',
+  name = firstCategory?.button.name,
+  columns = firstCategory?.category.columns,
+  ...rest
+} = Astro.props
+---
+
+<e-popover
+  {...rest}
+  class:list={[className, 'menu-catalog-category']}
+  {id}
+>
+  <div class="menu-catalog-category__sheet">
+    <HeaderBackButton
+      modal={id}
+      name={name || ''}
+      class="menu-catalog-category__back"
+    />
+    <div class="menu-catalog-category__column-names">
+      {
+        columns?.map((column) => {
+          return (
+            <e-popover-button
+              class="menu-catalog-category__column-name f-d-body-large-medium-16"
+              target={column.id}
+            >
+              <span
+                class="menu-catalog-category__column-name__value"
+                set:html={column.title}
+              />
+              <Icon
+                name={'tailless-arrow'}
+                class="menu-catalog-category__column-name__arrow"
+              />
+            </e-popover-button>
+          )
+        })
+      }
+    </div>
+
+    <div class="menu-catalog-category__columns">
+      {
+        columns?.map((column) => {
+          return (
+            <MenuCatalogCategoryColumn
+              {...column}
+              class="menu-catalog-category__column"
+            />
+          )
+        })
+      }
+    </div>
+
+    <Search class="menu-catalog-category__search" />
+  </div>
+</e-popover>
+
+<style is:global>
+  .menu-catalog-category {
+    --group: catalog-category;
+    --close-rest-in-group: true;
+    --close-rest: false;
+    --click-outside: false;
+    --escape: false;
+
+    display: none;
+
+    background-color: var(--color-grayscale-0);
+
+    transition: opacity var(--duration-menu);
+
+    @media (min-width: 769px) {
+      padding: 0 var(--screen-horisontal-padding);
+      padding-bottom: 5rem;
+
+      opacity: 0;
+
+      &.opened {
+        opacity: 1;
+      }
+    }
+
+    &.triggered {
+      display: block;
+    }
+  }
+
+  .menu-catalog-category__sheet {
+    @media (min-width: 769px) {
+      display: contents;
+    }
+
+    @media (max-width: 768px) {
+      transition-property: transform;
+      transition-duration: var(--duration-menu);
+      transition-timing-function: ease;
+
+      .catalog-category-column-opened & {
+        transform: translateX(-100%);
+      }
+    }
+  }
+
+  .menu-catalog-category__back {
+    @media (min-width: 769px) {
+      display: none;
+    }
+  }
+
+  .menu-catalog-category__column-names {
+    @media (min-width: 769px) {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      display: grid;
+    }
+  }
+
+  .menu-catalog-category__column-name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 1.5rem var(--screen-horisontal-padding);
+    border-bottom: 0.1rem solid var(--color-grayscale-300);
+  }
+
+  .menu-catalog-category__column-name__value {
+  }
+
+  .menu-catalog-category__column-name__arrow {
+    width: 1.8rem;
+    height: 1.8rem;
+  }
+
+  .menu-catalog-category__columns {
+    @media (min-width: 769px) {
+      padding: 5rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5rem 0;
+    }
+    @media (max-width: 768px) {
+      position: absolute;
+      left: 100%;
+      top: 0;
+      width: 100%;
+    }
+  }
+
+  .menu-catalog-category__column {
+    @media (min-width: 769px) {
+      width: 30rem;
+      padding: 0 1rem;
+    }
+
+    @media (max-width: 768px) {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  .menu-catalog-category__search {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+</style>

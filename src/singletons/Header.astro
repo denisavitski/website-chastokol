@@ -1,16 +1,493 @@
 ---
+import { categoriesData } from '@dev-data/categoriesData'
+import HeaderContact, {
+  type Props as HeaderContactProps,
+} from '@elements/HeaderContact.astro'
+import Icon from '@elements/Icon.astro'
+import LogoLink from '@elements/LogoLink.astro'
+import Manager from '@elements/Manager.astro'
+import MenuButton from '@elements/MenuButton.astro'
+import MenuCatalog, {
+  type Props as MenuCatalogProps,
+} from '@elements/MenuCatalog.astro'
+import HeaderSubmenu, {
+  type Props as HeaderSubmenuProps,
+} from '@elements/HeaderSubmenu.astro'
+import LocationButton from '@elements/LocationButton.astro'
+
+export const backgroundColor = 'lightblue'
+export const imagePaddingTop = 'var(--header-full-height)'
+
 export interface Props {
   class?: string
+  submenus?: Array<Omit<HeaderSubmenuProps, 'class'>>
+  contacts?: Array<Omit<HeaderContactProps, 'class'>>
+  catalog?: MenuCatalogProps['categories']
 }
 
-const { class: className, ...rest } = Astro.props
+const {
+  class: className,
+  submenus = [
+    {
+      name: 'О компании',
+      modalName: 'menu-about',
+      links: [
+        {
+          name: 'Блог',
+          href: '/',
+        },
+        {
+          name: 'Цены',
+          href: '/',
+        },
+        {
+          name: 'О компании',
+          href: '/',
+        },
+        {
+          name: 'Реквизиты',
+          href: '/',
+        },
+      ],
+    },
+    {
+      name: 'Для клиентов',
+      modalName: 'menu-clients',
+      links: [
+        {
+          name: 'Блог',
+          href: '/',
+        },
+        {
+          name: 'Цены',
+          href: '/',
+        },
+        {
+          name: 'О компании',
+          href: '/',
+        },
+        {
+          name: 'Реквизиты',
+          href: '/',
+        },
+      ],
+    },
+    {
+      name: 'Контакты',
+      href: '/',
+      links: false,
+    },
+  ],
+  contacts = [
+    {
+      value: 'Каширское шоссе, вл63, к1',
+      additional: 'Посмотреть на карте',
+      modal: 'map',
+    },
+    {
+      value: '+7 (499) 900-60-30',
+      additional: 'c 10:00 до 19:00, ежедневно',
+    },
+  ],
+  catalog = categoriesData,
+  ...rest
+} = Astro.props
 ---
 
 <!-- SINGLETON -->
 <header
   {...rest}
-  class:list={[className]}
+  class:list={[className, 'header']}
 >
+  <div class="header__mobile-top">
+    <LogoLink class="header__logo" />
+
+    <LocationButton class="header__location-button" />
+
+    <MenuButton
+      class="header__menu-button"
+      target="menu"
+      >Меню</MenuButton
+    >
+  </div>
+
+  <e-popover
+    class="header__menu"
+    id="menu"
+  >
+    <div class="header__menu__first-sheet">
+      <div class="header__top">
+        <div class="header__submenus">
+          {
+            submenus.map((submenu) => {
+              return (
+                <HeaderSubmenu
+                  class="header__submenu"
+                  {...submenu}
+                />
+              )
+            })
+          }
+        </div>
+      </div>
+
+      <div class="header__middle">
+        <MenuButton
+          class="header__catalog-button"
+          target="menu-catalog"
+        >
+          <span class="header__catalog-button__name f-m-body-large-regular-16"
+            >Каталог</span
+          >
+          <Icon
+            class="header__catalog-button__icon"
+            name={'tailless-arrow'}
+          />
+        </MenuButton>
+
+        <div class="header__contacts">
+          {
+            contacts.map((contact) => {
+              return (
+                <HeaderContact
+                  class="header__contact"
+                  {...contact}
+                />
+              )
+            })
+          }
+        </div>
+        <Manager class="header__online" />
+      </div>
+
+      <MenuCatalog
+        class="header__catalog"
+        categories={catalog}
+      />
+    </div>
+  </e-popover>
 </header>
 
-<style is:global></style>
+<style is:global>
+  .header {
+    position: relative;
+
+    --header-submenu-color: var(--color-grayscale-0);
+    --location-button-color: var(--color-grayscale-0);
+    --background-ease: var(--ease-out-cubic);
+
+    display: block;
+
+    transition-property: background-color;
+    transition-duration: var(--duration-menu);
+
+    .menu-catalog-opened &,
+    .menu-catalog-closing &,
+    .menu-opened &,
+    .menu-closing & {
+      --header-submenu-color: var(--color-font);
+      --location-button-color: var(--color-font);
+    }
+
+    @media (max-width: 768px) {
+      --header-submenu-color: var(--color-font);
+    }
+  }
+
+  .header__top {
+    @media (min-width: 769px) {
+      position: relative;
+      z-index: 2;
+
+      height: var(--header-top-height);
+      padding: 0 var(--screen-horisontal-padding);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      transition-property: background-color;
+      transition-duration: var(--duration-menu);
+      transition-timing-function: var(--background-ease);
+
+      .menu-catalog-opened &,
+      .menu-catalog-closing & {
+        background-color: var(--color-grayscale-0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: contents;
+    }
+  }
+
+  .header__submenus {
+    display: flex;
+    gap: 4rem;
+
+    @media (max-width: 768px) {
+      display: contents;
+    }
+  }
+
+  .header__submenu {
+    @media (max-width: 768px) {
+      &:last-of-type {
+        margin-bottom: 5.5rem;
+      }
+    }
+  }
+
+  .header__middle {
+    @media (min-width: 769px) {
+      display: flex;
+      align-items: center;
+
+      justify-content: space-between;
+      height: var(--header-height);
+
+      padding: 0 var(--screen-horisontal-padding);
+
+      transition-property: background-color;
+      transition-duration: var(--duration-menu);
+      transition-timing-function: var(--background-ease);
+
+      .menu-catalog-opened &,
+      .menu-catalog-closing & {
+        background-color: var(--color-grayscale-0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: contents;
+    }
+  }
+
+  .header__mobile-top {
+    @media (min-width: 769px) {
+      display: contents;
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem var(--screen-horisontal-padding);
+
+      transition-property: background-color;
+      transition-duration: var(--duration-menu);
+      transition-timing-function: var(--background-ease);
+
+      .menu-opened &,
+      .menu-closing & {
+        background-color: var(--color-grayscale-0);
+      }
+    }
+  }
+
+  .header__logo {
+    @media (min-width: 769px) {
+      position: absolute;
+      left: var(--screen-horisontal-padding);
+      top: calc(var(--header-top-height) + var(--header-height) / 2);
+      transform: translateY(-50%);
+    }
+
+    .menu-catalog-opened &,
+    .menu-catalog-closing &,
+    .menu-opened &,
+    .menu-closing & {
+      --logo-color: var(--color-primary-100);
+    }
+  }
+
+  .header__location-button {
+    @media (min-width: 769px) {
+      position: absolute;
+      right: var(--screen-horisontal-padding);
+      top: calc(var(--header-top-height) / 2);
+      z-index: 3;
+      transform: translateY(-50%);
+    }
+
+    @media (max-width: 768px) {
+      margin-left: auto;
+      margin-right: 1rem;
+    }
+  }
+
+  .header__menu-button {
+    @media (min-width: 769px) {
+      display: none;
+    }
+  }
+
+  .header__catalog-button {
+    @media (min-width: 769px) {
+      margin-left: 34.7rem;
+    }
+
+    @media (max-width: 768px) {
+      order: -1;
+
+      padding: unset;
+      height: unset;
+      display: inline-flex;
+      align-items: center;
+      gap: unset;
+      border-radius: unset;
+      background-color: unset;
+      transition: unset;
+
+      width: 100%;
+
+      border-top: 0.1rem solid var(--color-grayscale-300);
+
+      .menu-button__name {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .menu-button__icon {
+        display: none;
+      }
+
+      &.opened {
+        background-color: unset;
+
+        .menu-button__name {
+          color: var(--color-font);
+        }
+      }
+    }
+  }
+
+  .header__catalog-button__name {
+  }
+
+  .header__catalog-button__icon {
+    @media (min-width: 769px) {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+  }
+
+  .header {
+    @media (max-width: 768px) {
+      .header-submenu__name,
+      .header__catalog-button {
+        padding: 1.5rem var(--screen-horisontal-padding);
+
+        border-bottom: 0.1rem solid var(--color-grayscale-300);
+      }
+    }
+  }
+
+  .header__menu {
+    --group: menu;
+
+    @media (min-width: 769px) {
+      display: contents;
+    }
+
+    @media (max-width: 768px) {
+      position: absolute;
+      top: 100%;
+      left: 0;
+
+      display: none;
+
+      width: 100%;
+      padding-bottom: 2rem;
+
+      background-color: var(--color-grayscale-0);
+
+      transition: clip-path var(--duration-menu);
+      transition-timing-function: var(--ease-out-circ);
+
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+
+      &.triggered {
+        display: block;
+      }
+
+      &.opened {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      }
+    }
+  }
+
+  .header__menu__first-sheet {
+    @media (min-width: 769px) {
+      display: contents;
+    }
+
+    @media (max-width: 768px) {
+      position: relative;
+
+      display: flex;
+      flex-direction: column;
+
+      transition-property: transform;
+      transition-duration: var(--duration-menu);
+      transition-timing-function: ease;
+
+      .menu-catalog-opened &,
+      .menu-submnenu-opened & {
+        transform: translateX(-100%);
+      }
+    }
+  }
+
+  .header__contacts {
+    @media (min-width: 769px) {
+      display: flex;
+      gap: 8.8rem;
+      margin-left: auto;
+      margin-right: 11.3rem;
+    }
+
+    @media (max-width: 768px) {
+      padding: 0 var(--screen-horisontal-padding);
+
+      display: grid;
+      grid-auto-rows: max-content;
+      gap: 4.5rem;
+
+      margin-bottom: 5.5rem;
+    }
+  }
+
+  .header__contact {
+  }
+
+  .header__online {
+    @media (max-width: 768px) {
+      padding: 0 var(--screen-horisontal-padding);
+    }
+  }
+
+  .header__bottom {
+  }
+
+  .header__catalog {
+    position: absolute;
+    left: 0;
+    z-index: 1;
+
+    @media (min-width: 769px) {
+      top: 100%;
+    }
+
+    @media (max-width: 768px) {
+      top: 0;
+      left: 100%;
+    }
+  }
+</style>

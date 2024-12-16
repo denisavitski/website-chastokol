@@ -34,7 +34,7 @@ const { class: className, icon = 'inst', ...rest } = Astro.props
     background-color: var(--icon-box-background-color, transparent);
 
     transition-property: color, background-color;
-    transition-duration: var(--duration-button);
+    transition-duration: var(--icon-box-duration, var(--duration-button));
 
     border-radius: 0.7rem;
 
@@ -51,7 +51,7 @@ const { class: className, icon = 'inst', ...rest } = Astro.props
     fill: var(--icon-box-color, var(--color-grayscale-700));
 
     transition-property: fill;
-    transition-duration: var(--duration-button);
+    transition-duration: var(--icon-box-duration, var(--duration-button));
     transform: rotate(var(--icon-box-rotation, 0deg));
 
     @media (max-width: 768px) {

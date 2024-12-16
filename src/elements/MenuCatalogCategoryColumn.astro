@@ -1,0 +1,123 @@
+---
+import { categoriesData } from '@dev-data/categoriesData'
+import MenuLink, { type Props as MenuLinkProps } from './MenuLink.astro'
+import HeaderBackButton from './HeaderBackButton.astro'
+
+export interface Props {
+  class?: string
+  title?: string
+  href?: string
+  links?: Array<MenuLinkProps> | false
+  id?: string
+  name?: string
+}
+
+const firstCategory = categoriesData[0]?.category.columns?.[0]
+
+const {
+  class: className,
+  title = firstCategory?.title,
+  href = firstCategory?.href,
+  links = firstCategory?.links,
+  id = firstCategory?.id,
+  name = firstCategory?.name,
+  ...rest
+} = Astro.props
+---
+
+<e-popover
+  {...rest}
+  class:list={[className, 'menu-catalog-category-column']}
+  id={id}
+>
+  <HeaderBackButton
+    name={name}
+    modal={id}
+    class="menu-catalog-category-column__back"
+  />
+
+  <div class="menu-catalog-category-column__list">
+    <a
+      class="menu-catalog-category-column__title f-d-body-large-medium-16"
+      set:html={title}
+      {href}
+    />
+    {
+      Array.isArray(links)
+        ? links.map((link) => {
+            return (
+              <MenuLink
+                class="menu-catalog-category-column__link"
+                {...link}
+              />
+            )
+          })
+        : null
+    }
+    <MenuLink
+      class="menu-catalog-category-column__link menu-catalog-category-column__link_all"
+      href={href || '/'}
+      name={'Смотреть все'}
+    />
+  </div>
+</e-popover>
+
+<style is:global>
+  .menu-catalog-category-column {
+    --group: catalog-category-column;
+    --close-rest-in-group: true;
+    --close-rest: false;
+    --click-outside: false;
+    --escape: false;
+
+    display: block;
+
+    @media (max-width: 768px) {
+      display: none;
+
+      width: 100%;
+
+      transition: opacity var(--duration-menu);
+
+      &.triggered {
+        display: block;
+      }
+    }
+  }
+
+  .menu-catalog-category-column__back {
+    @media (min-width: 769px) {
+      display: none;
+    }
+  }
+
+  .menu-catalog-category-column__title {
+    margin-bottom: 1.8rem;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .menu-catalog-category-column__list {
+    display: grid;
+    grid-auto-rows: max-content;
+
+    @media (min-width: 769px) {
+      gap: 1.5rem;
+    }
+  }
+
+  .menu-catalog-category-column__link {
+  }
+
+  .menu-catalog-category-column__link_all {
+    @media (min-width: 769px) {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      color: var(--color-grayscale-400);
+    }
+  }
+</style>

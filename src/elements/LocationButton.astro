@@ -1,0 +1,74 @@
+---
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<e-popover-button
+  {...rest}
+  class:list={[className, 'location-button']}
+  target="location"
+>
+  <span class="location-button__icon-box">
+    <Icon
+      name={'marker'}
+      class="location-button__icon"
+    />
+  </span>
+  <span
+    class="location-button__name f-d-body-basic-regular-14"
+    set:html={'Санкт-Петербург'}
+  />
+</e-popover-button>
+
+<style is:global>
+  .location-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .location-button__icon-box {
+    @media (max-width: 768px) {
+      width: 3.2rem;
+      height: 3.2rem;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 0.1rem solid #f3f3f3;
+      border-radius: 50%;
+    }
+  }
+
+  .location-button__icon {
+    width: 1.2rem;
+    height: 1.2rem;
+
+    transition-property: fill;
+    transition-duration: var(--duration-button);
+
+    fill: var(--location-button-color, var(--color-font));
+
+    @media (max-width: 768px) {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+  }
+
+  .location-button__name {
+    transition-property: color;
+    transition-duration: var(--duration-button);
+
+    color: var(--location-button-color, var(--color-font));
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+</style>

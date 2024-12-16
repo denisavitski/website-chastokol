@@ -24,6 +24,7 @@ const imagePaddingTop =
   typeof ComponentModule.imagePaddingTop !== 'undefined'
     ? ComponentModule.imagePaddingTop
     : 'var(--header-full-height)'
+const backgroundColor = ComponentModule.backgroundColor || 'var(--color-page)'
 ---
 
 <Layout
@@ -173,7 +174,7 @@ const imagePaddingTop =
   }
 </style>
 
-<script define:vars={{ modal, imagePaddingTop }} is:inline>
+<script define:vars={{ modal, imagePaddingTop, backgroundColor }} is:inline>
   document.documentElement.classList.add('ui')
 
   if (modal) {
@@ -192,5 +193,9 @@ const imagePaddingTop =
       '--imagePaddingTop',
       imagePaddingTop,
     )
+  }
+
+  if (backgroundColor) {
+    document.body.style.backgroundColor = backgroundColor
   }
 </script>

@@ -1,0 +1,270 @@
+---
+import HeaderBackButton from './HeaderBackButton.astro'
+import Icon from './Icon.astro'
+
+export const backgroundColor = 'var(--color-grayscale-400)'
+
+export interface Props {
+  class?: string
+  name?: string
+  href?: string
+  modalName?: string | false
+  links?: Array<{ name: string; href: string }> | false
+}
+
+const {
+  class: className,
+  name = 'О компании',
+  modalName = 'about',
+  href,
+  links = [
+    {
+      name: 'Блог',
+      href: '/',
+    },
+    {
+      name: 'Цены',
+      href: '/',
+    },
+    {
+      name: 'О компании',
+      href: '/',
+    },
+    {
+      name: 'Реквизиты',
+      href: '/',
+    },
+  ],
+  ...rest
+} = Astro.props
+
+const ButtonTag = href ? 'a' : ('e-popover-button' as any)
+---
+
+<div
+  {...rest}
+  class:list={[className, 'header-submenu']}
+  has-links={!!links}
+>
+  <ButtonTag
+    class="header-submenu__name f-d-body-basic-regular-14 f-m-body-large-regular-16"
+    target={modalName}
+    {href}
+  >
+    <span
+      class="header-submenu__name__value"
+      set:html={name}
+    />
+    {
+      links && (
+        <Icon
+          name={'tailless-arrow'}
+          class="header-submenu__name__icon"
+        />
+      )
+    }
+  </ButtonTag>
+
+  {
+    links && (
+      <e-popover
+        class="header-submenu__popover"
+        id={modalName}
+      >
+        {modalName && (
+          <HeaderBackButton
+            name={name}
+            modal={modalName}
+            class="header-submenu__back-button"
+          />
+        )}
+
+        <div class="header-submenu__links">
+          {links.map((link) => {
+            return (
+              <a
+                class="header-submenu__link f-d-body-basic-regular-14 "
+                href={link.href}
+                set:html={link.name}
+              />
+            )
+          })}
+        </div>
+      </e-popover>
+    )
+  }
+</div>
+
+<style is:global>
+  .header-submenu {
+    --padding: 1.5rem;
+    --border-radius: 1.5rem;
+    --duration: 0.1s;
+
+    @media (min-width: 769px) {
+      display: inline-block;
+      position: relative;
+      height: max-content;
+    }
+  }
+
+  .header-submenu__name {
+    position: relative;
+
+    --type: toggle;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: '';
+
+      position: absolute;
+      left: calc(var(--padding) * -1);
+      top: -0.3rem;
+      z-index: -1;
+
+      width: calc(100% + var(--padding) * 2);
+      height: calc(100% + 0.6rem);
+
+      transition-property: clip-path;
+      transition-duration: var(--duration);
+      transition-delay: var(--duration);
+      transition-timing-function: var(--ease-out-cubic);
+      border-top-left-radius: var(--border-radius);
+      border-top-right-radius: var(--border-radius);
+      background-color: var(--color-grayscale-0);
+
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    }
+
+    &.opened::before {
+      transition-timing-function: var(--ease-in-cubic);
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      transition-delay: 0s;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      justify-content: space-between;
+    }
+  }
+
+  .header-submenu__name__value {
+    transition-property: color;
+    transition-duration: var(--duration-button);
+    color: var(--header-submenu-color, var(--color-grayscale-600));
+
+    .header-submenu__name.opened & {
+      color: var(--color-grayscale-400);
+    }
+  }
+
+  .header-submenu__name__icon {
+    width: 1.2rem;
+    height: 1.2rem;
+
+    display: block;
+
+    stroke: none;
+    fill: var(--header-submenu-color, var(--color-grayscale-600));
+
+    @media (min-width: 769px) {
+      transform: rotate(90deg) scaleY(1);
+
+      transition-property: transform, stroke;
+      transition-duration: var(--duration);
+      transition-timing-function: ease;
+
+      .header-submenu__name.opened & {
+        fill: var(--color-grayscale-400);
+        transform: rotate(90deg) scaleX(-1);
+      }
+
+      .header-submenu:not([has-links='true']) & {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+  }
+
+  .header-submenu__popover {
+    --click-outside: true;
+    --click-outside: true;
+    --escape: true;
+    --group: menu-submnenu;
+
+    position: absolute;
+    top: 100%;
+    left: calc(var(--padding) * -1);
+    width: calc(100% + var(--padding) * 2);
+
+    z-index: 1;
+
+    display: none;
+
+    &.triggered {
+      display: block;
+    }
+
+    transition-property: opacity;
+    transition-duration: var(--duration-menu);
+
+    @media (min-width: 769px) {
+    }
+
+    @media (max-width: 768px) {
+      top: 0;
+      left: 100%;
+    }
+  }
+
+  .header-submenu__back-button {
+    @media (min-width: 769px) {
+      display: none;
+    }
+  }
+
+  .header-submenu__links {
+    width: 100%;
+    display: grid;
+    grid-auto-rows: max-content;
+
+    background-color: var(--color-grayscale-0);
+
+    @media (min-width: 769px) {
+      gap: 0.5rem;
+
+      padding: var(--padding);
+      border-bottom-left-radius: var(--border-radius);
+      border-bottom-right-radius: var(--border-radius);
+
+      transition-property: clip-path;
+      transition-duration: var(--duration);
+      transition-timing-function: var(--ease-in-cubic);
+
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+
+      .header-submenu__popover.opened & {
+        transition-delay: var(--duration);
+        transition-timing-function: var(--ease-out-cubic);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      }
+    }
+
+    @media (max-width: 768px) {
+    }
+  }
+
+  .header-submenu__link {
+    @media (max-width: 768px) {
+      padding: 1.5rem var(--screen-horisontal-padding);
+      border-bottom: 0.1rem solid var(--color-grayscale-300);
+    }
+  }
+</style>

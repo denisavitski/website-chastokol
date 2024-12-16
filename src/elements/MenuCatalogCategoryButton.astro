@@ -1,6 +1,7 @@
 ---
 import type { SpriteIconName } from '@utils/SpriteIconName'
 import IconBox from './IconBox.astro'
+import Icon from './Icon.astro'
 
 export interface Props {
   class?: string
@@ -20,25 +21,30 @@ const {
 
 <e-popover-button
   {...rest}
-  class:list={[className, 'category-button']}
+  class:list={[className, 'menu-catalog-category-button']}
   {target}
 >
   <IconBox
     icon={icon}
-    class="category-button__icon"
+    class="menu-catalog-category-button__icon"
   />
   <div
-    class="category-button__name f-d-additionally-title-bold-16"
+    class="menu-catalog-category-button__name f-d-additionally-title-bold-16 f-m-body-large-medium-16"
     set:html={name}
+  />
+  <Icon
+    name={'tailless-arrow'}
+    class="menu-catalog-category-button__arrow"
   />
 </e-popover-button>
 
 <style is:global>
-  .category-button {
+  .menu-catalog-category-button {
     --icon-box-background-color: var(--color-grayscale-200);
     --icon-box-border-color: transparent;
     --icon-box-color: var(--color-grayscale-600);
     --icon-size: 100%;
+    --icon-box-duration: var(--duration-menu);
 
     padding: 1rem;
 
@@ -47,7 +53,7 @@ const {
     gap: 1.5rem;
 
     transition-property: background-color;
-    transition-duration: var(--duration-button);
+    transition-duration: var(--duration-menu);
     transition-timing-function: ease;
 
     &.opened {
@@ -56,11 +62,29 @@ const {
 
       background-color: var(--color-grayscale-100);
     }
+
+    @media (max-width: 768px) {
+      --icon-box-size: 3rem;
+      padding: 1.5rem var(--screen-horisontal-padding);
+      border-bottom: 0.1rem solid var(--color-grayscale-300);
+    }
   }
 
-  .category-button__icon {
+  .menu-catalog-category-button__icon {
   }
 
-  .category-button__name {
+  .menu-catalog-category-button__name {
+  }
+
+  .menu-catalog-category-button__arrow {
+    @media (min-width: 769px) {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      width: 1.8rem;
+      height: 1.8rem;
+      margin-left: auto;
+    }
   }
 </style>

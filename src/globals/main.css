@@ -47,6 +47,7 @@ body {
   --header-full-height: calc(var(--header-height) + var(--header-top-height));
 
   --duration-button: 0.12s;
+  --duration-menu: 0.3s;
 
   --viewport-height: var(--inner-height, 100vh);
   --viewport-width: var(--inner-width, 100vw);

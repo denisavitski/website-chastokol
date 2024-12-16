@@ -1,0 +1,58 @@
+---
+import { tryCreateHrefFromContact } from '@utils/href'
+
+export interface Props {
+  class?: string
+  value?: string
+  additional?: string
+  modal?: string
+}
+
+const {
+  class: className,
+  value = '+7 (499) 900-60-30',
+  additional = 'c 10:00 до 19:00, ежедневно',
+  modal,
+  ...rest
+} = Astro.props
+
+const href = tryCreateHrefFromContact(value)
+
+const Tag = href.href ? 'a' : modal ? 'e-popover-button' : 'span'
+---
+
+<Tag
+  {...rest}
+  class:list={[className, 'header-contact']}
+  href={href.href}
+  target={modal}
+>
+  <span
+    class="header-contact__value f-d-body-large-medium-16 f-m-body-basic-medium-14"
+    set:html={value}
+  />
+  <span
+    class="header-contact__additional f-d-body-basic-regular-14 f-m-footnote-regular-12"
+    set:html={additional}
+  />
+</Tag>
+
+<style is:global>
+  .header-contact {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header-contact__value {
+    margin-bottom: 0.4rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 0.8rem;
+    }
+  }
+
+  .header-contact__additional {
+    color: var(--color-grayscale-600);
+    opacity: 0.6;
+  }
+</style>

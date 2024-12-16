@@ -1,0 +1,54 @@
+---
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+  modal?: string | undefined
+  name?: string | undefined
+}
+
+const { class: className, modal, name = 'Каталог', ...rest } = Astro.props
+---
+
+<e-popover-button
+  {...rest}
+  class:list={[className, 'header-back-button']}
+  target={modal}
+>
+  <Icon
+    class="header-back-button__arrow"
+    name={'tailless-arrow'}
+  />
+  <span
+    class="header-back-button__name f-d-body-basic-medium-14"
+    set:html={name}
+  />
+</e-popover-button>
+
+<style is:global>
+  .header-back-button {
+    --type: close;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    padding: 1.5rem var(--screen-horisontal-padding);
+    padding-left: calc(var(--screen-horisontal-padding) * 0.8);
+
+    border-top: 0.1rem solid var(--color-grayscale-300);
+    border-bottom: 0.1rem solid var(--color-grayscale-300);
+  }
+
+  .header-back-button__name {
+    color: var(--color-grayscale-400);
+  }
+
+  .header-back-button__arrow {
+    fill: var(--color-grayscale-400);
+    transform: scaleX(-1);
+
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+</style>

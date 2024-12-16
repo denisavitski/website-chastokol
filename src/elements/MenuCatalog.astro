@@ -1,0 +1,190 @@
+---
+import MenuCatalogCategoryButton, {
+  type Props as MenuCatalogCategoryButtonProps,
+} from './MenuCatalogCategoryButton.astro'
+
+import MenuCatalogCategory, {
+  type Props as MenuCatalogCategoryProps,
+} from './MenuCatalogCategory.astro'
+import { categoriesData } from '@dev-data/categoriesData'
+import HeaderBackButton from './HeaderBackButton.astro'
+
+export const imagePaddingTop = '0'
+
+export interface MenuCatalogItem {
+  id: string
+  button: Omit<MenuCatalogCategoryButtonProps, 'target' | 'class'>
+  category: Omit<MenuCatalogCategoryProps, 'id' | 'class'>
+}
+
+export interface Props {
+  class?: string
+  categories?: Array<MenuCatalogItem>
+}
+
+const { class: className, categories = categoriesData, ...rest } = Astro.props
+---
+
+<e-popover
+  {...rest}
+  class:list={[className, 'menu-catalog']}
+  id="menu-catalog"
+>
+  <div class="menu-catalog__sheet">
+    <HeaderBackButton
+      modal="menu-catalog"
+      name="Каталог"
+      class="menu-catalog__back-button"
+    />
+
+    <div class="menu-catalog__buttons">
+      {
+        categories.map((category) => {
+          return (
+            <MenuCatalogCategoryButton
+              class="menu-catalog__button"
+              {...category.button}
+              target={category.id}
+            />
+          )
+        })
+      }
+    </div>
+    <div class="menu-catalog__list">
+      {
+        categories.map((category) => {
+          return (
+            <MenuCatalogCategory
+              class="menu-catalog__category"
+              name={category.button.name}
+              {...category.category}
+              id={category.id}
+            />
+          )
+        })
+      }
+    </div>
+  </div>
+</e-popover>
+
+<style is:global>
+  .menu-catalog {
+    --history: true;
+    --escape: true;
+    --close-rest: true;
+    --click-outside: true;
+    --group: menu-catalog;
+
+    display: none;
+
+    &.triggered {
+      display: block;
+    }
+
+    transition: clip-path var(--duration-menu);
+
+    @media (min-width: 769px) {
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+
+      &.opened {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      }
+    }
+
+    @media (max-width: 768px) {
+      --close-rest: false;
+      --click-outside: false;
+
+      width: 100%;
+    }
+  }
+
+  .menu-catalog__sheet {
+    @media (min-width: 769px) {
+      display: contents;
+    }
+
+    @media (max-width: 768px) {
+      transition-property: transform;
+      transition-duration: var(--duration-menu);
+      transition-timing-function: ease;
+
+      .catalog-category-opened &,
+      .catalog-category-opened & {
+        transform: translateX(-100%);
+      }
+    }
+  }
+
+  .menu-catalog__back-button {
+    @media (min-width: 769px) {
+      display: none;
+    }
+  }
+
+  .menu-catalog__buttons {
+    display: flex;
+    border-top: 0.1rem solid var(--color-grayscale-300);
+    border-bottom: 0.1rem solid var(--color-grayscale-300);
+
+    padding: 0 var(--screen-horisontal-padding);
+
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      border: unset;
+
+      flex-direction: column;
+
+      width: 100%;
+      padding: 0;
+    }
+  }
+
+  .menu-catalog__button {
+    @media (min-width: 769px) {
+      width: 30rem;
+      height: 100%;
+
+      &:first-child {
+        border-left: 0.1rem solid var(--color-grayscale-300);
+      }
+
+      & {
+        border-right: 0.1rem solid var(--color-grayscale-300);
+      }
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .menu-catalog__list {
+    display: grid;
+
+    @media (min-width: 769px) {
+      background-color: var(--color-grayscale-0);
+
+      transition: clip-path var(--duration-menu);
+
+      clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+
+      .catalog-category-opened & {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+      }
+    }
+
+    @media (max-width: 768px) {
+      position: absolute;
+      width: 100%;
+      left: 100%;
+      top: 0;
+    }
+  }
+
+  .menu-catalog__category {
+    grid-column: 1/1;
+    grid-row: 1/1;
+  }
+</style>

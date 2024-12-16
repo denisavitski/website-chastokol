@@ -1,29 +1,30 @@
 ---
 export interface Props {
   class?: string
+  target?: string
 }
 
-const { class: className, ...rest } = Astro.props
+const { class: className, target = 'menu', ...rest } = Astro.props
 ---
 
 <e-popover-button
   {...rest}
-  class:list={[className, 'menu-button']}
-  target="menu"
+  class:list={[
+    className,
+    'f-d-body-large-medium-16 f-m-body-basic-medium-14 menu-button',
+  ]}
+  {target}
 >
   <div class="menu-button__icon"></div>
 
-  <div
-    class="menu-button__name f-d-body-large-medium-16 f-d-body-basic-medium-14"
-  >
-    <div class="menu-button__name__desktop">Каталог</div>
-    <div class="menu-button__name__mobile">Меню</div>
-  </div>
+  <div class="menu-button__name"><slot /></div>
 </e-popover-button>
 
 <style is:global>
   .menu-button {
+    --type: toggle;
     --color: var(--color-grayscale-600);
+
     padding: 0 1.5rem;
     height: 3.7rem;
 
@@ -34,7 +35,7 @@ const { class: className, ...rest } = Astro.props
     border-radius: 3rem;
     background-color: var(--color-grayscale-0);
 
-    transition: background-color var(--duration-button);
+    transition: background-color var(--duration-menu);
 
     &.opened {
       --color: var(--color-grayscale-0);
@@ -65,8 +66,8 @@ const { class: className, ...rest } = Astro.props
       background-color: var(--color);
 
       transition:
-        background-color var(--duration-button),
-        transform var(--duration-button);
+        background-color var(--duration-menu),
+        transform var(--duration-menu);
     }
 
     &::before {
@@ -87,20 +88,8 @@ const { class: className, ...rest } = Astro.props
   }
 
   .menu-button__name {
-    transition: color var(--duration-button);
+    transition: color var(--duration-menu);
 
     color: var(--color);
-  }
-
-  .menu-button__name__desktop {
-    @media (max-width: 768px) {
-      display: none;
-    }
-  }
-
-  .menu-button__name__mobile {
-    @media (min-width: 769px) {
-      display: none;
-    }
   }
 </style>
