@@ -1,0 +1,55 @@
+---
+export interface Props {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<e-scroll-bullet-buttons
+  {...rest}
+  class:list={[className, 'slider-bullets']}
+  slot="static"
+></e-scroll-bullet-buttons>
+
+<style is:global>
+  .slider-bullets {
+    position: absolute;
+    top: calc(100% + 5rem);
+    left: 50%;
+
+    display: none;
+    align-items: center;
+    gap: 1.5rem;
+
+    transform: translateX(-50%);
+
+    button {
+      flex-shrink: 0;
+
+      width: 0.8rem;
+      height: 0.8rem;
+
+      background-color: var(--color-grayscale-300);
+      border-radius: 50%;
+
+      transition-property: background-color;
+      transition-duration: var(--duration-button);
+    }
+
+    button.current {
+      background-color: var(--color-primary-100);
+    }
+
+    @media (min-width: 769px) {
+      .has-overflow &,
+      .ui & {
+        display: flex;
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+</style>

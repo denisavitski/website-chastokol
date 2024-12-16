@@ -5,6 +5,7 @@ import 'aptechka/accordion'
 import 'aptechka/popover'
 import 'aptechka/pixel-perfect'
 import 'aptechka/custom-scrollbar'
+import 'aptechka/scroll'
 
 import '@lib/ImageCloak'
 

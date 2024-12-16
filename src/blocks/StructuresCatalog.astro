@@ -1,0 +1,114 @@
+---
+import CatalogCard, {
+  type Props as CatalogCardProps,
+} from '@elements/CatalogCard.astro'
+import SliderBullets from '@elements/SliderBullets.astro'
+
+export interface Props {
+  class?: string
+  heading?: string
+  catalog?: Array<CatalogCardProps>
+}
+
+const {
+  class: className,
+  heading = 'Каталог конструкций',
+  catalog = [
+    {
+      href: '/',
+      name: 'Заборы',
+      price: 'от 550 руб. за м2',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      href: '/',
+      name: 'Заборы',
+      price: 'от 550 руб. за м2',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      href: '/',
+      name: 'Заборы',
+      price: 'от 550 руб. за м2',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      href: '/',
+      name: 'Заборы',
+      price: 'от 550 руб. за м2',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      href: '/',
+      name: 'Заборы',
+      price: 'от 550 руб. за м2',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      href: '/',
+      name: 'Заборы',
+      price: 'от 550 руб. за м2',
+      image: { src: '/images/catalog-item.png' },
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<!-- BLOCK -->
+<section
+  {...rest}
+  class:list={[className, 'structures-catalog bullets-padding']}>
+  <h2
+    set:html={heading}
+    class="structures-catalog__heading f-d-title-medium-56 f-m-title-medium-24"
+  />
+
+  <e-scroll class="structures-catalog__slider bullets">
+    {
+      catalog.map((item) => {
+        return (
+          <CatalogCard
+            class="structures-catalog__slider__item"
+            {...item}
+          />
+        )
+      })
+    }
+    <SliderBullets />
+  </e-scroll>
+</section>
+
+<style is:global>
+  .structures-catalog {
+    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
+  }
+
+  .structures-catalog__heading {
+    margin-bottom: 8rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 4.3rem;
+    }
+  }
+
+  .structures-catalog__slider {
+    --axis: x;
+    --gap: 5rem;
+    --overflow: hidden;
+    --sectional: true;
+    --sections-in-view: 3;
+
+    display: flex;
+    gap: var(--gap);
+
+    @media (max-width: 768px) {
+      --overflow: unset;
+      --gap: 2rem;
+      --sections-in-view: 1;
+    }
+  }
+
+  .structures-catalog__slider__item {
+  }
+</style>

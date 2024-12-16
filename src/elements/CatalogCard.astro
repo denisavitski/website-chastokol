@@ -1,0 +1,99 @@
+---
+import type { ImageDataProps } from './Image.astro'
+import Image from './Image.astro'
+import LinkButton from './LinkButton.astro'
+
+export interface Props {
+  class?: string
+  href?: string
+  name?: string
+  price?: string
+  image?: ImageDataProps
+}
+
+const {
+  class: className,
+  href = '/',
+  name = 'Заборы',
+  price = 'от 550 руб. за м2',
+  image = { src: '/images/catalog-item.png' },
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'catalog-card']}>
+  <Image
+    class="catalog-card__image"
+    {...image}
+  />
+  <div class="catalog-card__content">
+    <div class="catalog-card__info">
+      <div
+        class="catalog-card__name f-d-title-medium-20 f-m-body-large-medium-16"
+        set:html={name}
+      />
+      <div
+        class="catalog-card__price f-d-body-large-medium-16 f-m-footnote-medium-12"
+        set:html={price}
+      />
+    </div>
+    <LinkButton
+      class="catalog-card__link mobile-only-arrow"
+      href={href}
+      name={'Подробнее'}
+    />
+  </div>
+</div>
+
+<style is:global>
+  .catalog-card {
+    width: 46.7rem;
+    border-radius: 2rem;
+    border: 0.1rem solid var(--color-grayscale-300);
+
+    @media (max-width: 768px) {
+      width: 26rem;
+      border-radius: 1.5rem;
+    }
+  }
+
+  .catalog-card__image {
+    width: 100%;
+    height: 46.7rem;
+    border-radius: 2rem;
+    overflow: hidden;
+    background-color: #f0f0f0;
+
+    @media (max-width: 768px) {
+      height: 26rem;
+      border-radius: 1.5rem;
+    }
+  }
+
+  .catalog-card__content {
+    padding: 2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: 768px) {
+      padding: 1.5rem;
+    }
+  }
+
+  .catalog-card__info {
+  }
+
+  .catalog-card__name {
+  }
+
+  .catalog-card__price {
+    color: var(--color-primary-100);
+  }
+
+  .catalog-card__link {
+  }
+</style>

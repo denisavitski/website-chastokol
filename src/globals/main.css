@@ -41,6 +41,8 @@ body {
   --z-header: 100;
 
   --screen-horisontal-padding: 21rem;
+  --section-vertical-padding: 4rem;
+  --section-bullets-padding: 5.8rem;
 
   --header-top-height: 3rem;
   --header-height: 8.7rem;
@@ -94,7 +96,9 @@ body {
 
   @media (max-width: 768px) {
     --screen-horisontal-padding: 2rem;
+    --section-vertical-padding: 2rem;
     --header-height: 6.4rem;
+    --section-bullets-padding: 0rem;
 
     --input-height: 4rem;
   }
@@ -221,6 +225,10 @@ img {
 
 b {
   font-weight: 600;
+}
+
+e-scroll.has-overflow.bullets {
+  margin-bottom: var(--section-bullets-padding);
 }
 
 .hidden-scrollbar {
