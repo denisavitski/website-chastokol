@@ -46,6 +46,8 @@ body {
   --header-height: 8.7rem;
   --header-full-height: calc(var(--header-height) + var(--header-top-height));
 
+  --input-height: 5rem;
+
   --duration-button: 0.12s;
   --duration-menu: 0.3s;
 
@@ -93,6 +95,8 @@ body {
   @media (max-width: 768px) {
     --screen-horisontal-padding: 2rem;
     --header-height: 6.4rem;
+
+    --input-height: 4rem;
   }
 
   @supports (height: 100dvh) {

@@ -1,28 +1,28 @@
 @font-face {
   font-family: 'font-primary';
   font-weight: 300;
-  src: url('/fonts/tt-norms-pro/light.otf');
+  src: url('/fonts/tt-norms-pro/light.ttf');
   font-display: swap;
 }
 
 @font-face {
   font-family: 'font-primary';
   font-weight: 400;
-  src: url('/fonts/tt-norms-pro/regular.otf');
+  src: url('/fonts/tt-norms-pro/regular.ttf');
   font-display: swap;
 }
 
 @font-face {
   font-family: 'font-primary';
   font-weight: 500;
-  src: url('/fonts/tt-norms-pro/medium.otf');
+  src: url('/fonts/tt-norms-pro/medium.ttf');
   font-display: swap;
 }
 
 @font-face {
   font-family: 'font-primary';
   font-weight: 700;
-  src: url('/fonts/tt-norms-pro/bold.otf');
+  src: url('/fonts/tt-norms-pro/bold.ttf');
   font-display: swap;
 }
 

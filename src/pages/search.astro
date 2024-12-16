@@ -1,0 +1,18 @@
+---
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import Layout from '@layout/Layout.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Результаты поиска',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  ><Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Поиск', href: '/search' },
+    ]}
+  /></Layout
+>

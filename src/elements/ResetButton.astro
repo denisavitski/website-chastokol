@@ -25,7 +25,7 @@ const { class: className, ...rest } = Astro.props
   }
 
   .reset-button__icon {
-    --icon-box-size: 5rem;
+    --icon-box-size: var(--input-height);
     --icon-size: 1.6rem;
     --icon-box-rotation: 45deg;
     --icon-box-border-color: var(--color-grayscale-300);

@@ -17,7 +17,12 @@ const { class: className, target = 'menu', ...rest } = Astro.props
 >
   <div class="menu-button__icon"></div>
 
-  <div class="menu-button__name"><slot /></div>
+  <div class="menu-button__name">
+    <div class="menu-button__name__closed">
+      <slot />
+    </div>
+    <div class="menu-button__name__opened"> Закрыть </div>
+  </div>
 </e-popover-button>
 
 <style is:global>
@@ -71,11 +76,11 @@ const { class: className, target = 'menu', ...rest } = Astro.props
     }
 
     &::before {
-      transform: translateY(-0.2rem) rotate(0);
+      transform: translateY(-0.3rem) rotate(0);
     }
 
     &::after {
-      transform: translateY(0.2rem) rotate(0);
+      transform: translateY(0.3rem) rotate(0);
     }
 
     .menu-button.opened &::before {
@@ -88,8 +93,33 @@ const { class: className, target = 'menu', ...rest } = Astro.props
   }
 
   .menu-button__name {
-    transition: color var(--duration-menu);
+    display: grid;
 
+    transition: color var(--duration-menu);
     color: var(--color);
+
+    overflow: hidden;
+  }
+
+  .menu-button__name__closed,
+  .menu-button__name__opened {
+    grid-column: 1/1;
+    grid-row: 1/1;
+
+    transition: transform var(--duration-menu);
+  }
+
+  .menu-button__name__closed {
+    .menu-button.opened & {
+      transform: translateY(-101%);
+    }
+  }
+
+  .menu-button__name__opened {
+    transform: translateY(101%);
+
+    .menu-button.opened & {
+      transform: translateY(0);
+    }
   }
 </style>
