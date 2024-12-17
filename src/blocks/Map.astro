@@ -1,0 +1,32 @@
+---
+export interface Props {}
+
+const {} = Astro.props
+---
+
+<!-- BLOCK -->
+<div class="map">
+  <div class="map__holder"></div>
+</div>
+
+<style is:global>
+  .map {
+    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
+    padding-bottom: var(--section-vertical-padding-full);
+    background-color: var(--color-grayscale-0);
+  }
+
+  .map__holder {
+    width: 100%;
+    height: 56.2rem;
+
+    overflow: hidden;
+    border-radius: 2rem;
+
+    background-color: var(--color-image-background);
+
+    @media (max-width: 768px) {
+      border-radius: 1.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,101 @@
+---
+import type { ImageDataProps } from '@elements/Image.astro'
+import Image from '@elements/Image.astro'
+import VkontakteLink from '@elements/VkontakteLink.astro'
+
+export interface Props {
+  image?: ImageDataProps
+  heading?: string
+  description?: string
+}
+
+const {
+  image = { src: '/images/vkontakte/image.jpg' },
+  heading = 'Больше выполненных работ в&nbsp;нашей&nbsp;социальной сети ВКонтакте',
+  description = 'Будьте в&nbsp;курсе всех обновлений. Специальные предложения, эксклюзивные материалы и&nbsp;полезные советы — все это в&nbsp;нашей группе ВКонтакте.',
+} = Astro.props
+---
+
+<section class="vkontakte">
+  <Image
+    class="vkontakte__image"
+    {...image}
+    lazy
+    lazyBackground
+    cover
+  />
+
+  <div class="vkontakte__content">
+    <h2
+      class="vkontakte__heading f-d-title-medium-32 f-m-title-medium-20"
+      set:html={heading}
+    />
+    <p
+      class="vkontakte__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+      set:html={description}
+    />
+    <VkontakteLink />
+  </div>
+</section>
+
+<style is:global>
+  .vkontakte {
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+
+    display: flex;
+    gap: 5.1rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+      gap: 2rem;
+    }
+  }
+
+  .vkontakte__image {
+    @media (max-width: 768px) {
+      height: 23.5rem;
+    }
+  }
+
+  .vkontakte__content {
+    padding: 5rem;
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      padding: 2rem;
+    }
+  }
+
+  .vkontakte__content,
+  .vkontakte__image {
+    border-radius: 2rem;
+    overflow: hidden;
+
+    @media (min-width: 769px) {
+      min-height: 34.2rem;
+      width: 72.5rem;
+    }
+
+    @media (max-width: 768px) {
+      border-radius: 1.5rem;
+    }
+  }
+
+  .vkontakte__heading {
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .vkontakte__description {
+    color: var(--color-grayscale-400);
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+</style>
