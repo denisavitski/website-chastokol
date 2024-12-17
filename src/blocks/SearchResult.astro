@@ -6,12 +6,10 @@ import SearchMatch, {
 } from '@elements/SearchMatch.astro'
 
 export interface Props {
-  class?: string
   list?: Array<SearchMatchProps>
 }
 
 const {
-  class: className,
   list = [
     {
       category: 'Часто задаваемые вопросы',
@@ -38,7 +36,8 @@ const {
 
 <div
   {...rest}
-  class:list={[className, 'search-result']}>
+  class:list={['search-result']}
+>
   <div class="search-result__form-wrapper">
     <form class="search-result__form">
       <div class="search-result__form__input-field">
@@ -58,7 +57,8 @@ const {
       <SearchButton class="search-result__form__submit" />
     </form>
     <div
-      class="f-d-body-large-regular-16 f-d-body-basic-regular-14 search-result__amount">
+      class="f-d-body-large-regular-16 f-d-body-basic-regular-14 search-result__amount"
+    >
       <span
         class="search-result__amount__title"
         set:html="Найдено результатов:"

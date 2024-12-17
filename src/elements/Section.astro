@@ -1,0 +1,71 @@
+---
+export interface Props {
+  class?: string
+  heading?: string
+  headingLevel?: 'h2' | 'h3'
+  paddingTop?: 'full' | 'normal'
+  paddingBottom?: 'full' | 'normal'
+  whiteBackground?: boolean
+}
+
+const {
+  class: className,
+  heading = 'Ворота',
+  headingLevel = 'h2',
+  paddingTop = 'normal',
+  paddingBottom = 'normal',
+  whiteBackground,
+  ...rest
+} = Astro.props
+
+const HeadingTag = headingLevel
+---
+
+<section
+  {...rest}
+  class:list={[className, 'section']}
+  data-padding-top={paddingTop}
+  data-padding-bottom={paddingBottom}
+  data-white-background={whiteBackground}
+>
+  <HeadingTag
+    class:list={[
+      'section__heading',
+      {
+        'f-d-title-medium-42 f-m-title-medium-24': headingLevel === 'h3',
+        'f-d-title-medium-56 f-m-title-medium-24': headingLevel === 'h2',
+      },
+    ]}
+    set:html={heading}
+  />
+
+  <div class="section__content">
+    <slot />
+  </div>
+</section>
+
+<style is:global>
+  .section {
+    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
+
+    &[data-padding-top='full'] {
+      padding-top: var(--section-vertical-padding-full);
+    }
+
+    &[data-padding-bottom='full'] {
+      padding-bottom: var(--section-vertical-padding-full);
+    }
+
+    &[data-white-background] {
+      background-color: var(--color-grayscale-0);
+    }
+  }
+
+  .section__heading {
+    margin-bottom: 8rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+</style>

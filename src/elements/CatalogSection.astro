@@ -1,0 +1,50 @@
+---
+import Section, { type Props as SectionProps } from './Section.astro'
+import SliderBullets from './SliderBullets.astro'
+import SliderButton from './SliderButton.astro'
+
+export interface Props extends SectionProps {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<Section
+  class={`catalog-section ${className || ''}`}
+  whiteBackground
+  {...rest}
+>
+  <e-scroll class="catalog-section__slider bullets">
+    <slot />
+    <SliderButton
+      type={'prev'}
+      center
+    />
+    <SliderButton
+      type={'next'}
+      center
+    />
+    <SliderBullets />
+  </e-scroll>
+</Section>
+
+<style is:global>
+  .catalog-section__slider {
+    --axis: x;
+    --gap: 5rem;
+    --overflow: hidden;
+    --sectional: true;
+    --sections-in-view: 3;
+    --auto-size: true;
+
+    display: flex;
+    gap: var(--gap);
+
+    @media (max-width: 768px) {
+      --overflow: unset;
+      --gap: 2rem;
+      --sections-in-view: 1.27;
+    }
+  }
+</style>

@@ -1,14 +1,15 @@
 ---
-import CatalogCard, {
-  type Props as CatalogCardProps,
-} from '@elements/CatalogCard.astro'
+import CatalogPreviewCard, {
+  type Props as CatalogPreviewCardProps,
+} from '@elements/CatalogPreviewCard.astro'
+import Section from '@elements/Section.astro'
 import SliderBullets from '@elements/SliderBullets.astro'
 import SliderButton from '@elements/SliderButton.astro'
 
 export interface Props {
   class?: string
   heading?: string
-  catalog?: Array<CatalogCardProps>
+  catalog?: Array<CatalogPreviewCardProps>
 }
 
 const {
@@ -33,44 +34,24 @@ const {
       price: 'от 550 руб. за м2',
       image: { src: '/images/catalog-item.png' },
     },
-    {
-      href: '/',
-      name: 'Заборы',
-      price: 'от 550 руб. за м2',
-      image: { src: '/images/catalog-item.png' },
-    },
-    {
-      href: '/',
-      name: 'Заборы',
-      price: 'от 550 руб. за м2',
-      image: { src: '/images/catalog-item.png' },
-    },
-    {
-      href: '/',
-      name: 'Заборы',
-      price: 'от 550 руб. за м2',
-      image: { src: '/images/catalog-item.png' },
-    },
   ],
   ...rest
 } = Astro.props
 ---
 
 <!-- BLOCK -->
-<section
+<Section
   {...rest}
-  class:list={[className, 'structures-catalog bullets-padding']}
+  class="structures-catalog"
+  heading="Каталог конструкций"
+  whiteBackground
+  paddingTop={'full'}
 >
-  <h2
-    set:html={heading}
-    class="structures-catalog__heading f-d-title-medium-56 f-m-title-medium-24"
-  />
-
   <e-scroll class="structures-catalog__slider bullets">
     {
       catalog.map((item) => {
         return (
-          <CatalogCard
+          <CatalogPreviewCard
             class="structures-catalog__slider__item"
             {...item}
           />
@@ -87,21 +68,9 @@ const {
     />
     <SliderBullets />
   </e-scroll>
-</section>
+</Section>
 
 <style is:global>
-  .structures-catalog {
-    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
-  }
-
-  .structures-catalog__heading {
-    margin-bottom: 8rem;
-
-    @media (max-width: 768px) {
-      margin-bottom: 4.3rem;
-    }
-  }
-
   .structures-catalog__slider {
     --axis: x;
     --gap: 5rem;
@@ -109,7 +78,6 @@ const {
     --sectional: true;
     --sections-in-view: 3;
     --auto-size: true;
-    --slider-button-color: var(--color-grayscale-300);
 
     display: flex;
     gap: var(--gap);
@@ -119,8 +87,5 @@ const {
       --gap: 2rem;
       --sections-in-view: 1.27;
     }
-  }
-
-  .structures-catalog__slider__item {
   }
 </style>

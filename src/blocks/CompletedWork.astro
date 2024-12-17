@@ -1,0 +1,62 @@
+---
+import CatalogSection from '@elements/CatalogSection.astro'
+import WorkCard, { type Props as WorkCardProps } from '@elements/WorkCard.astro'
+
+export interface Props {
+  cards?: Array<WorkCardProps>
+}
+
+const {
+  cards = [
+    {
+      label: 'Изготовление',
+      name: 'Заборы',
+      image: { src: '/images/catalog-item.png' },
+      video: null,
+    },
+    {
+      label: 'Изготовление',
+      name: 'Заборы',
+      image: { src: '/images/catalog-item.png' },
+      video: null,
+    },
+    {
+      label: 'Изготовление',
+      name: 'Заборы',
+      image: { src: '/images/catalog-item.png' },
+      video: null,
+    },
+    {
+      label: 'Изготовление',
+      name: 'Заборы',
+      image: { src: '/images/catalog-item.png' },
+      video: null,
+    },
+    {
+      label: 'Изготовление',
+      name: 'Заборы',
+      image: { src: '/images/catalog-item.png' },
+      video: null,
+    },
+    {
+      label: 'Изготовление',
+      name: 'Заборы',
+      image: { src: '/images/catalog-item.png' },
+      video: null,
+    },
+  ],
+} = Astro.props
+---
+
+<!-- BLOCK -->
+<CatalogSection
+  heading="Выполненные работы"
+  headingLevel="h2"
+  paddingTop={'full'}
+>
+  {
+    cards.map((card) => {
+      return <WorkCard {...card} />
+    })
+  }
+</CatalogSection>

@@ -33,7 +33,7 @@ body {
   --color-page: var(--color-grayscale-200);
   --color-font: var(--color-grayscale-600);
 
-  --color-scrollbar-thumb: var(--color-grayscale-600);
+  --color-scrollbar-thumb: var(--color-primary-100);
   --color-scrollbar-track: var(--color-grayscale-200);
 
   --color-image-background: #f0f0f0;
@@ -44,6 +44,7 @@ body {
 
   --screen-horisontal-padding: 21rem;
   --section-vertical-padding: 4rem;
+  --section-vertical-padding-full: calc(var(--section-vertical-padding) * 2);
   --section-bullets-padding: 5.8rem;
 
   --header-top-height: 3rem;

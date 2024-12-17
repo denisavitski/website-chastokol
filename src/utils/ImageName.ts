@@ -1,1 +1,1 @@
-export type ImageName = '/images/catalog-item.png' | '/images/home/background.jpg' | '/images/manager.jpg' | '/images/seo/home.jpg' | '/images/small-preview.jpg'
+export type ImageName = '/images/catalog-item.png' | '/images/home/background.jpg' | '/images/manager.jpg' | '/images/seo/home.jpg' | '/images/small-preview.jpg' | '/images/turnkey-fences/image.jpg'

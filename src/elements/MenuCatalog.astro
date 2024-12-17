@@ -169,6 +169,8 @@ const { class: className, categories = categoriesData, ...rest } = Astro.props
 
       clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
 
+      border-bottom: 0.1rem solid var(--color-grayscale-300);
+
       .catalog-category-opened & {
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
       }

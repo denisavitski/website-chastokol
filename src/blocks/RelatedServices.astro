@@ -1,18 +1,17 @@
 ---
-import RelatedServicesCard, {
-  type Props as RelatedServicesCardProps,
-} from '@elements/RelatedServicesCard.astro'
+import CatalogCard, {
+  type Props as CatalogCardProps,
+} from '@elements/CatalogCard.astro'
+import Section from '@elements/Section.astro'
 import SliderBullets from '@elements/SliderBullets.astro'
 import SliderButton from '@elements/SliderButton.astro'
 
 export interface Props {
-  class?: string
   heading?: string
-  catalog?: Array<RelatedServicesCardProps>
+  catalog?: Array<CatalogCardProps>
 }
 
 const {
-  class: className,
   heading = 'Сопутствующие услуги',
   catalog = [
     {
@@ -61,20 +60,19 @@ const {
 ---
 
 <!-- BLOCK -->
-<section
+<Section
   {...rest}
-  class:list={[className, 'related-services bullets-padding']}
+  class:list={['related-services']}
+  heading={heading}
+  headingLevel={'h3'}
+  whiteBackground
+  paddingBottom={'full'}
 >
-  <h2
-    set:html={heading}
-    class="related-services__heading f-d-title-medium-42 f-m-title-medium-24"
-  />
-
   <e-scroll class="related-services__slider bullets">
     {
       catalog.map((item) => {
         return (
-          <RelatedServicesCard
+          <CatalogCard
             class="related-services__slider__item"
             {...item}
           />
@@ -91,21 +89,9 @@ const {
     />
     <SliderBullets />
   </e-scroll>
-</section>
+</Section>
 
 <style is:global>
-  .related-services {
-    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
-  }
-
-  .related-services__heading {
-    margin-bottom: 7.8rem;
-
-    @media (max-width: 768px) {
-      margin-bottom: 4.3rem;
-    }
-  }
-
   .related-services__slider {
     --axis: x;
     --gap: 5rem;
@@ -113,7 +99,6 @@ const {
     --sectional: true;
     --sections-in-view: 4;
     --auto-size: true;
-    --slider-button-color: var(--color-grayscale-300);
 
     display: flex;
     gap: var(--gap);
@@ -123,8 +108,5 @@ const {
       --gap: 2rem;
       --sections-in-view: 1.6;
     }
-  }
-
-  .related-services__slider__item {
   }
 </style>

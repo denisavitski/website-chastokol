@@ -443,6 +443,11 @@
     "body": "f-d-title-medium-64",
     "description": "f-d-title-medium-64"
   },
+  "f-d-title-medium-56": {
+    "prefix": "f-d-title-medium-56",
+    "body": "f-d-title-medium-56",
+    "description": "f-d-title-medium-56"
+  },
   "f-d-title-medium-45": {
     "prefix": "f-d-title-medium-45",
     "body": "f-d-title-medium-45",
@@ -652,6 +657,11 @@
     "prefix": "f-m-title-medium-64",
     "body": "f-m-title-medium-64",
     "description": "f-m-title-medium-64"
+  },
+  "f-m-title-medium-56": {
+    "prefix": "f-m-title-medium-56",
+    "body": "f-m-title-medium-56",
+    "description": "f-m-title-medium-56"
   },
   "f-m-title-medium-45": {
     "prefix": "f-m-title-medium-45",

@@ -39,13 +39,16 @@ modules.forEach((module) => {
   footer={false}
   pixelPerfectImages={[]}
 >
-  <e-accordion class="nav">
+  <e-accordion
+    class="nav"
+    multiple
+  >
     {
       Array.from(components).map(([folderName, componentNames], i) => {
         return (
           <div
             class="nav__folder"
-            data-opened={i === 0}
+            data-opened
           >
             <div class="nav__folder__title">{folderName}</div>
             <div class="nav__folder__list">
@@ -95,13 +98,13 @@ modules.forEach((module) => {
 
   .nav__folder__title {
     text-transform: capitalize;
-    font-size: 3rem;
+    font-size: 2rem;
     font-weight: 600;
     cursor: pointer;
   }
 
   .nav__folder__list {
-    width: 90rem;
+    width: 100%;
     transition: height var(--duration-button);
 
     height: 0;
@@ -114,8 +117,8 @@ modules.forEach((module) => {
 
   .nav__folder__list__inner {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 2rem 4rem;
     padding-top: 2rem;
     padding-left: 2rem;
 
@@ -125,7 +128,7 @@ modules.forEach((module) => {
   }
 
   .nav__link {
-    font-size: 2rem;
+    font-size: 1.6rem;
     width: max-content;
     white-space: break-all;
   }

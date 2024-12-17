@@ -1,0 +1,76 @@
+---
+import CardLabel from './CardLabel.astro'
+import CatalogCard from './CatalogCard.astro'
+import type { ImageDataProps } from './Image.astro'
+import PlayButton from './PlayButton.astro'
+
+export interface Props {
+  class?: string
+  label?: string
+  image?: ImageDataProps
+  name?: string
+  video?: any
+}
+
+const {
+  class: className,
+  label = 'Изготовление',
+  name = 'Заборы',
+  image = { src: '/images/catalog-item.png' },
+  video = null,
+  ...rest
+} = Astro.props
+---
+
+<CatalogCard
+  {...rest}
+  class={`work-card ${className || ''}`}
+  button={false}
+  {name}
+  {image}
+>
+  <CardLabel
+    class="work-card__label"
+    name={label}
+    slot={'image-box'}
+  />
+  <PlayButton
+    class="work-card__play-button"
+    slot={'image-box'}
+  />
+</CatalogCard>
+
+<style is:global>
+  .work-card {
+    --catalog-card-width: 46.7rem;
+    --catalog-card-image-height: 32.7rem;
+
+    @media (max-width: 768px) {
+      --catalog-card-width: 26rem;
+      --catalog-card-image-height: 20rem;
+    }
+  }
+
+  .work-card .catalog-card__image-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .work-card__label {
+    position: absolute;
+    z-index: 1;
+    top: 2rem;
+    left: 2rem;
+
+    @media (max-width: 768px) {
+      top: 1.5rem;
+      left: 1.5rem;
+    }
+  }
+
+  .work-card__play-button {
+    position: absolute;
+    z-index: 1;
+  }
+</style>
