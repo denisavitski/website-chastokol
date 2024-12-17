@@ -5,16 +5,24 @@ export interface Props {
   class?: string
   href?: string
   name?: string | false
+  tag?: string
 }
 
-const { class: className, href, name = 'Кнопка', ...rest } = Astro.props
+const {
+  class: className,
+  href,
+  name = 'Кнопка',
+  tag = 'button',
+  ...rest
+} = Astro.props
 
-const Tag = href ? 'a' : 'button'
+const Tag = href ? 'a' : tag
 ---
 
 <Tag
   {...rest}
-  class:list={['link-button', className]}>
+  class:list={['link-button', className]}
+>
   {
     name && (
       <span

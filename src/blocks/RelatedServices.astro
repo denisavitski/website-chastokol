@@ -1,54 +1,58 @@
 ---
-import CatalogCard, {
-  type Props as CatalogCardProps,
-} from '@elements/CatalogCard.astro'
+import RelatedServicesCard, {
+  type Props as RelatedServicesCardProps,
+} from '@elements/RelatedServicesCard.astro'
 import SliderBullets from '@elements/SliderBullets.astro'
 import SliderButton from '@elements/SliderButton.astro'
 
 export interface Props {
   class?: string
   heading?: string
-  catalog?: Array<CatalogCardProps>
+  catalog?: Array<RelatedServicesCardProps>
 }
 
 const {
   class: className,
-  heading = 'Каталог конструкций',
+  heading = 'Сопутствующие услуги',
   catalog = [
     {
       href: '/',
-      name: 'Заборы',
-      price: 'от 550 руб. за м2',
+      name: 'Заборы жалюзи',
       image: { src: '/images/catalog-item.png' },
     },
     {
       href: '/',
-      name: 'Заборы',
-      price: 'от 550 руб. за м2',
+      name: 'Откатные ворота',
       image: { src: '/images/catalog-item.png' },
     },
     {
       href: '/',
-      name: 'Заборы',
-      price: 'от 550 руб. за м2',
+      name: 'Винтовые сваи',
       image: { src: '/images/catalog-item.png' },
     },
     {
       href: '/',
-      name: 'Заборы',
-      price: 'от 550 руб. за м2',
+      name: 'Калитки',
       image: { src: '/images/catalog-item.png' },
     },
     {
       href: '/',
-      name: 'Заборы',
-      price: 'от 550 руб. за м2',
+      name: 'Заборы жалюзи',
       image: { src: '/images/catalog-item.png' },
     },
     {
       href: '/',
-      name: 'Заборы',
-      price: 'от 550 руб. за м2',
+      name: 'Откатные ворота',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      href: '/',
+      name: 'Винтовые сваи',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      href: '/',
+      name: 'Калитки',
       image: { src: '/images/catalog-item.png' },
     },
   ],
@@ -59,19 +63,19 @@ const {
 <!-- BLOCK -->
 <section
   {...rest}
-  class:list={[className, 'structures-catalog bullets-padding']}
+  class:list={[className, 'related-services bullets-padding']}
 >
   <h2
     set:html={heading}
-    class="structures-catalog__heading f-d-title-medium-56 f-m-title-medium-24"
+    class="related-services__heading f-d-title-medium-42 f-m-title-medium-24"
   />
 
-  <e-scroll class="structures-catalog__slider bullets">
+  <e-scroll class="related-services__slider bullets">
     {
       catalog.map((item) => {
         return (
-          <CatalogCard
-            class="structures-catalog__slider__item"
+          <RelatedServicesCard
+            class="related-services__slider__item"
             {...item}
           />
         )
@@ -90,24 +94,24 @@ const {
 </section>
 
 <style is:global>
-  .structures-catalog {
+  .related-services {
     padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
   }
 
-  .structures-catalog__heading {
-    margin-bottom: 8rem;
+  .related-services__heading {
+    margin-bottom: 7.8rem;
 
     @media (max-width: 768px) {
       margin-bottom: 4.3rem;
     }
   }
 
-  .structures-catalog__slider {
+  .related-services__slider {
     --axis: x;
     --gap: 5rem;
     --overflow: hidden;
     --sectional: true;
-    --sections-in-view: 3;
+    --sections-in-view: 4;
     --auto-size: true;
     --slider-button-color: var(--color-grayscale-300);
 
@@ -117,10 +121,10 @@ const {
     @media (max-width: 768px) {
       --overflow: unset;
       --gap: 2rem;
-      --sections-in-view: 1.27;
+      --sections-in-view: 1.6;
     }
   }
 
-  .structures-catalog__slider__item {
+  .related-services__slider__item {
   }
 </style>

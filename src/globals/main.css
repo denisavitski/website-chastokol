@@ -36,6 +36,8 @@ body {
   --color-scrollbar-thumb: var(--color-grayscale-600);
   --color-scrollbar-track: var(--color-grayscale-200);
 
+  --color-image-background: #f0f0f0;
+
   --z-modal: 102;
   --z-scrollbar: 101;
   --z-header: 100;
