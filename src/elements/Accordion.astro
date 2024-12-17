@@ -1,4 +1,5 @@
 ---
+import { undefined } from 'astro:schema'
 import Icon from './Icon.astro'
 
 export interface Props {
@@ -44,9 +45,12 @@ const {
   class:list={[className, 'accordion']}
 >
   {
-    items.map((item) => {
+    items.map((item, i) => {
       return (
-        <div class="accordion__item">
+        <div
+          class="accordion__item"
+          data-opened={i === 0 ? true : undefined}
+        >
           <div class="accordion__item__head">
             <div
               class="accordion__item__head__title f-d-title-medium-18 f-m-body-basic-medium-14"
@@ -75,6 +79,7 @@ const {
   .accordion {
     --duration: 0.3s;
     display: grid;
+    grid-auto-rows: max-content;
     gap: 2rem;
 
     width: 72.5rem;
@@ -90,6 +95,7 @@ const {
 
     border-radius: 2rem;
     background-color: var(--color-grayscale-0);
+    color: var(--color-primary-100);
 
     transition-property: color, background-color;
     transition-duration: var(--duration);
@@ -124,6 +130,7 @@ const {
   }
 
   .accordion__item__head__toggle {
+    flex-shrink: 0;
     position: relative;
 
     z-index: 1;
@@ -194,7 +201,6 @@ const {
     @media (max-width: 768px) {
       width: 1.6rem;
       height: 1.6rem;
-      margin-right: 0.1rem;
     }
   }
 
@@ -203,7 +209,7 @@ const {
   }
 
   .accordion__item__content {
-    padding: 1.2rem 3rem 3rem 3rem;
+    padding: 1.2rem 3rem 2.4rem 3rem;
 
     @media (max-width: 768px) {
       padding: 1rem 1.5rem 2rem 1.5rem;

@@ -1,0 +1,149 @@
+---
+import Accordion, {
+  type Props as AccordionProps,
+} from '@elements/Accordion.astro'
+import CompanyMember, {
+  type Props as CompanyMemberProps,
+} from '@elements/CompanyMember.astro'
+import LinkButton from '@elements/LinkButton.astro'
+
+export interface Props {
+  heading?: string
+  description?: string
+  member?: CompanyMemberProps
+  qa?: AccordionProps['items']
+}
+
+const {
+  heading = '<b>Ответы</b> на часто задаваемые&nbsp;вопросы',
+  description = 'Не нашли ответ на свой вопрос?<br>Задайте его сами!',
+  member = {
+    image: { src: '/images/company-members/director.jpg' },
+    name: 'Вероника Иванова',
+    position: 'Директора компании «Частокол»',
+  },
+  qa = [
+    {
+      title: 'Как сделать заказ на установку забора?',
+      description:
+        'Позвоните нашему менеджеру. Он направит на ваш участок замерщика, который приедет в любое удобное для вас время. Специалист замеряет периметр, отметит на плане участка его особенности, сделает предварительный расчет стоимости установки.',
+    },
+    {
+      title: 'Как сделать заказ на установку забора?',
+      description:
+        'Позвоните нашему менеджеру. Он направит на ваш участок замерщика, который приедет в любое удобное для вас время. Специалист замеряет периметр, отметит на плане участка его особенности, сделает предварительный расчет стоимости установки.',
+    },
+    {
+      title: 'Как сделать заказ на установку забора?',
+      description:
+        'Позвоните нашему менеджеру. Он направит на ваш участок замерщика, который приедет в любое удобное для вас время. Специалист замеряет периметр, отметит на плане участка его особенности, сделает предварительный расчет стоимости установки.',
+    },
+    {
+      title: 'Как сделать заказ на установку забора?',
+      description:
+        'Позвоните нашему менеджеру. Он направит на ваш участок замерщика, который приедет в любое удобное для вас время. Специалист замеряет периметр, отметит на плане участка его особенности, сделает предварительный расчет стоимости установки.',
+    },
+    {
+      title: 'Как сделать заказ на установку забора?',
+      description:
+        'Позвоните нашему менеджеру. Он направит на ваш участок замерщика, который приедет в любое удобное для вас время. Специалист замеряет периметр, отметит на плане участка его особенности, сделает предварительный расчет стоимости установки.',
+    },
+  ],
+} = Astro.props
+---
+
+<!-- BLOCK -->
+<section class="qa">
+  <div class="qa__content">
+    <h2
+      class="qa__heading f-d-title-medium-42 f-m-title-medium-24"
+      set:html={heading}
+    />
+    <p
+      class="qa__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+      set:html={description}
+    />
+    <LinkButton
+      class="qa__link"
+      name="Задать вопрос"
+    />
+    <CompanyMember
+      {...member}
+      class="qa__director"
+    />
+  </div>
+  <Accordion
+    items={qa}
+    class="qa__accordion"
+  />
+</section>
+
+<style is:global>
+  .qa {
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+
+    display: flex;
+    gap: 5rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+
+  .qa__content {
+    width: 72.5rem;
+    height: 55.3rem;
+    padding: 5rem;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--color-grayscale-0);
+    border-radius: 2rem;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: unset;
+      padding: 2rem;
+
+      border-radius: 1.5rem;
+    }
+  }
+
+  .qa__heading {
+    margin-bottom: 3rem;
+
+    b {
+      font-weight: inherit;
+      color: var(--color-primary-100);
+    }
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .qa__description {
+    margin-bottom: 5rem;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .qa__link {
+    width: max-content;
+    margin-bottom: 4rem;
+  }
+
+  .qa__director {
+    margin-top: auto;
+  }
+
+  .qa__accordion {
+  }
+</style>
