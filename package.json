@@ -16,9 +16,9 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@types/node": "^22.10.2",
-    "astro": "^5.0.5",
+    "astro": "^5.0.9",
     "automizer": "^0.3.7",
-    "postcss-preset-env": "^10.1.1",
+    "postcss-preset-env": "^10.1.2",
     "prettier": "^3.4.2",
     "prettier-plugin-astro": "^0.14.1",
     "tsx": "^4.19.2",
@@ -26,6 +26,7 @@
     "vite": "^6.0.3"
   },
   "dependencies": {
+    "aptechka": "^0.50.2",
     "construct-style-sheets-polyfill": "^3.1.0"
   }
 }
