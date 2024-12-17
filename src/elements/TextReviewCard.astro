@@ -1,0 +1,129 @@
+---
+import type { ImageDataProps } from './Image.astro'
+import Image from './Image.astro'
+
+export interface Props {
+  class?: string
+  name?: string
+  short?: string
+  person?: ImageDataProps
+  review?: ImageDataProps
+}
+
+const {
+  class: className,
+  name = 'Елена',
+  short = '«Огромное спасибо команде за&nbsp;отличную работу»',
+  person = { src: '/images/text-reviews/person.jpg' },
+  review = { src: '/images/text-reviews/review.jpg' },
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'text-review-card']}
+>
+  <div class="text-review-card__top">
+    <Image
+      {...person}
+      class="text-review-card__person"
+      lazy
+      cover
+      lazyBackground
+    />
+
+    <div class="text-review-card__info">
+      <div
+        class="text-review-card__name f-d-title-medium-24 f-m-body-large-medium-16"
+        set:html={name}
+      />
+      <div
+        class="text-review-card__short f-d-body-large-medium-16 f-m-footnote-medium-12"
+        set:html={short}
+      />
+    </div>
+  </div>
+
+  <Image
+    {...review}
+    class="text-review-card__review"
+    lazy
+    contain
+    lazyBackground
+  />
+</div>
+
+<style is:global>
+  .text-review-card {
+    width: 46.7rem;
+    padding: 3rem;
+
+    background-color: var(--color-grayscale-200);
+    border-radius: 2rem;
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      width: 26rem;
+
+      padding: 3rem 1.5rem;
+      border-radius: 1.5rem;
+    }
+  }
+
+  .text-review-card__top {
+    display: flex;
+    align-items: center;
+
+    gap: 3rem;
+
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      gap: 1.5rem;
+
+      margin-bottom: 3rem;
+    }
+  }
+
+  .text-review-card__person {
+    flex-shrink: 0;
+
+    width: 13rem;
+    height: 13rem;
+
+    border-radius: 50%;
+    border: 0.4rem solid var(--color-primary-100);
+
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      width: 7rem;
+      height: 7rem;
+      border-width: 0.2rem;
+    }
+  }
+
+  .text-review-card__info {
+  }
+
+  .text-review-card__name {
+    color: var(--color-primary-100);
+
+    margin-bottom: 1.3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 0.8rem;
+    }
+  }
+
+  .text-review-card__short {
+  }
+
+  .text-review-card__review {
+    width: 100%;
+    border-radius: 1.5rem;
+
+    background-color: var(--color-grayscale-0);
+  }
+</style>

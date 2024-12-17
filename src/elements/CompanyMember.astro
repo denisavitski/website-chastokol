@@ -1,0 +1,80 @@
+---
+import type { ImageDataProps } from './Image.astro'
+import Image from './Image.astro'
+
+export interface Props {
+  class?: string
+  image?: ImageDataProps
+  name?: string
+  position?: string
+}
+
+const {
+  class: className,
+  image = { src: '/images/company-members/director.jpg' },
+  name = 'Вероника Иванова',
+  position = 'Директора компании «Частокол»',
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'company-member']}
+>
+  <Image
+    {...image}
+    class="company-member__image"
+    lazy
+    lazyBackground
+    cover
+  />
+
+  <div class="company-member__content">
+    <div
+      class="company-member__name f-d-title-medium-24 f-m-body-large-medium-16"
+      set:html={name}
+    />
+    <div
+      class="company-member__position f-d-body-large-medium-16 f-m-footnote-medium-12"
+      set:html={position}
+    />
+  </div>
+</div>
+
+<style is:global>
+  .company-member {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+
+    @media (max-width: 768px) {
+      gap: 1.5rem;
+    }
+  }
+
+  .company-member__image {
+    width: 9rem;
+    height: 9rem;
+
+    border-radius: 50%;
+    border: 0.3rem solid var(--color-primary-100);
+
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      width: 7rem;
+      height: 7rem;
+    }
+  }
+
+  .company-member__content {
+  }
+
+  .company-member__name {
+    margin-bottom: 0.8rem;
+  }
+
+  .company-member__position {
+  }
+</style>

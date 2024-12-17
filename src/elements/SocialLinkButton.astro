@@ -1,0 +1,76 @@
+---
+import type { SpriteIconName } from '@utils/SpriteIconName'
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+  href?: string
+  name?: string
+  icon?: SpriteIconName
+}
+
+const {
+  class: className,
+  href = 'https://google.com',
+  name = 'WhatsApp',
+  icon = 'wa',
+  ...rest
+} = Astro.props
+---
+
+<a
+  {...rest}
+  {href}
+  class:list={[className, 'social-link-button']}
+  data-type={icon}
+>
+  <Icon
+    name={icon}
+    class="social-link-button__icon"
+  />
+  <span
+    class="social-link-button__name f-d-body-large-medium-16 f-m-body-basic-medium-14"
+    set:html={name}
+  />
+</a>
+
+<style is:global>
+  .social-link-button {
+    height: 4.5rem;
+    padding: 0 1.5rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+
+    border-radius: 3rem;
+
+    &[data-type='wa'] {
+      background-color: #17c056;
+    }
+
+    &[data-type='tg'] {
+      background-color: #229ed9;
+    }
+
+    @media (max-width: 768px) {
+      height: 4rem;
+    }
+  }
+
+  .social-link-button__icon {
+    width: 2.4rem;
+    height: 2.4rem;
+
+    fill: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+  }
+
+  .social-link-button__name {
+    color: var(--color-grayscale-0);
+  }
+</style>

@@ -1,0 +1,212 @@
+---
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+  items?: Array<{ title: string; description: string }>
+}
+
+const {
+  class: className,
+  items = [
+    {
+      title: 'Как сделать заказ на установку забора?',
+      description:
+        'Позвоните нашему менеджеру. Он направит на ваш участок замерщика, который приедет в любое удобное для вас время. Специалист замеряет периметр, отметит на плане участка его особенности, сделает предварительный расчет стоимости установки.',
+    },
+    {
+      title: 'Как сделать заказ на установку забора?',
+      description:
+        'Позвоните нашему менеджеру. Он направит на ваш участок замерщика, который приедет в любое удобное для вас время. Специалист замеряет периметр, отметит на плане участка его особенности, сделает предварительный расчет стоимости установки.',
+    },
+    {
+      title: 'Как сделать заказ на установку забора?',
+      description:
+        'Позвоните нашему менеджеру. Он направит на ваш участок замерщика, который приедет в любое удобное для вас время. Специалист замеряет периметр, отметит на плане участка его особенности, сделает предварительный расчет стоимости установки.',
+    },
+    {
+      title: 'Как сделать заказ на установку забора?',
+      description:
+        'Позвоните нашему менеджеру. Он направит на ваш участок замерщика, который приедет в любое удобное для вас время. Специалист замеряет периметр, отметит на плане участка его особенности, сделает предварительный расчет стоимости установки.',
+    },
+    {
+      title: 'Как сделать заказ на установку забора?',
+      description:
+        'Позвоните нашему менеджеру. Он направит на ваш участок замерщика, который приедет в любое удобное для вас время. Специалист замеряет периметр, отметит на плане участка его особенности, сделает предварительный расчет стоимости установки.',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<e-accordion
+  {...rest}
+  class:list={[className, 'accordion']}
+>
+  {
+    items.map((item) => {
+      return (
+        <div class="accordion__item">
+          <div class="accordion__item__head">
+            <div
+              class="accordion__item__head__title f-d-title-medium-18 f-m-body-basic-medium-14"
+              set:html={item.title}
+            />
+            <div class="accordion__item__head__toggle">
+              <Icon
+                name={'plus-small'}
+                class="accordion__item__head__toggle__icon"
+              />
+            </div>
+          </div>
+          <div class="accordion__item__body">
+            <div
+              class="accordion__item__content f-d-body-large-regular-16 f-m-body-basic-regular-14"
+              set:html={item.description}
+            />
+          </div>
+        </div>
+      )
+    })
+  }
+</e-accordion>
+
+<style is:global>
+  .accordion {
+    --duration: 0.3s;
+    display: grid;
+    gap: 2rem;
+
+    width: 72.5rem;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      gap: 1rem;
+    }
+  }
+
+  .accordion__item {
+    width: 100%;
+
+    border-radius: 2rem;
+    background-color: var(--color-grayscale-0);
+
+    transition-property: color, background-color;
+    transition-duration: var(--duration);
+
+    &.opened {
+      color: var(--color-grayscale-0);
+      background-color: var(--color-primary-100);
+    }
+
+    @media (max-width: 768px) {
+      border-radius: 1.5rem;
+    }
+  }
+
+  .accordion__item__head {
+    padding: 1.5rem 3rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    cursor: pointer;
+
+    user-select: none;
+
+    @media (max-width: 768px) {
+      padding: 1.5rem;
+    }
+  }
+
+  .accordion__item__head__title {
+  }
+
+  .accordion__item__head__toggle {
+    position: relative;
+
+    z-index: 1;
+
+    width: 4.5rem;
+    height: 4.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--color-grayscale-200);
+    border-radius: 50%;
+
+    transition-property: background-color;
+    transition-duration: var(--duration);
+
+    &::before {
+      content: '';
+
+      position: absolute;
+
+      z-index: -1;
+
+      width: 3.1rem;
+      height: 3.1rem;
+
+      background-color: var(--color-primary-100);
+
+      transition-property: background-color;
+      transition-duration: var(--duration);
+
+      border-radius: 50%;
+    }
+
+    .accordion__item.opened & {
+      background-color: transparent;
+    }
+
+    .accordion__item.opened &::before {
+      background-color: var(--color-grayscale-0);
+    }
+
+    @media (max-width: 768px) {
+      width: 4rem;
+      height: 4rem;
+
+      &::before {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+  }
+
+  .accordion__item__head__toggle__icon {
+    width: 1.7rem;
+    height: 1.7rem;
+
+    transition-property: fill;
+    transition-duration: var(--duration);
+
+    fill: var(--color-grayscale-0);
+
+    .accordion__item.opened & {
+      fill: var(--color-primary-100);
+    }
+
+    @media (max-width: 768px) {
+      width: 1.6rem;
+      height: 1.6rem;
+      margin-right: 0.1rem;
+    }
+  }
+
+  .accordion__item__body {
+    transition: height var(--duration);
+  }
+
+  .accordion__item__content {
+    padding: 1.2rem 3rem 3rem 3rem;
+
+    @media (max-width: 768px) {
+      padding: 1rem 1.5rem 2rem 1.5rem;
+    }
+  }
+</style>
