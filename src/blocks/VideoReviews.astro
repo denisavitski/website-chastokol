@@ -1,0 +1,136 @@
+---
+import VideoReviewCard, {
+  type Props as VideoReviewCardProps,
+} from '@elements/VideoReviewCard.astro'
+import Section from '@elements/Section.astro'
+import SliderBullets from '@elements/SliderBullets.astro'
+import SliderButton from '@elements/SliderButton.astro'
+
+export interface Props {
+  class?: string
+  heading?: string
+  catalog?: Array<VideoReviewCardProps>
+}
+
+const {
+  class: className,
+  heading = 'Каталог конструкций',
+  catalog = [
+    {
+      name: 'Татьяна Дмитриева',
+      short: '«Отличная компания, все сделали быстро, качественно и в срок»',
+      stats: [
+        {
+          title: 'Материал:',
+          value: 'Евроштакетник',
+        },
+        {
+          title: 'Срок установки:',
+          value: '3 дня',
+        },
+        {
+          title: 'Стоимость:',
+          value: '60 000 руб.',
+        },
+      ],
+      image: {
+        src: '/images/video-reviews/image.jpg',
+      },
+    },
+    {
+      name: 'Татьяна Дмитриева',
+      short: '«Отличная компания, все сделали быстро, качественно и в срок»',
+      stats: [
+        {
+          title: 'Материал:',
+          value: 'Евроштакетник',
+        },
+        {
+          title: 'Срок установки:',
+          value: '3 дня',
+        },
+        {
+          title: 'Стоимость:',
+          value: '60 000 руб.',
+        },
+      ],
+      image: {
+        src: '/images/video-reviews/image.jpg',
+      },
+    },
+    {
+      name: 'Татьяна Дмитриева',
+      short: '«Отличная компания, все сделали быстро, качественно и в срок»',
+      stats: [
+        {
+          title: 'Материал:',
+          value: 'Евроштакетник',
+        },
+        {
+          title: 'Срок установки:',
+          value: '3 дня',
+        },
+        {
+          title: 'Стоимость:',
+          value: '60 000 руб.',
+        },
+      ],
+      image: {
+        src: '/images/video-reviews/image.jpg',
+      },
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<!-- BLOCK -->
+<Section
+  {...rest}
+  class="video-reviews"
+  heading="Отзывы клиентов"
+  whiteBackground
+  paddingTop={'full'}
+>
+  <e-scroll class="video-reviews__slider bullets">
+    {
+      catalog.map((item) => {
+        return (
+          <VideoReviewCard
+            class="video-reviews__slider__item"
+            {...item}
+          />
+        )
+      })
+    }
+    <SliderButton
+      type={'prev'}
+      center
+    />
+    <SliderButton
+      type={'next'}
+      center
+    />
+    <SliderBullets />
+  </e-scroll>
+</Section>
+
+<style is:global>
+  .video-reviews__slider {
+    --axis: x;
+    --gap: 5rem;
+    --overflow: hidden;
+    --sectional: true;
+    --sections-in-view: 2;
+    --auto-size: true;
+
+    display: flex;
+    gap: var(--gap);
+
+    @media (max-width: 768px) {
+      --overflow: unset;
+      --gap: 2rem;
+      --sections-in-view: 1.27;
+    }
+  }
+</style>

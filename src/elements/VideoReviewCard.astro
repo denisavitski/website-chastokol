@@ -110,14 +110,28 @@ const {
     flex-direction: column;
 
     padding: 3rem;
+    border: 0.1rem solid var(--color-grayscale-300);
+
+    @media (min-width: 769px) {
+      border-top-left-radius: 2rem;
+      border-bottom-left-radius: 2rem;
+    }
 
     @media (max-width: 768px) {
+      margin-top: -1.5rem;
+
       padding: 1.5rem;
+      padding-top: 3rem;
+
+      border-bottom-left-radius: 1.5rem;
+      border-bottom-right-radius: 1.5rem;
     }
   }
 
   .video-review-card__name {
     margin-bottom: 1.9rem;
+
+    color: var(--color-primary-100);
 
     @media (max-width: 768px) {
       margin-bottom: 1.3rem;
@@ -152,6 +166,7 @@ const {
   }
 
   .video-review-card__image-box {
+    flex-shrink: 0;
     width: 33.7rem;
     min-height: 100%;
 
