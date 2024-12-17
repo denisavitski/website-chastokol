@@ -28,15 +28,15 @@ body {
   --color-button-text: #fdfdfd;
   --color-button-disabled: #efefef;
 
-  --color-lazy: var(--color-grayscale-300);
+  --color-image-background: #f0f0f0;
+
+  --color-lazy: var(--color-image-background);
 
   --color-page: var(--color-grayscale-200);
   --color-font: var(--color-grayscale-600);
 
   --color-scrollbar-thumb: var(--color-primary-100);
   --color-scrollbar-track: var(--color-grayscale-200);
-
-  --color-image-background: #f0f0f0;
 
   --z-modal: 102;
   --z-scrollbar: 101;
