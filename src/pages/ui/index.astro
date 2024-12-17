@@ -1,7 +1,8 @@
 ---
 import Layout from '@layout/Layout.astro'
 
-const modules = (await Astro.glob('src/**/*.astro')) as Array<any>
+// @ts-ignore
+const modules = (await (Astro as any).glob('src/**/*.astro')) as Array<any>
 
 const components = new Map<string, Array<string>>()
 
@@ -44,7 +45,7 @@ modules.forEach((module) => {
     multiple
   >
     {
-      Array.from(components).map(([folderName, componentNames], i) => {
+      Array.from(components).map(([folderName, componentNames]) => {
         return (
           <div
             class="nav__folder"

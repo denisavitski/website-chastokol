@@ -1,0 +1,90 @@
+---
+import SliderBullets from '@elements/SliderBullets.astro'
+import SliderButton from '@elements/SliderButton.astro'
+
+export interface Props {
+  list?: Array<{ name: string; href: string }>
+}
+
+const {
+  list = [
+    { name: 'Металлические заборы', href: '/' },
+    { name: 'Распашные ворота', href: '/' },
+    { name: 'Деревянные заборы', href: '/' },
+    { name: 'Заборы для дачи', href: '/' },
+    { name: 'Металлические заборы', href: '/' },
+    { name: 'Распашные ворота', href: '/' },
+    { name: 'Деревянные заборы', href: '/' },
+    { name: 'Заборы для дачи', href: '/' },
+  ],
+} = Astro.props
+---
+
+<!-- BLOCK -->
+<div class="keywords">
+  <e-scroll class="keywords__slider bullets">
+    {
+      list.map((item) => {
+        return (
+          <a
+            class="keywords__keyword f-d-title-medium-20 f-m-body-basic-medium-14"
+            href={item.href}
+            set:html={item.name}
+          />
+        )
+      })
+    }
+    <SliderButton
+      type={'prev'}
+      center
+    />
+    <SliderButton
+      type={'next'}
+      center
+    />
+    <SliderBullets />
+  </e-scroll>
+</div>
+
+<style is:global>
+  .keywords {
+    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
+    padding-top: var(--section-vertical-padding-full);
+
+    border-top: 0.1rem solid var(--color-grayscale-300);
+  }
+
+  .keywords__slider {
+    --axis: x;
+    --gap: 5rem;
+    --overflow: hidden;
+    --sectional: true;
+    --sections-in-view: 4;
+    --auto-size: true;
+    --slider-button-color: var(--color-grayscale-0);
+
+    display: flex;
+    gap: var(--gap);
+
+    @media (max-width: 768px) {
+      --overflow: unset;
+      --gap: 2rem;
+      --sections-in-view: var(--slider-mobile-sections-in-view);
+    }
+  }
+
+  .keywords__keyword {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 3rem 5.75rem;
+    border-radius: 2rem;
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      padding: 2.1rem 0;
+      border-radius: 1.5rem;
+    }
+  }
+</style>

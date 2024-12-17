@@ -3,7 +3,8 @@ import type { GetStaticPaths } from 'astro'
 import Layout from '../../layout/Layout.astro'
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const components = (await Astro.glob('src/*/**.astro')) as Array<any>
+  // @ts-ignore
+  const components = (await (Astro as any).glob('src/*/**.astro')) as Array<any>
 
   return components.map((comp) => {
     const id = comp.default.moduleId.split('src')[1].replace('.astro', '')

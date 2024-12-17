@@ -10,7 +10,7 @@ export interface Props {
   images: PixelPerfectImages
 }
 
-const { images } = Astro.props
+const { images = [] } = Astro.props
 ---
 
 {

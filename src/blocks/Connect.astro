@@ -1,0 +1,231 @@
+---
+import Icon from '@elements/Icon.astro'
+import SocialLinkButton, {
+  type Props as SocialLinkButtonProps,
+} from '@elements/SocialLinkButton.astro'
+
+export interface Props {
+  class?: string
+  heading?: string
+  description?: string
+  socials?: Array<SocialLinkButtonProps>
+  districts?: Array<{ name: string }>
+}
+
+const {
+  class: className,
+  heading = 'Подберем ограждение под&nbsp;ваши&nbsp;цели',
+  description = 'Напишите нам в любом удобном мессенджере, сотрудники компании ответят вам в течение 2-ух минут.',
+  socials = [
+    {
+      href: 'https://google.com',
+      name: 'WhatsApp',
+      icon: 'wa',
+    },
+    {
+      href: 'https://google.com',
+      name: 'Telegram',
+      icon: 'tg',
+    },
+  ],
+  districts = [
+    { name: 'Гатчинский' },
+    { name: 'Бокситогорский' },
+    { name: 'Киришский' },
+    { name: 'Волосовский' },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<!-- BLOCK -->
+<section
+  {...rest}
+  class:list={[className, 'connect']}
+>
+  <div class="connect__content">
+    <h2
+      class="connect__heading f-d-title-medium-56 f-m-title-medium-24"
+      set:html={heading}
+    />
+    <p
+      class="connect__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+      set:html={description}
+    />
+
+    <div class="connect__socials">
+      {
+        socials.map((social) => {
+          return <SocialLinkButton {...social} />
+        })
+      }
+    </div>
+
+    <div class="connect__districts">
+      <div
+        class="connect__districts__title f-d-body-large-medium-16 f-m-body-basic-medium-14"
+        >Выезд во все районы:</div
+      >
+      <div class="connect__districts__list">
+        {
+          districts.map((district) => {
+            return (
+              <button class="connect__district">
+                <Icon
+                  name={'marker'}
+                  class="connect__district__icon"
+                />
+                <span
+                  class="connect__district__name f-d-body-large-regular-16 f-m-footnote-regular-12"
+                  set:html={district.name}
+                />
+              </button>
+            )
+          })
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="connect__map"></div>
+</section>
+
+<style is:global>
+  .connect {
+    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
+    padding-bottom: calc(var(--section-vertical-padding) * 2);
+
+    display: flex;
+    gap: 5rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 2rem;
+    }
+  }
+
+  .connect__content {
+    display: flex;
+    flex-direction: column;
+
+    width: 72.5rem;
+    min-height: 57.5rem;
+    padding: 5rem;
+
+    border-radius: 2rem;
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      width: 100%;
+      min-height: unset;
+
+      padding: 2rem;
+
+      border-radius: 1.5rem;
+    }
+  }
+
+  .connect__heading {
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .connect__description {
+    width: 46.6rem;
+    margin-bottom: 5rem;
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-bottom: 4rem;
+    }
+  }
+
+  .connect__socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+
+    margin-bottom: 4rem;
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+    }
+  }
+
+  .connect__districts {
+    margin-top: auto;
+  }
+
+  .connect__districts__title {
+    margin-bottom: 2.3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .connect__districts__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.3rem;
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+    }
+  }
+
+  .connect__district {
+    padding: 0.85rem 1rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+
+    background-color: var(--color-grayscale-100);
+    border-radius: 0.7rem;
+
+    @media (max-width: 768px) {
+      gap: 0.6rem;
+
+      padding: 0.5rem 1rem;
+      gap: 0.6rem;
+    }
+  }
+
+  .connect__district__icon {
+    width: 1.4rem;
+    height: 1.4rem;
+
+    fill: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      width: 1.1rem;
+      height: 1.1rem;
+    }
+  }
+
+  .connect__district__name {
+    color: var(--color-grayscale-500);
+  }
+
+  .connect__map {
+    width: 72.5rem;
+    height: 57.5rem;
+
+    overflow: hidden;
+
+    border-radius: 2rem;
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: 23.5rem;
+
+      border-radius: 1.5rem;
+    }
+  }
+</style>
