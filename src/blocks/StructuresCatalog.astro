@@ -2,9 +2,7 @@
 import CatalogPreviewCard, {
   type Props as CatalogPreviewCardProps,
 } from '@elements/CatalogPreviewCard.astro'
-import Section from '@elements/Section.astro'
-import SliderBullets from '@elements/SliderBullets.astro'
-import SliderButton from '@elements/SliderButton.astro'
+import CatalogCardsSection from '@elements/CatalogCardsSection.astro'
 
 export interface Props {
   class?: string
@@ -40,52 +38,15 @@ const {
 ---
 
 <!-- BLOCK -->
-<Section
+<CatalogCardsSection
   {...rest}
-  class="structures-catalog"
   heading="Каталог конструкций"
   whiteBackground
   paddingTop={'full'}
 >
-  <e-scroll class="structures-catalog__slider bullets">
-    {
-      catalog.map((item) => {
-        return (
-          <CatalogPreviewCard
-            class="structures-catalog__slider__item"
-            {...item}
-          />
-        )
-      })
-    }
-    <SliderButton
-      type={'prev'}
-      center
-    />
-    <SliderButton
-      type={'next'}
-      center
-    />
-    <SliderBullets />
-  </e-scroll>
-</Section>
-
-<style is:global>
-  .structures-catalog__slider {
-    --axis: x;
-    --gap: 5rem;
-    --overflow: hidden;
-    --sectional: true;
-    --sections-in-view: 3;
-    --auto-size: true;
-
-    display: flex;
-    gap: var(--gap);
-
-    @media (max-width: 768px) {
-      --overflow: unset;
-      --gap: 2rem;
-      --sections-in-view: var(--slider-mobile-sections-in-view);
-    }
+  {
+    catalog.map((item) => {
+      return <CatalogPreviewCard {...item} />
+    })
   }
-</style>
+</CatalogCardsSection>

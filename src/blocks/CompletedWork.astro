@@ -1,5 +1,5 @@
 ---
-import CatalogSection from '@elements/CatalogSection.astro'
+import CatalogCardsSection from '@elements/CatalogCardsSection.astro'
 import WorkCard, { type Props as WorkCardProps } from '@elements/WorkCard.astro'
 
 export interface Props {
@@ -49,14 +49,15 @@ const {
 ---
 
 <!-- BLOCK -->
-<CatalogSection
+<CatalogCardsSection
   heading="Выполненные работы"
   headingLevel="h2"
   paddingTop={'full'}
+  whiteBackground
 >
   {
     cards.map((card) => {
       return <WorkCard {...card} />
     })
   }
-</CatalogSection>
+</CatalogCardsSection>

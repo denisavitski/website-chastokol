@@ -5,17 +5,18 @@ import SliderButton from './SliderButton.astro'
 
 export interface Props extends SectionProps {
   class?: string
+  itemInView?: '3' | '4' | 3 | 4
 }
 
-const { class: className, ...rest } = Astro.props
+const { class: className, itemInView = 3, ...rest } = Astro.props
 ---
 
 <Section
-  class={`catalog-section ${className || ''}`}
-  whiteBackground
+  class={`three-card-section ${className || ''}`}
+  data-items-in-view={itemInView}
   {...rest}
 >
-  <e-scroll class="catalog-section__slider bullets">
+  <e-scroll class="three-card-section__slider bullets">
     <slot />
     <SliderButton
       type={'prev'}
@@ -30,21 +31,36 @@ const { class: className, ...rest } = Astro.props
 </Section>
 
 <style is:global>
-  .catalog-section__slider {
+  .three-card-section__slider {
     --axis: x;
     --gap: 5rem;
     --overflow: hidden;
     --sectional: true;
-    --sections-in-view: 3;
+
     --auto-size: true;
 
     display: flex;
     gap: var(--gap);
 
+    .three-card-section[data-items-in-view='3'] & {
+      --sections-in-view: 3;
+    }
+
+    .three-card-section[data-items-in-view='4'] & {
+      --sections-in-view: 4;
+    }
+
     @media (max-width: 768px) {
       --overflow: unset;
       --gap: 2rem;
-      --sections-in-view: var(--slider-mobile-sections-in-view);
+
+      .three-card-section[data-items-in-view='3'] & {
+        --sections-in-view: var(--slider-mobile-sections-in-view);
+      }
+
+      .three-card-section[data-items-in-view='4'] & {
+        --sections-in-view: 1.6;
+      }
     }
   }
 </style>

@@ -17,21 +17,19 @@ const { class: className, ...rest } = Astro.props
 
 <CatalogCard
   {...rest}
-  button={'top-more'}
+  button={false}
   border
-  class={`catalog-preview-card ${className || ''}`}
+  class={`catalog-category-card ${className || ''}`}
 />
 
 <style is:global>
-  .catalog-preview-card {
+  .catalog-category-card {
     --catalog-card-width: 46.7rem;
-    --catalog-card-image-height: 46.7rem;
-    border-radius: var(--border-radius);
+    --catalog-card-image-height: 32.7rem;
 
     @media (max-width: 768px) {
       --catalog-card-width: 26rem;
-      --catalog-card-image-height: 26rem;
-      --arrow-size: 4rem;
+      --catalog-card-image-height: 20rem;
     }
   }
 </style>

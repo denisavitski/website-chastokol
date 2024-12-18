@@ -1,14 +1,14 @@
 ---
-import CatalogSection, {
-  type Props as CatalogSectionProps,
-} from '@elements/CatalogSection.astro'
-import CatalogCard, {
-  type Props as CatalogCardProps,
-} from '@elements/CatalogCard.astro'
+import CatalogCardsSection, {
+  type Props as CatalogCardsSectionProps,
+} from '@elements/CatalogCardsSection.astro'
+import CatalogCategoryCard, {
+  type Props as CatalogCategoryCardProps,
+} from '@elements/CatalogCategoryCard.astro'
 
-export interface Props extends CatalogSectionProps {
+export interface Props extends CatalogCardsSectionProps {
   name?: string
-  cards?: Array<Pick<CatalogCardProps, 'href' | 'image' | 'name'>>
+  cards?: Array<Pick<CatalogCategoryCardProps, 'href' | 'image' | 'name'>>
 }
 
 const {
@@ -25,39 +25,16 @@ const {
 ---
 
 <!-- BLOCK -->
-<CatalogSection
+<CatalogCardsSection
   heading={name}
   headingLevel="h3"
   paddingTop={'normal'}
-  class="catalog-categories"
+  whiteBackground
   {...rest}
 >
   {
     cards.map((card) => {
-      return (
-        <CatalogCard
-          {...card}
-          tag="a"
-          button={false}
-          class="catalog-categories__card"
-          border
-        />
-      )
+      return <CatalogCategoryCard {...card} />
     })
   }
-</CatalogSection>
-
-<style>
-  .catalog-categories {
-  }
-
-  .catalog-categories__card {
-    --catalog-card-width: 46.7rem;
-    --catalog-card-image-height: 32.7rem;
-
-    @media (max-width: 768px) {
-      --catalog-card-width: 26rem;
-      --catalog-card-image-height: 20rem;
-    }
-  }
-</style>
+</CatalogCardsSection>

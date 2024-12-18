@@ -9,8 +9,6 @@ export interface Props extends HTMLAttributes<any> {
   name?: string | false
   tag?: string
   disabled?: string
-  onlyArrow?: boolean
-  mobileOnlyArrow?: boolean
   theme?:
     | 'default'
     | 'only-arrow'
@@ -26,9 +24,7 @@ const {
   name = 'Кнопка',
   tag = 'button',
   disabled,
-  onlyArrow,
-  mobileOnlyArrow,
-  theme = 'only-text',
+  theme = 'default',
   ...rest
 } = Astro.props
 
@@ -40,8 +36,6 @@ const Tag = href ? 'a' : (tag as any)
   class:list={['button', className]}
   data-disabled={Tag === 'a' ? disabled : undefined}
   disabled={Tag === 'a' ? undefined : disabled}
-  data-only-arrow={onlyArrow || true}
-  data-mobile-only-arrow={mobileOnlyArrow}
   data-theme={theme}
 >
   {
@@ -80,7 +74,6 @@ const Tag = href ? 'a' : (tag as any)
       --button-color: var(--color-primary-100);
       --button-icon-fill: var(--color-primary-100);
       --button-icon-box-size: var(--arrow-size, 2.1rem);
-      --button-icon-size: var(--arrow-size, 2.1rem);
 
       @media (hover: hover) {
         &:hover {
@@ -125,7 +118,7 @@ const Tag = href ? 'a' : (tag as any)
       height: var(--button-height, 4.5rem);
 
       background-color: var(--button-background-color);
-      border-radius: var(--border-radius, 3rem);
+      border-radius: var(--button-border-radius, 3rem);
       border: 0.1rem solid transparent;
 
       @media (max-width: 768px) {
@@ -159,7 +152,7 @@ const Tag = href ? 'a' : (tag as any)
           --button-padding: 0rem;
           --button-height: var(--arrow-size, 4rem);
           --button-icon-box-size: var(--arrow-size, 4rem);
-          --border-radius: 50%;
+          --button-border-radius: 50%;
           --button-background-color: transparent;
           --button-icon-box-background-color: var(--color-primary-100);
           --button-icon-fill: var(--color-grayscale-0);
@@ -180,7 +173,7 @@ const Tag = href ? 'a' : (tag as any)
       --button-padding: 0rem;
       --button-height: var(--arrow-size, 4rem);
       --button-icon-box-size: var(--arrow-size, 4rem);
-      --border-radius: 50%;
+      --button-border-radius: 50%;
       --button-background-color: transparent;
       --button-icon-box-background-color: var(--color-primary-100);
       --button-icon-fill: var(--color-grayscale-0);
@@ -252,8 +245,8 @@ const Tag = href ? 'a' : (tag as any)
   }
 
   .button__icon {
-    width: var(--button-icon-size, 2.1rem);
-    height: var(--button-icon-size, 2.1rem);
+    width: 60%;
+    height: 60%;
 
     transform: rotate(-45deg);
 
@@ -261,11 +254,6 @@ const Tag = href ? 'a' : (tag as any)
 
     transition-property: fill;
     transition-duration: var(--duration-button);
-
-    @media (max-width: 768px) {
-      width: var(--button-icon-size, 2rem);
-      height: var(--button-icon-size, 2rem);
-    }
   }
 
   .button__loading {

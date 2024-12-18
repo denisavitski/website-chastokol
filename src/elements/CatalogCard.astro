@@ -2,25 +2,32 @@
 import type { ImageDataProps } from './Image.astro'
 import Image from './Image.astro'
 import Button from './Button.astro'
+import CardLabel, { type Props as CardLabelProps } from './CardLabel.astro'
 
 export interface Props {
   class?: string | undefined
   href?: string | undefined
   name?: string | undefined
+  price?: string | undefined
   image?: ImageDataProps | undefined
-  button?: boolean | undefined
+  button?: 'arrow' | 'more' | 'top-more' | undefined | false
   tag?: string | undefined
-  border?: boolean
+  border?: boolean | undefined
+  labels?: Array<CardLabelProps> | undefined
+  description?: string | undefined
 }
 
 const {
   class: className,
   href,
   name = 'Заборы',
+  price,
   image = { src: '/images/catalog-item.png' },
-  button = true,
+  labels,
+  button,
   tag = 'a',
   border = false,
+  description,
   ...rest
 } = Astro.props
 
@@ -38,39 +45,76 @@ const Tag = tag as any
       class="catalog-card__image"
       {...image}
     />
+    {
+      labels && (
+        <div class="catalog-card__labels">
+          {labels.map((label) => {
+            return <CardLabel {...label} />
+          })}
+        </div>
+      )
+    }
     <slot name="image-box" />
   </span>
   <span class="catalog-card__content">
     <span class="catalog-card__top">
-      <span
-        class="catalog-card__name f-d-title-medium-20 f-m-body-large-medium-16"
-        set:html={name}
-      />
+      <span class="catalog-card__name-box">
+        <span
+          class="catalog-card__name f-d-title-medium-20 f-m-body-large-medium-16"
+          set:html={name}
+        />
+        {
+          price && (
+            <span
+              class="catalog-card__price f-d-body-large-medium-16 f-m-footnote-medium-12"
+              set:html={price}
+            />
+          )
+        }
+      </span>
       {
-        button && (
+        (button === 'arrow' || button === 'top-more') && (
           <Button
-            class="catalog-card__link only-arrow"
+            class="catalog-card__link"
             tag="span"
-            theme={'only-arrow'}
+            theme={
+              button === 'top-more' ? 'default-to-only-arrow' : 'only-arrow'
+            }
+            name={'Подробнее'}
           />
         )
       }
     </span>
+    {
+      description && (
+        <span
+          class="catalog-card__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+          set:html={description}
+        />
+      )
+    }
+    {
+      button === 'more' && (
+        <Button
+          class="catalog-card__more-link"
+          tag="span"
+          theme={'flat'}
+          name="Подробнее"
+        />
+      )
+    }
     <slot />
   </span>
 </Tag>
 
 <style is:global>
   .catalog-card {
-    --arrow-size: 3.5rem;
-
     display: block;
 
     width: var(--catalog-card-width, 33.7rem);
     border-radius: var(--border-radius);
 
     @media (max-width: 768px) {
-      --arrow-size: 3rem;
       width: var(--catalog-card-width, 20rem);
     }
   }
@@ -105,12 +149,17 @@ const Tag = tag as any
   .catalog-card__link {
     margin: -0.5rem 0;
 
-    @media (max-width: 768px) {
+    &[data-theme='only-arrow'] {
+      --arrow-size: 3.5rem;
+      @media (max-width: 768px) {
+        --arrow-size: 3rem;
+      }
     }
   }
 
   .catalog-card__content {
     display: block;
+
     padding: 2.1rem;
     padding-top: calc(2.1rem + var(--border-radius));
     margin-top: calc(var(--border-radius) * -1);
@@ -137,5 +186,49 @@ const Tag = tag as any
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+
+  .catalog-card__name {
+    display: block;
+  }
+
+  .catalog-card__price {
+    display: block;
+    margin-top: 0.5rem;
+
+    color: var(--color-primary-100);
+  }
+
+  .catalog-card__labels {
+    position: absolute;
+    z-index: 1;
+    top: 2rem;
+    left: 2rem;
+
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    @media (max-width: 768px) {
+      top: 1.5rem;
+      left: 1.5rem;
+    }
+  }
+
+  .catalog-card__description {
+    color: var(--color-grayscale-400);
+    margin-top: 2.3rem;
+
+    @media (max-width: 768px) {
+      margin-top: 2rem;
+    }
+  }
+
+  .catalog-card__more-link {
+    margin-top: 4rem;
+
+    @media (max-width: 768px) {
+      margin-top: 2rem;
+    }
   }
 </style>

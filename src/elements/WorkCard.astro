@@ -1,12 +1,12 @@
 ---
-import CardLabel from './CardLabel.astro'
+import { type Props as CardLabelProps } from './CardLabel.astro'
 import CatalogCard from './CatalogCard.astro'
 import type { ImageDataProps } from './Image.astro'
 import PlayButton from './PlayButton.astro'
 
 export interface Props {
   class?: string
-  label?: string
+  labels?: Array<CardLabelProps>
   image?: ImageDataProps
   name?: string
   video?: any
@@ -14,7 +14,7 @@ export interface Props {
 
 const {
   class: className,
-  label = 'Изготовление',
+  labels = [{ name: 'Изготовление', icon: 'tools' }],
   name = 'Заборы',
   image = { src: '/images/catalog-item.png' },
   video = null,
@@ -29,12 +29,8 @@ const {
   border
   {name}
   {image}
+  {labels}
 >
-  <CardLabel
-    class="work-card__label"
-    name={label}
-    slot={'image-box'}
-  />
   <PlayButton
     class="work-card__play-button"
     slot={'image-box'}
@@ -56,18 +52,6 @@ const {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .work-card__label {
-    position: absolute;
-    z-index: 1;
-    top: 2rem;
-    left: 2rem;
-
-    @media (max-width: 768px) {
-      top: 1.5rem;
-      left: 1.5rem;
-    }
   }
 
   .work-card__play-button {

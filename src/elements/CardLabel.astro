@@ -8,12 +8,7 @@ export interface Props {
   icon?: SpriteIconName | false
 }
 
-const {
-  class: className,
-  name = 'label',
-  icon = 'tools',
-  ...rest
-} = Astro.props
+const { class: className, name = 'label', icon, ...rest } = Astro.props
 ---
 
 <div
