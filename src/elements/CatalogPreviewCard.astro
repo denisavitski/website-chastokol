@@ -1,7 +1,7 @@
 ---
 import type { ImageDataProps } from './Image.astro'
 import Image from './Image.astro'
-import LinkButton from './LinkButton.astro'
+import Button from './Button.astro'
 
 export interface Props {
   class?: string
@@ -41,7 +41,7 @@ const {
         set:html={price}
       />
     </span>
-    <LinkButton
+    <Button
       class="catalog-preview-card__link mobile-only-arrow"
       name={'Подробнее'}
       tag="span"

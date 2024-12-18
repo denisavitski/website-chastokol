@@ -1,0 +1,320 @@
+---
+import { undefined } from 'astro:schema'
+import Icon from './Icon.astro'
+import type { HTMLAttributes } from 'astro/types'
+
+export interface Props extends HTMLAttributes<any> {
+  class?: string
+  href?: string
+  name?: string | false
+  tag?: string
+  disabled?: string
+  onlyArrow?: boolean
+  mobileOnlyArrow?: boolean
+  theme?:
+    | 'default'
+    | 'only-arrow'
+    | 'default-to-only-arrow'
+    | 'only-text'
+    | 'flat'
+  arrow?: boolean
+}
+
+const {
+  class: className,
+  href,
+  name = 'Кнопка',
+  tag = 'button',
+  disabled,
+  onlyArrow,
+  mobileOnlyArrow,
+  theme = 'only-text',
+  ...rest
+} = Astro.props
+
+const Tag = href ? 'a' : (tag as any)
+---
+
+<Tag
+  {...rest}
+  class:list={['button', className]}
+  data-disabled={Tag === 'a' ? disabled : undefined}
+  disabled={Tag === 'a' ? undefined : disabled}
+  data-only-arrow={onlyArrow || true}
+  data-mobile-only-arrow={mobileOnlyArrow}
+  data-theme={theme}
+>
+  {
+    name && (
+      <span
+        class="button__name f-d-body-large-medium-16 f-m-body-basic-medium-14"
+        set:html={name}
+      />
+    )
+  }
+
+  {
+    theme !== 'only-text' && (
+      <span class="button__icon-box">
+        <Icon
+          name={'tail-arrow'}
+          class="button__icon"
+        />
+      </span>
+    )
+  }
+</Tag>
+
+<style is:global>
+  .button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    transition-property: background-color, border-color;
+    transition-duration: var(--duration-button);
+
+    &[data-theme='flat'] {
+      gap: 0.8rem;
+
+      --button-color: var(--color-primary-100);
+      --button-icon-fill: var(--color-primary-100);
+      --button-icon-box-size: var(--arrow-size, 2.1rem);
+      --button-icon-size: var(--arrow-size, 2.1rem);
+
+      @media (hover: hover) {
+        &:hover {
+          --button-color: var(--color-grayscale-400);
+          --button-icon-fill: var(--color-grayscale-400);
+        }
+      }
+
+      @media (max-width: 768px) {
+        gap: 0.5rem;
+      }
+    }
+
+    &[data-theme='only-text'] {
+      padding: var(--button-padding, 0rem 2rem);
+
+      @media (max-width: 768px) {
+        padding: var(--button-padding, 0rem 1.5rem);
+      }
+    }
+
+    &[data-theme='default'] {
+      padding: var(--button-padding, 0rem 0.5rem 0rem 2rem);
+
+      @media (max-width: 768px) {
+        padding: var(--button-padding, 0rem 0.5rem 0rem 1.5rem);
+      }
+    }
+
+    &[data-theme='default-to-only-arrow'] {
+      @media (min-width: 769px) {
+        padding: var(--button-padding, 0rem 0.5rem 0rem 1.5rem);
+      }
+    }
+
+    &[data-theme='only-text'],
+    &[data-theme='default'],
+    &[data-theme='default-to-only-arrow'],
+    &[data-theme='only-arrow'] {
+      gap: 1.5rem;
+
+      height: var(--button-height, 4.5rem);
+
+      background-color: var(--button-background-color);
+      border-radius: var(--border-radius, 3rem);
+      border: 0.1rem solid transparent;
+
+      @media (max-width: 768px) {
+        gap: 1rem;
+      }
+    }
+
+    &[data-theme='only-text'],
+    &[data-theme='default'],
+    &[data-theme='default-to-only-arrow'] {
+      --button-color: var(--color-grayscale-0);
+      --button-background-color: var(--color-primary-100);
+      --button-icon-box-background-color: var(--color-grayscale-0);
+      --button-icon-fill: var(--color-primary-100);
+
+      @media (min-width: 769px) {
+        @media (hover: hover) {
+          &:not(.loading):not(:disabled):not([data-disabled]):hover {
+            --button-color: var(--color-primary-100);
+            --button-background-color: var(--color-grayscale-0);
+            --button-icon-box-background-color: var(--color-primary-100);
+            --button-icon-fill: var(--color-grayscale-0);
+            border-color: var(--button-color);
+          }
+        }
+      }
+
+      @media (max-width: 768px) {
+        &[data-theme='default-to-only-arrow'] {
+          --button-name-display: none;
+          --button-padding: 0rem;
+          --button-height: var(--arrow-size, 4rem);
+          --button-icon-box-size: var(--arrow-size, 4rem);
+          --border-radius: 50%;
+          --button-background-color: transparent;
+          --button-icon-box-background-color: var(--color-primary-100);
+          --button-icon-fill: var(--color-grayscale-0);
+
+          @media (hover: hover) {
+            &:not(.loading):not(:disabled):not([data-disabled]):hover {
+              --button-icon-box-background-color: transparent;
+              border-color: var(--color-primary-100);
+              --button-icon-fill: var(--color-primary-100);
+            }
+          }
+        }
+      }
+    }
+
+    &[data-theme='only-arrow'] {
+      --button-name-display: none;
+      --button-padding: 0rem;
+      --button-height: var(--arrow-size, 4rem);
+      --button-icon-box-size: var(--arrow-size, 4rem);
+      --border-radius: 50%;
+      --button-background-color: transparent;
+      --button-icon-box-background-color: var(--color-primary-100);
+      --button-icon-fill: var(--color-grayscale-0);
+
+      @media (hover: hover) {
+        &:not(.loading):not(:disabled):not([data-disabled]):hover {
+          --button-icon-box-background-color: transparent;
+          border-color: var(--color-primary-100);
+          --button-icon-fill: var(--color-primary-100);
+        }
+      }
+    }
+
+    &[disabled],
+    &[data-disabled] {
+      cursor: default;
+
+      &:not([data-theme='flat']) {
+        --button-color: var(--color-button-text);
+        --button-background-color: var(--color-button-disabled);
+        --button-icon-fill: var(--color-button-text);
+
+        --button-icon-box-background-color: var(--color-button-disabled);
+      }
+
+      &[data-theme='flat'] {
+        --button-color: #efefef;
+        --button-icon-fill: #efefef;
+      }
+    }
+
+    &.loading {
+      cursor: default;
+    }
+
+    @media (max-width: 768px) {
+      height: var(--button-height, 4rem);
+    }
+  }
+
+  .button__name {
+    display: var(--button-name-display, block);
+    color: var(--button-color);
+
+    transition-property: color;
+    transition-duration: var(--duration-button);
+  }
+
+  .button__icon-box {
+    flex-shrink: 0;
+
+    width: var(--button-icon-box-size, 3.5rem);
+    height: var(--button-icon-box-size, 3.5rem);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background-color: var(--button-icon-box-background-color);
+
+    transition-property: background-color;
+    transition-duration: var(--duration-button);
+
+    @media (max-width: 768px) {
+      width: var(--button-icon-box-size, 3rem);
+      height: var(--button-icon-box-size, 3rem);
+    }
+  }
+
+  .button__icon {
+    width: var(--button-icon-size, 2.1rem);
+    height: var(--button-icon-size, 2.1rem);
+
+    transform: rotate(-45deg);
+
+    fill: var(--button-icon-fill);
+
+    transition-property: fill;
+    transition-duration: var(--duration-button);
+
+    @media (max-width: 768px) {
+      width: var(--button-icon-size, 2rem);
+      height: var(--button-icon-size, 2rem);
+    }
+  }
+
+  .button__loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    pointer-events: none;
+
+    .button.loading & {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  .button__spinner {
+    width: 2.4rem;
+    height: 2.4rem;
+
+    stroke: var(--color-grayscale-200);
+    fill: none;
+
+    transform-origin: 51.5% 50%;
+
+    .button.loading & {
+      animation: button-loading 1s infinite linear;
+    }
+  }
+
+  .button__loading,
+  .button__content {
+    width: 100%;
+    height: 100%;
+
+    transition-property: opacity;
+    transition-duration: var(--duration-button);
+  }
+
+  @keyframes button-loading {
+    100% {
+      transform: rotate(1turn);
+    }
+  }
+</style>

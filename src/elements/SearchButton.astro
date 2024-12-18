@@ -1,6 +1,4 @@
 ---
-import PrimaryButton from './PrimaryButton.astro'
-
 export interface Props {
   class?: string
 }
@@ -8,11 +6,11 @@ export interface Props {
 const { class: className, ...rest } = Astro.props
 ---
 
-<PrimaryButton
+<button
   {...rest}
   type="submit"
-  class={`search-button ${className || ''}`}
-  >Поиск</PrimaryButton
+  class:list={[className, 'search-button f-d-body-large-medium-16']}
+  >Поиск</button
 >
 
 <style is:global>
@@ -20,6 +18,12 @@ const { class: className, ...rest } = Astro.props
     flex-shrink: 0;
     width: 12.8rem;
     border-radius: 0.7rem;
-    --primary-button-height: var(--input-height);
+    height: var(--input-height);
+    background-color: var(--color-primary-100);
+    color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      border-radius: 1.2rem;
+    }
   }
 </style>

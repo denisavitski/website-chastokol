@@ -1,7 +1,7 @@
 ---
 import type { ImageDataProps } from './Image.astro'
 import Image from './Image.astro'
-import LinkButton from './LinkButton.astro'
+import Button from './Button.astro'
 
 export interface Props {
   class?: string | undefined
@@ -48,9 +48,10 @@ const Tag = tag as any
       />
       {
         button && (
-          <LinkButton
+          <Button
             class="catalog-card__link only-arrow"
             tag="span"
+            theme={'only-arrow'}
           />
         )
       }
@@ -61,7 +62,7 @@ const Tag = tag as any
 
 <style is:global>
   .catalog-card {
-    --link-button-size: 3.5rem;
+    --arrow-size: 3.5rem;
 
     display: block;
 
@@ -69,7 +70,7 @@ const Tag = tag as any
     border-radius: var(--border-radius);
 
     @media (max-width: 768px) {
-      --link-button-size: 3rem;
+      --arrow-size: 3rem;
       width: var(--catalog-card-width, 20rem);
     }
   }

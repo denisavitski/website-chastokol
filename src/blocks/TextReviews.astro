@@ -46,17 +46,17 @@ const {
 <!-- BLOCK -->
 <Section
   {...rest}
-  class:list={['related-services']}
+  class:list={['text-reviews']}
   heading={heading}
   whiteBackground
   paddingBottom={'full'}
 >
-  <e-scroll class="related-services__slider bullets">
+  <e-scroll class="text-reviews__slider bullets">
     {
       catalog.map((item) => {
         return (
           <TextReviewCard
-            class="related-services__slider__item"
+            class="text-reviews__slider__item"
             {...item}
           />
         )
@@ -75,7 +75,7 @@ const {
 </Section>
 
 <style is:global>
-  .related-services__slider {
+  .text-reviews__slider {
     --axis: x;
     --gap: 5rem;
     --overflow: hidden;

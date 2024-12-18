@@ -5,7 +5,7 @@ import Accordion, {
 import CompanyMember, {
   type Props as CompanyMemberProps,
 } from '@elements/CompanyMember.astro'
-import LinkButton from '@elements/LinkButton.astro'
+import Button from '@elements/Button.astro'
 
 export interface Props {
   heading?: string
@@ -63,7 +63,7 @@ const {
       class="qa__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
       set:html={description}
     />
-    <LinkButton
+    <Button
       class="qa__link"
       name="Задать вопрос"
     />

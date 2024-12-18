@@ -1,7 +1,7 @@
 ---
 import type { ImageDataProps } from '@elements/Image.astro'
 import Image from '@elements/Image.astro'
-import LinkButton from '@elements/LinkButton.astro'
+import Button from '@elements/Button.astro'
 import TitleValueStat, {
   type Props as TitleValueStatProps,
 } from '@elements/TitleValueStat.astro'
@@ -67,7 +67,7 @@ const {
         class="turnkey-fences__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
         set:html={description}
       />
-      <LinkButton
+      <Button
         name="Подробнее о компании"
         href="/"
       />

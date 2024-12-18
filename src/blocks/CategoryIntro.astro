@@ -6,7 +6,7 @@ import Breadcrumbs, {
 import TitleValueStat, {
   type Props as TitleValueStatProps,
 } from '@elements/TitleValueStat.astro'
-import LinkButton from '@elements/LinkButton.astro'
+import Button from '@elements/Button.astro'
 import Image from '@elements/Image.astro'
 
 export interface Props {
@@ -50,7 +50,7 @@ const {
       class="category-intro__heading f-d-title-medium-76 f-m-title-medium-30"
       set:html={heading}
     />
-    <LinkButton
+    <Button
       href="/"
       class="home-intro__installment"
       name="Рассрочка на 12 месяцев"
