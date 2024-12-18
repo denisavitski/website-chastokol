@@ -1,6 +1,6 @@
 ---
 import Breadcrumbs from '@blocks/Breadcrumbs.astro'
-import CatalogCategory from '@blocks/CatalogCategory.astro'
+import CatalogCategories from '@blocks/CatalogCategories.astro'
 import Connect from '@blocks/Connect.astro'
 import TextIntro from '@blocks/TextIntro.astro'
 import Layout from '@layout/Layout.astro'
@@ -23,7 +23,7 @@ import Layout from '@layout/Layout.astro'
     heading="Каталог конструкций"
     description="Более 50 категорий конструкций под любые цели."
   />
-  <CatalogCategory
+  <CatalogCategories
     name="Заборы"
     paddingTop={'full'}
     cards={[
@@ -59,7 +59,7 @@ import Layout from '@layout/Layout.astro'
       },
     ]}
   />
-  <CatalogCategory
+  <CatalogCategories
     name="Ворота"
     cards={[
       {
@@ -94,7 +94,7 @@ import Layout from '@layout/Layout.astro'
       },
     ]}
   />
-  <CatalogCategory
+  <CatalogCategories
     name="Ворота"
     paddingBottom={'full'}
     cards={[

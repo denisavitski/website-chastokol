@@ -1,9 +1,11 @@
 ---
 export interface Props {
+  class?: string
   links?: Array<{ name: string; href: string }>
 }
 
 const {
+  class: className,
   links = [
     { name: 'Главная', href: '/' },
     { name: 'О компании', href: '/about' },
@@ -15,7 +17,7 @@ const {
 <!-- BLOCK -->
 <div
   {...rest}
-  class:list={['breadcrumbs']}
+  class:list={[className, 'breadcrumbs']}
 >
   {
     links.map((link) => {

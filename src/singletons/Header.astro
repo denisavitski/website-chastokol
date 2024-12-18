@@ -190,9 +190,18 @@ const {
     transition-property: transform;
     transition-duration: var(--duration-menu);
 
-    [data-header-color='dark'] & {
-      --header-color: var(--color-font);
-      --header-border-color: var(--color-grayscale-300);
+    @media (min-width: 769px) {
+      [data-header-color='dark'] & {
+        --header-color: var(--color-font);
+        --header-border-color: var(--color-grayscale-300);
+      }
+    }
+
+    @media (max-width: 768px) {
+      [data-header-mobile-color='dark'] & {
+        --header-color: var(--color-font);
+        --header-border-color: var(--color-grayscale-300);
+      }
     }
 
     .menu-catalog-opened &,
@@ -309,6 +318,7 @@ const {
       will-change: background-color;
 
       background-color: var(--header-background-color);
+      border-bottom: 0.1rem solid var(--header-border-color);
     }
   }
 
@@ -324,9 +334,20 @@ const {
     .menu-catalog-closing &,
     .menu-opened &,
     .menu-closing &,
-    .page-scrolled &,
-    [data-header-color='dark'] & {
+    .page-scrolled & {
       --logo-color: var(--color-primary-100);
+    }
+
+    @media (min-width: 769px) {
+      [data-header-color='dark'] & {
+        --logo-color: var(--color-primary-100);
+      }
+    }
+
+    @media (max-width: 768px) {
+      [data-header-mobile-color='dark'] & {
+        --logo-color: var(--color-primary-100);
+      }
     }
   }
 
@@ -375,8 +396,6 @@ const {
       transition: unset;
 
       width: 100%;
-
-      border-top: 0.1rem solid var(--color-grayscale-300);
 
       .menu-button__name {
         width: 100%;
@@ -441,7 +460,7 @@ const {
 
     @media (max-width: 768px) {
       position: absolute;
-      top: 100%;
+      top: calc(100% - 0.5px);
       left: 0;
 
       display: none;

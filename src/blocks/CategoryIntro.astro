@@ -1,0 +1,175 @@
+---
+import type { ImageDataProps } from '@elements/Image.astro'
+import Breadcrumbs, {
+  type Props as BreadcrumbsProps,
+} from './Breadcrumbs.astro'
+import TitleValueStat, {
+  type Props as TitleValueStatProps,
+} from '@elements/TitleValueStat.astro'
+import LinkButton from '@elements/LinkButton.astro'
+import Image from '@elements/Image.astro'
+
+export interface Props {
+  image?: ImageDataProps
+  breadcrumbs?: BreadcrumbsProps['links']
+  heading?: string
+  stats?: Array<TitleValueStatProps>
+}
+
+const {
+  image = { src: '/images/categories/intro.jpg' },
+  breadcrumbs = [
+    { name: 'Главная', href: '/' },
+    { name: 'Каталог', href: '/catalog' },
+    { name: 'Категория', href: '/catalog/category' },
+  ],
+  heading = 'Металлические заборы под&nbsp;ключ в&nbsp;Санкт-Петербурге',
+  stats = [
+    { title: 'Среднее время изготовления', value: '7-14 дней' },
+    { title: 'Заказов реализуем ежемесячно', value: '550+ заказов' },
+    { title: 'Довольных клиентов', value: '9 000+ клиентов' },
+  ],
+} = Astro.props
+---
+
+<!-- BLOCK -->
+<div class="category-intro">
+  <div class="category-intro__content">
+    <Image
+      class="category-intro__image"
+      {...image}
+      lazy
+      lazyBackground
+      cover
+    />
+    <Breadcrumbs
+      class="category-intro__breadcrubms"
+      links={breadcrumbs}
+    />
+    <h1
+      class="category-intro__heading f-d-title-medium-76 f-m-title-medium-30"
+      set:html={heading}
+    />
+    <LinkButton
+      href="/"
+      class="home-intro__installment"
+      name="Рассрочка на 12 месяцев"
+    />
+    <div class="home-intro__stats">
+      {
+        stats.map((stat) => {
+          return (
+            <TitleValueStat
+              class="home-intro__stat"
+              {...stat}
+            />
+          )
+        })
+      }
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .category-intro {
+    padding: 2.5rem 16rem var(--section-vertical-padding) 16rem;
+
+    @media (max-width: 768px) {
+      padding: 0;
+      margin-top: calc(var(--header-height) * -1);
+    }
+  }
+
+  .category-intro__content {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    height: 65rem;
+    padding: 4rem 4.9rem 5rem 4.9rem;
+
+    border-radius: 2rem;
+
+    color: var(--color-grayscale-0);
+
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      border-radius: 0;
+      padding: 0 var(--screen-horisontal-padding);
+      padding-top: calc(var(--header-height) + 2rem);
+    }
+  }
+
+  .category-intro__image {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: -1;
+
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    filter: blur(0.2rem);
+
+    @media (max-width: 768px) {
+      width: 102%;
+      left: -1%;
+    }
+  }
+
+  .category-intro__breadcrubms {
+    padding: 0;
+    margin-bottom: 4rem;
+
+    .breadcrumbs__link__name {
+      color: var(--color-grayscale-300);
+    }
+
+    .breadcrumbs__link:last-child .breadcrumbs__link__name {
+      color: var(--color-grayscale-0);
+    }
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .category-intro__heading {
+    margin-bottom: 5rem;
+
+    width: 107rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+      width: 100%;
+    }
+  }
+
+  .home-intro__installment {
+    width: max-content;
+  }
+
+  .home-intro__stats {
+    display: flex;
+    gap: 9rem;
+
+    @media (min-width: 769px) {
+      margin-top: auto;
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 4rem;
+
+      margin-top: 8rem;
+    }
+  }
+
+  .home-intro__stat {
+  }
+</style>

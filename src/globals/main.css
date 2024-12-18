@@ -102,6 +102,7 @@ body {
   @media (max-width: 768px) {
     --screen-horisontal-padding: 2rem;
     --section-vertical-padding: 2rem;
+    --header-top-height: 0rem;
     --header-height: 6.4rem;
     --section-bullets-padding: 0rem;
 
