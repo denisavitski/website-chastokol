@@ -1,0 +1,144 @@
+---
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import CatalogCategory from '@blocks/CatalogCategory.astro'
+import Connect from '@blocks/Connect.astro'
+import TextIntro from '@blocks/TextIntro.astro'
+import Layout from '@layout/Layout.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Каталог',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Каталог', href: '/catalog' },
+    ]}
+  />
+  <TextIntro
+    heading="Каталог конструкций"
+    description="Более 50 категорий конструкций под любые цели."
+  />
+  <CatalogCategory
+    name="Заборы"
+    paddingTop={'full'}
+    cards={[
+      {
+        href: '/',
+        name: 'Металлические заборы',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Деревянные заборы',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Кованные заборы',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Металлические заборы',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Деревянные заборы',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Кованные заборы',
+        image: { src: '/images/catalog-item.png' },
+      },
+    ]}
+  />
+  <CatalogCategory
+    name="Ворота"
+    cards={[
+      {
+        href: '/',
+        name: 'Откатные ворота',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Распашные ворота',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Подъемные ворота',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Откатные ворота',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Распашные ворота',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Подъемные ворота',
+        image: { src: '/images/catalog-item.png' },
+      },
+    ]}
+  />
+  <CatalogCategory
+    name="Ворота"
+    paddingBottom={'full'}
+    cards={[
+      {
+        href: '/',
+        name: 'Кованые калитки',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Деревянные калитки',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Калитки из евроштакетника',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Кованые калитки',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Деревянные калитки',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Калитки из евроштакетника',
+        image: { src: '/images/catalog-item.png' },
+      },
+    ]}
+  />
+  <Connect
+    theme={'questions'}
+    heading="Остались вопросы?"
+    description="Напишите в любом удобном мессенджере, прораб нашей компании ответит вам в течение 2-ух минут."
+    member={{
+      image: { src: '/images/company-members/foreman.jpg' },
+      name: 'Петр Иванов',
+      position: 'Прораб в компании «Частокол»',
+    }}
+    districts={false}
+  />
+</Layout>

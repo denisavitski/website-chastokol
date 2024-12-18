@@ -1,0 +1,42 @@
+---
+export interface Props {
+  heading?: string
+  description?: string
+}
+
+const {
+  heading = 'Каталог конструкций',
+  description = 'Более 50 категорий конструкций под любые цели.',
+} = Astro.props
+---
+
+<div class="text-intro">
+  <h1
+    class="text-intro__heading f-d-title-medium-76 f-m-title-medium-30"
+    set:html={heading}
+  />
+  <p
+    class="text-intro__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    set:html={description}
+  />
+</div>
+
+<style is:global>
+  .text-intro {
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+    padding-top: 0;
+  }
+
+  .text-intro__heading {
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .text-intro__description {
+    color: var(--color-grayscale-400);
+  }
+</style>

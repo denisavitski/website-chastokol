@@ -3,17 +3,23 @@ import Icon from '@elements/Icon.astro'
 import SocialLinkButton, {
   type Props as SocialLinkButtonProps,
 } from '@elements/SocialLinkButton.astro'
+import CompanyMember, {
+  type Props as CompanyMemberProps,
+} from '@elements/CompanyMember.astro'
 
 export interface Props {
   class?: string
   heading?: string
   description?: string
   socials?: Array<SocialLinkButtonProps>
-  districts?: Array<{ name: string }>
+  districts?: Array<{ name: string }> | false
+  member?: CompanyMemberProps | false
+  theme?: 'questions' | 'goals'
 }
 
 const {
   class: className,
+  theme = 'goals',
   heading = 'Подберем ограждение под&nbsp;ваши&nbsp;цели',
   description = 'Напишите нам в любом удобном мессенджере, сотрудники компании ответят вам в течение 2-ух минут.',
   socials = [
@@ -34,6 +40,7 @@ const {
     { name: 'Киришский' },
     { name: 'Волосовский' },
   ],
+  member,
   ...rest
 } = Astro.props
 ---
@@ -42,6 +49,7 @@ const {
 <section
   {...rest}
   class:list={[className, 'connect']}
+  data-theme={theme}
 >
   <div class="connect__content">
     <h2
@@ -61,30 +69,40 @@ const {
       }
     </div>
 
-    <div class="connect__districts">
-      <div
-        class="connect__districts__title f-d-body-large-medium-16 f-m-body-basic-medium-14"
-        >Выезд во все районы:</div
-      >
-      <div class="connect__districts__list">
-        {
-          districts.map((district) => {
-            return (
-              <button class="connect__district">
-                <Icon
-                  name={'marker'}
-                  class="connect__district__icon"
-                />
-                <span
-                  class="connect__district__name f-d-body-large-regular-16 f-m-footnote-regular-12"
-                  set:html={district.name}
-                />
-              </button>
-            )
-          })
-        }
-      </div>
-    </div>
+    {
+      districts && districts.length ? (
+        <div class="connect__districts">
+          <div class="connect__districts__title f-d-body-large-medium-16 f-m-body-basic-medium-14">
+            Выезд во все районы:
+          </div>
+          <div class="connect__districts__list">
+            {districts.map((district) => {
+              return (
+                <button class="connect__district">
+                  <Icon
+                    name={'marker'}
+                    class="connect__district__icon"
+                  />
+                  <span
+                    class="connect__district__name f-d-body-large-regular-16 f-m-footnote-regular-12"
+                    set:html={district.name}
+                  />
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      ) : null
+    }
+
+    {
+      member && (
+        <CompanyMember
+          {...member}
+          class="connect__member"
+        />
+      )
+    }
   </div>
 
   <div class="connect__map"></div>
@@ -92,13 +110,21 @@ const {
 
 <style is:global>
   .connect {
-    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
-    padding-bottom: calc(var(--section-vertical-padding) * 2);
+    --height: 57.5rem;
+
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
 
     display: flex;
     gap: 5rem;
 
+    &[data-theme='questions'] {
+      --height: 49.6rem;
+    }
+
     @media (max-width: 768px) {
+      --height: 23.5rem;
+
       flex-direction: column;
       gap: 2rem;
     }
@@ -109,7 +135,7 @@ const {
     flex-direction: column;
 
     width: 72.5rem;
-    min-height: 57.5rem;
+    min-height: var(--height);
     padding: 5rem;
 
     border-radius: 2rem;
@@ -156,7 +182,8 @@ const {
     }
   }
 
-  .connect__districts {
+  .connect__districts,
+  .connect__member {
     margin-top: auto;
   }
 
@@ -214,7 +241,7 @@ const {
 
   .connect__map {
     width: 72.5rem;
-    height: 57.5rem;
+    height: var(--height);
 
     overflow: hidden;
 
@@ -223,7 +250,6 @@ const {
 
     @media (max-width: 768px) {
       width: 100%;
-      height: 23.5rem;
 
       border-radius: 1.5rem;
     }
