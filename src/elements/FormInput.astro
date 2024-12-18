@@ -1,0 +1,87 @@
+---
+import type { JSX } from 'astro/jsx-runtime'
+import type { HTMLAttributes } from 'astro/types'
+
+export interface Props extends HTMLAttributes<any> {
+  class?: string
+  name?: string
+  placeholder?: string
+  required?: boolean
+  theme?: 'gray' | 'white'
+  disabled?: boolean
+  tag?: string
+  type?: JSX.InputHTMLAttributes['type']
+}
+
+const {
+  class: className,
+  name,
+  placeholder,
+  required,
+  disabled,
+  theme = 'white',
+  tag = 'label',
+  type,
+  ...rest
+} = Astro.props
+
+const Tag = tag
+---
+
+<Tag
+  {...rest}
+  class:list={[className, 'form-input']}
+  data-theme={theme}
+>
+  <input
+    class="form-input__input f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    {type}
+    {name}
+    {placeholder}
+    {required}
+    {disabled}
+  />
+  <slot />
+</Tag>
+
+<style is:global>
+  .form-input {
+    position: relative;
+
+    display: block;
+
+    height: var(--input-height);
+    border-radius: 1.5rem;
+
+    @media (max-width: 768px) {
+      height: 4rem;
+      border-radius: 1.2rem;
+    }
+  }
+
+  .form-input__input {
+    width: 100%;
+    height: 100%;
+    padding: 1.4rem 2rem;
+
+    display: block;
+
+    border-radius: 1.5rem;
+
+    &::placeholder {
+      color: var(--color-grayscale-400);
+    }
+
+    .form-input[data-theme='white'] & {
+      background-color: var(--color-grayscale-0);
+    }
+
+    .form-input[data-theme='gray'] & {
+      background-color: var(--color-grayscale-200);
+    }
+
+    @media (max-width: 768px) {
+      border-radius: 1.2rem;
+    }
+  }
+</style>

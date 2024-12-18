@@ -13,7 +13,7 @@ export interface Props {
 const {
   class: className,
   type = 'checkbox',
-  name = 'Text label',
+  name,
   value = 'Value',
   font = 'f-dbody-large-regular-16',
   disabled,
@@ -40,10 +40,14 @@ const {
         name={type === 'checkbox' ? 'check' : 'circle'}
       />
     </span>
-    <span
-      class="checkbox__title"
-      set:html={name}
-    />
+    {
+      name && (
+        <span
+          class="checkbox__title"
+          set:html={name}
+        />
+      )
+    }
   </span>
 </label>
 
@@ -59,6 +63,7 @@ const {
 
   .checkbox__content {
     display: inline-flex;
+    align-items: center;
     gap: 1.5rem;
 
     cursor: pointer;
