@@ -1,15 +1,84 @@
 ---
 export interface Props {
   class?: string
+  number?: string | number
+  title?: string
+  description?: string
 }
 
-const { class: className, ...rest } = Astro.props
+const {
+  class: className,
+  number = 1,
+  title = 'Выбор материала и его характеристики',
+  description = 'Качество материала, толщина и тип покрытия влияют на конечную цену.',
+  ...rest
+} = Astro.props
 ---
 
 <div
   {...rest}
   class:list={[className, 'cost-component']}
 >
+  <div
+    class="cost-component__number f-d-title-medium-18 f-m-body-basic-medium-14"
+    set:html={number}
+  />
+  <div
+    class="cost-component__title f-d-title-medium-24 f-m-body-large-medium-16"
+    set:html={title}
+  />
+  <div
+    class="cost-component__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    set:html={description}
+  />
 </div>
 
-<style is:global></style>
+<style is:global>
+  .cost-component {
+    width: 33.7rem;
+    padding: 3rem;
+
+    display: flex;
+    flex-direction: column;
+
+    border-radius: var(--border-radius);
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      width: 26rem;
+      padding: 2rem;
+    }
+  }
+
+  .cost-component__number {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-bottom: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--color-primary-100);
+    color: var(--color-grayscale-0);
+    border-radius: 50%;
+
+    @media (max-width: 768px) {
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .cost-component__title {
+    margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .cost-component__description {
+    color: var(--color-grayscale-400);
+  }
+</style>

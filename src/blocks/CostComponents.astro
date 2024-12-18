@@ -9,12 +9,68 @@ export interface Props {
   components?: Array<CostComponentProps>
 }
 
-const { components = [] } = Astro.props
+const {
+  components = [
+    {
+      number: 1,
+      title: 'Выбор материала и&nbsp;его характеристики',
+      description:
+        'Качество материала, толщина и&nbsp;тип покрытия влияют на&nbsp;конечную цену.',
+    },
+    {
+      number: 2,
+      title: 'Сложность конструкции и&nbsp;высота забора',
+      description:
+        'Сложные элементы, высота изделия значительно влияют на&nbsp;стоимость.',
+    },
+    {
+      number: 3,
+      title: 'Дополнительные работы бригады',
+      description:
+        'Подготовка грунта, установку опорных столбов, монтаж секций.',
+    },
+    {
+      number: 4,
+      title: 'Регион установки и&nbsp;сезонность',
+      description:
+        'Цены могут быть выше из-за повышенного спроса в&nbsp;регионе.',
+    },
+  ],
+} = Astro.props
 ---
 
+<!-- BLOCK -->
 <Section
   headingLevel={'h3'}
+  heading="От чего зависит стоимость"
   class="cost-components"
-/>
+  paddingBottom={'full'}
+>
+  <e-scroll class="cost-components__slider">
+    {
+      components.map((component) => {
+        return <CostComponent {...component} />
+      })
+    }
+  </e-scroll>
+</Section>
 
-<style is:global></style>
+<style is:global>
+  .cost-components__slider {
+    @media (min-width: 769px) {
+      --hibernate: true;
+
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5rem;
+    }
+
+    @media (max-width: 768px) {
+      --axis: x;
+      --gap: 2rem;
+
+      display: flex;
+      gap: var(--gap);
+    }
+  }
+</style>
