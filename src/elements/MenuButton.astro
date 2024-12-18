@@ -38,13 +38,19 @@ const { class: className, target = 'menu', ...rest } = Astro.props
     gap: 1.08rem;
 
     border-radius: 3rem;
+
     background-color: var(--color-grayscale-0);
 
-    transition: background-color var(--duration-menu);
+    transition-property: background-color, border-color;
+    transition-duration: var(--duration-menu);
 
     &.opened {
       --color: var(--color-grayscale-0);
       background-color: var(--color-primary-100);
+    }
+
+    @media (max-width: 768px) {
+      height: 3.2rem;
     }
   }
 

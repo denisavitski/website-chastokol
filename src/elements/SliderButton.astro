@@ -32,12 +32,16 @@ const { class: className, type = 'next', center, ...rest } = Astro.props
     width: var(--slider-button-size, 3.8rem);
     height: var(--slider-button-size, 3.8rem);
 
-    background-color: var(--slider-button-color, #f7f7f7);
+    background-color: var(--slider-button-color, var(--color-grayscale-0));
     border-radius: 50%;
 
     transition: opacity var(--duration-button);
 
     user-select: none;
+
+    [data-white-background='true'] & {
+      background-color: var(--slider-button-color, var(--color-grayscale-200));
+    }
 
     @media (min-width: 769px) {
       .has-overflow & {

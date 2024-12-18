@@ -1,0 +1,81 @@
+---
+import VariantCard, {
+  type Props as VariantCardProps,
+} from '@elements/VariantCard.astro'
+import CatalogCardsSection from '@elements/CatalogCardsSection.astro'
+
+export interface Props {
+  class?: string
+  heading?: string
+  catalog?: Array<VariantCardProps>
+}
+
+const {
+  class: className,
+  heading = 'Каталог конструкций',
+  catalog = [
+    {
+      href: '/',
+      name: 'Заборы',
+      price: 'от 550 руб. за м2',
+      image: { src: '/images/catalog-item.png' },
+      description:
+        'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+    },
+    {
+      href: '/',
+      name: 'Заборы',
+      price: 'от 550 руб. за м2',
+      image: { src: '/images/catalog-item.png' },
+      description:
+        'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+    },
+    {
+      href: '/',
+      name: 'Заборы',
+      price: 'от 550 руб. за м2',
+      image: { src: '/images/catalog-item.png' },
+      description:
+        'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+    },
+    {
+      href: '/',
+      name: 'Заборы',
+      price: 'от 550 руб. за м2',
+      image: { src: '/images/catalog-item.png' },
+      description:
+        'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+    },
+    {
+      href: '/',
+      name: 'Заборы',
+      price: 'от 550 руб. за м2',
+      image: { src: '/images/catalog-item.png' },
+      description:
+        'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+    },
+    {
+      href: '/',
+      name: 'Заборы',
+      price: 'от 550 руб. за м2',
+      image: { src: '/images/catalog-item.png' },
+      description:
+        'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<!-- BLOCK -->
+<CatalogCardsSection
+  {...rest}
+  heading="Виды металлических заборов"
+  paddingTop={'full'}
+>
+  {
+    catalog.map((item) => {
+      return <VariantCard {...item} />
+    })
+  }
+</CatalogCardsSection>

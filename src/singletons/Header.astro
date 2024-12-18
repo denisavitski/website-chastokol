@@ -370,6 +370,14 @@ const {
     @media (min-width: 769px) {
       display: none;
     }
+
+    @media (max-width: 768px) {
+      border: 0.1rem solid transparent;
+
+      .page-scrolled & {
+        border-color: var(--color-primary-100);
+      }
+    }
   }
 
   .header__catalog-button {

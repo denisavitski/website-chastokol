@@ -1,0 +1,20 @@
+---
+import CostComponent, {
+  type Props as CostComponentProps,
+} from '@elements/CostComponent.astro'
+import Section from '@elements/Section.astro'
+
+export interface Props {
+  heading?: string
+  components?: Array<CostComponentProps>
+}
+
+const { components = [] } = Astro.props
+---
+
+<Section
+  headingLevel={'h3'}
+  class="cost-components"
+/>
+
+<style is:global></style>

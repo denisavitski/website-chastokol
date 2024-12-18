@@ -26,12 +26,19 @@ const { class: className, ...rest } = Astro.props
   .catalog-preview-card {
     --catalog-card-width: 46.7rem;
     --catalog-card-image-height: 46.7rem;
-    border-radius: var(--border-radius);
+
+    .catalog-card__price {
+      margin-top: 0;
+    }
 
     @media (max-width: 768px) {
       --catalog-card-width: 26rem;
       --catalog-card-image-height: 26rem;
       --arrow-size: 4rem;
+
+      .catalog-card__price {
+        margin-top: 0.5rem;
+      }
     }
   }
 </style>
