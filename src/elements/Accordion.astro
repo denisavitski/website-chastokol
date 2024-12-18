@@ -92,7 +92,7 @@ const {
   .accordion__item {
     width: 100%;
 
-    border-radius: 2rem;
+    border-radius: var(--border-radius);
     background-color: var(--color-grayscale-0);
     color: var(--color-primary-100);
 
@@ -102,10 +102,6 @@ const {
     &.opened {
       color: var(--color-grayscale-0);
       background-color: var(--color-primary-100);
-    }
-
-    @media (max-width: 768px) {
-      border-radius: 1.5rem;
     }
   }
 

@@ -52,37 +52,44 @@ const {
 <style is:global>
   .catalog-preview-card {
     width: 46.7rem;
-    border-radius: 2rem;
-    border: 0.1rem solid var(--color-grayscale-300);
+    border-radius: var(--border-radius);
 
     @media (max-width: 768px) {
       width: 26rem;
-      border-radius: 1.5rem;
     }
   }
 
   .catalog-preview-card__image {
     width: 100%;
     height: 46.4rem;
-    border-radius: 2rem;
+    border-radius: var(--border-radius);
     overflow: hidden;
     background-color: var(--color-image-background);
 
     @media (max-width: 768px) {
       height: 25.6rem;
-      border-radius: 1.5rem;
     }
   }
 
   .catalog-preview-card__content {
     padding: 2rem;
+    padding-top: calc(2rem + var(--border-radius));
+    margin-top: calc(var(--border-radius) * -1);
 
     display: flex;
     align-items: center;
     justify-content: space-between;
 
+    border-bottom: 0.1rem solid var(--color-grayscale-300);
+    border-left: 0.1rem solid var(--color-grayscale-300);
+    border-right: 0.1rem solid var(--color-grayscale-300);
+
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+
     @media (max-width: 768px) {
       padding: 1.5rem;
+      padding-top: calc(1.5rem + var(--border-radius));
     }
   }
 

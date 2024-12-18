@@ -10,6 +10,7 @@ export interface Props {
   image?: ImageDataProps | undefined
   button?: boolean | undefined
   tag?: string | undefined
+  border?: boolean
 }
 
 const {
@@ -19,6 +20,7 @@ const {
   image = { src: '/images/catalog-item.png' },
   button = true,
   tag = 'a',
+  border = false,
   ...rest
 } = Astro.props
 
@@ -29,27 +31,31 @@ const Tag = tag as any
   {...rest}
   {href}
   class:list={[className, 'catalog-card']}
+  data-border={border}
 >
-  <div class="catalog-card__image-box">
+  <span class="catalog-card__image-box">
     <Image
       class="catalog-card__image"
       {...image}
     />
     <slot name="image-box" />
-  </div>
+  </span>
   <span class="catalog-card__content">
-    <span
-      class="catalog-card__name f-d-title-medium-20 f-m-body-large-medium-16"
-      set:html={name}
-    />
-    {
-      button && (
-        <LinkButton
-          class="catalog-card__link only-arrow"
-          tag="div"
-        />
-      )
-    }
+    <span class="catalog-card__top">
+      <span
+        class="catalog-card__name f-d-title-medium-20 f-m-body-large-medium-16"
+        set:html={name}
+      />
+      {
+        button && (
+          <LinkButton
+            class="catalog-card__link only-arrow"
+            tag="span"
+          />
+        )
+      }
+    </span>
+    <slot />
   </span>
 </Tag>
 
@@ -60,29 +66,33 @@ const Tag = tag as any
     display: block;
 
     width: var(--catalog-card-width, 33.7rem);
-    border-radius: 2rem;
-    border: 0.1rem solid var(--color-grayscale-300);
+    border-radius: var(--border-radius);
 
     @media (max-width: 768px) {
       --link-button-size: 3rem;
       width: var(--catalog-card-width, 20rem);
-      border-radius: 1.5rem;
     }
   }
 
   .catalog-card__image-box {
     position: relative;
 
+    display: block;
+
     width: 100%;
     height: var(--catalog-card-image-height, 33.5rem);
 
-    border-radius: 2rem;
     overflow: hidden;
-    background-color: var(--color-image-background);
+
+    background-color: var(
+      --catalog-card-image-color,
+      var(--color-image-background)
+    );
+
+    border-radius: var(--border-radius);
 
     @media (max-width: 768px) {
       height: var(--catalog-card-image-height, 19.8rem);
-      border-radius: 1.5rem;
     }
   }
 
@@ -99,14 +109,32 @@ const Tag = tag as any
   }
 
   .catalog-card__content {
+    display: block;
     padding: 2.1rem;
+    padding-top: calc(2.1rem + var(--border-radius));
+    margin-top: calc(var(--border-radius) * -1);
 
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    .catalog-card[data-border='true'] & {
+      border-bottom: 0.1rem solid var(--color-grayscale-300);
+      border-left: 0.1rem solid var(--color-grayscale-300);
+      border-right: 0.1rem solid var(--color-grayscale-300);
+    }
+
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+
+    background-color: var(--color-grayscale-0);
 
     @media (max-width: 768px) {
       padding: 1.5rem;
+      padding-top: calc(1.5rem + var(--border-radius));
     }
+  }
+
+  .catalog-card__top {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 </style>

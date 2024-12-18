@@ -59,6 +59,8 @@ body {
   --viewport-height: var(--inner-height, 100vh);
   --viewport-width: var(--inner-width, 100vw);
 
+  --border-radius: 2rem;
+
   --slider-mobile-sections-in-view: 1.27;
 
   --ease-in-sine: cubic-bezier(0.12, 0, 0.39, 0);
@@ -105,8 +107,8 @@ body {
     --header-top-height: 0rem;
     --header-height: 6.4rem;
     --section-bullets-padding: 0rem;
-
     --input-height: 4rem;
+    --border-radius: 1.5rem;
   }
 
   @supports (height: 100dvh) {

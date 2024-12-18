@@ -1,12 +1,19 @@
 ---
+import type { SpriteIconName } from '@utils/SpriteIconName'
 import Icon from './Icon.astro'
 
 export interface Props {
   class?: string
   name?: string
+  icon?: SpriteIconName | false
 }
 
-const { class: className, name = 'label', ...rest } = Astro.props
+const {
+  class: className,
+  name = 'label',
+  icon = 'tools',
+  ...rest
+} = Astro.props
 ---
 
 <div
@@ -16,10 +23,15 @@ const { class: className, name = 'label', ...rest } = Astro.props
     'card-label f-d-body-large-medium-16 f-m-footnote-medium-12',
   ]}
 >
-  <Icon
-    class="card-label__icon"
-    name={'tools'}
-  />
+  {
+    icon && (
+      <Icon
+        class="card-label__icon"
+        name={'tools'}
+      />
+    )
+  }
+
   <div
     class="card-label__name"
     set:html={name}
