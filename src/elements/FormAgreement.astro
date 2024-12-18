@@ -1,0 +1,60 @@
+---
+export interface Props {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<label
+  {...rest}
+  class:list={[
+    className,
+    'form-agreement f-d-body-basic-regular-14 f-m-footnote-regular-10',
+  ]}
+>
+  <input
+    type="checkbox"
+    class="form-agreement__input"
+    name="agreement"
+    required
+  />
+  <span class="form-agreement__text"
+    >Я согласен с <a href="/policy">Политикой обработки персональных данных</a
+    ></span
+  >
+</label>
+
+<style is:global>
+  .form-agreement {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .form-agreement__input {
+    display: inline-block;
+
+    width: 1.8rem;
+    height: 1.8rem;
+
+    margin-right: 1.2rem;
+
+    @media (max-width: 768px) {
+      width: 1.35rem;
+      height: 1.35rem;
+
+      margin-right: 1rem;
+    }
+
+    accent-color: var(--color-primary-100);
+  }
+
+  .form-agreement__text {
+    color: var(--color-grayscale-400);
+
+    a {
+      text-decoration: underline;
+      text-decoration-skip-ink: none;
+    }
+  }
+</style>

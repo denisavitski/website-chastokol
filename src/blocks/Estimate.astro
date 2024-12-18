@@ -1,0 +1,191 @@
+---
+import Button from '@elements/Button.astro'
+import CalendarInput from '@elements/CalendarInput.astro'
+import CompanyMember, {
+  type Props as CompanyMemberProps,
+} from '@elements/CompanyMember.astro'
+import FormAgreement from '@elements/FormAgreement.astro'
+import FormInput from '@elements/FormInput.astro'
+import type { ImageDataProps } from '@elements/Image.astro'
+import Image from '@elements/Image.astro'
+
+export interface Props {
+  image?: ImageDataProps
+  heading?: string
+  description?: string
+  member?: CompanyMemberProps
+}
+
+const {
+  image = { src: '/images/estimate/image.jpg' },
+  heading = 'Получите <b>персональную</b> смету&nbsp;вашего&nbsp;забора',
+  description = 'Покажем релевантные проекты, сроки, состав работ и оценим стоимость исходя из вашего запроса',
+  member = {
+    name: 'Петр Иванов',
+    position: 'Прораб в компании «Частокол»',
+    image: { src: '/images/company-members/foreman.jpg' },
+  },
+} = Astro.props
+---
+
+<!-- BLOCK -->
+<section class="estimate">
+  <Image
+    lazy
+    lazyBackground
+    cover
+    {...image}
+    class="estimate__image"
+  />
+
+  <div class="estimate__content">
+    <h2
+      class="estimate__heading f-d-title-medium-45 f-m-title-medium-20"
+      set:html={heading}
+    />
+    <p
+      class="estimate__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+      set:html={description}
+    />
+
+    <form class="estimate__form">
+      <FormInput
+        name="name"
+        placeholder="Ваше имя"
+        required
+        class="estimate__form__input"
+      />
+
+      <FormInput
+        name="phone"
+        placeholder="Номер телефона"
+        required
+        class="estimate__form__input"
+      />
+
+      <CalendarInput class="estimate__form__input" />
+
+      <FormAgreement class="estimate__form__agreement" />
+
+      <div class="estimate__form__bottom">
+        <CompanyMember
+          {...member}
+          class="estimate__form__member"
+        />
+
+        <Button
+          type="submit"
+          name="Оставить заявку"
+          class="estimate__form__button"
+        />
+      </div>
+    </form>
+  </div>
+</section>
+
+<style is:global>
+  .estimate {
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+
+    display: flex;
+    gap: 10rem;
+
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .estimate__image {
+    flex-shrink: 0;
+
+    width: 72.5rem;
+    min-height: 100%;
+
+    border-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .estimate__content {
+    padding: 5rem;
+
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--color-grayscale-100);
+    border-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+      padding: 2rem;
+    }
+  }
+
+  .estimate__heading {
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+
+    b {
+      color: var(--color-primary-100);
+      font-weight: inherit;
+    }
+  }
+
+  .estimate__description {
+    width: 40rem;
+    margin-bottom: 5rem;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-bottom: 4rem;
+    }
+  }
+
+  .estimate__form {
+  }
+
+  .estimate__form__input {
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .estimate__form__agreement {
+    margin-top: 1.1rem;
+    margin-bottom: 8rem;
+
+    @media (max-width: 768px) {
+      margin-top: 0.5rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .estimate__form__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    @media (max-width: 768px) {
+      align-items: flex-start;
+      flex-direction: column-reverse;
+    }
+  }
+
+  .estimate__form__member {
+  }
+
+  .estimate__form__button {
+    margin-bottom: 4rem;
+  }
+</style>
