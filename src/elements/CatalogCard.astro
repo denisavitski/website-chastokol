@@ -307,11 +307,16 @@ const themedLabels: Array<CardLabelProps> | undefined = labels
   }
 
   .catalog-card__description {
-    display: block;
-
     margin-top: 1.5rem;
 
     color: var(--color-grayscale-400);
+
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -moz-box-orient: vertical;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .catalog-card__more-link {

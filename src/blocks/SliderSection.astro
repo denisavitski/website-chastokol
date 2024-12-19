@@ -5,7 +5,7 @@ import SliderButton from '@elements/SliderButton.astro'
 
 export interface Props extends SectionProps {
   class?: string
-  itemInView?: '2' | '3' | '4' | 2 | 3 | 4
+  itemInView?: '1' | '2' | '3' | '4' | 1 | 2 | 3 | 4
 }
 
 const { class: className, itemInView = 3, ...rest } = Astro.props
@@ -42,6 +42,10 @@ const { class: className, itemInView = 3, ...rest } = Astro.props
     display: flex;
     gap: var(--gap);
 
+    .slider-section[data-items-in-view='1'] & {
+      --sections-in-view: 1;
+    }
+
     .slider-section[data-items-in-view='2'] & {
       --sections-in-view: 2;
     }
@@ -58,6 +62,7 @@ const { class: className, itemInView = 3, ...rest } = Astro.props
       --overflow: unset;
       --gap: 2rem;
 
+      .slider-section[data-items-in-view='1'] &,
       .slider-section[data-items-in-view='2'] &,
       .slider-section[data-items-in-view='3'] & {
         --sections-in-view: var(--slider-mobile-sections-in-view);

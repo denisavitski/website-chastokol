@@ -1,0 +1,45 @@
+---
+import CategoryIntro from '@blocks/CategoryIntro.astro'
+import CostComponents from '@blocks/CostComponents.astro'
+import Map from '@blocks/Map.astro'
+import Layout from '@layout/Layout.astro'
+import Vkontakte from '@blocks/Vkontakte.astro'
+import VideoReviews from '@blocks/VideoReviews.astro'
+import TextReviews from '@blocks/TextReviews.astro'
+import QA from '@blocks/QA.astro'
+import Keywords from '@blocks/Keywords.astro'
+import Connect from '@blocks/Connect.astro'
+import WorkExamples from '@blocks/WorkExamples.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Подкатегория',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'light'}
+>
+  <CategoryIntro
+    heading="Забор из профильной трубы в Санкт-Петербурге"
+    breadcrumbs={[
+      { name: 'Главная', href: '/' },
+      { name: 'Каталог', href: '/catalog' },
+      { name: 'Категория', href: '/catalog/category' },
+      { name: 'Подкатегория', href: '/catalog/category/subcategory' },
+    ]}
+  />
+
+  <WorkExamples />
+
+  <CostComponents />
+
+  <Map />
+  <Vkontakte />
+  <VideoReviews />
+  <TextReviews />
+  <QA />
+  <Keywords />
+  <Connect />
+</Layout>

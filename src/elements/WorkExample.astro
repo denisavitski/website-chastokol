@@ -1,0 +1,190 @@
+---
+import CardLabel, { type Props as CardLabelProps } from './CardLabel.astro'
+import Image, { type ImageDataProps } from './Image.astro'
+import TwoSides from './TwoSides.astro'
+import Button from './Button.astro'
+
+export interface Props {
+  class?: string
+  labels: Array<CardLabelProps>
+  title?: string
+  description?: string
+  href?: string
+  image?: ImageDataProps
+  price?: string
+}
+
+const {
+  class: className,
+  labels = [{ name: 'д. Климово' }],
+  title = 'Прямой профиль с дугой',
+  description = 'Универсальное решение для ограждения различных объектов. Изготавливается из высококачественной стали, которая подвергается специальной обработке для повышения коррозионной стойкости. Забор из металла устойчив к перепадам температур, не деформируется под воздействием осадков. ',
+  href = '/',
+  image = { src: '/images/catalog-item.png' },
+  price = 'от 550 руб. за м2',
+  ...rest
+} = Astro.props
+---
+
+<TwoSides
+  {...rest}
+  class={`work-example ${className || ''}`}
+>
+  <div
+    class="work-example__image-box"
+    slot="left-side"
+  >
+    <div class="work-example__labels">
+      {
+        labels.map((label) => {
+          return <CardLabel {...label} />
+        })
+      }
+    </div>
+    <Image
+      class="work-example__image"
+      lazy
+      lazyBackground
+      cover
+      {...image}
+    />
+  </div>
+  <div
+    class="work-example__content"
+    slot="right-side"
+  >
+    <div
+      class="work-example__title f-d-title-medium-32 f-m-body-large-medium-16"
+      set:html={title}
+    />
+    <div
+      class="work-example__price f-d-title-medium-20 f-m-footnote-medium-12"
+      set:html={price}
+    />
+    <div
+      class="work-example__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+      set:html={description}
+    />
+    <Button
+      class="work-example__link"
+      name="Подробнее"
+      theme={'default'}
+      {href}
+    />
+    <Button
+      class="work-example__link-mobile"
+      name="Подробнее"
+      theme={'flat'}
+      {href}
+    />
+  </div>
+</TwoSides>
+
+<style is:global>
+  .work-example {
+    --left-background: var(--color-image-background);
+    --right-background: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      width: 26rem;
+      gap: 0;
+
+      .two-sides__right {
+        margin-top: -1.5rem;
+        padding-top: 3.5rem;
+        border-radius: 0;
+        border-bottom-left-radius: var(--border-radius);
+        border-bottom-right-radius: var(--border-radius);
+      }
+    }
+  }
+
+  .work-example__image-box {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    @media (max-width: 768px) {
+      height: 20rem;
+    }
+  }
+
+  .work-example__labels {
+    position: absolute;
+    top: 2rem;
+    left: 2rem;
+    z-index: 2;
+
+    @media (max-width: 768px) {
+      top: 1.5rem;
+      left: 1.5rem;
+    }
+  }
+
+  .work-example__image {
+    width: 100%;
+    height: 100%;
+
+    @media (min-width: 769px) {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+
+  .work-example__content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .work-example__title {
+    margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .work-example__price {
+    margin-bottom: 3rem;
+    color: var(--color-primary-100);
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .work-example__description {
+    margin-bottom: 5rem;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -moz-box-orient: vertical;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+
+  .work-example__link {
+    width: max-content;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .work-example__link-mobile {
+    width: max-content;
+
+    @media (min-width: 769px) {
+      display: none;
+    }
+  }
+</style>

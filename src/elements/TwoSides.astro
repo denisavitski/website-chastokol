@@ -27,15 +27,20 @@ const { class: className, ...rest } = Astro.props
   }
 
   .two-sides__left {
+    position: relative;
+
     flex-shrink: 0;
 
     width: 72.5rem;
-    max-height: max-content;
+    max-height: 100%;
 
     border-radius: var(--border-radius);
     overflow: hidden;
 
-    background-color: var(--background, var(--color-grayscale-0));
+    background-color: var(
+      --left-background,
+      var(--background, var(--color-grayscale-0))
+    );
 
     @media (max-width: 768px) {
       width: 100%;
@@ -46,11 +51,15 @@ const { class: className, ...rest } = Astro.props
     flex-shrink: 0;
 
     width: 72.5rem;
+    height: max-content;
     padding: 5rem;
 
     border-radius: var(--border-radius);
     overflow: hidden;
-    background-color: var(--background, var(--color-grayscale-0));
+    background-color: var(
+      --right-background,
+      var(--background, var(--color-grayscale-0))
+    );
 
     @media (max-width: 768px) {
       width: 100%;
