@@ -1,0 +1,107 @@
+---
+import Section from './Section.astro'
+
+export interface Props {}
+
+const {} = Astro.props
+---
+
+<Section
+  heading="Цены на заборы"
+  class="prices"
+>
+  <div class="prices__table-wrapper hidden-scrollbar">
+    <table
+      class="prices__table f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    >
+      <thead>
+        <tr>
+          <th>Наименование</th>
+          <th>Высота</th>
+          <th>Столбы</th>
+          <th>Покраска каркаса</th>
+          <th>Стоимость</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Эконом</td>
+          <td>1,5 м</td>
+          <td>60 x 60 мм</td>
+          <td>Грунтовка ГФ-021</td>
+          <td>1670 руб./п.м.</td>
+        </tr>
+        <tr>
+          <td>Улучшенный</td>
+          <td>1,7 м</td>
+          <td>60 x 60 мм</td>
+          <td>Грунтовка ГФ-021</td>
+          <td>1760 руб./п.м.</td>
+        </tr>
+        <tr>
+          <td>Стандарт</td>
+          <td>1,8 м</td>
+          <td>60 x 60 мм</td>
+          <td>Грунтовка ГФ-021</td>
+          <td>1848 руб./п.м.</td>
+        </tr>
+        <tr>
+          <td>Премиум</td>
+          <td>2,0 м</td>
+          <td>60 x 60 мм</td>
+          <td>Грунтовка ГФ-021</td>
+          <td>1942 руб./п.м.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</Section>
+
+<style is:global>
+  .prices__table-wrapper {
+    @media (max-width: 768px) {
+      padding: 0.2rem var(--screen-horisontal-padding);
+      width: calc(100% + var(--screen-horisontal-padding) * 2);
+      margin-left: calc(var(--screen-horisontal-padding) * -1);
+      overflow: auto hidden;
+    }
+  }
+
+  .prices__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: 0px -0.1rem 0px 0px #e8e8e8;
+
+    @media (max-width: 768px) {
+      width: 78.3rem;
+    }
+  }
+
+  .prices__table thead {
+  }
+
+  .prices__table thead tr {
+    text-align: start;
+    color: var(--color-grayscale-400);
+  }
+
+  .prices__table th,
+  .prices__table td {
+    font-weight: 400;
+    padding: 1.4rem 2rem;
+  }
+
+  .prices__table tbody tr {
+  }
+
+  .prices__table tbody tr:nth-of-type(odd) {
+    background-color: #f4f4f4;
+  }
+
+  .prices__table tbody tr:nth-of-type(even) {
+    background-color: #fcfcfc;
+  }
+</style>
