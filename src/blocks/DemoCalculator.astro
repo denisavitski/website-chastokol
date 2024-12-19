@@ -10,10 +10,13 @@ import TwoSides from '@elements/TwoSides.astro'
 export interface Props {}
 ---
 
-<TwoSides class="demo-calculator">
+<TwoSides
+  class="demo-calculator"
+  tag="section"
+>
   <div
     class="demo-calculator__left"
-    slot="left-side"
+    slot="left"
   >
     <h2
       class="demo-calculator__heading f-d-title-medium-56 f-m-title-medium-24"
@@ -62,7 +65,7 @@ export interface Props {}
   </div>
   <div
     class="demo-calculator__right"
-    slot="right-side"
+    slot="right"
   >
     <PriceRange class="demo-calculator__range" />
     <Explanation class="demo-calculator__explanation" />

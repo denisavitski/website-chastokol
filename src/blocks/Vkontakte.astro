@@ -1,6 +1,7 @@
 ---
 import type { ImageDataProps } from '@elements/Image.astro'
 import Image from '@elements/Image.astro'
+import TwoSides from '@elements/TwoSides.astro'
 import VkontakteLink from '@elements/VkontakteLink.astro'
 
 export interface Props {
@@ -17,16 +18,23 @@ const {
 ---
 
 <!-- BLOCK -->
-<section class="vkontakte">
+<TwoSides
+  class="vkontakte"
+  tag="section"
+>
   <Image
-    class="vkontakte__image"
+    class="vkontakte__image two-sides__cover"
     {...image}
     lazy
     lazyBackground
     cover
+    slot={'left'}
   />
 
-  <div class="vkontakte__content">
+  <div
+    class="vkontakte__content"
+    slot={'right'}
+  >
     <h2
       class="vkontakte__heading f-d-title-medium-32 f-m-title-medium-20"
       set:html={heading}
@@ -37,45 +45,16 @@ const {
     />
     <VkontakteLink />
   </div>
-</section>
+</TwoSides>
 
 <style is:global>
   .vkontakte {
     padding: var(--section-vertical-padding-full)
       var(--screen-horisontal-padding);
 
-    display: flex;
-    gap: 5.1rem;
-
     @media (max-width: 768px) {
+      --left-height: 23.5rem;
       flex-direction: column-reverse;
-      gap: 2rem;
-    }
-  }
-
-  .vkontakte__image {
-    @media (max-width: 768px) {
-      height: 23.5rem;
-    }
-  }
-
-  .vkontakte__content {
-    padding: 5rem;
-    background-color: var(--color-grayscale-0);
-
-    @media (max-width: 768px) {
-      padding: 2rem;
-    }
-  }
-
-  .vkontakte__content,
-  .vkontakte__image {
-    border-radius: var(--border-radius);
-    overflow: hidden;
-
-    @media (min-width: 769px) {
-      min-height: 34.2rem;
-      width: 72.5rem;
     }
   }
 

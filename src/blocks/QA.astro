@@ -6,6 +6,7 @@ import CompanyMember, {
   type Props as CompanyMemberProps,
 } from '@elements/CompanyMember.astro'
 import Button from '@elements/Button.astro'
+import TwoSides from '@elements/TwoSides.astro'
 
 export interface Props {
   heading?: string
@@ -53,8 +54,14 @@ const {
 ---
 
 <!-- BLOCK -->
-<section class="qa">
-  <div class="qa__content">
+<TwoSides
+  class="qa"
+  tag="section"
+>
+  <div
+    class="qa__content"
+    slot={'left'}
+  >
     <h2
       class="qa__heading two-color-heading f-d-title-medium-42 f-m-title-medium-24"
       set:html={heading}
@@ -74,40 +81,30 @@ const {
   </div>
   <Accordion
     items={qa}
+    slot={'right'}
     class="qa__accordion"
   />
-</section>
+</TwoSides>
 
 <style is:global>
   .qa {
+    --right-padding: 0rem;
+    --right-background: transparent;
+    --left-height: 55.3rem;
+
     padding: var(--section-vertical-padding-full)
       var(--screen-horisontal-padding);
 
-    display: flex;
-    gap: 5rem;
-
     @media (max-width: 768px) {
-      flex-direction: column;
-      gap: 2rem;
+      --left-height: max-content;
     }
   }
 
   .qa__content {
-    width: 72.5rem;
-    height: 55.3rem;
-    padding: 5rem;
-
     display: flex;
     flex-direction: column;
 
-    background-color: var(--color-grayscale-0);
-    border-radius: var(--border-radius);
-
-    @media (max-width: 768px) {
-      width: 100%;
-      height: unset;
-      padding: 2rem;
-    }
+    height: 100%;
   }
 
   .qa__heading {

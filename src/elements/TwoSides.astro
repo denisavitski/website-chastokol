@@ -1,18 +1,21 @@
 ---
 export interface Props {
   class?: string
+  tag?: string
 }
 
-const { class: className, ...rest } = Astro.props
+const { class: className, tag = 'div', ...rest } = Astro.props
+
+const Tag = tag
 ---
 
-<div
+<Tag
   {...rest}
   class:list={[className, 'two-sides']}
 >
-  <div class="two-sides__left"><slot name="left-side" /></div>
-  <div class="two-sides__right"><slot name="right-side" /></div>
-</div>
+  <div class="two-sides__left"><slot name="left" /></div>
+  <div class="two-sides__right"><slot name="right" /></div>
+</Tag>
 
 <style is:global>
   .two-sides {
@@ -24,21 +27,25 @@ const { class: className, ...rest } = Astro.props
 
     @media (max-width: 768px) {
       flex-direction: column;
-      gap: 3rem;
+      gap: 2rem;
     }
   }
 
-  .two-sides__left {
+  .two-sides__left,
+  .two-sides__right {
     position: relative;
-
     flex-shrink: 0;
 
     width: 72.5rem;
     max-height: 100%;
-    padding: 5rem;
 
     border-radius: var(--border-radius);
     overflow: hidden;
+  }
+
+  .two-sides__left {
+    height: var(--left-height, unset);
+    padding: var(--left-padding, 5rem);
 
     background-color: var(
       --left-background,
@@ -47,19 +54,22 @@ const { class: className, ...rest } = Astro.props
 
     @media (max-width: 768px) {
       width: 100%;
-      padding: 2rem;
+      padding: var(--left-padding, 2rem);
     }
   }
 
+  .two-sides__cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+  }
+
   .two-sides__right {
-    flex-shrink: 0;
-
-    width: 72.5rem;
-    height: max-content;
-    padding: 5rem;
-
-    border-radius: var(--border-radius);
-    overflow: hidden;
+    height: var(--right-height, unset);
+    padding: var(--right-padding, 5rem);
 
     background-color: var(
       --right-background,
@@ -68,7 +78,7 @@ const { class: className, ...rest } = Astro.props
 
     @media (max-width: 768px) {
       width: 100%;
-      padding: 2rem;
+      padding: var(--right-padding, 2rem);
     }
   }
 </style>

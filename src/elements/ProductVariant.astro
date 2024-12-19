@@ -48,16 +48,16 @@ const {
 >
   <Image
     {...image}
-    class="product-variant__image"
+    class="two-sides__cover"
     lazy
     lazyBackground
     cover
-    slot={'left-side'}
+    slot={'left'}
   />
 
   <div
     class="product-variant__content"
-    slot={'right-side'}
+    slot={'right'}
   >
     <h2
       class="product-variant__title f-d-title-medium-32 f-m-title-medium-20"
@@ -110,15 +110,10 @@ const {
 <style is:global>
   .product-variant {
     --background: var(--color-grayscale-0);
-  }
 
-  .product-variant__image {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
+    @media (max-width: 768px) {
+      --left-height: 23.5rem;
+    }
   }
 
   .product-variant__content {

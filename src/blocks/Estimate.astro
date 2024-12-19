@@ -8,6 +8,7 @@ import FormAgreement from '@elements/FormAgreement.astro'
 import FormInput from '@elements/FormInput.astro'
 import type { ImageDataProps } from '@elements/Image.astro'
 import Image from '@elements/Image.astro'
+import TwoSides from '@elements/TwoSides.astro'
 
 export interface Props {
   image?: ImageDataProps
@@ -29,16 +30,23 @@ const {
 ---
 
 <!-- BLOCK -->
-<section class="estimate">
+<TwoSides
+  class="estimate"
+  tag="section"
+>
   <Image
     lazy
     lazyBackground
     cover
     {...image}
-    class="estimate__image"
+    class="estimate__image two-sides__cover"
+    slot={'left'}
   />
 
-  <div class="estimate__content">
+  <div
+    class="estimate__content"
+    slot={'right'}
+  >
     <h2
       class="estimate__heading two-color-heading f-d-title-medium-42 f-m-title-medium-20"
       set:html={heading}
@@ -81,48 +89,27 @@ const {
       </div>
     </form>
   </div>
-</section>
+</TwoSides>
 
 <style is:global>
   .estimate {
     padding: var(--section-vertical-padding-full)
       var(--screen-horisontal-padding);
 
-    display: flex;
-    gap: 5rem;
-
     background-color: var(--color-grayscale-0);
 
-    @media (max-width: 768px) {
-      flex-direction: column;
-    }
-  }
+    --right-background: var(--color-grayscale-100);
 
-  .estimate__image {
-    flex-shrink: 0;
-
-    width: 72.5rem;
-    min-height: 100%;
-
-    border-radius: var(--border-radius);
-
-    @media (max-width: 768px) {
-      display: none;
+    .two-sides__left {
+      @media (max-width: 768px) {
+        display: none;
+      }
     }
   }
 
   .estimate__content {
-    padding: 5rem;
-
     display: flex;
     flex-direction: column;
-
-    background-color: var(--color-grayscale-100);
-    border-radius: var(--border-radius);
-
-    @media (max-width: 768px) {
-      padding: 2rem;
-    }
   }
 
   .estimate__heading {

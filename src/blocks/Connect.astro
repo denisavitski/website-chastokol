@@ -6,6 +6,7 @@ import SocialLinkButton, {
 import CompanyMember, {
   type Props as CompanyMemberProps,
 } from '@elements/CompanyMember.astro'
+import TwoSides from '@elements/TwoSides.astro'
 
 export interface Props {
   class?: string
@@ -46,12 +47,16 @@ const {
 ---
 
 <!-- BLOCK -->
-<section
+<TwoSides
   {...rest}
   class:list={[className, 'connect']}
   data-theme={theme}
+  tag="section"
 >
-  <div class="connect__content">
+  <div
+    class="connect__content"
+    slot={'left'}
+  >
     <h2
       class="connect__heading f-d-title-medium-56 f-m-title-medium-24"
       set:html={heading}
@@ -105,48 +110,34 @@ const {
     }
   </div>
 
-  <div class="connect__map"></div>
-</section>
+  <div
+    class="two-sides__cover"
+    slot={'right'}
+  ></div>
+</TwoSides>
 
 <style is:global>
   .connect {
-    --height: 57.5rem;
-
     padding: var(--section-vertical-padding-full)
       var(--screen-horisontal-padding);
 
-    display: flex;
-    gap: 5rem;
+    --right-padding: 0;
 
     &[data-theme='questions'] {
-      --height: 49.6rem;
+      --left-height: 49.6rem;
     }
 
     @media (max-width: 768px) {
-      --height: 23.5rem;
-
-      flex-direction: column;
-      gap: 2rem;
+      --left-height: max-content;
+      --right-height: 23.5rem;
     }
   }
 
   .connect__content {
+    height: 100%;
+
     display: flex;
     flex-direction: column;
-
-    width: 72.5rem;
-    min-height: var(--height);
-    padding: 5rem;
-
-    border-radius: var(--border-radius);
-    background-color: var(--color-grayscale-0);
-
-    @media (max-width: 768px) {
-      width: 100%;
-      min-height: unset;
-
-      padding: 2rem;
-    }
   }
 
   .connect__heading {
@@ -235,19 +226,5 @@ const {
 
   .connect__district__name {
     color: var(--color-grayscale-500);
-  }
-
-  .connect__map {
-    width: 72.5rem;
-    height: var(--height);
-
-    overflow: hidden;
-
-    border-radius: var(--border-radius);
-    background-color: var(--color-grayscale-0);
-
-    @media (max-width: 768px) {
-      width: 100%;
-    }
   }
 </style>
