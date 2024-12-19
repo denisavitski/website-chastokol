@@ -1,0 +1,98 @@
+---
+import Explanation from './Explanation.astro'
+import Icon from './Icon.astro'
+
+export const center = true
+
+export interface Props {
+  class?: string
+  text?: string
+}
+
+const {
+  class: className,
+  text = 'Данная стоимость является приблизительной, для получения подробного расчета вы можете перейти в <a href="/" target="_blank">подробный калькулятор</a>',
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'info']}
+>
+  <Icon
+    name={'info'}
+    class="info__icon"
+  />
+
+  <Explanation
+    class="info__explanation"
+    text={text}
+  />
+</div>
+
+<style is:global>
+  .info {
+    --icon-size: var(--info-icon-size, 2.4rem);
+
+    position: relative;
+
+    display: inline-block;
+
+    @media (max-width: 768px) {
+      --icon-size: var(--info-icon-size, 1.3rem);
+    }
+  }
+
+  .info__icon {
+    width: var(--icon-size);
+    height: var(--icon-size);
+
+    fill: var(--color-primary-100);
+  }
+
+  .info__explanation {
+    position: absolute;
+    top: calc(100% + var(--icon-size) / 2);
+    left: 50%;
+    transform: translateX(-50%);
+
+    width: 30rem;
+    padding: 2rem;
+
+    border-radius: var(--border-radius);
+    background-color: var(--color-grayscale-0);
+    pointer-events: none;
+    box-shadow:
+      0 0.1rem 0.3rem rgba(0, 0, 0, 0.12),
+      0 0.1rem 0.2rem rgba(0, 0, 0, 0.24);
+
+    opacity: 0;
+
+    transition-property: opacity;
+    transition-duration: var(--duration-button);
+
+    @media (max-width: 768px) {
+      width: 20rem;
+      padding: 1.5rem;
+    }
+
+    &::before {
+      content: '';
+
+      position: absolute;
+      top: calc(var(--icon-size) * -2);
+      left: 0;
+
+      display: block;
+
+      width: 100%;
+      height: calc(var(--icon-size) * 2);
+    }
+
+    .info:hover & {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+</style>

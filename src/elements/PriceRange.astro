@@ -1,0 +1,258 @@
+---
+import Info from './Info.astro'
+
+export interface Props {
+  class?: string
+  average?: string
+  explanation?: string
+}
+
+const {
+  class: className,
+  average = 'от 30 000 руб.',
+  explanation = 'Данная стоимость является приблизительной, для получения подробного расчета вы можете перейти в <a href="/" target="_blank">подробный калькулятор</a>',
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'price-range']}
+>
+  <div
+    class="price-range__title f-d-body-large-regular-16 f-m-footnote-regular-12"
+    set:html="Средняя стоимость"
+  />
+  <div class="price-range__price f-d-title-medium-42 f-m-title-medium-24">
+    <div
+      class="price-range__price__value"
+      set:html={average}
+    />
+    <Info
+      class="price-range__info"
+      text={explanation}
+    />
+  </div>
+
+  <div class="price-range__graph">
+    <div class="price-range__graph__rows">
+      <div
+        class="price-range__graph__row price-range__graph__row_start"
+        style="--scale: 0.1;"
+      ></div>
+      <div
+        class="price-range__graph__row price-range__graph__row_average"
+        style="--scale: 0.2;"
+      ></div>
+      <div
+        class="price-range__graph__row price-range__graph__row_end"
+        style="--scale: 1;"
+      ></div>
+    </div>
+    <div
+      class="price-range__graph__cols f-d-footnote-regular-12 f-m-footnote-regular-8"
+    >
+      <div class="price-range__graph__col">0</div>
+      <div class="price-range__graph__col">50 000</div>
+      <div class="price-range__graph__col">100 000</div>
+      <div class="price-range__graph__col">200 000</div>
+    </div>
+  </div>
+
+  <div
+    class="price-range__footnotes f-d-body-basic-medium-14 f-m-footnote-medium-10"
+  >
+    <div class="price-range__footnote price-range__footnote_start">от</div>
+    <div class="price-range__footnote price-range__footnote_average"
+      >средняя</div
+    >
+    <div class="price-range__footnote price-range__footnote_end">до</div>
+  </div>
+</div>
+
+<style is:global>
+  .price-range {
+    width: 62.5rem;
+
+    padding: 3rem;
+
+    border-radius: var(--border-radius);
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      width: 33.5rem;
+      padding: 2rem;
+    }
+  }
+
+  .price-range__title {
+    margin-bottom: 1rem;
+    color: var(--color-grayscale-400);
+  }
+
+  .price-range__price {
+    margin-bottom: 2.3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+
+      display: inline-flex;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  .price-range__price__value {
+    color: var(--color-primary-100);
+  }
+
+  .price-range__info {
+    z-index: 2;
+    @media (min-width: 769px) {
+      display: none;
+    }
+  }
+
+  .price-range__graph {
+    --padding-left: 1rem;
+
+    position: relative;
+
+    height: 24.9rem;
+    margin-bottom: 4.8rem;
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      --padding-left: 0.55rem;
+
+      height: 16rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .price-range__graph__rows {
+    position: absolute;
+    top: 2.5rem;
+    left: var(--padding-left);
+
+    width: calc(100% - var(--padding-left) * 2);
+    height: 17.4rem;
+
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 3rem;
+
+    @media (max-width: 768px) {
+      top: 1.56rem;
+
+      height: 11.426rem;
+      gap: 1.513rem;
+    }
+  }
+
+  .price-range__graph__row {
+    width: calc(100% * var(--scale, 1));
+    height: 3.8rem;
+    border-radius: 1rem;
+
+    transform-origin: left;
+
+    @media (max-width: 768px) {
+      height: 2.8rem;
+      border-radius: 0.7rem;
+    }
+  }
+
+  .price-range__graph__row_start {
+    background-color: var(--color-grayscale-300);
+  }
+
+  .price-range__graph__row_average {
+    background-color: var(--color-primary-100);
+  }
+
+  .price-range__graph__row_end {
+    background-color: #b6b6b6;
+  }
+
+  .price-range__graph__cols {
+    height: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+
+    border-right: 0.1rem solid #e6e6e6;
+  }
+
+  .price-range__graph__col {
+    flex-shrink: 0;
+
+    width: 13.5rem;
+    height: 100%;
+
+    padding-left: var(--padding-left);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
+    border-left: 0.1rem solid #e6e6e6;
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      width: 7.348rem;
+      padding-bottom: 0.3rem;
+    }
+  }
+
+  .price-range__footnotes {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .price-range__footnote {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &::before {
+      content: '';
+
+      flex-shrink: 0;
+
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-top: 0.2rem;
+
+      border-radius: 0.5rem;
+
+      @media (max-width: 768px) {
+        width: 1rem;
+        height: 1rem;
+
+        border-radius: 0.3rem;
+      }
+    }
+  }
+
+  .price-range__footnote_start {
+    &::before {
+      background-color: var(--color-grayscale-300);
+    }
+  }
+
+  .price-range__footnote_average {
+    &::before {
+      background-color: var(--color-primary-100);
+    }
+  }
+
+  .price-range__footnote_end {
+    &::before {
+      background-color: #b6b6b6;
+    }
+  }
+</style>
