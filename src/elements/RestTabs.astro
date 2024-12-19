@@ -1,0 +1,158 @@
+---
+import DotsButton from './DotsButton.astro'
+import Image, { type ImageDataProps } from './Image.astro'
+
+export const center = true
+
+export interface Props {
+  class?: string
+  id?: string
+  buttons?: Array<{ name: string; image: ImageDataProps }>
+}
+
+const {
+  class: className,
+  id = 'rest-tabs',
+  buttons = [
+    {
+      name: 'Заборы 1',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      name: 'Заборы 2',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      name: 'Заборы 3',
+      image: { src: '/images/catalog-item.png' },
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'rest-tabs']}
+>
+  <DotsButton
+    target={id}
+    class="rest-tabs__toggle"
+  />
+  <e-popover
+    {id}
+    class="rest-tabs__popover custom-scrollbar"
+  >
+    {
+      buttons.map((button) => {
+        return (
+          <button
+            class="rest-tabs__button"
+            data-radio-button
+            data-value={button.name}
+          >
+            <span
+              class="rest-tabs__button__name f-d-body-large-regular-16 f-m-body-basic-regular-14"
+              set:html={button.name}
+            />
+            <Image
+              class="rest-tabs__button__image"
+              lazy
+              lazyBackground
+              cover
+              {...button.image}
+            />
+          </button>
+        )
+      })
+    }
+  </e-popover>
+</div>
+
+<style is:global>
+  .rest-tabs {
+    position: relative;
+    display: inline-block;
+  }
+
+  .rest-tabs__toggle {
+    --type: toggle;
+  }
+
+  .rest-tabs__popover {
+    --click-outside: true;
+
+    position: absolute;
+    top: calc(100% + 2.5rem);
+    right: 0;
+
+    width: 28rem;
+    max-height: 40rem;
+
+    border-radius: 2rem;
+
+    background-color: var(--color-grayscale-0);
+
+    display: none;
+    opacity: 0;
+
+    transition-property: opacity;
+    transition-duration: var(--duration-button);
+
+    overflow: hidden auto;
+
+    &.triggered {
+      display: block;
+    }
+
+    &.opened {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      top: calc(100% + 2.2rem);
+      width: 33.5rem;
+    }
+  }
+
+  .rest-tabs__button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 2rem;
+
+    transition-property: color, background-color, border-color;
+    transition-duration: var(--duration-button);
+    transition-timing-function: ease;
+
+    color: var(--color-grayscale-400);
+
+    &:not(:last-child) {
+      border-bottom: 0.1rem solid var(--color-grayscale-300);
+    }
+
+    &[data-checked] {
+      background-color: var(--color-primary-100);
+      color: var(--color-grayscale-0);
+    }
+
+    @media (max-width: 768px) {
+      padding: 1rem;
+    }
+  }
+
+  .rest-tabs__button__name {
+  }
+
+  .rest-tabs__button__image {
+    width: 4.9rem;
+    height: 4.9rem;
+    border-radius: 1rem;
+
+    background-color: var(--color-image-background);
+  }
+</style>
+
+<script></script>

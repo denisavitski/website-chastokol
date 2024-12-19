@@ -4,7 +4,15 @@ import CatalogCardsSection from '@blocks/CatalogCardsSection.astro'
 import CategoryIntro from '@blocks/CategoryIntro.astro'
 import CostComponents from '@blocks/CostComponents.astro'
 import Estimate from '@blocks/Estimate.astro'
+import ProductVariants from '@blocks/ProductVariants.astro'
+import Map from '@blocks/Map.astro'
 import Layout from '@layout/Layout.astro'
+import Vkontakte from '@blocks/Vkontakte.astro'
+import VideoReviews from '@blocks/VideoReviews.astro'
+import TextReviews from '@blocks/TextReviews.astro'
+import QA from '@blocks/QA.astro'
+import Keywords from '@blocks/Keywords.astro'
+import Connect from '@blocks/Connect.astro'
 ---
 
 <Layout
@@ -65,6 +73,7 @@ import Layout from '@layout/Layout.astro'
 
   <CatalogCardsSection
     heading="Какой забор выбрать"
+    paddingTop={'full'}
     cards={[
       {
         href: '/',
@@ -102,4 +111,59 @@ import Layout from '@layout/Layout.astro'
   />
 
   <CallRequest />
+
+  <ProductVariants />
+
+  <CatalogCardsSection
+    heading="Выполненные работы"
+    headingLevel="h2"
+    paddingTop={'full'}
+    whiteBackground
+    cards={[
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+    ]}
+  />
+
+  <Map />
+
+  <Vkontakte />
+  <VideoReviews />
+  <TextReviews />
+  <QA />
+  <Keywords />
+  <Connect />
 </Layout>

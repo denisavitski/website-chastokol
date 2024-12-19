@@ -1,0 +1,60 @@
+---
+export interface Props {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'two-sides']}
+>
+  <div class="two-sides__left"><slot name="left-side" /></div>
+  <div class="two-sides__right"><slot name="right-side" /></div>
+</div>
+
+<style is:global>
+  .two-sides {
+    display: flex;
+    gap: 5rem;
+    align-items: stretch;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 3rem;
+    }
+  }
+
+  .two-sides__left {
+    flex-shrink: 0;
+
+    width: 72.5rem;
+    max-height: max-content;
+
+    border-radius: var(--border-radius);
+    overflow: hidden;
+
+    background-color: var(--background, var(--color-grayscale-0));
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .two-sides__right {
+    flex-shrink: 0;
+
+    width: 72.5rem;
+    padding: 5rem;
+
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    background-color: var(--background, var(--color-grayscale-0));
+
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 2rem;
+    }
+  }
+</style>

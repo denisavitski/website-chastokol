@@ -1,0 +1,198 @@
+---
+import TwoSides from '@elements/TwoSides.astro'
+import type { ImageDataProps } from './Image.astro'
+import Image from './Image.astro'
+import Button from './Button.astro'
+
+export interface Props {
+  class?: string
+  name?: string
+  title?: string
+  description?: string
+  image?: ImageDataProps
+  href?: string
+  price?: string
+  parameters?: Array<{ name: string; value: string }>
+}
+
+const {
+  class: className,
+  title = 'Заборы из евроштакетника',
+  name = 'Заборы из евроштакетника',
+  description = 'Универсальное решение для&nbsp;ограждения различных объектов. Изготавливается из&nbsp;высококачественной стали, которая подвергается специальной обработке для&nbsp;повышения коррозионной стойкости. Забор из&nbsp;металла устойчив к&nbsp;перепадам температур, не&nbsp;деформируется под&nbsp;воздействием осадков.',
+  image = { src: '/images/catalog-item.png' },
+  href = '/',
+  price = 'от 550 ру б. за м2',
+  parameters = [
+    {
+      name: 'Опорные столбы из стальных профильных труб –',
+      value: '60 x 60 x 3 мм',
+    },
+    {
+      name: 'Металлические лаги с сечением –',
+      value: '60 x 20 x 2 мм',
+    },
+    {
+      name: 'Материал –',
+      value: 'профилированные планки из оцинкованной стали 2 мм',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<TwoSides
+  {...rest}
+  class={`product-variant ${className || ''}`}
+  data-name={title || name}
+>
+  <Image
+    {...image}
+    class="product-variant__image"
+    lazy
+    lazyBackground
+    cover
+    slot={'left-side'}
+  />
+
+  <div
+    class="product-variant__content"
+    slot={'right-side'}
+  >
+    <h2
+      class="product-variant__title f-d-title-medium-32 f-m-title-medium-20"
+      set:html={title}
+    />
+    <p
+      class="product-variant__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+      set:html={description}
+    />
+
+    <div class="product-variant__parameters">
+      <div
+        class="product-variant__parameters__title f-d-body-large-medium-16 f-m-body-basic-medium-14"
+        set:html="Характеристики"
+      />
+
+      <ul class="product-variant__parameters__list">
+        {
+          parameters.map((parameter) => {
+            return (
+              <div class="product-variant__parameters__list__item">
+                <span
+                  class="product-variant__parameters__list__item__name f-d-body-large-regular-16 f-m-body-basic-regular-14"
+                  set:html={parameter.name}
+                />
+                <span
+                  class="product-variant__parameters__list__item__value f-d-body-large-medium-16 f-m-body-basic-medium-14"
+                  set:html={parameter.value}
+                />
+              </div>
+            )
+          })
+        }
+      </ul>
+
+      <div
+        class="product-variant__price f-d-body-large-medium-16 f-m-body-basic-medium-14"
+        set:html={price}
+      />
+    </div>
+
+    <Button
+      class="product-variant__link"
+      href={href}
+      name="Смотреть больше"
+    />
+  </div>
+</TwoSides>
+
+<style is:global>
+  .product-variant {
+    --background: var(--color-grayscale-0);
+  }
+
+  .product-variant__image {
+    width: 100%;
+    max-height: 68rem;
+
+    @media (max-width: 768px) {
+      max-height: 23.5rem;
+    }
+  }
+
+  .product-variant__content {
+  }
+
+  .product-variant__title {
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .product-variant__description {
+    margin-bottom: 5rem;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .product-variant__parameters {
+    margin-bottom: 10.7rem;
+
+    padding: 2.5rem;
+
+    border-radius: 2rem;
+    background-color: var(--color-grayscale-100);
+
+    @media (max-width: 768px) {
+      padding: 2rem;
+      margin-bottom: 4rem;
+
+      border-radius: 1.2rem;
+    }
+  }
+
+  .product-variant__parameters__title {
+    margin-bottom: 2.3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2.1rem;
+    }
+  }
+
+  .product-variant__parameters__list {
+    margin-bottom: 4rem;
+
+    display: grid;
+    gap: 0.5rem;
+    grid-auto-rows: max-content;
+
+    @media (max-width: 768px) {
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .product-variant__parameters__list__item {
+    color: var(--color-grayscale-400);
+  }
+
+  .product-variant__parameters__list__item__name {
+  }
+
+  .product-variant__parameters__list__item__value {
+  }
+
+  .product-variant__price {
+    color: var(--color-primary-100);
+  }
+
+  .product-variant__link {
+  }
+</style>

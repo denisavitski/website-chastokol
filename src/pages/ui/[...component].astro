@@ -26,6 +26,13 @@ const imagePaddingTop =
     ? ComponentModule.imagePaddingTop
     : 'var(--header-full-height)'
 const backgroundColor = ComponentModule.backgroundColor || 'var(--color-page)'
+const center = ComponentModule.center || false
+
+const centerStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+}
 ---
 
 <Layout
@@ -34,7 +41,10 @@ const backgroundColor = ComponentModule.backgroundColor || 'var(--color-page)'
 >
   {
     Component ? (
-      <div class="wrapper">
+      <div
+        class="wrapper"
+        style={center ? centerStyle : undefined}
+      >
         <Component />
       </div>
     ) : (

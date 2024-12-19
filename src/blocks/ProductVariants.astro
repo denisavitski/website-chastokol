@@ -1,0 +1,153 @@
+---
+import TabButtons from '@elements/TabButtons.astro'
+import Section from './Section.astro'
+import ProductVariant, {
+  type Props as ProductVariantProps,
+} from '@elements/ProductVariant.astro'
+
+export interface Props {
+  heading?: string
+  variants?: Array<ProductVariantProps>
+}
+
+const defaultVariants: Array<ProductVariantProps> = []
+
+for (let index = 0; index < 20; index++) {
+  defaultVariants.push({
+    title: `Заборы из евроштакетника ${index + 1}`,
+    name: `Заборы из евроштакетника ${index + 1}`,
+    description:
+      'Универсальное решение для&nbsp;ограждения различных объектов. Изготавливается из&nbsp;высококачественной стали, которая подвергается специальной обработке для&nbsp;повышения коррозионной стойкости. Забор из&nbsp;металла устойчив к&nbsp;перепадам температур, не&nbsp;деформируется под&nbsp;воздействием осадков.',
+    image: { src: '/images/catalog-item.png' },
+    href: '/',
+    price: 'от 550 ру б. за м2',
+    parameters: [
+      {
+        name: 'Опорные столбы из стальных профильных труб –',
+        value: '60 x 60 x 3 мм',
+      },
+      {
+        name: 'Металлические лаги с сечением –',
+        value: '60 x 20 x 2 мм',
+      },
+      {
+        name: 'Материал –',
+        value: 'профилированные планки из оцинкованной стали 2 мм',
+      },
+    ],
+  })
+}
+
+const {
+  heading = 'Какие заборы мы устанавливаем',
+  variants = defaultVariants,
+} = Astro.props
+---
+
+<Section
+  heading={heading}
+  paddingBottom={'full'}
+>
+  <e-product-variants class="product-variants">
+    <TabButtons
+      class="product-variants__buttons"
+      buttons={variants.map((variant, i) => {
+        return {
+          title: variant.title,
+          image: variant.image?.src,
+          value: variant.name || variant.title || '',
+          checked: i === 0,
+        }
+      })}
+    />
+    <div class="product-variants__list"
+      >{
+        variants.map((variant) => {
+          return (
+            <ProductVariant
+              {...variant}
+              class="product-variants__list__item"
+            />
+          )
+        })
+      }</div
+    >
+  </e-product-variants>
+</Section>
+
+<style is:global>
+  .product-variants {
+  }
+
+  .product-variants__buttons {
+    margin-bottom: 8rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .product-variants__list {
+    display: grid;
+  }
+
+  .product-variants__list__item {
+    grid-column: 1/1;
+    grid-row: 1/1;
+  }
+</style>
+
+<script>
+  import type { TabButtonsElement } from '@elements/TabButtons.astro.0.mjs'
+
+  export class ProductVariantsElement extends HTMLElement {
+    #tabButtonsElement: TabButtonsElement | null = null
+    #variantElements: Array<HTMLElement> = []
+
+    protected connectedCallback() {
+      this.#tabButtonsElement = this.querySelector('e-tab-buttons')
+
+      this.#tabButtonsElement?.addEventListener(
+        'radioChange',
+        this.#variantChangeListener,
+      )
+
+      this.#variantElements = [
+        ...this.querySelectorAll<HTMLElement>('.product-variant'),
+      ]
+
+      customElements.whenDefined('e-tab-buttons').then(() => {
+        this.#variantChangeListener()
+      })
+    }
+
+    protected disconnectedCallback() {
+      this.#tabButtonsElement?.removeEventListener(
+        'radioChange',
+        this.#variantChangeListener,
+      )
+    }
+
+    #variantChangeListener = () => {
+      const value = this.#tabButtonsElement?.value
+
+      this.#variantElements.forEach((element) => {
+        if (element.getAttribute('data-name') === value) {
+          element.style.display = ''
+        } else {
+          element.style.display = 'none'
+        }
+      })
+    }
+  }
+
+  if (!customElements.get('e-product-variants')) {
+    customElements.define('e-product-variants', ProductVariantsElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-product-variants': ProductVariantsElement
+    }
+  }
+</script>

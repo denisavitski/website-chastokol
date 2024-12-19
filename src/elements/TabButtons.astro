@@ -1,0 +1,292 @@
+---
+import './RestTabs.astro'
+
+export interface Props {
+  class?: string
+  name?: string
+  buttons?: Array<{
+    value: string
+    checked?: boolean | undefined
+    title?: string | undefined
+    image?: string | undefined
+  }>
+}
+
+const {
+  class: className,
+  name = 'radio',
+  buttons = [
+    {
+      value: 'Эконом',
+      title: 'Эконом',
+      checked: true,
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Улучшенный',
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Стандарт',
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Премиум',
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Эконом 2',
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Улучшенный 3',
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Стандарт 4',
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Премиум 5',
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Улучшенный 6',
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Стандарт 7',
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Премиум 8',
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Премиум 9',
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Улучшенный 10',
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Стандарт 11',
+      image: '/images/catalog-item.png',
+    },
+    {
+      value: 'Премиум 12',
+      image: '/images/catalog-item.png',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<e-tab-buttons
+  {...rest}
+  class:list={[className, 'tab-buttons']}
+  {name}
+>
+  {
+    buttons.map((button) => {
+      return (
+        <button
+          class="tab-buttons__button f-d-body-large-regular-16 f-m-body-basic-medium-14"
+          data-value={button.value}
+          data-checked={button.checked}
+          data-image={button.image}
+          set:html={button?.title || button.value}
+          data-radio-button
+        />
+      )
+    })
+  }
+</e-tab-buttons>
+
+<style is:global>
+  .tab-buttons {
+    --tabs-height: 4.5rem;
+    --dots-button-height: var(--tabs-height);
+
+    display: inline-flex;
+    gap: 1.5rem;
+
+    width: 100%;
+
+    @media (max-width: 768px) {
+      --tabs-height: 4rem;
+    }
+  }
+
+  .tab-buttons__button {
+    flex-shrink: 0;
+    height: var(--tabs-height);
+    padding: 0 2.5rem;
+
+    border-radius: 3rem;
+
+    color: var(--color-grayscale-400);
+
+    background-color: var(--color-grayscale-0);
+
+    transition-property: color, background-color;
+    transition-duration: var(--duration-button);
+
+    &[data-checked] {
+      color: var(--color-grayscale-0);
+      background-color: var(--color-primary-100);
+    }
+
+    @media (max-width: 768px) {
+      padding: 0 1.5rem;
+    }
+  }
+
+  .tab-buttons__rest {
+    z-index: 5;
+    @media (max-width: 768px) {
+      margin-left: auto;
+    }
+  }
+</style>
+
+<script>
+  import { RadioElement } from 'aptechka/radio'
+  import { windowResizer } from 'aptechka/window-resizer'
+
+  export class TabButtonsElement extends RadioElement {
+    #restElement: HTMLElement | null = null
+    #buttonElements: Array<HTMLElement> = []
+
+    protected override connectedCallback() {
+      super.connectedCallback()
+
+      this.#buttonElements = [
+        ...this.querySelectorAll<HTMLElement>('.tab-buttons__button'),
+      ]
+
+      windowResizer.subscribe(this.#resizeListener)
+    }
+
+    protected override disconnectedCallback() {
+      super.disconnectedCallback()
+
+      windowResizer.unsubscribe(this.#resizeListener)
+    }
+
+    #resizeListener = () => {
+      this.#buttonElements.forEach((element) => {
+        element.style.display = ''
+      })
+
+      const invisibleElements = this.#buttonElements.filter((element) => {
+        const right = element.getBoundingClientRect().right
+
+        if (right > this.offsetWidth) {
+          return true
+        }
+
+        return false
+      })
+
+      requestIdleCallback(() => {
+        invisibleElements.forEach((element) => {
+          element.style.display = 'none'
+        })
+
+        this.#createRest(invisibleElements)
+      })
+    }
+
+    #createRest(buttons: Array<HTMLElement>) {
+      const oldButtonElements =
+        this.#restElement?.querySelectorAll<HTMLElement>('[data-radio-button]')
+
+      oldButtonElements?.forEach((element) => {
+        this.removeButton(element)
+      })
+
+      this.#restElement?.remove()
+
+      if (!buttons.length) {
+        return
+      }
+
+      const data = buttons.map((button) => {
+        const value = button.getAttribute('data-value')
+        const image = button.getAttribute('data-image')
+        const text = button.textContent
+
+        return { value, text, image }
+      })
+
+      this.#restElement = document.createElement('div')
+      this.#restElement.className = 'rest-tabs tab-buttons__rest'
+
+      this.#restElement.innerHTML = `
+        <e-popover-button
+          target="${this.name}"
+          class="rest-tabs__toggle dots-button"
+        >
+          <div class="dots-button__dot dots-button__dot_1"></div>
+          <div class="dots-button__dot dots-button__dot_2"></div>
+          <div class="dots-button__dot dots-button__dot_3"></div>
+        </e-popover-button>
+        <e-popover
+          id="${this.name}"
+          class="rest-tabs__popover custom-scrollbar"
+        >
+        ${data
+          .map((item) => {
+            return `
+              <button
+                class="rest-tabs__button"
+                data-radio-button=""
+                data-value="${item.value}"
+              >
+                <span
+                  class="rest-tabs__button__name f-d-body-large-regular-16 f-m-body-basic-regular-14"
+                  >${item.text}</span
+                >
+                <image-cloak
+                  cover="true"
+                  lazy-background="true"
+                  class="media-wrapper rest-tabs__button__image"
+                >
+                  <img
+                    srcset=${item.image}
+                    alt="Альтернативный текст"
+                    decoding="async"
+                    loading="lazy"
+                  />
+                </image-cloak>
+              </button>
+            `
+          })
+          .join(' ')}
+        </e-popover>
+      `
+
+      const newButtonElements = this.#restElement.querySelectorAll<HTMLElement>(
+        '[data-radio-button]',
+      )
+
+      newButtonElements.forEach((element) => {
+        this.addButton(element)
+      })
+
+      this.appendChild(this.#restElement)
+    }
+  }
+
+  if (!customElements.get('e-tab-buttons')) {
+    customElements.define('e-tab-buttons', TabButtonsElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-tab-buttons': TabButtonsElement
+    }
+  }
+</script>
