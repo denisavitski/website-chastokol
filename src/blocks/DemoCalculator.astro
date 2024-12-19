@@ -1,0 +1,197 @@
+---
+import Button from '@elements/Button.astro'
+import Explanation from '@elements/Explanation.astro'
+import FormAgreement from '@elements/FormAgreement.astro'
+import FormInput from '@elements/FormInput.astro'
+import PriceRange from '@elements/PriceRange.astro'
+import TwoSides from '@elements/TwoSides.astro'
+
+export interface Props {}
+---
+
+<TwoSides class="demo-calculator">
+  <div
+    class="demo-calculator__left"
+    slot="left-side"
+  >
+    <h2
+      class="demo-calculator__heading f-d-title-medium-56 f-m-title-medium-24"
+      set:html="Рассчитайте стоимость забора"
+    />
+
+    <form class="demo-calculator__form">
+      <div class="demo-calculator__form__inputs">
+        <FormInput
+          name="Длина"
+          placeholder="Длина"
+          class="demo-calculator__form__input-1"
+        />
+        <FormInput
+          name="Высота"
+          placeholder="Высота"
+          class="demo-calculator__form__input-2"
+        />
+        <FormInput
+          name="Количество ворот"
+          placeholder="Количество ворот"
+          class="demo-calculator__form__input-3"
+        />
+        <FormInput
+          name="Количество калиток"
+          placeholder="Количество калиток"
+          class="demo-calculator__form__input-4"
+        />
+        <FormInput
+          name="Материал конструкции"
+          placeholder="Материал конструкции"
+          class="demo-calculator__form__input-5"
+        />
+      </div>
+      <FormAgreement class="demo-calculator__form__agreement" />
+      <Button
+        type="submit"
+        name="Рассчитать стоимость"
+      />
+    </form>
+
+    <Explanation
+      class="demo-calculator__from-explanation"
+      text='Если вы не располагаете минимальными данными для осуществления приблизительного расчета стоимости – <a href="/" target="_blank">запишитесь на замер</a>'
+    />
+  </div>
+  <div
+    class="demo-calculator__right"
+    slot="right-side"
+  >
+    <PriceRange class="demo-calculator__range" />
+    <Explanation class="demo-calculator__explanation" />
+  </div>
+</TwoSides>
+
+<style is:global>
+  .demo-calculator {
+    --left-background: var(--color-grayscale-100);
+    --right-background: var(--color-grayscale-100);
+
+    padding: calc(var(--section-vertical-padding) * 2)
+      var(--screen-horisontal-padding);
+
+    background-color: var(--color-grayscale-0);
+
+    @media (min-width: 769px) {
+      .two-sides__right {
+        height: unset;
+        max-height: 100%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      padding-top: 10.6rem;
+
+      flex-direction: column-reverse;
+
+      .two-sides__left {
+        position: unset;
+      }
+    }
+  }
+
+  .demo-calculator {
+    @media (max-width: 768px) {
+      .price-range {
+        background-color: transparent;
+        padding: 0;
+      }
+    }
+  }
+
+  .demo-calculator__left {
+  }
+
+  .demo-calculator__heading {
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      position: absolute;
+      top: var(--section-vertical-padding);
+
+      margin-bottom: 4rem;
+    }
+  }
+
+  .demo-calculator__form {
+    padding-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      padding-bottom: 2rem;
+
+      border-bottom: 0.1rem solid var(--color-grayscale-300);
+    }
+  }
+
+  .demo-calculator__form__inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+
+    margin-bottom: 2.5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+    }
+  }
+
+  .demo-calculator__form__input-1 {
+  }
+
+  .demo-calculator__form__input-2 {
+  }
+
+  .demo-calculator__form__input-3 {
+    @media (max-width: 768px) {
+      grid-column: 1/3;
+    }
+  }
+
+  .demo-calculator__form__input-4 {
+    @media (max-width: 768px) {
+      grid-column: 1/3;
+    }
+  }
+
+  .demo-calculator__form__input-5 {
+    grid-column: 1/3;
+  }
+
+  .demo-calculator__form__agreement {
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .demo-calculator__from-explanation {
+    @media (max-width: 768px) {
+      padding-top: 2rem;
+    }
+  }
+
+  .demo-calculator__right {
+  }
+
+  .demo-calculator__range {
+    @media (min-width: 769px) {
+      margin-bottom: 6.2rem;
+    }
+  }
+
+  .demo-calculator__explanation {
+    text-wrap: balance;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+</style>
