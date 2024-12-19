@@ -2,9 +2,7 @@
 import TextReviewCard, {
   type Props as TextReviewCardProps,
 } from '@elements/TextReviewCard.astro'
-import Section from '@elements/Section.astro'
-import SliderBullets from '@elements/SliderBullets.astro'
-import SliderButton from '@elements/SliderButton.astro'
+import SliderSection from './SliderSection.astro'
 
 export interface Props {
   heading?: string
@@ -44,52 +42,15 @@ const {
 ---
 
 <!-- BLOCK -->
-<Section
+<SliderSection
   {...rest}
-  class:list={['text-reviews']}
   heading={heading}
   whiteBackground
   paddingBottom={'full'}
 >
-  <e-scroll class="text-reviews__slider bullets">
-    {
-      catalog.map((item) => {
-        return (
-          <TextReviewCard
-            class="text-reviews__slider__item"
-            {...item}
-          />
-        )
-      })
-    }
-    <SliderButton
-      type={'prev'}
-      center
-    />
-    <SliderButton
-      type={'next'}
-      center
-    />
-    <SliderBullets />
-  </e-scroll>
-</Section>
-
-<style is:global>
-  .text-reviews__slider {
-    --axis: x;
-    --gap: 5rem;
-    --overflow: hidden;
-    --sectional: true;
-    --sections-in-view: 3;
-    --auto-size: true;
-
-    display: flex;
-    gap: var(--gap);
-
-    @media (max-width: 768px) {
-      --overflow: unset;
-      --gap: 2rem;
-      --sections-in-view: var(--slider-mobile-sections-in-view);
-    }
+  {
+    catalog.map((item) => {
+      return <TextReviewCard {...item} />
+    })
   }
-</style>
+</SliderSection>

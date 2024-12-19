@@ -1,0 +1,28 @@
+---
+import SliderSection, {
+  type Props as SliderSectionProps,
+} from '@blocks/SliderSection.astro'
+import CatalogCard, {
+  type Props as CatalogCardProps,
+} from '@elements/CatalogCard.astro'
+
+export interface Props extends SliderSectionProps {
+  class?: string
+  itemInView?: '2' | '3' | '4' | 2 | 3 | 4
+  cards?: Array<CatalogCardProps>
+}
+
+const { class: className, itemInView = 3, cards = [], ...rest } = Astro.props
+---
+
+<SliderSection
+  class={`catalog-cards-section ${className || ''}`}
+  data-items-in-view={itemInView}
+  {...rest}
+>
+  {
+    cards.map((card) => {
+      return <CatalogCard {...card} />
+    })
+  }
+</SliderSection>

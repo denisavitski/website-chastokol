@@ -40,7 +40,7 @@ const {
 
   <div class="estimate__content">
     <h2
-      class="estimate__heading f-d-title-medium-45 f-m-title-medium-20"
+      class="estimate__heading f-d-title-medium-42 f-m-title-medium-20"
       set:html={heading}
     />
     <p
@@ -89,7 +89,7 @@ const {
       var(--screen-horisontal-padding);
 
     display: flex;
-    gap: 10rem;
+    gap: 5rem;
 
     background-color: var(--color-grayscale-0);
 
@@ -183,9 +183,26 @@ const {
   }
 
   .estimate__form__member {
+    gap: 3rem;
+
+    @media (max-width: 768px) {
+      gap: 1.5rem;
+    }
+
+    .company-member__image {
+      width: 8rem;
+      height: 8rem;
+
+      @media (max-width: 768px) {
+        width: 7rem;
+        height: 7rem;
+      }
+    }
   }
 
   .estimate__form__button {
-    margin-bottom: 4rem;
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
   }
 </style>

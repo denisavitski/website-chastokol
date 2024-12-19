@@ -1,12 +1,10 @@
 ---
-import CompletedWork from '@blocks/CompletedWork.astro'
+import CatalogCardsSection from '@blocks/CatalogCardsSection.astro'
 import Connect from '@blocks/Connect.astro'
 import HomeIntro from '@blocks/HomeIntro.astro'
 import Keywords from '@blocks/Keywords.astro'
 import Map from '@blocks/Map.astro'
 import QA from '@blocks/QA.astro'
-import RelatedServices from '@blocks/RelatedServices.astro'
-import StructuresCatalog from '@blocks/StructuresCatalog.astro'
 import TextReviews from '@blocks/TextReviews.astro'
 import TurnkeyFences from '@blocks/TurnkeyFences.astro'
 import VideoReviews from '@blocks/VideoReviews.astro'
@@ -24,10 +22,121 @@ import Layout from '@layout/Layout.astro'
   headerMobileColor={'light'}
 >
   <HomeIntro />
-  <StructuresCatalog />
-  <RelatedServices />
+
+  <CatalogCardsSection
+    heading="Каталог конструкций"
+    whiteBackground
+    paddingTop={'full'}
+    cards={[
+      {
+        href: '/',
+        name: 'Заборы',
+        price: 'от 550 руб. за м2',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'category',
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        price: 'от 550 руб. за м2',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'category',
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        price: 'от 550 руб. за м2',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'category',
+      },
+    ]}
+  />
+
+  <CatalogCardsSection
+    heading={'Сопутствующие услуги'}
+    headingLevel={'h3'}
+    whiteBackground
+    paddingBottom={'full'}
+    itemInView={4}
+    cards={[
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'service',
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'service',
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'service',
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'service',
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'service',
+      },
+    ]}
+  />
+
   <TurnkeyFences />
-  <CompletedWork />
+
+  <CatalogCardsSection
+    heading="Выполненные работы"
+    headingLevel="h2"
+    paddingTop={'full'}
+    whiteBackground
+    cards={[
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+    ]}
+  />
   <Map />
   <Vkontakte />
   <VideoReviews />

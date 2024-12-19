@@ -1,5 +1,5 @@
 ---
-import CatalogVariants from '@blocks/CatalogVariants.astro'
+import CatalogCardsSection from '@blocks/CatalogCardsSection.astro'
 import CategoryIntro from '@blocks/CategoryIntro.astro'
 import CostComponents from '@blocks/CostComponents.astro'
 import Estimate from '@blocks/Estimate.astro'
@@ -16,7 +16,49 @@ import Layout from '@layout/Layout.astro'
   headerMobileColor={'light'}
 >
   <CategoryIntro />
-  <CatalogVariants />
+
+  <CatalogCardsSection
+    heading="Виды металлических заборов"
+    cards={[
+      {
+        href: '/',
+        name: 'Заборы',
+        price: 'от 550 руб. за м2',
+        image: { src: '/images/catalog-item.png' },
+        description:
+          'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+        theme: 'variant',
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        price: 'от 550 руб. за м2',
+        image: { src: '/images/catalog-item.png' },
+        description:
+          'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+        theme: 'variant',
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        price: 'от 550 руб. за м2',
+        image: { src: '/images/catalog-item.png' },
+        description:
+          'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+        theme: 'variant',
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        price: 'от 550 руб. за м2',
+        image: { src: '/images/catalog-item.png' },
+        description:
+          'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+        theme: 'variant',
+      },
+    ]}
+  />
+
   <CostComponents />
   <Estimate />
 </Layout>

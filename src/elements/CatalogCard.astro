@@ -3,6 +3,10 @@ import type { ImageDataProps } from './Image.astro'
 import Image from './Image.astro'
 import Button from './Button.astro'
 import CardLabel, { type Props as CardLabelProps } from './CardLabel.astro'
+import PlayButton from './PlayButton.astro'
+
+//@ts-ignore
+const _ = '_'
 
 export interface Props {
   class?: string | undefined
@@ -10,12 +14,25 @@ export interface Props {
   name?: string | undefined
   price?: string | undefined
   image?: ImageDataProps | undefined
-  button?: 'arrow' | 'more' | 'top-more' | undefined | false
+  button?: CatalogCardButtonType
   tag?: string | undefined
-  border?: boolean | undefined
   labels?: Array<CardLabelProps> | undefined
   description?: string | undefined
+  theme?:
+    | 'category'
+    | 'service'
+    | 'video'
+    | 'subcategory'
+    | 'variant'
+    | 'article'
 }
+
+export type CatalogCardButtonType =
+  | 'arrow'
+  | 'more'
+  | 'top-more'
+  | undefined
+  | false
 
 const {
   class: className,
@@ -26,19 +43,35 @@ const {
   labels,
   button,
   tag = 'a',
-  border = false,
   description,
+  theme,
   ...rest
 } = Astro.props
 
 const Tag = tag as any
+
+const themedButton: CatalogCardButtonType = button
+  ? button
+  : theme === 'category'
+    ? 'top-more'
+    : theme === 'article'
+      ? 'more'
+      : theme === 'service'
+        ? 'arrow'
+        : theme === 'subcategory'
+          ? false
+          : theme === 'variant'
+            ? 'more'
+            : theme === 'video'
+              ? false
+              : false
 ---
 
 <Tag
   {...rest}
   {href}
   class:list={[className, 'catalog-card']}
-  data-border={border}
+  data-theme={theme}
 >
   <span class="catalog-card__image-box">
     <Image
@@ -54,6 +87,15 @@ const Tag = tag as any
         </div>
       )
     }
+    {
+      theme === 'video' && (
+        <PlayButton
+          class="catalog-card__play-button"
+          slot={'image-box'}
+        />
+      )
+    }
+
     <slot name="image-box" />
   </span>
   <span class="catalog-card__content">
@@ -73,12 +115,14 @@ const Tag = tag as any
         }
       </span>
       {
-        (button === 'arrow' || button === 'top-more') && (
+        (themedButton === 'arrow' || themedButton === 'top-more') && (
           <Button
             class="catalog-card__link"
             tag="span"
             theme={
-              button === 'top-more' ? 'default-to-only-arrow' : 'only-arrow'
+              themedButton === 'top-more'
+                ? 'default-to-only-arrow'
+                : 'only-arrow'
             }
             name={'Подробнее'}
           />
@@ -94,7 +138,7 @@ const Tag = tag as any
       )
     }
     {
-      button === 'more' && (
+      themedButton === 'more' && (
         <Button
           class="catalog-card__more-link"
           tag="span"
@@ -111,21 +155,44 @@ const Tag = tag as any
   .catalog-card {
     display: block;
 
-    width: var(--catalog-card-width, 33.7rem);
+    width: var(--catalog-card-width, 46.7rem);
     border-radius: var(--border-radius);
 
     @media (max-width: 768px) {
-      width: var(--catalog-card-width, 20rem);
+      width: var(--catalog-card-width, 26rem);
+    }
+
+    &[data-theme='category'] {
+      --catalog-card-width: 46.7rem;
+      --catalog-card-image-height: 46.7rem;
+
+      @media (max-width: 768px) {
+        --catalog-card-width: 26rem;
+        --catalog-card-image-height: 26rem;
+        --arrow-size: 4rem;
+      }
+    }
+
+    &[data-theme='service'] {
+      --catalog-card-width: 33.7rem;
+      --catalog-card-image-height: 33.7rem;
+
+      @media (max-width: 768px) {
+        --catalog-card-width: 20rem;
+        --catalog-card-image-height: 20rem;
+      }
     }
   }
 
   .catalog-card__image-box {
     position: relative;
 
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     width: 100%;
-    height: var(--catalog-card-image-height, 33.5rem);
+    height: var(--catalog-card-image-height, 32.7rem);
 
     overflow: hidden;
 
@@ -139,6 +206,11 @@ const Tag = tag as any
     @media (max-width: 768px) {
       height: var(--catalog-card-image-height, 19.8rem);
     }
+  }
+
+  .catalog-card__play-button {
+    position: absolute;
+    z-index: 1;
   }
 
   .catalog-card__image {
@@ -164,7 +236,7 @@ const Tag = tag as any
     padding-top: calc(2.1rem + var(--border-radius));
     margin-top: calc(var(--border-radius) * -1);
 
-    .catalog-card[data-border='true'] & {
+    [data-white-background='true'] & {
       border-bottom: 0.1rem solid var(--color-grayscale-300);
       border-left: 0.1rem solid var(--color-grayscale-300);
       border-right: 0.1rem solid var(--color-grayscale-300);
@@ -195,8 +267,21 @@ const Tag = tag as any
   .catalog-card__price {
     display: block;
     margin-top: 0.5rem;
+    margin-bottom: 0.8rem;
 
     color: var(--color-primary-100);
+
+    @media (max-width: 768px) {
+      margin-bottom: 0.5rem;
+    }
+
+    .catalog-card[data-theme='category'] & {
+      margin-top: 0;
+
+      @media (max-width: 768px) {
+        margin-top: 0.5rem;
+      }
+    }
   }
 
   .catalog-card__labels {
@@ -218,13 +303,9 @@ const Tag = tag as any
   .catalog-card__description {
     display: block;
 
-    margin-top: 2.3rem;
+    margin-top: 1.5rem;
 
     color: var(--color-grayscale-400);
-
-    @media (max-width: 768px) {
-      margin-top: 2rem;
-    }
   }
 
   .catalog-card__more-link {

@@ -1,6 +1,6 @@
 ---
 import Breadcrumbs from '@blocks/Breadcrumbs.astro'
-import CatalogCategories from '@blocks/CatalogCategories.astro'
+import CatalogCardsSection from '@blocks/CatalogCardsSection.astro'
 import Connect from '@blocks/Connect.astro'
 import TextIntro from '@blocks/TextIntro.astro'
 import Layout from '@layout/Layout.astro'
@@ -25,9 +25,12 @@ import Layout from '@layout/Layout.astro'
     heading="Каталог конструкций"
     description="Более 50 категорий конструкций под любые цели."
   />
-  <CatalogCategories
-    name="Заборы"
+
+  <CatalogCardsSection
+    heading={'Заборы'}
+    headingLevel="h3"
     paddingTop={'full'}
+    whiteBackground
     cards={[
       {
         href: '/',
@@ -61,8 +64,11 @@ import Layout from '@layout/Layout.astro'
       },
     ]}
   />
-  <CatalogCategories
-    name="Ворота"
+
+  <CatalogCardsSection
+    heading={'Ворота'}
+    headingLevel="h3"
+    whiteBackground
     cards={[
       {
         href: '/',
@@ -96,9 +102,12 @@ import Layout from '@layout/Layout.astro'
       },
     ]}
   />
-  <CatalogCategories
-    name="Ворота"
+
+  <CatalogCardsSection
+    heading={'Калитки'}
+    headingLevel="h3"
     paddingBottom={'full'}
+    whiteBackground
     cards={[
       {
         href: '/',
@@ -132,6 +141,7 @@ import Layout from '@layout/Layout.astro'
       },
     ]}
   />
+
   <Connect
     theme={'questions'}
     heading="Остались вопросы?"
