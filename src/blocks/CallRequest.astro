@@ -1,0 +1,144 @@
+---
+import Button from '@elements/Button.astro'
+import FormAgreement from '@elements/FormAgreement.astro'
+import FormInput from '@elements/FormInput.astro'
+import Phone from '@elements/Phone.astro'
+
+export interface Props {
+  heading?: string
+  description?: string
+}
+
+const {
+  heading = '<b>Затрудняетесь с выбором</b> забора? Оставьте заявку на&nbsp;обратный звонок',
+  description = 'Оставьте ваши контактные данные, и&nbsp;наши менеджеры свяжутся с&nbsp;вами и&nbsp;бесплатно проконсультируют по&nbsp;любым интересующим вас&nbsp;вопросам:',
+} = Astro.props
+---
+
+<!-- BLOCK -->
+<section class="call-request">
+  <div class="call-request__inner">
+    <div class="call-request__info">
+      <h2
+        class="call-request__heading two-color-heading f-d-title-medium-32 f-m-title-medium-20"
+        set:html={heading}
+      />
+      <p
+        class="call-request__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+        set:html={description}
+      />
+      <Phone class="call-request__phone" />
+    </div>
+    <form class="call-request__form">
+      <FormInput
+        class="call-request__form__input"
+        name="name"
+        placeholder="Ваше имя"
+        theme={'gray'}
+        required
+      />
+      <FormInput
+        class="call-request__form__input"
+        name="phone"
+        placeholder="Номер телефона"
+        theme={'gray'}
+        required
+      />
+      <FormAgreement class="call-request__form-agreement" />
+      <Button
+        class="call-request__form__submit"
+        name="Отправить"
+        type="submit"
+      />
+    </form>
+  </div>
+</section>
+
+<style is:global>
+  .call-request {
+    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
+  }
+
+  .call-request__inner {
+    padding: 5rem;
+
+    display: flex;
+    gap: 7.6rem;
+
+    background-color: var(--color-grayscale-0);
+    border-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+      gap: 2rem;
+      padding: 2rem;
+      flex-direction: column;
+    }
+  }
+
+  .call-request__info {
+    @media (min-width: 769px) {
+      padding-right: 10rem;
+      border-right: 0.1rem solid var(--color-grayscale-300);
+    }
+
+    @media (max-width: 768px) {
+      padding-bottom: 4rem;
+      border-bottom: 0.1rem solid var(--color-grayscale-300);
+    }
+  }
+
+  .call-request__heading {
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .call-request__description {
+    margin-bottom: 6.2rem;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .call-request__phone {
+  }
+
+  .call-request__form {
+    flex-shrink: 0;
+    width: 62.5rem;
+
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .call-request__form__input {
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .call-request__form-agreement {
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      margin-top: 0.65rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .call-request__form__submit {
+    width: max-content;
+  }
+</style>

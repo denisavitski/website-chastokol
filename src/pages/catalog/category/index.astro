@@ -1,4 +1,5 @@
 ---
+import CallRequest from '@blocks/CallRequest.astro'
 import CatalogCardsSection from '@blocks/CatalogCardsSection.astro'
 import CategoryIntro from '@blocks/CategoryIntro.astro'
 import CostComponents from '@blocks/CostComponents.astro'
@@ -61,4 +62,44 @@ import Layout from '@layout/Layout.astro'
 
   <CostComponents />
   <Estimate />
+
+  <CatalogCardsSection
+    heading="Какой забор выбрать"
+    cards={[
+      {
+        href: '/',
+        name: 'Деревянный забор своими руками',
+        description:
+          'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'article',
+      },
+      {
+        href: '/',
+        name: 'Деревянный забор своими руками',
+        description:
+          'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'article',
+      },
+      {
+        href: '/',
+        name: 'Деревянный забор своими руками',
+        description:
+          'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'article',
+      },
+      {
+        href: '/',
+        name: 'Деревянный забор своими руками',
+        description:
+          'Один из самых популярных видов ограждений для дачных участков и коттеджей в черте города.',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'article',
+      },
+    ]}
+  />
+
+  <CallRequest />
 </Layout>

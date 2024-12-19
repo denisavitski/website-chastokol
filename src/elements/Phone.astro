@@ -1,0 +1,63 @@
+---
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+  value?: string
+}
+
+const { class: className, value = '+7 (499) 900-60-30', ...rest } = Astro.props
+---
+
+<a
+  {...rest}
+  class:list={[className, 'phone']}
+  href={`tel:${value}`}
+>
+  <span class="phone__icon-box">
+    <Icon
+      name={'phone'}
+      class="phone__icon"
+    />
+  </span>
+  <span
+    class="phone__value f-d-body-large-medium-16 f-m-body-basic-medium-14"
+    set:html={value}
+  />
+</a>
+
+<style is:global>
+  .phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 2rem;
+
+    @media (max-width: 768px) {
+      gap: 1.5rem;
+    }
+  }
+
+  .phone__icon-box {
+    width: 4.5rem;
+    height: 4.5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background-color: var(--color-primary-100);
+  }
+
+  .phone__icon {
+    width: 38%;
+    height: 38%;
+
+    fill: var(--color-grayscale-0);
+  }
+
+  .phone__value {
+    color: var(--color-primary-100);
+  }
+</style>

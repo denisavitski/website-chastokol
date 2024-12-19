@@ -1,0 +1,97 @@
+---
+import VideoReviewCard, {
+  type Props as VideoReviewCardProps,
+} from '@elements/VideoReviewCard.astro'
+import SliderSection from './SliderSection.astro'
+
+export interface Props {
+  class?: string
+  heading?: string
+  catalog?: Array<VideoReviewCardProps>
+}
+
+const {
+  class: className,
+  heading = 'Каталог конструкций',
+  catalog = [
+    {
+      name: 'Татьяна Дмитриева',
+      short: '«Отличная компания, все сделали быстро, качественно и в срок»',
+      stats: [
+        {
+          title: 'Материал:',
+          value: 'Евроштакетник',
+        },
+        {
+          title: 'Срок установки:',
+          value: '3 дня',
+        },
+        {
+          title: 'Стоимость:',
+          value: '60 000 руб.',
+        },
+      ],
+      image: {
+        src: '/images/video-reviews/image.jpg',
+      },
+    },
+    {
+      name: 'Татьяна Дмитриева',
+      short: '«Отличная компания, все сделали быстро, качественно и в срок»',
+      stats: [
+        {
+          title: 'Материал:',
+          value: 'Евроштакетник',
+        },
+        {
+          title: 'Срок установки:',
+          value: '3 дня',
+        },
+        {
+          title: 'Стоимость:',
+          value: '60 000 руб.',
+        },
+      ],
+      image: {
+        src: '/images/video-reviews/image.jpg',
+      },
+    },
+    {
+      name: 'Татьяна Дмитриева',
+      short: '«Отличная компания, все сделали быстро, качественно и в срок»',
+      stats: [
+        {
+          title: 'Материал:',
+          value: 'Евроштакетник',
+        },
+        {
+          title: 'Срок установки:',
+          value: '3 дня',
+        },
+        {
+          title: 'Стоимость:',
+          value: '60 000 руб.',
+        },
+      ],
+      image: {
+        src: '/images/video-reviews/image.jpg',
+      },
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<SliderSection
+  {...rest}
+  heading="Отзывы клиентов"
+  whiteBackground
+  paddingTop={'full'}
+  itemInView={2}
+>
+  {
+    catalog.map((item) => {
+      return <VideoReviewCard {...item} />
+    })
+  }
+</SliderSection>

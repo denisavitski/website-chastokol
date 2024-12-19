@@ -239,6 +239,13 @@ e-scroll.has-overflow.bullets {
   margin-bottom: var(--section-bullets-padding);
 }
 
+.two-color-heading {
+  b {
+    font-weight: inherit;
+    color: var(--color-primary-100);
+  }
+}
+
 .hidden-scrollbar {
   -ms-overflow-style: none;
   scrollbar-width: none;

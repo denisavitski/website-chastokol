@@ -65,6 +65,12 @@ const themedButton: CatalogCardButtonType = button
             : theme === 'video'
               ? false
               : false
+
+const themedLabels: Array<CardLabelProps> | undefined = labels
+  ? labels
+  : theme === 'article'
+    ? [{ name: 'Статья' }]
+    : labels
 ---
 
 <Tag
@@ -79,9 +85,9 @@ const themedButton: CatalogCardButtonType = button
       {...image}
     />
     {
-      labels && (
+      themedLabels && (
         <div class="catalog-card__labels">
-          {labels.map((label) => {
+          {themedLabels.map((label) => {
             return <CardLabel {...label} />
           })}
         </div>
