@@ -1,0 +1,153 @@
+---
+export interface Props {
+  class?: string
+  title?: string
+  description?: string
+  time?: string
+  includes?: Array<string>
+}
+
+const {
+  class: className,
+  title = 'Этап 1. Оценка объема работы',
+  description = 'Тщательное планирование, выбор материалов, расчёты и&nbsp;согласование всех деталей с&nbsp;заказчиком.',
+  time = 'Срок реализации: 2 дня',
+  includes = [
+    'Консультация менеджера',
+    'Подбор подходящей конструкции',
+    'Предварительный расчет стоимости',
+  ],
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'stage-card']}
+>
+  <div
+    class="stage-card__title f-d-title-medium-24 f-m-body-basic-medium-14"
+    set:html={title}
+  />
+  <div
+    class="stage-card__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    set:html={description}
+  />
+  <div
+    class="stage-card__time f-d-body-large-medium-16 f-m-footnote-medium-12"
+    set:html={time}
+  />
+  <div class="stage-card__includes">
+    <div
+      class="stage-card__includes__title f-d-body-large-medium-16 f-m-footnote-medium-12"
+      set:html={'Что входит:'}
+    />
+    <ul
+      class="stage-card__includes__list f-d-body-large-regular-16 f-m-footnote-regular-12"
+    >
+      {
+        includes.map((item) => {
+          return (
+            <li
+              class="stage-card__includes__list__item"
+              set:html={item}
+            />
+          )
+        })
+      }
+    </ul>
+  </div>
+</div>
+
+<style is:global>
+  .stage-card {
+    width: 46.7rem;
+    padding: 3rem;
+
+    border-radius: var(--border-radius);
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      width: 26rem;
+      padding: 1.5rem;
+    }
+  }
+
+  .stage-card__title {
+    margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .stage-card__description {
+    margin-bottom: 3rem;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .stage-card__time {
+    display: inline-block;
+    margin-bottom: 5rem;
+    padding: 1rem 1.5rem;
+
+    background-color: var(--color-grayscale-100);
+    color: var(--color-primary-100);
+    border-radius: 0.7rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .stage-card__includes {
+  }
+
+  .stage-card__includes__title {
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .stage-card__includes__list {
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      gap: 0.7rem;
+    }
+  }
+
+  .stage-card__includes__list__item {
+    display: inline-flex;
+    align-items: center;
+
+    color: var(--color-grayscale-400);
+
+    &::before {
+      content: '';
+
+      width: 0.6rem;
+      height: 0.6rem;
+      margin-right: 1.5rem;
+
+      background-color: var(--color-primary-100);
+      border-radius: 50%;
+
+      @media (max-width: 768px) {
+        width: 0.4rem;
+        height: 0.4rem;
+
+        margin-right: 1rem;
+      }
+    }
+  }
+</style>
