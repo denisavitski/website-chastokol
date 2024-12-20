@@ -46,6 +46,7 @@ const {
   .form-select {
     position: relative;
     cursor: pointer;
+    user-select: none;
 
     input {
       cursor: pointer;
@@ -166,11 +167,11 @@ const {
       })
     }
 
-    public setValue(value: string) {
-      if (this.#inputElement) {
-        this.#inputElement.value = value
-      }
+    public get value() {
+      return this.#inputElement?.value
+    }
 
+    public set value(value: string | undefined) {
       this.#optionElements.forEach((element) => {
         const elementValue = element.getAttribute('data-value')
 
@@ -180,6 +181,11 @@ const {
           element.classList.remove('checked')
         }
       })
+
+      if (this.#inputElement) {
+        this.#inputElement.value = value || ''
+        this.#inputElement.dispatchEvent(new Event('change', { bubbles: true }))
+      }
     }
 
     protected connectedCallback() {
@@ -194,7 +200,7 @@ const {
       })
 
       if (this.#inputElement) {
-        this.setValue(this.#inputElement.value)
+        this.value = this.#inputElement.value
       }
     }
 
@@ -211,7 +217,7 @@ const {
       const value = ct.getAttribute('data-value')
 
       if (value) {
-        this.setValue(value)
+        this.value = value
       }
     }
   }

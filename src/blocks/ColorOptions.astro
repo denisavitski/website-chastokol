@@ -1,0 +1,673 @@
+---
+import Button from '@elements/Button.astro'
+import FormSelect from '@elements/FormSelect.astro'
+import Image from '@elements/Image.astro'
+import SliderButton from '@elements/SliderButton.astro'
+import TwoSides from '@elements/TwoSides.astro'
+
+export interface Props {
+  categories?: Array<{
+    name: string
+    colors: Array<{
+      color: string
+      name: string
+      id: string
+    }>
+  }>
+}
+
+const {
+  categories = [
+    {
+      name: 'Основные цвета',
+      colors: [
+        { color: '#9B9B9B', id: 'RAL 7004', name: 'Серый' },
+        { color: '#DDC49A', id: 'RAL 1004', name: 'Бежевый' },
+        { color: '#FF5733', id: 'RAL 3020', name: 'Красный' },
+        { color: '#33FF57', id: 'RAL 6018', name: 'Зеленый' },
+        { color: '#3357FF', id: 'RAL 5002', name: 'Синий' },
+        { color: '#FFC300', id: 'RAL 1023', name: 'Желтый' },
+        { color: '#8E44AD', id: 'RAL 4005', name: 'Фиолетовый' },
+        { color: '#FF69B4', id: 'RAL 4010', name: 'Розовый' },
+        { color: '#34495E', id: 'RAL 7015', name: 'Темно-серый' },
+        { color: '#E74C3C', id: 'RAL 2002', name: 'Оранжево-красный' },
+      ],
+    },
+    {
+      name: 'Дополнительные цвета',
+      colors: [
+        { color: '#7D3C98', id: 'RAL 4006', name: 'Пурпурный' },
+        { color: '#117A65', id: 'RAL 6005', name: 'Изумрудный' },
+        { color: '#F1C40F', id: 'RAL 1021', name: 'Ярко-желтый' },
+        { color: '#1ABC9C', id: 'RAL 6019', name: 'Мятный' },
+        { color: '#2ECC71', id: 'RAL 6032', name: 'Светло-зеленый' },
+        { color: '#3498DB', id: 'RAL 5015', name: 'Голубой' },
+        { color: '#E67E22', id: 'RAL 2003', name: 'Оранжевый' },
+        { color: '#C0392B', id: 'RAL 3001', name: 'Темно-красный' },
+        { color: '#7F8C8D', id: 'RAL 7037', name: 'Серый-бежевый' },
+        { color: '#BDC3C7', id: 'RAL 7047', name: 'Светло-серый' },
+      ],
+    },
+  ],
+} = Astro.props
+---
+
+<!-- BLOCK -->
+<TwoSides
+  class="color-options"
+  tag="e-color-options"
+>
+  <Image
+    lazy
+    lazyBackground
+    cover
+    src={'/images/colors/1.jpg'}
+    class="color-options__image"
+    slot={'left'}
+  />
+
+  <div
+    class="color-options__content"
+    slot="right"
+  >
+    <h2
+      class="color-options__heading f-d-title-medium-56 f-m-title-medium-24"
+      set:html={'Варианты расцветок'}
+    />
+    <div class="color-options__category-pick">
+      <div
+        class="color-options__category-pick__title f-d-body-large-medium-16 f-m-body-basic-regular-14"
+        set:html="Выберите категорию:"
+      />
+      <FormSelect
+        class="color-options__category-pick__input"
+        options={categories.map((category) => category.name)}
+        value={categories[0]?.name}
+        theme={'gray'}
+      />
+    </div>
+    <div class="color-options__categories">
+      {
+        categories.map((category) => {
+          return (
+            <e-scroll
+              class="color-options__category"
+              data-name={category.name}
+            >
+              {category.colors.map((color) => {
+                return (
+                  <button
+                    class="color-options__option"
+                    style={`--color: ${color.color}`}
+                    data-color={color.color}
+                    data-id={color.id}
+                    data-name={color.name}
+                    type="button"
+                  >
+                    <span class="color-options__option__color" />
+                    <span class="color-options__option__content">
+                      <span
+                        class="color-options__option__id f-d-body-large-medium-16"
+                        set:html={color.id}
+                      />
+                      <span
+                        class="color-options__option__name f-d-body-basic-regular-14"
+                        set:html={color.name}
+                      />
+                    </span>
+                  </button>
+                )
+              })}
+              <SliderButton
+                type={'prev'}
+                class="color-options__category__button color-options__category__button_left"
+                onlyDesktop={false}
+              />
+              <SliderButton
+                type={'next'}
+                class="color-options__category__button color-options__category__button_right"
+                onlyDesktop={false}
+              />
+            </e-scroll>
+          )
+        })
+      }
+    </div>
+    <div class="color-options__result">
+      <div
+        class="color-options__result__title f-d-body-large-medium-16 f-m-body-basic-regular-14"
+        set:html="Вы выбрали:"
+      />
+      <div class="color-options__result__content">
+        <div class="color-options__result__color"></div>
+        <div class="color-options__result__info">
+          <div class="color-options__result__info__item">
+            <div
+              class="color-options__result__info__item__tilte f-d-body-basic-regular-14"
+              set:html="Код:"
+            />
+            <div
+              class="color-options__result__info__item__value color-options__result__id f-d-body-large-medium-16 f-m-body-basic-medium-14"
+              set:html="RAL 7004"
+            />
+          </div>
+          <div class="color-options__result__info__item">
+            <div
+              class="color-options__result__info__item__tilte f-d-body-basic-regular-14"
+              set:html="Название:"
+            />
+            <div
+              class="color-options__result__info__item__value color-options__result__name f-d-body-large-medium-16 f-m-body-basic-medium-14"
+              set:html="Серый"
+            />
+          </div>
+        </div>
+        <Button
+          name="Хочу такой цвет"
+          class="color-options__result__button"
+        />
+      </div>
+    </div>
+  </div>
+</TwoSides>
+
+<style is:global>
+  .color-options {
+    --left-background: #f0f0f0;
+
+    position: relative;
+
+    padding: calc(var(--section-vertical-padding) * 2)
+      var(--screen-horisontal-padding);
+
+    border-top: 0.1rem solid var(--color-grayscale-300);
+    border-bottom: 0.1rem solid var(--color-grayscale-300);
+
+    .two-sides__left {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+      --left-padding: 4rem 4rem 11rem 4rem;
+
+      padding-top: 10.6rem;
+
+      .two-sides__right {
+        position: unset;
+      }
+    }
+  }
+
+  .color-options__image {
+    position: relative;
+
+    width: 56.5rem;
+    height: 55.3rem;
+
+    overflow: hidden;
+
+    img {
+      filter: grayscale(1) brightness(1.5);
+    }
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      z-index: 1;
+
+      width: 100%;
+      height: 100%;
+
+      background-color: transparent;
+      mix-blend-mode: multiply;
+      pointer-events: none;
+
+      background-color: var(--picked-color);
+
+      transition-property: background-color;
+      transition-duration: var(--duration-button);
+    }
+
+    @media (max-width: 768px) {
+      width: 25.5rem;
+      height: 25rem;
+    }
+  }
+
+  .color-options__content {
+  }
+
+  .color-options__heading {
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      position: absolute;
+      left: var(--screen-horisontal-padding);
+      top: var(--section-vertical-padding-full);
+    }
+  }
+
+  .color-options__category-pick {
+    margin-bottom: 3rem;
+  }
+
+  .color-options__category-pick__title {
+    margin-bottom: 1.5rem;
+    color: var(--color-grayscale-400);
+  }
+
+  .color-options__category-pick__input {
+  }
+
+  .color-options__categories {
+    display: grid;
+
+    margin-bottom: 3rem;
+
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    height: 36rem;
+
+    border-radius: var(--border-radius);
+    background-color: var(--color-grayscale-100);
+
+    @media (min-width: 769px) {
+      overflow: hidden auto;
+    }
+
+    @media (max-width: 768px) {
+      --width: 22.3rem;
+      position: absolute;
+      top: 43.4rem;
+      left: 50%;
+
+      align-items: center;
+
+      width: var(--width);
+
+      padding: 0;
+      height: 4.6rem;
+
+      background-color: var(--color-grayscale-0);
+      border-radius: 1.2rem;
+
+      transform: translateX(-50%);
+    }
+  }
+
+  .color-options__category {
+    grid-column: 1/1;
+    grid-row: 1/1;
+
+    width: 100%;
+
+    @media (min-width: 769px) {
+      --hibernate: true;
+
+      height: max-content;
+
+      display: none;
+      grid-auto-rows: max-content;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+
+      &.current {
+        display: grid;
+      }
+    }
+
+    @media (max-width: 768px) {
+      --axis: x;
+      --auto-size: true;
+      --sectional: true;
+      --sections-in-view: 5;
+      --overflow: hidden;
+
+      display: none;
+
+      width: var(--width);
+
+      &.current {
+        display: flex;
+      }
+    }
+  }
+
+  .color-options__option {
+    text-align: start;
+
+    @media (min-width: 769px) {
+      position: relative;
+      z-index: 1;
+
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 1.5rem;
+      border-radius: var(--border-radius);
+      background-color: transparent;
+
+      transition-property: background-color;
+      transition-duration: var(--duration-button);
+
+      &.active {
+        background-color: var(--color-grayscale-0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .color-options__option__color {
+    position: relative;
+
+    width: 5rem;
+    height: 5rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    &::after {
+      content: '';
+
+      width: 100%;
+      height: 100%;
+
+      background-color: var(--color, var(--color-grayscale-100));
+
+      border-radius: 50%;
+
+      @media (max-width: 768px) {
+        width: 79%;
+        height: 79%;
+      }
+    }
+
+    @media (max-width: 768px) {
+      width: 3.8rem;
+      height: 3.8rem;
+
+      border: 0.1rem solid transparent;
+
+      .color-options__option.active & {
+        border-color: var(--color-grayscale-300);
+      }
+    }
+  }
+
+  .color-options__option__content {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .color-options__option__id {
+    display: block;
+    margin-bottom: 0.3rem;
+  }
+
+  .color-options__option__name {
+    color: var(--color-grayscale-400);
+  }
+
+  .color-options__category__button {
+    --slider-button-size: 2.6rem;
+
+    position: absolute;
+    top: calc(50% - var(--slider-button-size) / 2);
+  }
+
+  .color-options__category__button_left {
+    right: calc(100% + 1.5rem);
+  }
+
+  .color-options__category__button_right {
+    left: calc(100% + 1.5rem);
+  }
+
+  .color-options__result {
+    width: 100%;
+  }
+
+  .color-options__result__title {
+    margin-bottom: 1.5rem;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .color-options__result__content {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    padding: 2rem;
+
+    background-color: var(--color-grayscale-100);
+    border-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+      padding: 1.5rem;
+      flex-wrap: wrap;
+    }
+  }
+
+  .color-options__result__color {
+    position: relative;
+
+    width: 10.4rem;
+    height: 10.4rem;
+    margin-right: 3rem;
+
+    border-radius: 2rem;
+    background-color: var(--picked-color, var(--color-grayscale-0));
+
+    transition-property: background-color;
+    transition-duration: var(--duration-button);
+
+    @media (max-width: 768px) {
+      width: 6rem;
+      height: 6rem;
+      margin-right: 2.5rem;
+
+      border-radius: 1.2rem;
+    }
+  }
+
+  .color-options__result__info {
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 1rem;
+
+    @media (max-width: 768px) {
+      gap: 0.5rem;
+    }
+  }
+
+  .color-options__result__info__item {
+    @media (max-width: 768px) {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+
+  .color-options__result__info__item__tilte {
+    color: var(--color-grayscale-400);
+  }
+
+  .color-options__result__info__item__value {
+  }
+
+  .color-options__result__button {
+    margin-top: auto;
+
+    @media (min-width: 769px) {
+      margin-left: auto;
+    }
+
+    @media (max-width: 768px) {
+      margin-top: 3rem;
+    }
+  }
+</style>
+
+<script>
+  import type { FormSelectElement } from '@elements/FormSelect.astro.0.mjs'
+
+  export interface ColorOptionsPickedColor {
+    name: string
+    id: string
+    color: string
+  }
+
+  export class ColorOptionsElement extends HTMLElement {
+    #categorySelectElement: FormSelectElement | null = null
+    #categoryElements: Array<HTMLElement> = []
+    #optionElements: Array<HTMLElement> = []
+    #resultIdElement: HTMLElement | null = null
+    #resultNameElement: HTMLElement | null = null
+
+    #pickedColor: ColorOptionsPickedColor | null = null
+
+    protected connectedCallback() {
+      this.#categorySelectElement = this.querySelector('e-form-select')
+
+      this.#categorySelectElement?.addEventListener(
+        'change',
+        this.#categoryChangeListener,
+      )
+
+      this.#categoryElements = [
+        ...this.querySelectorAll<HTMLElement>('.color-options__category'),
+      ]
+
+      this.#optionElements = [
+        ...this.querySelectorAll<HTMLElement>('.color-options__option'),
+      ]
+
+      this.#optionElements.forEach((element) => {
+        element.addEventListener('click', this.#optionListener)
+      })
+
+      this.#resultIdElement = this.querySelector('.color-options__result__id')
+
+      this.#resultNameElement = this.querySelector(
+        '.color-options__result__name',
+      )
+
+      this.#changeCategory()
+    }
+
+    protected disconnectedCallback() {
+      this.#categorySelectElement?.removeEventListener(
+        'change',
+        this.#categoryChangeListener,
+      )
+
+      this.#optionElements.forEach((element) => {
+        element.removeEventListener('click', this.#optionListener)
+      })
+    }
+
+    #categoryChangeListener = () => {
+      this.#changeCategory()
+    }
+
+    #optionListener = (e: Event) => {
+      const ct = e.currentTarget as HTMLElement
+      this.#changeOption(ct)
+    }
+
+    #changeCategory() {
+      this.#categoryElements.forEach((category) => {
+        const categoryName = category.getAttribute('data-name')
+
+        if (
+          categoryName &&
+          categoryName === this.#categorySelectElement?.value
+        ) {
+          category.classList.add('current')
+
+          const firstElement = category.querySelector<HTMLElement>(
+            '.color-options__option',
+          )
+
+          if (firstElement) {
+            this.#changeOption(firstElement)
+          }
+        } else {
+          category.classList.remove('current')
+        }
+      })
+    }
+
+    #changeOption(element: HTMLElement) {
+      this.#optionElements.forEach((e) => {
+        if (e === element) {
+          e.classList.add('active')
+
+          const id = e.getAttribute('data-id')
+          const name = e.getAttribute('data-name')
+          const color = e.getAttribute('data-color')
+
+          if (!id) {
+            console.warn(this, 'у элемента остутcтвует атрибут [data-id]')
+          }
+
+          if (!name) {
+            console.warn(this, 'у элемента остутcтвует атрибут [data-name]')
+          }
+
+          if (!color) {
+            console.warn(this, 'у элемента остутcтвует атрибут [data-color]')
+          }
+
+          this.#pickedColor = {
+            id: id || '',
+            name: name || '',
+            color: color || '',
+          }
+
+          if (this.#resultIdElement) {
+            this.#resultIdElement.textContent = this.#pickedColor.id
+          }
+
+          if (this.#resultNameElement) {
+            this.#resultNameElement.textContent = this.#pickedColor.name
+          }
+
+          this.style.setProperty('--picked-color', this.#pickedColor.color)
+        } else {
+          e.classList.remove('active')
+        }
+      })
+    }
+  }
+
+  if (!customElements.get('e-color-options')) {
+    customElements.define('e-color-options', ColorOptionsElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-color-options': ColorOptionsElement
+    }
+  }
+</script>

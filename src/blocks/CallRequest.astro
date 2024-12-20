@@ -7,16 +7,21 @@ import Phone from '@elements/Phone.astro'
 export interface Props {
   heading?: string
   description?: string
+  fullPadding?: boolean
 }
 
 const {
   heading = '<b>Затрудняетесь с выбором</b> забора? Оставьте заявку на&nbsp;обратный звонок',
   description = 'Оставьте ваши контактные данные, и&nbsp;наши менеджеры свяжутся с&nbsp;вами и&nbsp;бесплатно проконсультируют по&nbsp;любым интересующим вас&nbsp;вопросам:',
+  fullPadding,
 } = Astro.props
 ---
 
 <!-- BLOCK -->
-<section class="call-request">
+<section
+  class="call-request"
+  data-full-padding={fullPadding}
+>
   <div class="call-request__inner">
     <div class="call-request__info">
       <h2
@@ -57,6 +62,11 @@ const {
 <style is:global>
   .call-request {
     padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
+
+    &[data-full-padding='true'] {
+      padding: var(--section-vertical-padding-full)
+        var(--screen-horisontal-padding);
+    }
   }
 
   .call-request__inner {

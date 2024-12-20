@@ -13,6 +13,9 @@ import WorkExamples from '@blocks/WorkExamples.astro'
 import Prices from '@blocks/Prices.astro'
 import DemoCalculator from '@blocks/DemoCalculator.astro'
 import Stages from '@blocks/Stages.astro'
+import CallRequest from '@blocks/CallRequest.astro'
+import CatalogCardsSection from '@blocks/CatalogCardsSection.astro'
+import ColorOptions from '@blocks/ColorOptions.astro'
 ---
 
 <Layout
@@ -41,7 +44,56 @@ import Stages from '@blocks/Stages.astro'
   <CostComponents />
 
   <DemoCalculator />
+
   <Stages />
+
+  <ColorOptions />
+
+  <CallRequest fullPadding />
+
+  <CatalogCardsSection
+    heading="Выполненные работы"
+    headingLevel="h2"
+    paddingTop={'full'}
+    whiteBackground
+    cards={[
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+    ]}
+  />
 
   <Map />
   <Vkontakte />

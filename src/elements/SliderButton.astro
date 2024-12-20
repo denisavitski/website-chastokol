@@ -5,9 +5,16 @@ export interface Props {
   class?: string
   type?: 'prev' | 'next'
   center?: boolean
+  onlyDesktop?: boolean
 }
 
-const { class: className, type = 'next', center, ...rest } = Astro.props
+const {
+  class: className,
+  type = 'next',
+  center,
+  onlyDesktop = true,
+  ...rest
+} = Astro.props
 ---
 
 <e-scroll-step-button
@@ -15,6 +22,7 @@ const { class: className, type = 'next', center, ...rest } = Astro.props
   class:list={['slider-button', className]}
   data-type={type}
   data-center={center}
+  data-only-desktop={onlyDesktop}
   slot="static"
 >
   <Icon
@@ -43,14 +51,14 @@ const { class: className, type = 'next', center, ...rest } = Astro.props
       background-color: var(--slider-button-color, var(--color-grayscale-200));
     }
 
-    @media (min-width: 769px) {
-      .has-overflow & {
-        display: inline-flex;
-      }
+    .has-overflow & {
+      display: inline-flex;
     }
 
     @media (max-width: 768px) {
-      display: none;
+      &[data-only-desktop='true'] {
+        display: none !important;
+      }
     }
 
     &[data-type='prev'] {
