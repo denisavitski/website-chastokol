@@ -1,18 +1,12 @@
-# generated types
 .astro/
-
-# dependencies
+dist/
+optimize/
 node_modules/
 
-# logs
 npm-debug.log*
 
-# environment variables
 .env
 .env.production
 .env.development
 
-# macOS-specific files
 .DS_Store
-
-optimize/
