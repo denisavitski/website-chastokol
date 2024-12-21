@@ -1,0 +1,268 @@
+---
+import DotsButton from './DotsButton.astro'
+import type { ImageDataProps } from './Image.astro'
+import Image from './Image.astro'
+
+export const backgroundColor = 'white'
+
+export interface Props {
+  class?: string
+  image?: ImageDataProps
+  name?: string
+  position?: string
+  variants?: Array<string>
+}
+
+const {
+  class: className,
+  image = { src: '/images/company-members/director.jpg' },
+  name = 'Вероника Иванова',
+  position = 'Персональный менеджер',
+  variants = ['Вариант 1', 'Вариант 2', 'Вариант 3'],
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'manager-2']}
+>
+  <div class="manager-2__main">
+    <Image
+      {...image}
+      lazy
+      lazyBackground
+      cover
+      class="manager-2__image"
+    />
+    <div class="manager-2__right">
+      <div
+        class="manager-2__online f-d-body-large-regular-16 f-m-footnote-regular-12"
+        >сейчас online</div
+      >
+      <div
+        class="manager-2__name f-d-title-medium-20 f-m-body-basic-medium-14"
+        set:html={name}
+      />
+      <div
+        class="manager-2__position f-d-body-large-regular-16 f-m-footnote-regular-12"
+        set:html={position}
+      />
+    </div>
+  </div>
+  <div class="manager-2__method">
+    <div
+      class="manager-2__method__title f-d-body-large-medium-16 f-m-footnote-medium-12"
+      >Выберите удобный способ связи</div
+    >
+
+    <div class="manager-2__method__variants">
+      <DotsButton
+        class="manager-2__method__variants__button"
+        flat
+        target="manager-variants"
+      />
+      <e-popover
+        class="manager-2__method__variants__popover custom-scrollbar"
+        id="manager-variants"
+      >
+        {
+          variants.map((button) => {
+            return (
+              <button class="manager-2__method__variant">
+                <span
+                  class="manager-2__method__variant__name f-d-body-large-medium-16 f-m-footnote-medium-12"
+                  set:html={button}
+                />
+              </button>
+            )
+          })
+        }
+      </e-popover>
+    </div>
+  </div>
+</div>
+
+<style is:global>
+  .manager-2 {
+    display: inline-block;
+    height: max-content;
+
+    background-color: var(--color-grayscale-100);
+    border-radius: var(--border-radius);
+  }
+
+  .manager-2__main {
+    padding: 3rem;
+
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    @media (max-width: 768px) {
+      padding: 1.5rem;
+      gap: 1rem;
+    }
+  }
+
+  .manager-2__image {
+    width: 13.4rem;
+    height: 13.4rem;
+
+    border-radius: 1.5rem;
+
+    @media (max-width: 768px) {
+      width: 8.5rem;
+      height: 8.5rem;
+
+      border-radius: 1.2rem;
+    }
+  }
+
+  .manager-2__right {
+    padding: 2rem 4.2rem 3rem 2.5rem;
+
+    border-radius: 1.5rem;
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      padding: 1rem 1.5rem 1.5rem 1.5rem;
+
+      border-radius: 1.2rem;
+    }
+  }
+
+  .manager-2__online {
+    color: var(--color-primary-100);
+
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+
+    margin-bottom: 1.4rem;
+
+    &::before {
+      content: '';
+
+      width: 0.7rem;
+      height: 0.7rem;
+
+      border-radius: 50%;
+
+      background-color: var(--color-primary-100);
+
+      @media (max-width: 768px) {
+        width: 0.6rem;
+        height: 0.6rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      gap: 1.2rem;
+      margin-bottom: 1.2rem;
+    }
+  }
+
+  .manager-2__name {
+    margin-bottom: 0.5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 0rem;
+    }
+  }
+
+  .manager-2__position {
+    color: var(--color-grayscale-400);
+  }
+
+  .manager-2__method {
+    position: relative;
+    z-index: 1;
+
+    padding: 0 3rem;
+    height: 5.1rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: var(--color-grayscale-200);
+
+    border-top: 0.1rem solid var(--color-grayscale-300);
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+      padding: 0 1.5rem;
+      height: 3.5rem;
+    }
+  }
+
+  .manager-2__method__title {
+  }
+
+  .manager-2__method__variants {
+    display: inline-block;
+  }
+
+  .manager-2__method__variants__button {
+    --type: toggle;
+  }
+
+  .manager-2__method__variants__popover {
+    --click-outside: true;
+
+    position: absolute;
+    top: calc(100% - var(--border-radius));
+    left: 0;
+
+    z-index: -1;
+
+    width: 100%;
+    max-height: 40rem;
+    padding-top: var(--border-radius);
+
+    background-color: var(--color-grayscale-200);
+    border-bottom-left-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+
+    display: none;
+    opacity: 0;
+
+    transition-property: opacity;
+    transition-duration: var(--duration-button);
+
+    overflow: hidden auto;
+
+    &.triggered {
+      display: block;
+    }
+
+    &.opened {
+      opacity: 1;
+    }
+  }
+
+  .manager-2__method__variant {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 1rem 3rem;
+
+    transition-property: color, background-color, border-color;
+    transition-duration: var(--duration-button);
+    transition-timing-function: ease;
+
+    color: var(--color-grayscale-400);
+
+    &:not(:last-child) {
+      border-bottom: 0.1rem solid var(--color-grayscale-300);
+    }
+
+    @media (max-width: 768px) {
+      padding: 1rem 1.5rem;
+    }
+  }
+</style>

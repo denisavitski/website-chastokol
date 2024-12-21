@@ -1,0 +1,200 @@
+---
+import Characteristics, {
+  type Props as CharacteristicsProps,
+} from '@elements/Characteristics.astro'
+import Manager2 from '@elements/Manager2.astro'
+
+export interface Props {
+  characteristics?: CharacteristicsProps['list']
+}
+
+const {
+  characteristics = [
+    {
+      title: 'Столбы из профильной трубы',
+      value: '60 x 60 x 3 мм',
+    },
+    {
+      title: 'Столбы из профильной трубы',
+      value: '60 x 60 x 3 мм',
+    },
+    {
+      title: 'Столбы из профильной трубы',
+      value: '60 x 60 x 3 мм',
+    },
+    {
+      title: 'Столбы из профильной трубы',
+      value: '60 x 60 x 3 мм',
+    },
+    {
+      title: 'Столбы из профильной трубы',
+      value: '60 x 60 x 3 мм',
+    },
+  ],
+} = Astro.props
+---
+
+<!-- BLOCK -->
+<e-billboard class="product-info">
+  <e-scroll class="product-info__category-names">
+    <e-billboard-set-button
+      style="--index: 0;"
+      class="product-info__category-button f-d-body-large-medium-16 f-d-body-basic-medium-14"
+      >Характеристики</e-billboard-set-button
+    >
+    <e-billboard-set-button
+      style="--index: 1;"
+      class="product-info__category-button f-d-body-large-medium-16 f-d-body-basic-medium-14"
+      >Гарантии</e-billboard-set-button
+    >
+    <e-billboard-set-button
+      style="--index: 2;"
+      class="product-info__category-button f-d-body-large-medium-16 f-d-body-basic-medium-14"
+      >Способ оплаты</e-billboard-set-button
+    >
+  </e-scroll>
+
+  <div class="product-info__categories">
+    <div
+      class="product-info__category product-info__characteristics"
+      data-billboard-item
+    >
+      <div
+        class="product-info__category__title f-d-title-medium-42 f-m-title-medium-24"
+        >Характеристики</div
+      >
+      <div class="product-info__characteristics__content">
+        <Characteristics
+          class="product-info__characteristics__list"
+          list={characteristics}
+        />
+        <Manager2 class="product-info__characteristics__manager" />
+      </div>
+    </div>
+    <div
+      class="product-info__category"
+      data-billboard-item
+    >
+      <div
+        class="product-info__category__title f-d-title-medium-42 f-m-title-medium-24"
+        >Гарантии</div
+      >
+    </div>
+    <div
+      class="product-info__category"
+      data-billboard-item
+    >
+      <div
+        class="product-info__category__title f-d-title-medium-42 f-m-title-medium-24"
+        >Способ оплаты</div
+      >
+    </div>
+  </div>
+</e-billboard>
+
+<style is:global>
+  .product-info {
+    display: block;
+
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+    padding-top: 5.5rem;
+
+    background-color: var(--color-grayscale-0);
+  }
+
+  .product-info__category-names {
+    @media (min-width: 769px) {
+      --hibernate: true;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+
+      margin-bottom: 8.5rem;
+    }
+
+    @media (max-width: 768px) {
+      --gap: 1rem;
+      --axis: x;
+
+      display: flex;
+      gap: var(--gap);
+
+      margin-bottom: 4rem;
+    }
+  }
+
+  .product-info__category-button {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 4.5rem;
+    padding: 0 2rem;
+
+    border-radius: 3rem;
+
+    transition-property: color, background-color, border-color;
+    transition-duration: var(--duration-button);
+    transition-timing-function: ease;
+
+    background-color: var(--color-grayscale-100);
+    color: var(--color-grayscale-400);
+
+    user-select: none;
+    cursor: pointer;
+
+    &.current {
+      background-color: var(--color-primary-100);
+      color: var(--color-grayscale-0);
+    }
+
+    @media (max-width: 768px) {
+      height: 4rem;
+    }
+  }
+
+  .product-info__categories {
+    display: grid;
+  }
+
+  .product-info__category {
+    grid-column: 1/1;
+    grid-row: 1/1;
+
+    display: none;
+
+    &.current {
+      display: block;
+    }
+  }
+
+  .product-info__category__title {
+    margin-bottom: 8rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .product-info__characteristics__content {
+    display: flex;
+    justify-content: space-between;
+    gap: 5rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 4rem;
+    }
+  }
+
+  .product-info__characteristics {
+  }
+
+  .product-info__characteristics__manager {
+    flex-shrink: 0;
+  }
+</style>

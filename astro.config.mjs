@@ -28,8 +28,6 @@ export default defineConfig({
     astroMergeAssets(),
   ],
 
-  trailingSlash: 'never',
-
   devToolbar: {
     enabled: false,
   },

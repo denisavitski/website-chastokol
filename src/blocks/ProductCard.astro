@@ -1,11 +1,221 @@
 ---
+import Button from '@elements/Button.astro'
+import type { ImageDataProps } from '@elements/Image.astro'
+import ProductImages from '@elements/ProductImages.astro'
 import TwoSides from '@elements/TwoSides.astro'
 
-export interface Props {}
+export interface Props {
+  images?: Array<ImageDataProps>
+  heading?: string
+  price?: string
+  installment?: string
+  description?: string
+  parameters?: Array<{
+    title: string
+    value: string
+  }>
+}
 
-const {} = Astro.props
+const {
+  images = [
+    {
+      src: '/images/categories/intro.jpg',
+    },
+    {
+      src: '/images/catalog-item.png',
+    },
+    {
+      src: '/images/home/background.jpg',
+    },
+    {
+      src: '/images/catalog-item.png',
+    },
+    {
+      src: '/images/categories/intro.jpg',
+    },
+    {
+      src: '/images/home/background.jpg',
+    },
+  ],
+  heading = 'Прямой профиль с&nbsp;дугой',
+  price = 'от 550 руб. за пог/м',
+  installment = 'Рассрочка 12-0-0',
+  description = 'Универсальное решение для&nbsp;ограждения различных объектов. Изготавливается из&nbsp;высококачественной стали, которая подвергается специальной обработке для&nbsp;повышения коррозионной стойкости. Забор из&nbsp;металла устойчив к&nbsp;перепадам температур, не&nbsp;деформируется под&nbsp;воздействием осадков.',
+  parameters = [
+    { title: 'Материал', value: 'профнастил, евроштакетник, металл' },
+    { title: 'Количество лаг', value: '1, 2, 3 шт.' },
+    { title: 'Высота', value: '1,5 м.' },
+    { title: 'Толщина листа', value: ' 0,4 мм.' },
+  ],
+} = Astro.props
 ---
 
-<TwoSides class="product-card" />
+<TwoSides class="product-card">
+  <ProductImages
+    slot={'left'}
+    images={images}
+    class="product-card__images"
+  />
 
-<style is:global></style>
+  <div
+    class="product-card__content"
+    slot="right"
+  >
+    <h1
+      class="product-card__heading f-d-title-medium-56 f-m-title-medium-28"
+      set:html={heading}
+    />
+
+    <div class="product-card__price-line">
+      <div
+        class="product-card__price f-d-title-medium-28 f-m-body-large-medium-16"
+        set:html={price}
+      />
+      <div
+        class="product-card__installment f-d-body-large-regular-16 f-m-footnote-regular-12"
+        set:html={installment}
+      />
+    </div>
+    <Button
+      name="Заказать"
+      class="product-card__order-button"
+    />
+    <p
+      class="product-card__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+      set:html={description}
+    />
+    <ul
+      class="product-card__parameters f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    >
+      {
+        parameters.map((parameter) => {
+          return (
+            <li class="product-card__parameter">
+              <div
+                class="product-card__parameter__title"
+                set:html={parameter.title}
+              />
+              <div
+                class="product-card__parameter__value"
+                set:html={parameter.value}
+              />
+            </li>
+          )
+        })
+      }
+    </ul>
+    <Button
+      class="product-card__all-parameters-button"
+      theme="flat"
+      name="Подробные характеристики"
+    />
+  </div>
+</TwoSides>
+
+<style is:global>
+  .product-card {
+    --left-background: transparent;
+    --right-background: transparent;
+    --left-padding: 0rem;
+    --right-padding: 2.25rem 0rem 0rem 0rem;
+    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
+
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      --right-padding: 2rem 0rem 0rem 0rem;
+    }
+  }
+
+  .product-card__images {
+  }
+
+  .product-card__content {
+  }
+
+  .product-card__heading {
+    margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .product-card__price-line {
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+
+      margin-bottom: 3rem;
+    }
+  }
+
+  .product-card__price {
+    color: var(--color-primary-100);
+
+    @media (min-width: 769px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .product-card__installment {
+    color: var(--color-grayscale-400);
+  }
+
+  .product-card__order-button {
+    margin-bottom: 6rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .product-card__description {
+    margin-bottom: 4rem;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .product-card__parameters {
+    margin-bottom: 2.8rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .product-card__parameter {
+    display: flex;
+    justify-content: space-between;
+
+    padding: 1.5rem 0;
+    border-bottom: 0.1rem solid var(--color-grayscale-300);
+  }
+
+  .product-card__parameter__title {
+    color: var(--color-grayscale-400);
+  }
+
+  .product-card__parameter__value {
+    text-align: end;
+    width: 30rem;
+
+    color: var(--color-grayscale-600);
+
+    @media (max-width: 768px) {
+      text-align: start;
+      width: 15.5rem;
+    }
+  }
+
+  .product-card__all-parameters-button {
+  }
+</style>

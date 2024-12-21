@@ -239,6 +239,10 @@ e-scroll.has-overflow.bullets {
   margin-bottom: var(--section-bullets-padding);
 }
 
+[data-white-background='true'] {
+  background-color: var(--color-grayscale-0);
+}
+
 .two-color-heading {
   b {
     font-weight: inherit;

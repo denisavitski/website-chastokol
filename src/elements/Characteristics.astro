@@ -1,0 +1,88 @@
+---
+export interface Props {
+  class?: string
+  list?: Array<{ title: string; value: string }>
+}
+
+const {
+  class: className,
+  list = [
+    {
+      title: 'Столбы из профильной трубы',
+      value: '60 x 60 x 3 мм',
+    },
+    {
+      title: 'Столбы из профильной трубы',
+      value: '60 x 60 x 3 мм',
+    },
+    {
+      title: 'Столбы из профильной трубы',
+      value: '60 x 60 x 3 мм',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<ul
+  {...rest}
+  class:list={[className, 'characteristics']}
+>
+  {
+    list.map((item) => {
+      return (
+        <li class="characteristics__item f-d-body-large-regular-16 f-m-body-basic-regular-14">
+          <div
+            class="characteristics__item__title"
+            set:html={item.title}
+          />
+          <div
+            class="characteristics__item__value"
+            set:html={item.value}
+          />
+        </li>
+      )
+    })
+  }
+</ul>
+
+<style is:global>
+  .characteristics {
+    width: 100%;
+  }
+
+  .characteristics__item {
+    display: flex;
+    justify-content: space-between;
+    text-wrap: balance;
+
+    padding: 1.4rem 3rem;
+
+    &:nth-child(odd) {
+      background-color: #fcfcfc;
+    }
+
+    &:nth-child(even) {
+      background-color: #f4f4f4;
+    }
+
+    @media (max-width: 768px) {
+      padding: 1.1rem 1.503rem;
+    }
+  }
+
+  .characteristics__item__title {
+    @media (max-width: 768px) {
+      max-width: 16.5rem;
+    }
+  }
+
+  .characteristics__item__value {
+    text-align: end;
+
+    @media (max-width: 768px) {
+      text-align: start;
+      max-width: 9.6rem;
+    }
+  }
+</style>

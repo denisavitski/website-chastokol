@@ -1,0 +1,137 @@
+---
+import Map from '@blocks/Map.astro'
+import Layout from '@layout/Layout.astro'
+import Vkontakte from '@blocks/Vkontakte.astro'
+import VideoReviews from '@blocks/VideoReviews.astro'
+import Connect from '@blocks/Connect.astro'
+import Stages from '@blocks/Stages.astro'
+import CatalogCardsSection from '@blocks/CatalogCardsSection.astro'
+import ProductCard from '@blocks/ProductCard.astro'
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import ProductInfo from '@blocks/ProductInfo.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Товар',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'light'}
+>
+  <Breadcrumbs
+    whiteBackground
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Каталог', href: '/catalog' },
+      { name: 'Категория', href: '/catalog/category' },
+      { name: 'Подкатегория', href: '/catalog/subcategory' },
+      { name: 'Товар', href: '/catalog/subcategory/product' },
+    ]}
+  />
+
+  <ProductCard />
+  <ProductInfo />
+
+  <Stages />
+
+  <CatalogCardsSection
+    heading="Выполненные работы"
+    headingLevel="h2"
+    paddingTop={'full'}
+    whiteBackground
+    cards={[
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+    ]}
+  />
+
+  <Map />
+  <Vkontakte />
+  <VideoReviews />
+
+  <CatalogCardsSection
+    heading={'Похожие заборы'}
+    headingLevel="h2"
+    paddingBottom={'normal'}
+    paddingTop={'full'}
+    cards={[
+      {
+        href: '/',
+        name: 'Кованые калитки',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Деревянные калитки',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Калитки из евроштакетника',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Кованые калитки',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Деревянные калитки',
+        image: { src: '/images/catalog-item.png' },
+      },
+      {
+        href: '/',
+        name: 'Калитки из евроштакетника',
+        image: { src: '/images/catalog-item.png' },
+      },
+    ]}
+  />
+
+  <Connect
+    theme={'questions'}
+    heading="Остались вопросы?"
+    description="Напишите в любом удобном мессенджере, прораб нашей компании ответит вам в течение 2-ух минут."
+    member={{
+      image: { src: '/images/company-members/foreman.jpg' },
+      name: 'Петр Иванов',
+      position: 'Прораб в компании «Частокол»',
+    }}
+    districts={false}
+  />
+</Layout>
