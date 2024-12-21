@@ -1,0 +1,282 @@
+---
+import type { ImageDataProps } from './Image.astro'
+import Image from './Image.astro'
+import SliderBullets from './SliderBullets.astro'
+import SliderButton from './SliderButton.astro'
+
+export interface Props {
+  class?: string
+  images?: Array<ImageDataProps>
+}
+
+const {
+  class: className,
+  images = [
+    {
+      src: '/images/catalog-item.png',
+    },
+    {
+      src: '/images/categories/intro.jpg',
+    },
+    {
+      src: '/images/home/background.jpg',
+    },
+    {
+      src: '/images/catalog-item.png',
+    },
+    {
+      src: '/images/categories/intro.jpg',
+    },
+    {
+      src: '/images/home/background.jpg',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<e-product-images
+  {...rest}
+  class:list={[className, 'product-images']}
+>
+  <Image
+    {...images[0]}
+    class="product-images__current"
+  />
+
+  <e-scroll class="product-images__slider">
+    {
+      images.map((image) => {
+        return (
+          <Image
+            {...image}
+            lazy
+            lazyBackground
+            cover
+            class="product-images__slider__image"
+            data-full-image={image.src}
+          />
+        )
+      })
+    }
+    <SliderButton
+      type={'prev'}
+      class="product-images__button product-images__button_prev"
+      onlyDesktop={false}
+    />
+    <SliderButton
+      type={'next'}
+      class="product-images__button product-images__button_next"
+      onlyDesktop={false}
+    />
+    <SliderBullets
+      class="product-images__bullets"
+      onlyDesktop={false}
+    />
+  </e-scroll>
+</e-product-images>
+
+<style is:global>
+  .product-images {
+    display: block;
+    max-width: 72.5rem;
+  }
+
+  .product-images__current {
+    width: 100%;
+    height: 72.5rem;
+
+    margin-bottom: 3rem;
+
+    border-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+      height: 33.5rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .product-images__slider {
+    --gap: 3.1rem;
+    --axis: x;
+    --auto-size: true;
+    --sections-in-view: 5;
+    --overflow: hidden;
+    --sectional: true;
+
+    @media (max-width: 768px) {
+      --gap: 1.5rem;
+      --sections-in-view: 4;
+    }
+  }
+
+  .product-images__slider__image {
+    width: 12rem;
+    height: 12rem;
+
+    border-radius: var(--border-radius);
+    background-color: var(--color-grayscale-100);
+    border: 0.1rem solid transparent;
+
+    transition-property: opacity;
+    transition-duration: var(--duration-button);
+    transition-timing-function: ease;
+
+    &.current {
+      opacity: 0.5;
+    }
+
+    @media (max-width: 768px) {
+      width: 7rem;
+      height: 7rem;
+    }
+  }
+
+  .product-images__button {
+    --disabled-opacity: 1;
+
+    position: absolute;
+    z-index: 2;
+
+    bottom: 49.4rem;
+
+    @media (max-width: 768px) {
+      --slider-button-size: 2.6rem;
+
+      bottom: 24rem;
+    }
+  }
+
+  .product-images__button_prev {
+    left: 3rem;
+
+    @media (max-width: 768px) {
+      left: 1.5rem;
+    }
+  }
+
+  .product-images__button_next {
+    right: 3rem;
+
+    @media (max-width: 768px) {
+      right: 1.5rem;
+    }
+  }
+
+  .product-images__bullets {
+    z-index: 2;
+    top: unset;
+    bottom: 18rem;
+
+    @media (max-width: 768px) {
+      bottom: 10rem;
+    }
+  }
+</style>
+
+<script>
+  import type { ImageCloakElement } from '@lib/ImageCloak'
+  import { clamp } from 'aptechka/utils'
+
+  export class ProductImagesElement extends HTMLElement {
+    #currentImageElement: ImageCloakElement | null = null
+    #sliderImageElements: Array<HTMLElement> = []
+    #prevButtonElement: HTMLElement | null = null
+    #nextButtonElement: HTMLElement | null = null
+
+    #counter = 0
+
+    public set(value: number) {
+      this.#counter = clamp(value, 0, this.#sliderImageElements.length - 1)
+
+      this.#sliderImageElements.forEach((el, i) => {
+        if (i === this.#counter) {
+          const imageSrc = el.getAttribute('data-full-image')
+
+          if (imageSrc) {
+            if (this.#currentImageElement) {
+              this.#currentImageElement.updateImage(imageSrc)
+            }
+          }
+
+          el.classList.add('current')
+        } else {
+          el.classList.remove('current')
+        }
+      })
+    }
+
+    public shift(value: number) {
+      this.set(this.#counter + value)
+    }
+
+    protected connectedCallback() {
+      this.#currentImageElement = this.querySelector('.product-images__current')
+      this.#sliderImageElements = [
+        ...this.querySelectorAll<HTMLElement>('.product-images__slider__image'),
+      ]
+
+      this.#sliderImageElements.forEach((imageElement) => {
+        imageElement.addEventListener('click', this.#imageClickListener)
+      })
+
+      this.#prevButtonElement = this.querySelector(
+        '.product-images__button_prev',
+      )
+      this.#prevButtonElement?.addEventListener(
+        'click',
+        this.#prevButtonListener,
+      )
+      this.#nextButtonElement = this.querySelector(
+        '.product-images__button_next',
+      )
+      this.#nextButtonElement?.addEventListener(
+        'click',
+        this.#nextButtonListener,
+      )
+
+      customElements.whenDefined('image-cloak').then(() => {
+        this.set(0)
+      })
+    }
+
+    protected disconnectedCallback() {
+      this.#sliderImageElements.forEach((imageElement) => {
+        imageElement.removeEventListener('click', this.#imageClickListener)
+      })
+
+      this.#prevButtonElement?.removeEventListener(
+        'click',
+        this.#prevButtonListener,
+      )
+      this.#nextButtonElement?.removeEventListener(
+        'click',
+        this.#nextButtonListener,
+      )
+    }
+
+    #imageClickListener = (e: Event) => {
+      const ct = e.currentTarget as HTMLElement
+      const index = this.#sliderImageElements.findIndex((e) => e === ct)
+      this.set(index)
+    }
+
+    #prevButtonListener = () => {
+      this.shift(-1)
+    }
+
+    #nextButtonListener = () => {
+      this.shift(1)
+    }
+  }
+
+  if (!customElements.get('e-product-images')) {
+    customElements.define('e-product-images', ProductImagesElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-product-images': ProductImagesElement
+    }
+  }
+</script>

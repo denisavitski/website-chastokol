@@ -1,15 +1,17 @@
 ---
 export interface Props {
   class?: string
+  onlyDesktop?: boolean
 }
 
-const { class: className, ...rest } = Astro.props
+const { class: className, onlyDesktop = true, ...rest } = Astro.props
 ---
 
 <e-scroll-bullet-buttons
   {...rest}
   class:list={[className, 'slider-bullets']}
   slot="static"
+  data-only-desktop={onlyDesktop}
 ></e-scroll-bullet-buttons>
 
 <style is:global>
@@ -35,20 +37,26 @@ const { class: className, ...rest } = Astro.props
 
       transition-property: background-color;
       transition-duration: var(--duration-button);
+
+      @media (max-width: 768px) {
+        width: 0.6rem;
+        height: 0.6rem;
+      }
     }
 
     button.current {
       background-color: var(--color-primary-100);
     }
 
-    @media (min-width: 769px) {
-      .has-overflow & {
-        display: flex;
-      }
+    .has-overflow & {
+      display: flex;
     }
 
     @media (max-width: 768px) {
-      display: none;
+      gap: 1rem;
+      &[data-only-desktop='true'] {
+        display: none !important;
+      }
     }
   }
 </style>
