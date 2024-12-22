@@ -1,0 +1,79 @@
+---
+export interface Props {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'pagination f-d-body-basic-medium-14']}
+>
+  <button class="pagination__step-button pagination__step-button_prev"
+    >Назад</button
+  >
+  <button class="pagination__set-button active">1</button>
+  <button class="pagination__set-button">2</button>
+  <button class="pagination__set-button">3</button>
+  <div class="pagination__dots">...</div>
+  <button class="pagination__set-button">10</button>
+  <button class="pagination__step-button pagination__step-button_next active"
+    >Вперёд</button
+  >
+</div>
+
+<style is:global>
+  .pagination {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .pagination__step-button {
+    color: var(--color-primary-100);
+
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
+
+  .pagination__step-button_prev {
+    margin-right: 1.2rem;
+  }
+
+  .pagination__step-button_next {
+    margin-left: 1.2rem;
+  }
+
+  .pagination__set-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 3.2rem;
+    height: 3.2rem;
+
+    border-radius: 0.7rem;
+
+    color: var(--color-grayscale-400);
+
+    &.active {
+      background-color: var(--color-primary-100);
+      color: var(--color-grayscale-0);
+    }
+  }
+
+  .pagination__dots {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 3.2rem;
+    height: 3.2rem;
+
+    color: var(--color-grayscale-400);
+  }
+</style>

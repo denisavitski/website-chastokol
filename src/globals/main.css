@@ -152,6 +152,7 @@ input,
 textarea {
   font-family: inherit;
   font-size: inherit;
+  font-weight: inherit;
   border: none;
   background: none;
   color: inherit;

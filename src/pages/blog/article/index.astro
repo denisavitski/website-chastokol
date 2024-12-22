@@ -1,14 +1,11 @@
 ---
-import Advice from '@blocks/Advice.astro'
-import Articles from '@blocks/Articles.astro'
-import BlogIntro from '@blocks/BlogIntro.astro'
 import Breadcrumbs from '@blocks/Breadcrumbs.astro'
 import Layout from '@layout/Layout.astro'
 ---
 
 <Layout
   seo={{
-    title: 'Частокол: Каталог',
+    title: 'Частокол: Статья',
     description: 'Металлические заборы в Санкт-Петербурге',
     cover: '/images/seo/home.jpg',
   }}
@@ -19,9 +16,7 @@ import Layout from '@layout/Layout.astro'
     links={[
       { name: 'Главная', href: '/' },
       { name: 'Блог', href: '/blog' },
+      { name: 'Статья', href: '/blog/article' },
     ]}
   />
-  <BlogIntro />
-  <Advice />
-  <Articles />
 </Layout>

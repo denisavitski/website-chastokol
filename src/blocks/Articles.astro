@@ -1,0 +1,266 @@
+---
+import CatalogCard, {
+  type Props as CatalogCardProps,
+} from '@elements/CatalogCard.astro'
+import TabButton from '@elements/TabButton.astro'
+import Pagination from '@elements/Pagination.astro'
+import FormSelect from '@elements/FormSelect.astro'
+
+export interface Props {
+  cards?: Array<CatalogCardProps>
+}
+
+const {
+  cards = [
+    {
+      name: 'Что посадить вдоль забора на участке',
+      description:
+        'Растения, высаженные вдоль забора, могут выполнять несколько задач одновременно.',
+      labels: [{ name: 'label 1' }],
+      href: '/blog/article',
+      date: '22 ноября 2024 г.',
+    },
+    {
+      name: 'Что посадить вдоль забора на участке',
+      description:
+        'Растения, высаженные вдоль забора, могут выполнять несколько задач одновременно.',
+      labels: [{ name: 'label 2' }],
+      href: '/blog/article',
+      date: '22 ноября 2024 г.',
+    },
+    {
+      name: 'Что посадить вдоль забора на участке',
+      description:
+        'Растения, высаженные вдоль забора, могут выполнять несколько задач одновременно.',
+      labels: [{ name: 'label 3' }],
+      href: '/blog/article',
+      date: '22 ноября 2024 г.',
+    },
+    {
+      name: 'Что посадить вдоль забора на участке',
+      description:
+        'Растения, высаженные вдоль забора, могут выполнять несколько задач одновременно.',
+      labels: [{ name: 'label 4' }],
+      href: '/blog/article',
+      date: '22 ноября 2024 г.',
+    },
+    {
+      name: 'Что посадить вдоль забора на участке',
+      description:
+        'Растения, высаженные вдоль забора, могут выполнять несколько задач одновременно.',
+      labels: [{ name: 'label 5' }],
+      href: '/blog/article',
+      date: '22 ноября 2024 г.',
+    },
+    {
+      name: 'Что посадить вдоль забора на участке',
+      description:
+        'Растения, высаженные вдоль забора, могут выполнять несколько задач одновременно.',
+      labels: [{ name: 'label 6' }],
+      href: '/blog/article',
+      date: '22 ноября 2024 г.',
+    },
+  ],
+} = Astro.props
+---
+
+<!-- 
+  BLOCK 
+
+
+  document.querySelector(".articles__tabs").addEventListener('radioChange', (e) => {console.log(e.detail)})
+  document.querySelector(".articles__tabs").value
+
+
+  document.querySelector(".articles__select").addEventListener('change', () => {})
+  document.querySelector(".articles__select").value
+
+
+  На телефоне лист с карточками превращается в слайдер. 
+  После того как добавились/удалились карточки нужно вызвать метод tryResplit
+  document.querySelector('.articles__list').tryResplit()
+
+  Либо текущий элемент заменить на новый, с новыми карточками.
+  Элемент создается так: document.createElement('e-scroll')
+-->
+<div
+  class="articles"
+  data-white-background="true"
+>
+  <div class="articles__top">
+    <e-radio class="articles__tabs hidden-scrollbar">
+      {
+        cards.map((card, i) => {
+          return (
+            <TabButton
+              name={card.labels?.[0]?.name || ''}
+              data-radio-button
+              data-checked={i === 0 ? true : undefined}
+              data-value={card.labels?.[0]?.name || ''}
+            />
+          )
+        })
+      }
+    </e-radio>
+
+    <FormSelect
+      class="articles__select"
+      value="Сначала новые"
+      options={['Сначала новые', 'Сначала старые']}
+      theme={'gray'}
+    />
+  </div>
+
+  <e-scroll class="articles__list">
+    {
+      cards.map((card) => {
+        return (
+          <CatalogCard
+            {...card}
+            class="articles__card"
+          />
+        )
+      })
+    }
+  </e-scroll>
+
+  <button
+    class="articles__more-button f-d-body-large-medium-16 f-m-body-basic-medium-14"
+    set:html={'Показать еще 25 материалов'}
+  />
+
+  <Pagination class="articles__pagination" />
+</div>
+
+<style is:global>
+  .articles {
+    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
+    padding-bottom: var(--section-vertical-padding-full);
+
+    display: flex;
+    flex-direction: column;
+  }
+
+  .articles__list {
+    margin-bottom: 8rem;
+
+    @media (min-width: 769px) {
+      --hibernate: true;
+
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 5rem;
+    }
+
+    @media (max-width: 768px) {
+      --axis: x;
+      --gap: 2rem;
+      --sectional: true;
+      --auto-size: true;
+      --sections-in-view: var(--slider-mobile-sections-in-view);
+
+      display: flex;
+      gap: var(--gap);
+
+      margin-bottom: 4rem;
+    }
+  }
+
+  .articles__card {
+    .catalog-card__labels {
+      top: 3rem;
+      left: 3rem;
+
+      @media (max-width: 768px) {
+        top: 1.5rem;
+        left: 1.5rem;
+      }
+    }
+
+    .catalog-card__content {
+      padding: 3rem;
+      padding-top: calc(3rem + var(--border-radius));
+
+      @media (max-width: 768px) {
+        padding: 1.5rem;
+        padding-top: calc(1.5rem + var(--border-radius));
+      }
+    }
+
+    .catalog-card__description {
+      color: var(--color-font);
+      margin-top: 2rem;
+
+      @media (max-width: 768px) {
+        margin-top: 1.5rem;
+      }
+    }
+  }
+
+  .articles__top {
+    display: flex;
+    justify-content: space-between;
+
+    margin-bottom: 8rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+
+      margin-bottom: 4rem;
+    }
+  }
+
+  .articles__tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+
+    max-width: 129.6rem;
+
+    --tab-button-background: var(--color-grayscale-100);
+
+    @media (max-width: 768px) {
+      max-width: unset;
+      margin-left: calc(var(--screen-horisontal-padding) * -1);
+      width: calc(100% + var(--screen-horisontal-padding) * 2);
+      padding: 0 var(--screen-horisontal-padding);
+      margin-bottom: 1.5rem;
+
+      flex-wrap: nowrap;
+      overflow: auto hidden;
+    }
+  }
+
+  .articles__select {
+    --select-border-radius: 3rem;
+    --select-background-color: var(--color-grayscale-100);
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .articles__more-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: max-content;
+    height: 5rem;
+    margin: 0 auto;
+    padding: 0 2.5rem;
+    margin-bottom: 6rem;
+
+    background-color: var(--color-grayscale-100);
+    border-radius: 3rem;
+
+    @media (max-width: 768px) {
+      height: 4.5rem;
+      margin-bottom: 3rem;
+    }
+  }
+
+  .articles__pagination {
+    margin: 0 auto;
+  }
+</style>

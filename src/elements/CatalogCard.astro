@@ -18,6 +18,7 @@ export interface Props {
   tag?: string | undefined
   labels?: Array<CardLabelProps> | undefined
   description?: string | undefined
+  date?: string | undefined
   theme?:
     | 'category'
     | 'service'
@@ -44,6 +45,7 @@ const {
   button,
   tag = 'a',
   description,
+  date,
   theme,
   ...rest
 } = Astro.props
@@ -150,6 +152,14 @@ const themedLabels: Array<CardLabelProps> | undefined = labels
           tag="span"
           theme={'flat'}
           name="Подробнее"
+        />
+      )
+    }
+    {
+      date && (
+        <div
+          class="catalog-card__date f-d-body-large-regular-16 f-m-footnote-regular-12"
+          set:html={date}
         />
       )
     }
@@ -324,6 +334,16 @@ const themedLabels: Array<CardLabelProps> | undefined = labels
 
     @media (max-width: 768px) {
       margin-top: 2rem;
+    }
+  }
+
+  .catalog-card__date {
+    margin-top: 5.1rem;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-top: 2.5rem;
     }
   }
 </style>

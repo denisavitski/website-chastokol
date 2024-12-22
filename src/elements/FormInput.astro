@@ -69,7 +69,7 @@ const Tag = tag
 
     display: block;
 
-    border-radius: 1.5rem;
+    border-radius: var(--select-border-radius, 1.5rem);
 
     &::placeholder {
       color: var(--color-grayscale-400);
@@ -80,11 +80,17 @@ const Tag = tag
     }
 
     .form-input[data-theme='white'] & {
-      background-color: var(--color-grayscale-0);
+      background-color: var(
+        --select-background-color,
+        var(--color-grayscale-0)
+      );
     }
 
     .form-input[data-theme='gray'] & {
-      background-color: var(--color-grayscale-200);
+      background-color: var(
+        --select-background-color,
+        var(--color-grayscale-200)
+      );
     }
 
     @media (max-width: 768px) {
