@@ -87,10 +87,11 @@ modules.forEach((module) => {
     height: 100%;
 
     padding: 0rem var(--screen-horisontal-padding);
+    padding-bottom: var(--header-height);
 
     display: grid;
     grid-auto-rows: max-content;
-    gap: 2rem;
+    gap: 4rem;
   }
 
   .nav__folder {
@@ -118,8 +119,8 @@ modules.forEach((module) => {
 
   .nav__folder__list__inner {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 2rem 4rem;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3rem;
     padding-top: 2rem;
     padding-left: 2rem;
 
