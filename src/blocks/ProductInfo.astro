@@ -3,6 +3,7 @@ import Characteristics, {
   type Props as CharacteristicsProps,
 } from '@elements/Characteristics.astro'
 import Manager2 from '@elements/Manager2.astro'
+import TabButton from '@elements/TabButton.astro'
 
 export interface Props {
   characteristics?: CharacteristicsProps['list']
@@ -37,21 +38,24 @@ const {
 <!-- BLOCK -->
 <e-billboard class="product-info">
   <e-scroll class="product-info__category-names">
-    <e-billboard-set-button
+    <TabButton
       style="--index: 0;"
-      class="product-info__category-button f-d-body-large-medium-16 f-d-body-basic-medium-14"
-      >Характеристики</e-billboard-set-button
-    >
-    <e-billboard-set-button
+      name="Характеристики"
+      class="product-info__category-button"
+      tag="e-billboard-set-button"
+    />
+    <TabButton
       style="--index: 1;"
-      class="product-info__category-button f-d-body-large-medium-16 f-d-body-basic-medium-14"
-      >Гарантии</e-billboard-set-button
-    >
-    <e-billboard-set-button
+      name="Гарантии"
+      class="product-info__category-button"
+      tag="e-billboard-set-button"
+    />
+    <TabButton
       style="--index: 2;"
-      class="product-info__category-button f-d-body-large-medium-16 f-d-body-basic-medium-14"
-      >Способ оплаты</e-billboard-set-button
-    >
+      name="Способ оплаты"
+      class="product-info__category-button"
+      tag="e-billboard-set-button"
+    />
   </e-scroll>
 
   <div class="product-info__categories">
@@ -128,33 +132,7 @@ const {
     position: relative;
     z-index: 1;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    height: 4.5rem;
-    padding: 0 2rem;
-
-    border-radius: 3rem;
-
-    transition-property: color, background-color, border-color;
-    transition-duration: var(--duration-button);
-    transition-timing-function: ease;
-
-    background-color: var(--color-grayscale-100);
-    color: var(--color-grayscale-400);
-
-    user-select: none;
-    cursor: pointer;
-
-    &.current {
-      background-color: var(--color-primary-100);
-      color: var(--color-grayscale-0);
-    }
-
-    @media (max-width: 768px) {
-      height: 4rem;
-    }
+    --tab-button-background: var(--color-grayscale-100);
   }
 
   .product-info__categories {

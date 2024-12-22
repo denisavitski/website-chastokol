@@ -1,0 +1,25 @@
+---
+import Advice from '@blocks/Advice.astro'
+import BlogIntro from '@blocks/BlogIntro.astro'
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import Layout from '@layout/Layout.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Каталог',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Блог', href: '/blog' },
+    ]}
+  />
+  <BlogIntro />
+  <Advice />
+</Layout>

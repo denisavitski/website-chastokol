@@ -1,0 +1,80 @@
+---
+import SliderBullets from '@elements/SliderBullets.astro'
+import SliderButton from '@elements/SliderButton.astro'
+
+export interface Props {
+  class?: string
+  itemInView?: '1' | '2' | '3' | '4' | '5' | 1 | 2 | 3 | 4 | 5
+}
+
+const { class: className, itemInView = 3, ...rest } = Astro.props
+---
+
+<e-scroll
+  class="slider bullets"
+  data-items-in-view={itemInView}
+  {...rest}
+>
+  <slot />
+  <SliderButton
+    type={'prev'}
+    center
+  />
+  <SliderButton
+    type={'next'}
+    center
+  />
+  <SliderBullets />
+</e-scroll>
+
+<style is:global>
+  .slider {
+    --axis: x;
+    --gap: 5rem;
+    --overflow: hidden;
+    --sectional: true;
+    --auto-size: true;
+
+    display: flex;
+    gap: var(--gap);
+
+    &[data-items-in-view='1'] {
+      --sections-in-view: 1;
+    }
+
+    &[data-items-in-view='2'] {
+      --sections-in-view: 2;
+    }
+
+    &[data-items-in-view='3'] {
+      --sections-in-view: 3;
+    }
+
+    &[data-items-in-view='4'] {
+      --sections-in-view: 4;
+    }
+
+    &[data-items-in-view='5'] {
+      --sections-in-view: 5;
+    }
+
+    @media (max-width: 768px) {
+      --overflow: unset;
+      --gap: 2rem;
+
+      &[data-items-in-view='1'],
+      &[data-items-in-view='2'],
+      &[data-items-in-view='3'] {
+        --sections-in-view: var(--slider-mobile-sections-in-view);
+      }
+
+      &[data-items-in-view='4'] {
+        --sections-in-view: 1.6;
+      }
+
+      &[data-items-in-view='5'] {
+        --sections-in-view: 2.75;
+      }
+    }
+  }
+</style>

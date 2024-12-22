@@ -1,11 +1,10 @@
 ---
 import Section, { type Props as SectionProps } from '@blocks/Section.astro'
-import SliderBullets from '@elements/SliderBullets.astro'
-import SliderButton from '@elements/SliderButton.astro'
+import Slider, { type Props as SliderProps } from '@elements/Slider.astro'
 
 export interface Props extends SectionProps {
   class?: string
-  itemInView?: '1' | '2' | '3' | '4' | 1 | 2 | 3 | 4
+  itemInView?: SliderProps['itemInView']
 }
 
 const { class: className, itemInView = 3, ...rest } = Astro.props
@@ -13,64 +12,7 @@ const { class: className, itemInView = 3, ...rest } = Astro.props
 
 <Section
   class={`slider-section ${className || ''}`}
-  data-items-in-view={itemInView}
   {...rest}
 >
-  <e-scroll class="slider-section__slider bullets">
-    <slot />
-    <SliderButton
-      type={'prev'}
-      center
-    />
-    <SliderButton
-      type={'next'}
-      center
-    />
-    <SliderBullets />
-  </e-scroll>
+  <Slider {itemInView}><slot /></Slider>
 </Section>
-
-<style is:global>
-  .slider-section__slider {
-    --axis: x;
-    --gap: 5rem;
-    --overflow: hidden;
-    --sectional: true;
-
-    --auto-size: true;
-
-    display: flex;
-    gap: var(--gap);
-
-    .slider-section[data-items-in-view='1'] & {
-      --sections-in-view: 1;
-    }
-
-    .slider-section[data-items-in-view='2'] & {
-      --sections-in-view: 2;
-    }
-
-    .slider-section[data-items-in-view='3'] & {
-      --sections-in-view: 3;
-    }
-
-    .slider-section[data-items-in-view='4'] & {
-      --sections-in-view: 4;
-    }
-
-    @media (max-width: 768px) {
-      --overflow: unset;
-      --gap: 2rem;
-
-      .slider-section[data-items-in-view='1'] &,
-      .slider-section[data-items-in-view='2'] &,
-      .slider-section[data-items-in-view='3'] & {
-        --sections-in-view: var(--slider-mobile-sections-in-view);
-      }
-
-      .slider-section[data-items-in-view='4'] & {
-        --sections-in-view: 1.6;
-      }
-    }
-  }
-</style>

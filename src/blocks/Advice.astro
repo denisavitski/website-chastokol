@@ -1,0 +1,111 @@
+---
+import Button from '@elements/Button.astro'
+import CardLabel from '@elements/CardLabel.astro'
+import Image, { type ImageDataProps } from '@elements/Image.astro'
+import TwoSides from '@elements/TwoSides.astro'
+
+export interface Props {
+  image?: ImageDataProps
+  heading?: string
+  description?: string
+  href?: string
+}
+
+const {
+  image = { src: '/images/categories/intro.jpg' },
+  heading = 'Нормы строительства на&nbsp;земельном участке',
+  description = 'Заборы выполняют сразу несколько функций. Они защищают участок, подчеркивают стиль дома и помогают создать уют.',
+  href = '/',
+} = Astro.props
+---
+
+<TwoSides
+  class="advice"
+  data-white-background="true"
+>
+  <Image
+    lazy
+    lazyBackground
+    cover
+    slot={'left'}
+    {...image}
+    class="advice__image two-sides__cover"
+  />
+  <div
+    slot="right"
+    class="advice__content"
+  >
+    <CardLabel
+      name="Советы"
+      class="advice__label"
+    />
+    <h2
+      class="advice__heading f-d-title-medium-42 f-m-title-medium-20"
+      set:html={heading}
+    />
+    <p
+      class="advice__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+      set:html={description}
+    />
+    <Button
+      name="Читать"
+      href={href}
+      class="advice__link"
+    />
+    <Button
+      name="Читать"
+      href={href}
+      theme={'flat'}
+      class="advice__link_mobile"
+    />
+  </div>
+</TwoSides>
+
+<style is:global>
+  .advice {
+    --right-background: var(--color-grayscale-100);
+    --left-background: var(--color-image-background);
+
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding) var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+  }
+
+  .advice__image {
+  }
+
+  .advice__content {
+  }
+
+  .advice__label {
+    margin-bottom: 4rem;
+  }
+
+  .advice__heading {
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .advice__description {
+    margin-bottom: 8rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .advice__link {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .advice__link_mobile {
+    @media (min-width: 769px) {
+      display: none;
+    }
+  }
+</style>

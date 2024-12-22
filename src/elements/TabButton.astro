@@ -1,0 +1,62 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+export interface Props extends HTMLAttributes<any> {
+  class?: string
+  tag?: string
+  name?: string
+}
+
+const {
+  class: className,
+  tag = 'button',
+  name = 'tab-button',
+  ...rest
+} = Astro.props
+
+const Tag = tag
+---
+
+<Tag
+  {...rest}
+  class:list={[
+    className,
+    'tab-button f-d-body-large-regular-16 f-m-body-basic-regular-14',
+  ]}
+  set:html={name}
+/>
+
+<style is:global>
+  .tab-button {
+    flex-shrink: 0;
+
+    height: 4.5rem;
+    padding: 0 2.5rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 3rem;
+
+    color: var(--color-grayscale-400);
+
+    background-color: var(--tab-button-background, --color-grayscale-0);
+
+    transition-property: color, background-color;
+    transition-duration: var(--duration-button);
+
+    cursor: pointer;
+
+    &[data-checked],
+    &.current {
+      color: var(--color-grayscale-0);
+      background-color: var(--color-primary-100);
+    }
+
+    @media (max-width: 768px) {
+      height: 4rem;
+      padding: 0 2rem;
+    }
+  }
+</style>

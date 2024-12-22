@@ -1,0 +1,70 @@
+---
+import ArticleSmallCard, {
+  type Props as ArticleSmallCardProps,
+} from '@elements/ArticleSmallCard.astro'
+import Slider from '@elements/Slider.astro'
+export interface Props {
+  heading?: string
+  cards?: Array<ArticleSmallCardProps>
+}
+
+const {
+  heading = 'Блог',
+  cards = [
+    {
+      title: '5 способов защитить забор от вредителей',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      title: '5 способов защитить забор от вредителей',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      title: '5 способов защитить забор от вредителей',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      title: '5 способов защитить забор от вредителей',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      title: '5 способов защитить забор от вредителей',
+      image: { src: '/images/catalog-item.png' },
+    },
+    {
+      title: '5 способов защитить забор от вредителей',
+      image: { src: '/images/catalog-item.png' },
+    },
+  ],
+} = Astro.props
+---
+
+<div class="blog-intro">
+  <h1
+    class="blog-intro__heading f-d-title-medium-76 f-m-title-medium-30"
+    set:html={heading}
+  />
+
+  <Slider itemInView={5}>
+    {
+      cards.map((card) => {
+        return <ArticleSmallCard {...card} />
+      })
+    }
+  </Slider>
+</div>
+
+<style is:global>
+  .blog-intro {
+    padding: 0 var(--screen-horisontal-padding);
+    padding-bottom: var(--section-vertical-padding-full);
+  }
+
+  .blog-intro__heading {
+    margin-bottom: 8rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import './RestTabs.astro'
+import TabButton from './TabButton.astro'
 
 export interface Props {
   class?: string
@@ -91,12 +92,11 @@ const {
   {
     buttons.map((button) => {
       return (
-        <button
-          class="tab-buttons__button f-d-body-large-regular-16 f-m-body-basic-medium-14"
+        <TabButton
           data-value={button.value}
           data-checked={button.checked}
           data-image={button.image}
-          set:html={button?.title || button.value}
+          name={button?.title || button.value}
           data-radio-button
         />
       )
@@ -106,8 +106,7 @@ const {
 
 <style is:global>
   .tab-buttons {
-    --tabs-height: 4.5rem;
-    --dots-button-height: var(--tabs-height);
+    --dots-button-height: 4.5rem;
 
     display: inline-flex;
     gap: 1.5rem;
@@ -115,7 +114,7 @@ const {
     width: 100%;
 
     @media (max-width: 768px) {
-      --tabs-height: 4rem;
+      --dots-button-height: 4rem;
     }
   }
 
