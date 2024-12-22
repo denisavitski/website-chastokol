@@ -6,17 +6,19 @@ export interface Props {
   class?: string
   title?: string
   image?: ImageDataProps
+  href?: string
 }
 
 const {
   class: className,
   title = '5 способов защитить забор от вредителей',
   image = { src: '/images/catalog-item.png' },
+  href = '/blog/article',
   ...rest
 } = Astro.props
 ---
 
-<div
+<a
   {...rest}
   class:list={[className, 'article-small-card']}
 >
@@ -28,11 +30,11 @@ const {
     class="article-small-card__image"
   />
 
-  <div
+  <span
     class="article-small-card__title f-d-body-large-medium-16 f-m-footnote-medium-10"
     set:html={title}
   />
-</div>
+</a>
 
 <style is:global>
   .article-small-card {
