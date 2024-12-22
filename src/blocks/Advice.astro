@@ -14,7 +14,7 @@ export interface Props {
 const {
   image = { src: '/images/categories/intro.jpg' },
   heading = 'Нормы строительства на&nbsp;земельном участке',
-  description = 'Заборы выполняют сразу несколько функций. Они защищают участок, подчеркивают стиль дома и помогают создать уют.',
+  description = 'Заборы выполняют сразу несколько функций. Они защищают участок, подчеркивают стиль дома и&nbsp;помогают создать уют.',
   href = '/',
 } = Astro.props
 ---
@@ -69,6 +69,11 @@ const {
     padding: var(--section-vertical-padding-full)
       var(--screen-horisontal-padding) var(--section-vertical-padding-full)
       var(--screen-horisontal-padding);
+
+    @media (max-width: 768px) {
+      --left-height: 23.5rem;
+      flex-direction: column-reverse;
+    }
   }
 
   .advice__image {
@@ -94,6 +99,7 @@ const {
 
     @media (max-width: 768px) {
       margin-bottom: 4rem;
+      letter-spacing: -0.11px;
     }
   }
 
