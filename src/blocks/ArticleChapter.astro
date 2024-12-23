@@ -1,0 +1,86 @@
+---
+import Advice, { type Props as AdviceProps } from './Advice.astro'
+
+export interface Props {
+  heading?: string
+
+  blocks: Array<
+    | {
+        name: 'description'
+        props: string
+      }
+    | {
+        name: 'highlite'
+        props: { title: string; description: string }
+      }
+    | {
+        name: 'advice'
+        props: AdviceProps
+      }
+    | {
+        name: 'list'
+        props: Array<{ title: string; description: string }>
+      }
+  >
+}
+
+const { heading = 'Подготовка к оформлению территории', blocks = [] } =
+  Astro.props
+---
+
+<div class="article-chapter">
+  <h2
+    class="article-chapter__heading f-d-title-medium-32 f-m-title-medium-20"
+    set:html={heading}
+  />
+
+  {
+    blocks.map((block) => {
+      if (block.name === 'description') {
+        return (
+          <p
+            set:html={block.props}
+            class="article-chapter__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+          />
+        )
+      } else if (block.name === 'advice') {
+        return (
+          <Advice
+            {...block.props}
+            class="article-chapter__advice"
+            label={false}
+          />
+        )
+      } else if (block.name === 'highlite') {
+        return (
+          <Advice
+            {...block.props}
+            class="article-chapter__highlite"
+            label={false}
+          />
+        )
+      } else if (block.name === 'list') {
+        return (
+          <ul class="article-chapter__list">
+            {block.props.map((item) => {
+              return (
+                <li class="article-chapter__list__item">
+                  <div
+                    class="article-chapter__list__item__title f-d-title-medium-20 f-m-body-large-medium-16"
+                    set:html={item.title}
+                  />
+                  <div
+                    class="article-chapter__list__item__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+                    set:html={item.description}
+                  />
+                </li>
+              )
+            })}
+          </ul>
+        )
+      }
+    })
+  }
+</div>
+
+<style is:global></style>

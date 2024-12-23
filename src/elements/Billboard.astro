@@ -1,0 +1,135 @@
+---
+import Image, { type ImageDataProps } from './Image.astro'
+import SliderBullets from './SliderBullets.astro'
+import SliderButton from './SliderButton.astro'
+
+export interface Props {
+  class?: string
+  images?: Array<ImageDataProps>
+}
+
+const {
+  class: className,
+  images = [
+    { src: '/images/home/background.jpg' },
+    { src: '/images/categories/intro.jpg' },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<e-billboard
+  {...rest}
+  class:list={[className, 'billboard']}
+>
+  {
+    images.map((image) => {
+      return (
+        <Image
+          lazy
+          lazyBackground
+          cover
+          data-billboard-item
+          {...image}
+          class="billboard__image"
+        />
+      )
+    })
+  }
+
+  <SliderButton
+    class="billboard__buton billboard__buton_prev"
+    tag="e-billboard-step-button"
+    type={'prev'}
+    onlyDesktop={false}
+  />
+  <SliderButton
+    class="billboard__buton billboard__buton_next"
+    tag="e-billboard-step-button"
+    type={'next'}
+    onlyDesktop={false}
+  />
+
+  <SliderBullets
+    tag="e-billboard-bullets"
+    class="billboard__bullets"
+    onlyDesktop={false}
+  />
+</e-billboard>
+
+<style is:global>
+  .billboard {
+    position: relative;
+
+    width: 100%;
+    height: 100%;
+
+    display: grid;
+
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+
+  .billboard__image {
+    grid-column: 1/1;
+    grid-row: 1/1;
+
+    width: 100%;
+    height: 100%;
+
+    transition-property: opacity;
+    transition-duration: var(--duration-button);
+    transition-timing-function: ease;
+
+    opacity: 0;
+    pointer-events: none;
+
+    &.current {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+  .billboard__buton {
+    --slider-button-size: 3.8rem;
+    position: absolute;
+    top: calc(50% - var(--slider-button-size) / 2);
+
+    z-index: 1;
+
+    @media (max-width: 768px) {
+      --slider-button-size: 2.6rem;
+    }
+  }
+
+  .billboard__buton_prev {
+    left: 3rem;
+
+    @media (max-width: 768px) {
+      left: 1.5rem;
+    }
+  }
+
+  .billboard__buton_next {
+    right: 3rem;
+
+    @media (max-width: 768px) {
+      right: 1.5rem;
+    }
+  }
+
+  .billboard__bullets {
+    position: absolute;
+    left: 50%;
+    top: unset;
+    bottom: 3rem;
+
+    z-index: 1;
+
+    transform: translateX(-50%);
+
+    @media (max-width: 768px) {
+      bottom: 1.5rem;
+    }
+  }
+</style>

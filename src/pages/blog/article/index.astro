@@ -1,4 +1,5 @@
 ---
+import Advice from '@blocks/Advice.astro'
 import ArticleIntro from '@blocks/ArticleIntro.astro'
 import ArticleStories from '@blocks/ArticleStories.astro'
 import ArticleSuggestions from '@blocks/ArticleSuggestions.astro'
@@ -25,6 +26,13 @@ import Layout from '@layout/Layout.astro'
     largePadding
   />
   <ArticleIntro />
+  <Advice
+    size={'small'}
+    label={false}
+    heading={'Идеи для вашего забора ищите&nbsp;в&nbsp;нашей галерее'}
+    description="Будьте в курсе всех обновлений. Специальные предложения, эксклюзивные материалы и полезные советы — все это в нашей группе ВКонтакте."
+    button={'В галерею'}
+  />
   <ArticleStories />
   <ArticleSuggestions />
 </Layout>

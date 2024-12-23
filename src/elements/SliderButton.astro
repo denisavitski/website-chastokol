@@ -6,6 +6,7 @@ export interface Props {
   type?: 'prev' | 'next'
   center?: boolean
   onlyDesktop?: boolean
+  tag?: string
 }
 
 const {
@@ -13,11 +14,14 @@ const {
   type = 'next',
   center,
   onlyDesktop = true,
+  tag = 'e-scroll-step-button',
   ...rest
 } = Astro.props
+
+const Tag = tag
 ---
 
-<e-scroll-step-button
+<Tag
   {...rest}
   class:list={['slider-button', className]}
   data-type={type}
@@ -29,7 +33,7 @@ const {
     name={'tailless-arrow'}
     class="slider-button__arrow"
   />
-</e-scroll-step-button>
+</Tag>
 
 <style is:global>
   .slider-button {
@@ -46,12 +50,14 @@ const {
     transition: opacity var(--duration-button);
 
     user-select: none;
+    cursor: pointer;
 
     [data-white-background='true'] & {
       background-color: var(--slider-button-color, var(--color-grayscale-200));
     }
 
-    .has-overflow & {
+    .has-overflow &,
+    .has-length & {
       display: inline-flex;
     }
 

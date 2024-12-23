@@ -3,25 +3,44 @@ import Button from '@elements/Button.astro'
 import CardLabel from '@elements/CardLabel.astro'
 import Image, { type ImageDataProps } from '@elements/Image.astro'
 import TwoSides from '@elements/TwoSides.astro'
+import { undefined } from 'astro:schema'
 
 export interface Props {
   image?: ImageDataProps
   heading?: string
   description?: string
   href?: string
+  label?: boolean
+  size?: 'normal' | 'small'
+  button?: string
+  padding?: boolean
+  class?: string
 }
 
 const {
+  class: className,
   image = { src: '/images/categories/intro.jpg' },
   heading = 'Нормы строительства на&nbsp;земельном участке',
   description = 'Заборы выполняют сразу несколько функций. Они защищают участок, подчеркивают стиль дома и&nbsp;помогают создать уют.',
   href = '/',
+  label = true,
+  size = 'normal',
+  button = 'Читать',
+  padding = true,
 } = Astro.props
 ---
 
 <TwoSides
-  class="advice"
+  class={`advice ${className || ''}`}
   data-white-background="true"
+  data-padding-top={padding ? 'full' : undefined}
+  data-padding-bottom={padding ? 'normal' : undefined}
+  data-padding-horisontal={padding
+    ? size === 'normal'
+      ? 'normal'
+      : 'large'
+    : undefined}
+  data-size={size}
 >
   <Image
     lazy
@@ -35,12 +54,21 @@ const {
     slot="right"
     class="advice__content"
   >
-    <CardLabel
-      name="Советы"
-      class="advice__label"
-    />
+    {
+      label && (
+        <CardLabel
+          name="Советы"
+          class="advice__label"
+        />
+      )
+    }
+
     <h2
-      class="advice__heading f-d-title-medium-42 f-m-title-medium-20"
+      class:list={[
+        'advice__heading',
+        { 'f-d-title-medium-42 f-m-title-medium-20': size === 'normal' },
+        { 'f-d-title-medium-28 f-m-title-medium-20': size === 'small' },
+      ]}
       set:html={heading}
     />
     <p
@@ -48,12 +76,12 @@ const {
       set:html={description}
     />
     <Button
-      name="Читать"
+      name={button}
       href={href}
       class="advice__link"
     />
     <Button
-      name="Читать"
+      name={button}
       href={href}
       theme={'flat'}
       class="advice__link_mobile"
@@ -66,9 +94,12 @@ const {
     --right-background: var(--color-grayscale-100);
     --left-background: var(--color-image-background);
 
-    padding: var(--section-vertical-padding-full)
-      var(--screen-horisontal-padding) var(--section-vertical-padding)
-      var(--screen-horisontal-padding);
+    @media (min-width: 769px) {
+      .two-sides__left,
+      .two-sides__right {
+        width: 53.5rem;
+      }
+    }
 
     @media (max-width: 768px) {
       --left-height: 23.5rem;
@@ -89,6 +120,12 @@ const {
   .advice__heading {
     margin-bottom: 3rem;
 
+    @media (min-width: 769px) {
+      .advice[data-size='small'] & {
+        margin-bottom: 2rem;
+      }
+    }
+
     @media (max-width: 768px) {
       margin-bottom: 2rem;
     }
@@ -96,6 +133,16 @@ const {
 
   .advice__description {
     margin-bottom: 8rem;
+
+    .advice[data-size='small'] & {
+      color: var(--color-grayscale-400);
+    }
+
+    @media (min-width: 769px) {
+      .advice[data-size='small'] & {
+        margin-bottom: 5rem;
+      }
+    }
 
     @media (max-width: 768px) {
       margin-bottom: 4rem;

@@ -1,0 +1,83 @@
+---
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+  title?: string
+  description?: string
+}
+
+const {
+  class: className,
+  title = 'Рекомендация',
+  description = 'Подготовка – это фундаментальный этап, который требует профессионального подхода. Частокол гарантирует не только качественную подготовку, но и высокий уровень исполнения установочных работ. Выбирая нас, вы выбираете надежность, безопасность и красоту вашего забора. Наша цель — превратить ваш участок в образец организованности и стиля.',
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'highlite']}
+>
+  <div class="highlite__title">
+    <Icon
+      class="highlite__title__icon"
+      name={'attention-fill'}
+    />
+    <div
+      class="highlite__title__value f-d-body-large-medium-16 f-m-body-basic-medium-14"
+      set:html={title}
+    />
+  </div>
+
+  <div
+    class="highlite__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    set:html={description}
+  />
+</div>
+
+<style is:global>
+  .highlite {
+    padding: 5rem;
+
+    background-color: rgba(48, 124, 50, 0.08);
+    border-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+      padding: 3rem;
+    }
+  }
+
+  .highlite__title {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      gap: 2rem;
+    }
+  }
+
+  .highlite__title__icon {
+    width: 2rem;
+    height: 2rem;
+
+    fill: none;
+
+    @media (max-width: 768px) {
+      width: 1.6rem;
+      height: 1.6rem;
+    }
+  }
+
+  .highlite__title__value {
+    color: var(--color-primary-100);
+  }
+
+  .highlite__description {
+    display: block;
+    white-space: pre-line;
+  }
+</style>

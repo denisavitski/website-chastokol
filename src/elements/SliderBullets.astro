@@ -2,17 +2,25 @@
 export interface Props {
   class?: string
   onlyDesktop?: boolean
+  tag?: string
 }
 
-const { class: className, onlyDesktop = true, ...rest } = Astro.props
+const {
+  class: className,
+  onlyDesktop = true,
+  tag = 'e-scroll-bullet-buttons',
+  ...rest
+} = Astro.props
+
+const Tag = tag
 ---
 
-<e-scroll-bullet-buttons
+<Tag
   {...rest}
   class:list={[className, 'slider-bullets']}
   slot="static"
   data-only-desktop={onlyDesktop}
-></e-scroll-bullet-buttons>
+/>
 
 <style is:global>
   .slider-bullets {
@@ -48,7 +56,8 @@ const { class: className, onlyDesktop = true, ...rest } = Astro.props
       background-color: var(--color-primary-100);
     }
 
-    .has-overflow & {
+    .has-overflow &,
+    .has-length & {
       display: flex;
     }
 
