@@ -1,0 +1,33 @@
+---
+import Billboard from '@elements/Billboard.astro'
+
+export interface Props {}
+
+const {} = Astro.props
+---
+
+<div class="billboard-section">
+  <Billboard theme={'outside'} />
+</div>
+
+<style is:global>
+  .billboard-section {
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+    padding-bottom: 13.8rem;
+
+    border-bottom: 0.1rem solid var(--color-grayscale-300);
+
+    @media (max-width: 768px) {
+      padding-bottom: 4rem;
+    }
+
+    .billboard {
+      height: 65rem;
+
+      @media (max-width: 768px) {
+        height: 23.5rem;
+      }
+    }
+  }
+</style>

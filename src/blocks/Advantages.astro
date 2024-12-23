@@ -1,0 +1,71 @@
+---
+import AdvantageCard, {
+  type Props as AdvantageCardProps,
+} from '@elements/AdvantageCard.astro'
+import Section from './Section.astro'
+
+export interface Props {
+  heading?: string
+  list?: Array<AdvantageCardProps>
+}
+
+const {
+  heading = 'Стабильность и&nbsp;профессионализм',
+  list = [
+    {
+      title: 'Быстро',
+      description:
+        'Собственное производство и&nbsp;партнерские отношения с&nbsp;поставщиками гарантируют быструю поставку сырья точно в&nbsp;срок.',
+      icon: 'bolt',
+    },
+    {
+      title: 'Качественно',
+      description:
+        'Используем только лучшие материалы и&nbsp;контролируем качество на&nbsp;каждом этапе, подтверждая его соответствием ГОСТ.',
+      icon: 'gem',
+    },
+    {
+      title: 'Надёжно',
+      description:
+        '17 лет опыта и&nbsp;прозрачная схема работы&nbsp;— гарантия вашей выгоды. Мы&nbsp;предлагаем честные цены без посредников и&nbsp;наценок.',
+      icon: 'link',
+    },
+  ],
+} = Astro.props
+---
+
+<Section
+  heading={heading}
+  class="advantages"
+  paddingBottom={'full'}
+  paddingTop={'full'}
+>
+  <div class="advantages__list">
+    {
+      list.map((item) => {
+        return (
+          <AdvantageCard
+            {...item}
+            class="advantages__card"
+          />
+        )
+      })
+    }
+  </div>
+</Section>
+
+<style is:global>
+  .advantages__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 100%;
+      gap: 2rem;
+    }
+  }
+
+  .advantages__card {
+  }
+</style>

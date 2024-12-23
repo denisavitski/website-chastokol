@@ -1,0 +1,27 @@
+---
+import Advantages from '@blocks/Advantages.astro'
+import BillboardSection from '@blocks/BillboardSection.astro'
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import CompanyIntro from '@blocks/CompanyIntro.astro'
+import Layout from '@layout/Layout.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'О компании', href: '/company' },
+    ]}
+  />
+  <CompanyIntro />
+  <Advantages />
+  <BillboardSection />
+</Layout>
