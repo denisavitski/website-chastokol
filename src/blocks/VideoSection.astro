@@ -1,0 +1,29 @@
+---
+import Video from '@elements/Video.astro'
+
+export interface Props {}
+
+const {} = Astro.props
+---
+
+<div
+  class="video-section"
+  data-white-background="true"
+>
+  <Video class="video-section__video" />
+</div>
+
+<style is:global>
+  .video-section {
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+  }
+
+  .video-section__video {
+    height: 65rem;
+
+    @media (max-width: 768px) {
+      height: 23.5rem;
+    }
+  }
+</style>
