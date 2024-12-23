@@ -1,0 +1,90 @@
+---
+import SliderSection from './SliderSection.astro'
+import CatalogCard, {
+  type Props as CatalogCardProps,
+} from '@elements/CatalogCard.astro'
+
+export interface Props {
+  cards?: Array<CatalogCardProps>
+}
+
+const {
+  cards = [
+    {
+      image: { src: '/images/catalog-item.png' },
+      name: 'Артем Иванов',
+      description: 'Бригадир',
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      name: 'Артем Иванов',
+      description: 'Бригадир',
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      name: 'Артем Иванов',
+      description: 'Бригадир',
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      name: 'Артем Иванов',
+      description: 'Бригадир',
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      name: 'Артем Иванов',
+      description: 'Бригадир',
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      name: 'Артем Иванов',
+      description: 'Бригадир',
+    },
+  ],
+} = Astro.props
+---
+
+<SliderSection
+  heading={'Наша команда'}
+  itemInView={4}
+  paddingTop={'full'}
+  paddingBottom={'full'}
+  class="team"
+>
+  {
+    cards.map((card) => {
+      return (
+        <CatalogCard
+          {...card}
+          class="team__card"
+        />
+      )
+    })
+  }
+</SliderSection>
+
+<style is:global>
+  .team {
+    @media (max-width: 768px) {
+      .slider {
+        --sections-in-view: var(--slider-mobile-sections-in-view);
+      }
+    }
+  }
+
+  .team__card {
+    --catalog-card-image-height: 34.7rem;
+
+    .catalog-card__description {
+      margin-top: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      --catalog-card-image-height: 24rem;
+
+      .catalog-card__description {
+        margin-top: 0.3rem;
+      }
+    }
+  }
+</style>
