@@ -1,0 +1,148 @@
+---
+import type { ImageDataProps } from './Image.astro'
+import Image from './Image.astro'
+import PlayButton from './PlayButton.astro'
+
+export interface Props {
+  class?: string
+  video?: string
+  cover?: ImageDataProps
+}
+
+const {
+  class: className,
+  cover = { src: '/images/categories/intro.jpg' },
+  video = `<iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+  ...rest
+} = Astro.props
+---
+
+<e-video-frame
+  {...rest}
+  class:list={[className, 'video']}
+  {video}
+>
+  <Image
+    lazy
+    lazyBackground
+    cover
+    {...cover}
+    class="video__cover"
+  />
+  <div class="video__holder"></div>
+  <PlayButton class="video__button" />
+</e-video-frame>
+
+<style is:global>
+  .video {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: var(--border-radius);
+
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      height: 23.5rem;
+    }
+  }
+
+  .video__cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--color-image-background);
+
+    .video.playing & {
+      display: none;
+    }
+  }
+
+  .video__holder {
+    width: 100%;
+    height: 100%;
+
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .video__button {
+    position: absolute;
+
+    .video.playing & {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { ClassLinkedStatus } from 'aptechka/class-linked-status'
+  import { intersector } from 'aptechka/intersector'
+
+  export class VideoFrameElement extends HTMLElement {
+    #holderElement: HTMLElement | null = null
+    #buttonElement: HTMLElement | null = null
+    #status = new ClassLinkedStatus(this, { playing: false })
+
+    protected connectedCallback() {
+      this.#holderElement = this.querySelector('.video__holder')
+
+      this.#buttonElement = this.querySelector('.video__button')
+      this.#buttonElement?.addEventListener('click', this.#clickListener)
+
+      intersector.subscribe(this, this.#intersectionListener)
+    }
+
+    protected disconnectedCallback() {
+      this.#buttonElement?.removeEventListener('click', this.#clickListener)
+
+      this.#status.reset()
+    }
+
+    #clickListener = () => {
+      this.#load()
+    }
+
+    #load() {
+      const video = this.getAttribute('video')
+
+      if (video && this.#holderElement) {
+        this.#holderElement.innerHTML = video
+        this.#status.set('playing', true)
+      }
+    }
+
+    #intersectionListener = (e: IntersectionObserverEntry) => {
+      if (!e.isIntersecting && this.#status.isTrue('playing')) {
+        if (this.#holderElement) {
+          this.#holderElement.innerHTML = ''
+          this.#status.set('playing', false)
+        }
+      }
+    }
+  }
+
+  if (!customElements.get('e-video-frame')) {
+    customElements.define('e-video-frame', VideoFrameElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-video-frame': VideoFrameElement
+    }
+  }
+</script>

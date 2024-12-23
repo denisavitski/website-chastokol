@@ -1,5 +1,10 @@
 ---
+import Video from '@elements/Video.astro'
 import Advice, { type Props as AdviceProps } from './Advice.astro'
+import Billboard, {
+  type Props as BillboardProps,
+} from '@elements/Billboard.astro'
+import Highlite from '@elements/Highlite.astro'
 
 export interface Props {
   heading?: string
@@ -21,6 +26,14 @@ export interface Props {
         name: 'list'
         props: Array<{ title: string; description: string }>
       }
+    | {
+        name: 'billboard'
+        props: BillboardProps
+      }
+    | {
+        name: 'video'
+        props: string
+      }
   >
 }
 
@@ -28,7 +41,10 @@ const { heading = 'Подготовка к оформлению территор
   Astro.props
 ---
 
-<div class="article-chapter">
+<div
+  class="article-chapter"
+  data-white-background="true"
+>
   <h2
     class="article-chapter__heading f-d-title-medium-32 f-m-title-medium-20"
     set:html={heading}
@@ -49,14 +65,15 @@ const { heading = 'Подготовка к оформлению территор
             {...block.props}
             class="article-chapter__advice"
             label={false}
+            size={'small'}
+            padding={false}
           />
         )
       } else if (block.name === 'highlite') {
         return (
-          <Advice
+          <Highlite
             {...block.props}
             class="article-chapter__highlite"
-            label={false}
           />
         )
       } else if (block.name === 'list') {
@@ -78,9 +95,102 @@ const { heading = 'Подготовка к оформлению территор
             })}
           </ul>
         )
+      } else if (block.name === 'billboard') {
+        return (
+          <Billboard
+            {...block.props}
+            class="article-chapter__billboard"
+          />
+        )
+      } else if (block.name === 'video') {
+        return (
+          <Video
+            video={block.props}
+            class="article-chapter__video"
+          />
+        )
       }
     })
   }
 </div>
 
-<style is:global></style>
+<style is:global>
+  .article-chapter {
+    padding: 0 var(--screen-horisontal-padding-large);
+    padding-bottom: var(--section-vertical-padding-full);
+
+    *:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .article-chapter__heading {
+    margin-bottom: var(--section-vertical-padding);
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .article-chapter__description {
+    margin-bottom: var(--section-vertical-padding-full);
+
+    color: var(--color-grayscale-400);
+  }
+
+  .article-chapter__advice {
+    margin-bottom: var(--section-vertical-padding-full);
+    background-color: unset !important;
+  }
+
+  .article-chapter__highlite {
+    margin-bottom: var(--section-vertical-padding-full);
+  }
+
+  .article-chapter__list {
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 6rem;
+
+    margin-bottom: var(--section-vertical-padding-full);
+
+    @media (max-width: 768px) {
+      gap: 4rem;
+    }
+  }
+
+  .article-chapter__list__item {
+  }
+
+  .article-chapter__list__item__title {
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .article-chapter__list__item__description {
+    color: var(--color-grayscale-400);
+  }
+
+  .article-chapter__billboard {
+    height: 49.5rem;
+
+    margin-bottom: var(--section-vertical-padding-full);
+
+    @media (max-width: 768px) {
+      height: 23.5rem;
+    }
+  }
+
+  .article-chapter__video {
+    height: 49.5rem;
+
+    margin-bottom: var(--section-vertical-padding-full);
+
+    @media (max-width: 768px) {
+      height: 23.5rem;
+    }
+  }
+</style>
