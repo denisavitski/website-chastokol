@@ -1,0 +1,269 @@
+---
+import CheckboxButton from './CheckboxButton.astro'
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+  options?: Array<string>
+  name?: string
+}
+
+const {
+  class: className,
+  options = ['Option 1', 'Option 2'],
+  name = 'select',
+  ...rest
+} = Astro.props
+---
+
+<e-select
+  {...rest}
+  class:list={[className, 'select']}
+  disabled
+  tag="e-select"
+  tabindex="0"
+>
+  <div class="select__input-box">
+    <div
+      set:html={options[0]}
+      class="select__selected f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    />
+
+    <Icon
+      name={'arrow-down'}
+      class="select__icon"
+    />
+  </div>
+
+  <div class="select__options">
+    {
+      options.map((option, i) => {
+        return (
+          <CheckboxButton
+            type={'radio'}
+            name={`${name}-radio`}
+            value={option}
+            checked={i === 0 ? true : undefined}
+          />
+        )
+      })
+    }
+  </div>
+</e-select>
+
+<style is:global>
+  .select {
+    position: relative;
+
+    display: inline-block;
+
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .select__input-box {
+    cursor: pointer;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+
+    width: 100%;
+    height: 4.5rem;
+    padding: 0 2rem;
+
+    border-radius: 3rem;
+    background-color: var(--color-grayscale-100);
+
+    overflow: hidden;
+  }
+
+  .select__selected {
+    pointer-events: none;
+  }
+
+  .select__icon {
+    flex-shrink: 0;
+
+    width: 1.4rem;
+    height: 1.4rem;
+
+    fill: none;
+    stroke: var(--color-grayscale-700);
+
+    .select.opened & {
+      transform: scaleY(-1);
+      stroke: var(--color-primary-100);
+    }
+  }
+
+  .select__options {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 1.5rem);
+
+    z-index: 2;
+
+    width: max-content;
+    padding: 2rem;
+
+    display: none;
+    grid-auto-rows: max-content;
+    gap: 1.5rem;
+
+    border-radius: 1.5rem;
+    background-color: var(--color-grayscale-0);
+    box-shadow: 0 0.4rem 1rem 0 rgba(0, 0, 0, 0.05);
+
+    .select.opened & {
+      display: grid;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      padding: 1.5rem;
+      gap: 1rem;
+    }
+  }
+
+  .select__option {
+    --padding: 1.6rem;
+
+    position: relative;
+
+    height: var(--input-height);
+    text-align: start;
+
+    padding: 0 var(--padding);
+
+    border-radius: 1.2rem;
+
+    &.checked {
+      color: var(--color-grayscale-0);
+      background-color: var(--color-primary-100);
+    }
+
+    &:not(:last-of-type):after {
+      content: '';
+
+      position: absolute;
+      top: 100%;
+      left: var(--padding);
+
+      width: calc(100% - var(--padding) * 2);
+      height: 0.1rem;
+
+      background-color: var(--color-grayscale-300);
+    }
+  }
+</style>
+
+<script>
+  import { ClassLinkedStatus } from 'aptechka/class-linked-status'
+  import { requestIdleCallback } from 'aptechka/utils'
+
+  export class SelectElement extends HTMLElement {
+    #selectedElement: HTMLElement | null = null
+    #inputElements: Array<HTMLInputElement> = []
+    #status = new ClassLinkedStatus(this, { opened: false })
+
+    constructor() {
+      super()
+
+      const clickOutside = () => {
+        this.#status.set('opened', false)
+      }
+
+      const toggle = () => {
+        const opened = this.#status.isTrue('opened')
+
+        this.#status.set('opened', !opened)
+
+        if (!opened) {
+          requestIdleCallback(() => {
+            addEventListener('click', clickOutside, { once: true })
+          })
+        } else {
+          removeEventListener('click', clickOutside)
+        }
+      }
+
+      this.addEventListener('click', () => {
+        toggle()
+      })
+
+      this.addEventListener('keyup', (e) => {
+        if (e.code === 'Space') {
+          toggle()
+        }
+      })
+
+      this.addEventListener('change', () => {
+        console.log('A')
+      })
+    }
+
+    public get value() {
+      return this.#inputElements.find((input) => input.checked)?.value
+    }
+
+    public set value(value: string | undefined) {
+      this.#inputElements.forEach((el) => {
+        if (el.value === value) {
+          if (this.#selectedElement) {
+            this.#selectedElement.textContent = value
+          }
+
+          if (!el.checked) {
+            el.checked = true
+            el.dispatchEvent(new Event('change'))
+          }
+        } else {
+          el.checked = false
+        }
+      })
+    }
+
+    protected connectedCallback() {
+      this.#selectedElement = this.querySelector('.select__selected')
+
+      this.#inputElements = [
+        ...this.querySelectorAll<HTMLInputElement>('.checkbox__input'),
+      ]
+
+      this.#inputElements.forEach((element) => {
+        element.addEventListener('change', this.#optionListener)
+      })
+
+      this.value = this.#inputElements.find((el) => el.checked)?.value
+    }
+
+    protected disconnectedCallback() {
+      this.#inputElements.forEach((element) => {
+        element.removeEventListener('change', this.#optionListener)
+      })
+
+      this.#status.reset()
+    }
+
+    #optionListener = (e: Event) => {
+      const ct = e.currentTarget as HTMLInputElement
+      const value = ct.value
+
+      if (value) {
+        this.value = value
+      }
+    }
+  }
+
+  if (!customElements.get('e-select')) {
+    customElements.define('e-select', SelectElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-select': SelectElement
+    }
+  }
+</script>

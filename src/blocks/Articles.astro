@@ -4,7 +4,7 @@ import CatalogCard, {
 } from '@elements/CatalogCard.astro'
 import TabButton from '@elements/TabButton.astro'
 import Pagination from '@elements/Pagination.astro'
-import FormSelect from '@elements/FormSelect.astro'
+import Select from '@elements/Select.astro'
 
 export interface Props {
   cards?: Array<CatalogCardProps>
@@ -107,11 +107,9 @@ const {
       }
     </e-radio>
 
-    <FormSelect
+    <Select
       class="articles__select"
-      value="Сначала новые"
       options={['Сначала новые', 'Сначала старые']}
-      theme={'gray'}
     />
   </div>
 
@@ -236,8 +234,7 @@ const {
   }
 
   .articles__select {
-    --select-border-radius: 3rem;
-    --select-background-color: var(--color-grayscale-100);
+    width: 18.9rem;
 
     @media (max-width: 768px) {
       width: 100%;

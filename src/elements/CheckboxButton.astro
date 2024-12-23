@@ -8,6 +8,7 @@ export interface Props {
   value?: string
   font?: string
   disabled?: boolean
+  checked?: boolean | undefined
 }
 
 const {
@@ -15,8 +16,9 @@ const {
   type = 'checkbox',
   name,
   value = 'Value',
-  font = 'f-dbody-large-regular-16',
+  font = 'f-d-body-large-regular-16 f-m-body-basic-regular-14',
   disabled,
+  checked,
   ...rest
 } = Astro.props
 ---
@@ -31,6 +33,7 @@ const {
     {disabled}
     {name}
     {value}
+    {checked}
   />
 
   <span class="checkbox__content">
@@ -44,7 +47,7 @@ const {
       name && (
         <span
           class="checkbox__title"
-          set:html={name}
+          set:html={value}
         />
       )
     }
@@ -71,9 +74,15 @@ const {
     .checkbox__input:disabled ~ & {
       cursor: default;
     }
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+    }
   }
 
   .checkbox__icon-box {
+    flex-shrink: 0;
+
     width: 2rem;
     height: 2rem;
 
@@ -104,6 +113,11 @@ const {
     .checkbox__input:disabled ~ .checkbox__content & {
       border-color: var(--color-button-text);
       box-shadow: 0rem 0rem 0rem 0.2rem #f9f9f9;
+    }
+
+    @media (max-width: 768px) {
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 
