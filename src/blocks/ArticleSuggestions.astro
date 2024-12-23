@@ -1,0 +1,128 @@
+---
+import CatalogCard, {
+  type Props as CatalogCardProps,
+} from '@elements/CatalogCard.astro'
+import Section from './Section.astro'
+import Slider from '@elements/Slider.astro'
+
+export interface Props {
+  cards?: Array<CatalogCardProps>
+}
+
+const {
+  cards = [
+    {
+      name: 'Что посадить вдоль забора на участке',
+      description:
+        'Растения, высаженные вдоль забора, могут выполнять несколько задач одновременно.',
+      labels: [{ name: 'label 1' }],
+      href: '/blog/article',
+      date: '22 ноября 2024 г.',
+    },
+    {
+      name: 'Что посадить вдоль забора на участке',
+      description:
+        'Растения, высаженные вдоль забора, могут выполнять несколько задач одновременно.',
+      labels: [{ name: 'label 2' }],
+      href: '/blog/article',
+      date: '22 ноября 2024 г.',
+    },
+    {
+      name: 'Что посадить вдоль забора на участке',
+      description:
+        'Растения, высаженные вдоль забора, могут выполнять несколько задач одновременно.',
+      labels: [{ name: 'label 3' }],
+      href: '/blog/article',
+      date: '22 ноября 2024 г.',
+    },
+    {
+      name: 'Что посадить вдоль забора на участке',
+      description:
+        'Растения, высаженные вдоль забора, могут выполнять несколько задач одновременно.',
+      labels: [{ name: 'label 4' }],
+      href: '/blog/article',
+      date: '22 ноября 2024 г.',
+    },
+    {
+      name: 'Что посадить вдоль забора на участке',
+      description:
+        'Растения, высаженные вдоль забора, могут выполнять несколько задач одновременно.',
+      labels: [{ name: 'label 5' }],
+      href: '/blog/article',
+      date: '22 ноября 2024 г.',
+    },
+    {
+      name: 'Что посадить вдоль забора на участке',
+      description:
+        'Растения, высаженные вдоль забора, могут выполнять несколько задач одновременно.',
+      labels: [{ name: 'label 6' }],
+      href: '/blog/article',
+      date: '22 ноября 2024 г.',
+    },
+  ],
+} = Astro.props
+---
+
+<Section
+  class="article-suggestions"
+  heading="Читать также:"
+  paddingHorisontal={'large'}
+>
+  <Slider
+    itemInView={2}
+    class="article-suggestions__slider"
+  >
+    {
+      cards.map((card) => {
+        return (
+          <CatalogCard
+            {...card}
+            class="article-suggestions__card"
+          />
+        )
+      })
+    }
+  </Slider>
+</Section>
+
+<style is:global>
+  .article-suggestions__slider {
+  }
+
+  .article-suggestions__card {
+    --catalog-card-image-height: 35rem;
+
+    @media (max-width: 768px) {
+      --catalog-card-image-height: 20rem;
+    }
+
+    .catalog-card__labels {
+      top: 3rem;
+      left: 3rem;
+
+      @media (max-width: 768px) {
+        top: 1.5rem;
+        left: 1.5rem;
+      }
+    }
+
+    .catalog-card__content {
+      padding: 3rem;
+      padding-top: calc(3rem + var(--border-radius));
+
+      @media (max-width: 768px) {
+        padding: 1.5rem;
+        padding-top: calc(1.5rem + var(--border-radius));
+      }
+    }
+
+    .catalog-card__description {
+      color: var(--color-font);
+      margin-top: 2rem;
+
+      @media (max-width: 768px) {
+        margin-top: 1.5rem;
+      }
+    }
+  }
+</style>

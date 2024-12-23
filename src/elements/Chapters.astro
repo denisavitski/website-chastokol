@@ -68,6 +68,7 @@ const {
 <style is:global>
   .chapters {
     position: relative;
+    z-index: 3;
     height: max-content;
   }
 
@@ -126,7 +127,8 @@ const {
 
     opacity: 0;
 
-    width: 56rem;
+    width: 100%;
+    min-width: max-content;
 
     border-radius: var(--border-radius);
     background-color: var(--color-grayscale-100);

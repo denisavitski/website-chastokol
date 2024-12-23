@@ -5,6 +5,7 @@ export interface Props {
   headingLevel?: 'h2' | 'h3'
   paddingTop?: 'full' | 'normal'
   paddingBottom?: 'full' | 'normal'
+  paddingHorisontal?: 'large' | 'normal'
   whiteBackground?: boolean
 }
 
@@ -14,6 +15,7 @@ const {
   headingLevel = 'h2',
   paddingTop = 'normal',
   paddingBottom = 'normal',
+  paddingHorisontal = 'normal',
   whiteBackground,
   ...rest
 } = Astro.props
@@ -27,6 +29,7 @@ const HeadingTag = headingLevel
   class:list={[className, 'section']}
   data-padding-top={paddingTop}
   data-padding-bottom={paddingBottom}
+  data-padding-horisontal={paddingHorisontal}
   data-white-background={whiteBackground}
 >
   <HeadingTag
@@ -46,18 +49,6 @@ const HeadingTag = headingLevel
 </section>
 
 <style is:global>
-  .section {
-    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
-
-    &[data-padding-top='full'] {
-      padding-top: var(--section-vertical-padding-full);
-    }
-
-    &[data-padding-bottom='full'] {
-      padding-bottom: var(--section-vertical-padding-full);
-    }
-  }
-
   .section__heading {
     margin-bottom: 8rem;
 

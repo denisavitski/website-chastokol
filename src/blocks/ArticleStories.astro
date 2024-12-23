@@ -2,16 +2,13 @@
 import ArticleSmallCard, {
   type Props as ArticleSmallCardProps,
 } from '@elements/ArticleSmallCard.astro'
-
 import Slider from '@elements/Slider.astro'
 
 export interface Props {
-  heading?: string
   cards?: Array<ArticleSmallCardProps>
 }
 
 const {
-  heading = 'Блог',
   cards = [
     {
       title: '5 способов защитить забор от вредителей',
@@ -47,13 +44,13 @@ const {
 } = Astro.props
 ---
 
-<div class="blog-intro">
-  <h1
-    class="blog-intro__heading f-d-title-medium-76 f-m-title-medium-30"
-    set:html={heading}
-  />
-
-  <Slider itemInView={5}>
+<div
+  class="article-stories"
+  data-padding-horisontal="large"
+  data-padding-top="full"
+  data-padding-bottom="normal"
+>
+  <Slider itemInView={4}>
     {
       cards.map((card) => {
         return <ArticleSmallCard {...card} />
@@ -63,16 +60,22 @@ const {
 </div>
 
 <style is:global>
-  .blog-intro {
-    padding: 0 var(--screen-horisontal-padding);
-    padding-bottom: var(--section-vertical-padding-full);
-  }
+  .article-stories {
+    .slider {
+      @media (max-width: 768px) {
+        --sectional: true;
+        --sections-in-view: 2.73;
+      }
+    }
 
-  .blog-intro__heading {
-    margin-bottom: 8rem;
+    .article-small-card {
+      width: 24rem;
+      height: 28rem;
 
-    @media (max-width: 768px) {
-      margin-bottom: 4rem;
+      @media (max-width: 768px) {
+        width: 11rem;
+        height: 13rem;
+      }
     }
   }
 </style>

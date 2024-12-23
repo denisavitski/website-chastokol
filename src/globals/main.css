@@ -246,6 +246,32 @@ e-scroll.has-overflow.bullets {
   background-color: var(--color-grayscale-0);
 }
 
+[data-padding-top='normal'] {
+  padding-top: var(--section-vertical-padding);
+}
+
+[data-padding-top='full'] {
+  padding-top: var(--section-vertical-padding-full);
+}
+
+[data-padding-bottom='normal'] {
+  padding-bottom: var(--section-vertical-padding);
+}
+
+[data-padding-bottom='full'] {
+  padding-bottom: var(--section-vertical-padding-full);
+}
+
+[data-padding-horisontal='normal'] {
+  padding-left: var(--screen-horisontal-padding);
+  padding-right: var(--screen-horisontal-padding);
+}
+
+[data-padding-horisontal='large'] {
+  padding-left: var(--screen-horisontal-padding-large);
+  padding-right: var(--screen-horisontal-padding-large);
+}
+
 .two-color-heading {
   b {
     font-weight: inherit;
