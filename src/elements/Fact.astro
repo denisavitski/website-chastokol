@@ -1,0 +1,107 @@
+---
+import type { SpriteIconName } from '@utils/SpriteIconName'
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+  icon?: SpriteIconName
+  number?: string
+  title?: string
+}
+
+const {
+  class: className,
+  icon = 'calendar',
+  number = '2007',
+  title = 'Год основания',
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'fact']}
+>
+  <Icon
+    name={'border'}
+    class={'fact__border'}
+  />
+  <Icon
+    name={icon}
+    class="fact__icon"
+  />
+
+  <div
+    class="fact__number"
+    set:html={number}
+  />
+
+  <div
+    class="fact__title f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    set:html={title}
+  />
+</div>
+
+<style is:global>
+  .fact {
+    position: relative;
+
+    width: 46.7rem;
+    height: 46.7rem;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    @media (max-width: 768px) {
+      width: 26rem;
+      height: 26rem;
+    }
+  }
+
+  .fact__border {
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    fill: var(--color-primary-100);
+  }
+
+  .fact__icon {
+    width: 2.4rem;
+    height: 2.4rem;
+
+    margin-bottom: 4rem;
+
+    fill: var(--color-primary-100);
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .fact__number {
+    font-family: 'font-additional';
+    font-weight: bold;
+    line-height: 130%;
+    font-size: 8.2rem;
+
+    margin-bottom: 0.5rem;
+
+    color: var(--color-primary-100);
+
+    @media (max-width: 768px) {
+      font-size: 4.8rem;
+      margin-bottom: 0rem;
+    }
+  }
+
+  .fact__title {
+    max-width: 80%;
+    text-align: center;
+  }
+</style>

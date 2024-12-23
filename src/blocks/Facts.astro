@@ -1,0 +1,71 @@
+---
+import Fact, { type Props as FactProps } from '@elements/Fact.astro'
+import Section from './Section.astro'
+export interface Props {
+  heading?: string
+  list?: Array<FactProps>
+}
+
+const {
+  heading = 'Факты и цифры',
+  list = [
+    {
+      icon: 'calendar',
+      number: '2007',
+      title: 'Год основания',
+    },
+    {
+      icon: 'build',
+      number: '400+',
+      title: 'Различных конструкций',
+    },
+    {
+      icon: 'region',
+      number: '60',
+      title: 'Населенных пунктов присутствия',
+    },
+  ],
+} = Astro.props
+---
+
+<Section
+  heading={heading}
+  class="facts"
+  paddingTop={'full'}
+  paddingBottom={'normal'}
+  whiteBackground
+>
+  <div class="facts__list hidden-scrollbar">
+    {
+      list.map((fact) => {
+        return <Fact {...fact} />
+      })
+    }
+  </div>
+</Section>
+
+<style is:global>
+  .facts {
+  }
+
+  .facts__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4.9rem;
+
+    @media (max-width: 768px) {
+      margin-left: calc(var(--screen-horisontal-padding) * -1);
+      width: calc(100% + var(--screen-horisontal-padding) * 2);
+      padding: 0 var(--screen-horisontal-padding);
+
+      flex-wrap: nowrap;
+      gap: 2rem;
+
+      overflow: auto hidden;
+
+      .fact {
+        flex-shrink: 0;
+      }
+    }
+  }
+</style>
