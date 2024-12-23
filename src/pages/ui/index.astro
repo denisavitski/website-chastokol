@@ -40,17 +40,11 @@ modules.forEach((module) => {
   footer={false}
   pixelPerfectImages={[]}
 >
-  <e-accordion
-    class="nav"
-    multiple
-  >
+  <div class="nav">
     {
       Array.from(components).map(([folderName, componentNames]) => {
         return (
-          <div
-            class="nav__folder"
-            data-opened
-          >
+          <div class="nav__folder">
             <div class="nav__folder__title">{folderName}</div>
             <div class="nav__folder__list">
               <div class="nav__folder__list__inner">
@@ -78,7 +72,7 @@ modules.forEach((module) => {
         )
       })
     }
-  </e-accordion>
+  </div>
 </Layout>
 
 <style is:global>
@@ -107,10 +101,6 @@ modules.forEach((module) => {
 
   .nav__folder__list {
     width: 100%;
-    transition: height var(--duration-button);
-
-    height: 0;
-    overflow: hidden;
 
     @media (max-width: 768px) {
       width: 100%;

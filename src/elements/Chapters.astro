@@ -1,0 +1,173 @@
+---
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+  title?: string
+  list?: Array<{ name: string; anchor?: string }>
+}
+
+const {
+  class: className,
+  title = 'В этой главе мы расскажем',
+  list = [
+    {
+      name: 'Про подготовку к оформлению территории',
+      anchor: '',
+    },
+    {
+      name: 'Про подбор материала',
+      anchor: '',
+    },
+    {
+      name: 'Про использование подсобных материалов',
+      anchor: '',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'chapters']}
+>
+  <e-popover-button
+    target="chapters"
+    class="chapters__toggle"
+  >
+    <span
+      class="chapters__toggle__name f-d-body-large-regular-16 f-m-body-basic-regular-14"
+      set:html={title}
+    />
+    <Icon
+      class="chapters__toggle__icon"
+      name={'arrow-down'}
+      set:html={title}
+    />
+  </e-popover-button>
+  <e-popover
+    id="chapters"
+    class="chapters__list f-d-body-large-medium-16 f-d-body-basic-medium-14"
+  >
+    {
+      list.map((item) => {
+        return (
+          <a
+            class="chapters__link"
+            href={`#${item.anchor}`}
+            set:html={item.name}
+            data-outside
+          />
+        )
+      })
+    }
+  </e-popover>
+</div>
+
+<style is:global>
+  .chapters {
+    position: relative;
+    height: max-content;
+  }
+
+  .chapters__toggle {
+    --type: toggle;
+
+    height: 4.5rem;
+    padding: 0 2rem;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+
+    background-color: var(--color-grayscale-100);
+    border-radius: 3rem;
+
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+      height: 4rem;
+      width: 100%;
+    }
+  }
+
+  .chapters__toggle__name {
+  }
+
+  .chapters__toggle__icon {
+    width: 1.6rem;
+    height: 1.6rem;
+
+    fill: none;
+    stroke: var(--color-font);
+
+    transition-property: transform;
+    transition-duration: var(--duration-button);
+
+    .chapters__toggle.opened & {
+      transform: scaleY(-1);
+    }
+  }
+
+  .chapters__list {
+    --click-outside: true;
+
+    position: absolute;
+    top: calc(100% + 3rem);
+    left: 0;
+
+    padding: 3rem;
+
+    display: none;
+    gap: 2rem;
+
+    opacity: 0;
+
+    width: 56rem;
+
+    border-radius: var(--border-radius);
+    background-color: var(--color-grayscale-100);
+    box-shadow: 0 0.4rem 1rem 0 rgba(0, 0, 0, 0.05);
+
+    transition-property: opacity;
+    transition-duration: var(--duration-button);
+    transition-timing-function: ease;
+
+    &.triggered {
+      display: grid;
+    }
+
+    &.opened {
+      opacity: 1;
+    }
+
+    @media (max-width: 768px) {
+      top: calc(100% + 1.5rem);
+      width: 100%;
+      padding: 2rem;
+      gap: 1.5rem;
+    }
+  }
+
+  .chapters__link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 2rem;
+
+    color: var(--color-primary-100);
+
+    &::before {
+      content: '';
+
+      width: 0.4rem;
+      height: 0.4rem;
+
+      background-color: var(--color-primary-100);
+      border-radius: 50%;
+    }
+  }
+</style>

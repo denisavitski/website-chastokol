@@ -7,6 +7,7 @@ export interface Props {
   image?: ImageDataProps
   name?: string
   position?: string
+  small?: boolean
 }
 
 const {
@@ -14,6 +15,7 @@ const {
   image = { src: '/images/company-members/director.jpg' },
   name = 'Вероника Иванова',
   position = 'Директора компании «Частокол»',
+  small,
   ...rest
 } = Astro.props
 ---
@@ -21,6 +23,7 @@ const {
 <div
   {...rest}
   class:list={[className, 'company-member']}
+  data-small={small}
 >
   <Image
     {...image}
@@ -32,11 +35,19 @@ const {
 
   <div class="company-member__content">
     <div
-      class="company-member__name f-d-title-medium-24 f-m-body-large-medium-16"
+      class:list={[
+        'company-member__name',
+        { 'f-d-title-medium-24 f-m-body-large-medium-16': !small },
+        { 'f-d-body-large-medium-16': small },
+      ]}
       set:html={name}
     />
     <div
-      class="company-member__position f-d-body-large-medium-16 f-m-footnote-medium-12"
+      class:list={[
+        'company-member__position',
+        { 'f-d-body-large-medium-16 f-m-footnote-medium-12': !small },
+        { 'f-d-body-large-regular-16 f-m-body-basic-regular-14': small },
+      ]}
       set:html={position}
     />
   </div>
@@ -48,8 +59,16 @@ const {
     align-items: center;
     gap: 4rem;
 
+    &[data-small='true'] {
+      gap: 3rem;
+    }
+
     @media (max-width: 768px) {
       gap: 1.5rem;
+
+      &[data-small='true'] {
+        gap: 2rem;
+      }
     }
   }
 
@@ -62,9 +81,20 @@ const {
 
     overflow: hidden;
 
+    .company-member[data-small='true'] & {
+      width: 6rem;
+      height: 6rem;
+      border: unset;
+    }
+
     @media (max-width: 768px) {
       width: 7rem;
       height: 7rem;
+
+      .company-member[data-small='true'] & {
+        width: 6rem;
+        height: 6rem;
+      }
     }
   }
 
@@ -74,6 +104,16 @@ const {
   .company-member__name {
     margin-bottom: 0.8rem;
     color: var(--color-primary-100);
+
+    .company-member[data-small='true'] & {
+      margin-bottom: 0.2rem;
+    }
+
+    @media (max-width: 768px) {
+      .company-member[data-small='true'] & {
+        margin-bottom: 0.5rem;
+      }
+    }
   }
 
   .company-member__position {

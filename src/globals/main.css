@@ -43,6 +43,7 @@ body {
   --z-header: 100;
 
   --screen-horisontal-padding: 21rem;
+  --screen-horisontal-padding-large: 40rem;
   --section-vertical-padding: 4rem;
   --section-vertical-padding-full: calc(var(--section-vertical-padding) * 2);
   --section-bullets-padding: 5.8rem;
@@ -103,6 +104,7 @@ body {
 
   @media (max-width: 768px) {
     --screen-horisontal-padding: 2rem;
+    --screen-horisontal-padding-large: 2rem;
     --section-vertical-padding: 2rem;
     --header-top-height: 0rem;
     --header-height: 6.4rem;

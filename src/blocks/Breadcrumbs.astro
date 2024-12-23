@@ -3,6 +3,7 @@ export interface Props {
   class?: string
   links?: Array<{ name: string; href: string }>
   whiteBackground?: boolean
+  largePadding?: boolean
 }
 
 const {
@@ -12,6 +13,7 @@ const {
     { name: 'О компании', href: '/about' },
   ],
   whiteBackground,
+  largePadding,
   ...rest
 } = Astro.props
 ---
@@ -21,6 +23,7 @@ const {
   {...rest}
   class:list={[className, 'breadcrumbs']}
   data-white-background={whiteBackground}
+  data-large-padding={largePadding}
 >
   {
     links.map((link) => {
@@ -47,6 +50,11 @@ const {
     flex-wrap: wrap;
     padding: 5.2rem var(--screen-horisontal-padding) 5rem
       var(--screen-horisontal-padding);
+
+    &[data-large-padding='true'] {
+      padding-left: var(--screen-horisontal-padding-large);
+      padding-right: var(--screen-horisontal-padding-large);
+    }
 
     @media (max-width: 768px) {
       padding-top: 2rem;

@@ -1,0 +1,139 @@
+---
+import type { ImageDataProps } from '@elements/Image.astro'
+import CompanyMember, {
+  type Props as CompanyMemberProps,
+} from '@elements/CompanyMember.astro'
+import Chapters, { type Props as ChaptersProps } from '@elements/Chapters.astro'
+import Image from '@elements/Image.astro'
+
+export interface Props {
+  date?: string
+  heading?: string
+  description?: string
+  image?: ImageDataProps
+  chapters?: ChaptersProps
+  author?: CompanyMemberProps
+}
+
+const {
+  date = '22 ноября 2024 г.',
+  heading = 'Декоративный забор своими руками',
+  description = 'Мы расскажем, как самостоятельно создать декоративный забор для дачи, какие материалы выбрать и на что обратить внимание при установке. Декоративный забор — это не просто способ защитить свой участок, а настоящий штрих, который делает дачу более уютной.',
+  image = { src: '/images/categories/intro.jpg' },
+  chapters = {
+    title: 'В этой статье мы расскажем',
+    list: [{ name: 'Chapter 1' }, { name: 'Chapter 2' }],
+  },
+  author = {
+    image: { src: '/images/company-members/director.jpg' },
+    name: 'Вероника Иванова',
+    position: 'Директора компании «Частокол»',
+  },
+} = Astro.props
+---
+
+<div
+  class="article-intro"
+  data-white-background="true"
+>
+  <div
+    class="article-intro__date f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    set:html={date}
+  />
+  <h1
+    class="article-intro__heading f-d-title-medium-56 f-m-title-medium-30"
+    set:html={heading}
+  />
+  <p
+    class="article-intro__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    set:html={description}
+  />
+  <Image
+    {...image}
+    cover
+    lazy
+    lazyBackground
+    class="article-intro__image"
+  />
+
+  <div class="article-intro__bottom">
+    <Chapters
+      {...chapters}
+      class="article-intro__chapters"
+    />
+    <CompanyMember
+      {...author}
+      class="article-intro__author"
+      small
+    />
+  </div>
+</div>
+
+<style is:global>
+  .article-intro {
+    padding: 0 var(--screen-horisontal-padding-large);
+    padding-top: 1rem;
+    padding-bottom: var(--section-vertical-padding-full);
+  }
+
+  .article-intro__date {
+    margin-bottom: 5.8rem;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .article-intro__heading {
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .article-intro__description {
+    margin-bottom: 5rem;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .article-intro__image {
+    width: 100%;
+    height: 49.5rem;
+    margin-bottom: 5rem;
+
+    border-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+      height: 23.5rem;
+      margin-bottom: 4rem;
+    }
+  }
+
+  .article-intro__bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      flex-direction: column-reverse;
+      align-items: unset;
+    }
+  }
+
+  .article-intro__chapters {
+  }
+
+  .article-intro__author {
+    @media (max-width: 768px) {
+      margin-bottom: 5rem;
+    }
+  }
+</style>
