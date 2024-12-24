@@ -272,6 +272,10 @@ e-scroll.has-overflow.bullets {
   padding-right: var(--screen-horisontal-padding-large);
 }
 
+[data-border] {
+  border-bottom: 0.1rem solid var(--color-grayscale-300);
+}
+
 .two-color-heading {
   b {
     font-weight: inherit;

@@ -1,9 +1,14 @@
 ---
-import Fact, { type Props as FactProps } from '@elements/Fact.astro'
-import Section from './Section.astro'
-export interface Props {
+import CircleData, {
+  type Props as CircleDataProps,
+} from '@elements/CircleData.astro'
+import Section, { type Props as SectionProps } from './Section.astro'
+
+export interface Props extends SectionProps {
   heading?: string
-  list?: Array<FactProps>
+  list?: Array<Omit<CircleDataProps, 'theme'>>
+  border?: boolean
+  theme?: CircleDataProps['theme']
 }
 
 const {
@@ -25,33 +30,50 @@ const {
       title: 'Населенных пунктов присутствия',
     },
   ],
+  border,
+  theme = 'fact',
+  ...rest
 } = Astro.props
 ---
 
 <Section
   heading={heading}
-  class="facts"
+  class="circles"
   paddingTop={'full'}
   paddingBottom={'normal'}
   whiteBackground
+  border={border}
+  data-theme={theme}
+  {...rest}
 >
-  <div class="facts__list hidden-scrollbar">
+  <div class="circles__list hidden-scrollbar">
     {
       list.map((fact) => {
-        return <Fact {...fact} />
+        return (
+          <CircleData
+            {...fact}
+            {theme}
+          />
+        )
       })
     }
   </div>
 </Section>
 
 <style is:global>
-  .facts {
+  .circles {
   }
 
-  .facts__list {
+  .circles__list {
     display: flex;
     flex-wrap: wrap;
     gap: 4.9rem;
+
+    @media (min-width: 769px) {
+      .circles[data-theme='asset'] & {
+        gap: 5.06rem;
+      }
+    }
 
     @media (max-width: 768px) {
       margin-left: calc(var(--screen-horisontal-padding) * -1);
@@ -63,7 +85,7 @@ const {
 
       overflow: auto hidden;
 
-      .fact {
+      .circle-data {
         flex-shrink: 0;
       }
     }

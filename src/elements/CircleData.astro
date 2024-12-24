@@ -7,47 +7,51 @@ export interface Props {
   icon?: SpriteIconName
   number?: string
   title?: string
+  theme?: 'fact' | 'asset'
 }
 
 const {
   class: className,
   icon = 'calendar',
-  number = '2007',
+  number,
   title = 'Год основания',
+  theme = 'fact',
   ...rest
 } = Astro.props
 ---
 
 <div
   {...rest}
-  class:list={[className, 'fact']}
+  class:list={[className, 'circle-data']}
+  data-theme={theme}
 >
   <Icon
     name={'border'}
-    class={'fact__border'}
+    class={'circle-data__border'}
   />
   <Icon
     name={icon}
-    class="fact__icon"
+    class="circle-data__icon"
   />
 
-  <div
-    class="fact__number"
-    set:html={number}
-  />
+  {
+    number && (
+      <div
+        class="circle-data__number"
+        set:html={number}
+      />
+    )
+  }
 
   <div
-    class="fact__title f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    class="circle-data__title f-d-body-large-regular-16 f-m-body-basic-regular-14"
     set:html={title}
   />
 </div>
 
 <style is:global>
-  .fact {
+  .circle-data {
     position: relative;
-
-    width: 46.7rem;
-    height: 46.7rem;
 
     border-radius: 50%;
 
@@ -56,13 +60,23 @@ const {
     align-items: center;
     flex-direction: column;
 
+    @media (min-width: 769px) {
+      width: 46.7rem;
+      height: 46.7rem;
+
+      &[data-theme='asset'] {
+        width: 33.7rem;
+        height: 33.7rem;
+      }
+    }
+
     @media (max-width: 768px) {
       width: 26rem;
       height: 26rem;
     }
   }
 
-  .fact__border {
+  .circle-data__border {
     position: absolute;
 
     width: 100%;
@@ -71,7 +85,7 @@ const {
     fill: var(--color-primary-100);
   }
 
-  .fact__icon {
+  .circle-data__icon {
     width: 2.4rem;
     height: 2.4rem;
 
@@ -79,12 +93,21 @@ const {
 
     fill: var(--color-primary-100);
 
+    @media (min-width: 769px) {
+      .circle-data[data-theme='asset'] & {
+        margin-bottom: 1.6rem;
+
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+
     @media (max-width: 768px) {
       margin-bottom: 2rem;
     }
   }
 
-  .fact__number {
+  .circle-data__number {
     font-family: 'font-additional';
     font-weight: bold;
     line-height: 130%;
@@ -100,8 +123,8 @@ const {
     }
   }
 
-  .fact__title {
-    max-width: 80%;
+  .circle-data__title {
+    max-width: 70%;
     text-align: center;
   }
 </style>

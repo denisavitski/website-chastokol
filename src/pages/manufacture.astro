@@ -1,0 +1,55 @@
+---
+import BillboardSection from '@blocks/BillboardSection.astro'
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import Circles from '@blocks/Circles.astro'
+import CompanyIntro from '@blocks/CompanyIntro.astro'
+import Connect from '@blocks/Connect.astro'
+import Layout from '@layout/Layout.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Производство',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Производство', href: '/manufacture' },
+    ]}
+  />
+  <CompanyIntro
+    heading="Собственное производство"
+    description="Компания «Частокол» занимается изготовлением, доставкой, установкой заборов, ворот и калиток. Строим заборы из деревянного и металлического штакетника, профлиста, сетки-рабицы, сетки Гиттер, профтрубы, пластика, кирпича и бетона. Устанавливаем механические и автоматические ворота, строим бетонные фундаменты для заборов, устанавливаем кирпичные столбы."
+  />
+  <Circles
+    theme={'asset'}
+    heading={'Все необходимое для реализации'}
+    border
+    paddingBottom={'full'}
+    list={[
+      {
+        icon: 'catalog',
+        title: 'Печатные и&nbsp;электронные каталоги материалов',
+      },
+      {
+        icon: 'swatchbook',
+        title: 'Образцы материалов для выезда к клиенту',
+      },
+      {
+        icon: 'cube',
+        title: 'Модели 3D заборов, ворот и навесов',
+      },
+      {
+        icon: 'folder',
+        title: 'Богатый ассортимент материалов и оттенков',
+      },
+    ]}
+  />
+  <BillboardSection />
+  <Connect />
+</Layout>

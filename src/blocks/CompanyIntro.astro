@@ -6,6 +6,7 @@ export interface Props {
   heading?: string
   description?: string
   image?: ImageDataProps
+  border?: boolean
 }
 
 const {
@@ -13,6 +14,7 @@ const {
   heading = '«Частокол» – <b>надёжный&nbsp;партнёр</b> в&nbsp;сфере строительства с&nbsp;2007 года',
   description = 'За&nbsp;время своей работы в&nbsp;сфере производства и&nbsp;строительства компания накопила солидный опыт и&nbsp;со&nbsp;100% уверенностью готова заявить, что&nbsp;знаем о&nbsp;заборах&nbsp;все. Клиентам не&nbsp;приходится переплачивать за&nbsp;качество.<br><br>Собственное производство материалов и&nbsp;комплектующих позволяет компании держать уровень цен&nbsp;на&nbsp;заборы и&nbsp;ограждения на&nbsp;приемлемом уровне.',
   image = { src: '/images/categories/intro.jpg' },
+  border,
   ...rest
 } = Astro.props
 ---
@@ -22,6 +24,7 @@ const {
   class:list={[className, 'company-intro']}
   data-padding-horisontal="normal"
   data-padding-bottom="full"
+  data-border={border}
 >
   <h1
     class="company-intro__heading two-color-heading f-d-title-medium-56 f-m-title-medium-24"
@@ -41,10 +44,6 @@ const {
 </div>
 
 <style is:global>
-  .company-intro {
-    border-bottom: 0.1rem solid var(--color-grayscale-300);
-  }
-
   .company-intro__heading {
     width: 103.3rem;
     margin-bottom: 3rem;

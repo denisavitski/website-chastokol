@@ -6,7 +6,8 @@ export interface Props {
   paddingTop?: 'full' | 'normal'
   paddingBottom?: 'full' | 'normal'
   paddingHorisontal?: 'large' | 'normal'
-  whiteBackground?: boolean
+  whiteBackground?: boolean | undefined
+  border?: boolean | undefined
 }
 
 const {
@@ -17,6 +18,7 @@ const {
   paddingBottom = 'normal',
   paddingHorisontal = 'normal',
   whiteBackground,
+  border,
   ...rest
 } = Astro.props
 
@@ -31,6 +33,7 @@ const HeadingTag = headingLevel
   data-padding-bottom={paddingBottom}
   data-padding-horisontal={paddingHorisontal}
   data-white-background={whiteBackground}
+  data-border={border}
 >
   <HeadingTag
     class:list={[
