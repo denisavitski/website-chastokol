@@ -1,0 +1,40 @@
+---
+export interface Props {
+  class?: string
+  heading?: string
+  headingLevel?: 'h2' | 'h3'
+  paddingTop?: 'full' | 'normal'
+  paddingBottom?: 'full' | 'normal'
+  paddingHorisontal?: 'large' | 'normal'
+  whiteBackground?: boolean | undefined
+  border?: boolean | undefined
+}
+
+const {
+  class: className,
+  heading = 'Ворота',
+  headingLevel = 'h2',
+  paddingTop,
+  paddingBottom = 'full',
+  paddingHorisontal = 'normal',
+  whiteBackground,
+  border,
+  ...rest
+} = Astro.props
+---
+
+<!-- BLOCK -->
+<h1
+  {...rest}
+  class:list={[
+    className,
+    'page-heading',
+    'f-d-title-medium-76 f-m-title-medium-30',
+  ]}
+  data-padding-top={paddingTop}
+  data-padding-bottom={paddingBottom}
+  data-padding-horisontal={paddingHorisontal}
+  data-white-background={whiteBackground}
+  data-border={border}
+  set:html={heading}
+/>

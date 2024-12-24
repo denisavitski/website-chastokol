@@ -1,0 +1,71 @@
+---
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import CatalogCardsSection from '@blocks/CatalogCardsSection.astro'
+import PageHeading from '@blocks/PageHeading.astro'
+import Layout from '@layout/Layout.astro'
+import MapSection from '@blocks/Map.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Карта объектов',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Карта объектов', href: '/map' },
+    ]}
+  />
+
+  <PageHeading heading="Карта объектов" />
+
+  <CatalogCardsSection
+    heading="Выполненные работы"
+    headingLevel="h3"
+    paddingTop={'full'}
+    whiteBackground
+    cards={[
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+      {
+        href: '/',
+        name: 'Заборы',
+        image: { src: '/images/catalog-item.png' },
+        theme: 'video',
+        labels: [{ icon: 'tools', name: 'Монтаж' }],
+      },
+    ]}
+  />
+  <MapSection />
+</Layout>
