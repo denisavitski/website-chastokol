@@ -1,0 +1,27 @@
+---
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import PageHeading from '@blocks/PageHeading.astro'
+import Layout from '@layout/Layout.astro'
+import VacanciesSection from '@blocks/Vacancies.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Вакансии компании',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Вакансии', href: '/vacancies' },
+    ]}
+  />
+
+  <PageHeading heading="Вакансии компании" />
+
+  <VacanciesSection />
+</Layout>

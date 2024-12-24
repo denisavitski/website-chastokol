@@ -1,0 +1,93 @@
+---
+import Vacancy, { type Props as VacancyProps } from '@elements/Vacancy.astro'
+
+export interface Props {
+  list?: Array<VacancyProps>
+}
+
+const { list } = Astro.props
+
+const defaultObject: VacancyProps = {
+  state: 'open',
+  id: 'vacancy-1',
+  title: 'Инженер сметчик отдаленные районы',
+  type: 'Полная занятость',
+  city: 'Москва',
+  description:
+    'Составление смет, определение стоимости материалов и работ необходимых для реализации.',
+  salary: 'от 70 000 руб.',
+
+  phone: '+7 (499) 900-60-30',
+  email: 'spb@stockade.ru',
+  workingHours: 'c 10:00 до 19:00, ежедневно',
+
+  text: `\
+    <div>\
+      <h2>Требования:</h2>
+      Высшее образование.
+      Опыт работы в сфере продаж не менее 1 года.
+      Коммуникабельность.
+      Профессиональная активность, стремление к достижению максимального результата.
+      Знание рынка профильной продукции компании.
+      Свободное пользование ПК.
+    </div>\
+    <div>\
+      <h2>Обязанности:</h2>
+      Продажа всех видов продукции согласно номенклатуре компании.
+      Разработка коммерческих предложений.
+      Заключение договоров на поставку продукции/услуг с физическими и юридическими лицами.
+      Взаимодействие с инженерно-техническими и экономическими службами. 
+    </div>\
+    <div>\
+      <h2>Условия:</h2>
+      Официальное трудоустройство по ТК РФ.
+      Режим работы по графику компании.
+      Возможны командировки.\
+    </div>\
+  `,
+}
+
+const dblist =
+  list ||
+  [
+    structuredClone(defaultObject),
+    structuredClone(defaultObject),
+    structuredClone(defaultObject),
+    structuredClone(defaultObject),
+    structuredClone(defaultObject),
+    structuredClone(defaultObject),
+  ].map((l, i) => {
+    l.id = `vacancy-${i + 1}`
+    l.title = `vacancy-${i + 1}`
+    l.state = i % 2 === 0 ? 'closed' : 'open'
+
+    return l
+  })
+---
+
+<div
+  class="vacancies"
+  data-white-background="true"
+>
+  {
+    dblist.map((item) => {
+      return <Vacancy {...item} />
+    })
+  }
+</div>
+
+<style is:global>
+  .vacancies {
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 100%;
+      gap: 2rem;
+    }
+  }
+</style>
