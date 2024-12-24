@@ -1,10 +1,12 @@
 ---
-import PhotoGalleryCard, {
-  type Props as PhotoGalleryCardProps,
-} from '@elements/PhotoGalleryCard.astro'
+import CatalogCard, {
+  type Props as CatalogCardProps,
+} from '@elements/CatalogCard.astro'
 
 export interface Props {
-  cards?: Array<PhotoGalleryCardProps>
+  cards?: Array<
+    Pick<CatalogCardProps, 'name' | 'description' | 'labels' | 'images'>
+  >
 }
 
 const {
@@ -59,7 +61,13 @@ const {
 >
   {
     cards.map((card) => {
-      return <PhotoGalleryCard {...card} />
+      return (
+        <CatalogCard
+          {...card}
+          theme={'media'}
+          nameFont="f-d-title-medium-24 f-m-body-large-medium-16"
+        />
+      )
     })
   }
 </div>
