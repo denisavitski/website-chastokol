@@ -2,11 +2,14 @@
 import TextReviewCard, {
   type Props as TextReviewCardProps,
 } from '@elements/TextReviewCard.astro'
-import SliderSection from './SliderSection.astro'
+import SliderSection, {
+  type Props as SliderSectionProps,
+} from './SliderSection.astro'
 
 export interface Props {
   heading?: string
   catalog?: Array<TextReviewCardProps>
+  headingLevel?: SliderSectionProps['headingLevel']
 }
 
 const {
@@ -37,13 +40,15 @@ const {
       review: { src: '/images/text-reviews/review.jpg' },
     },
   ],
+  headingLevel = 'h2',
   ...rest
 } = Astro.props
 ---
 
 <SliderSection
   {...rest}
-  heading={heading}
+  {heading}
+  {headingLevel}
   whiteBackground
   paddingBottom={'full'}
 >

@@ -1,0 +1,37 @@
+---
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import PageHeading from '@blocks/PageHeading.astro'
+import Layout from '@layout/Layout.astro'
+import VideoReviews from '@blocks/VideoReviews.astro'
+import TextReviews from '@blocks/TextReviews.astro'
+import Connect from '@blocks/Connect.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Отзывы',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Отзывы', href: '/reviews' },
+    ]}
+  />
+
+  <PageHeading heading="Отзывы клиентов" />
+
+  <VideoReviews
+    heading="Видеоотзывы"
+    headingLevel={'h3'}
+  />
+  <TextReviews
+    heading="Благодарности"
+    headingLevel={'h3'}
+  />
+  <Connect />
+</Layout>

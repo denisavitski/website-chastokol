@@ -2,12 +2,15 @@
 import VideoReviewCard, {
   type Props as VideoReviewCardProps,
 } from '@elements/VideoReviewCard.astro'
-import SliderSection from './SliderSection.astro'
+import SliderSection, {
+  type Props as SliderSectionProps,
+} from './SliderSection.astro'
 
 export interface Props {
   class?: string
   heading?: string
   catalog?: Array<VideoReviewCardProps>
+  headingLevel?: SliderSectionProps['headingLevel']
 }
 
 const {
@@ -78,13 +81,15 @@ const {
       },
     },
   ],
+  headingLevel = 'h2',
   ...rest
 } = Astro.props
 ---
 
 <SliderSection
   {...rest}
-  heading="Отзывы клиентов"
+  {heading}
+  {headingLevel}
   whiteBackground
   paddingTop={'full'}
   itemInView={2}
