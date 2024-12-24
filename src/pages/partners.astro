@@ -1,0 +1,27 @@
+---
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import PageHeading from '@blocks/PageHeading.astro'
+import Layout from '@layout/Layout.astro'
+import PartnersSection from '@blocks/Partners.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Карта объектов',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Партнеры', href: '/partners' },
+    ]}
+  />
+
+  <PageHeading heading="Наши партнеры" />
+
+  <PartnersSection />
+</Layout>

@@ -1,0 +1,71 @@
+---
+import PartnerCard, {
+  type Props as PartnerCardProps,
+} from '@elements/PartnerCard.astro'
+
+export interface Props {
+  cards?: Array<PartnerCardProps>
+}
+
+const {
+  cards = [
+    {
+      name: 'ПАО «Северсталь»',
+      image: { src: '/images/partners/1.png' },
+      description: 'Горнодобывающая компания',
+    },
+    {
+      name: 'ООО «Королёвский трубный завод»',
+      image: { src: '/images/partners/2.png' },
+      description: 'Производитель электросварных труб',
+    },
+    {
+      name: 'ПАО «НЛМК»',
+      image: { src: '/images/partners/3.png' },
+      description: 'Металлургическая компания',
+    },
+    {
+      name: 'ООО "Трансметалл"',
+      image: { src: '/images/partners/4.png' },
+      description: 'Промышленное и бытовое оборудование',
+    },
+    {
+      name: 'Cancelli Automatici S.P.A.',
+      image: { src: '/images/partners/5.png' },
+      description: 'Производство автоматики',
+    },
+    {
+      name: 'АО «Найс Автоматика для Дома»',
+      image: { src: '/images/partners/6.png' },
+      description: 'Магазин систем автоматизации',
+    },
+  ],
+} = Astro.props
+---
+
+<div
+  class="partners"
+  data-white-background="true"
+>
+  {
+    cards.map((card) => {
+      return <PartnerCard {...card} />
+    })
+  }
+</div>
+
+<style is:global>
+  .partners {
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8rem 5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 100%;
+      gap: 4rem;
+    }
+  }
+</style>

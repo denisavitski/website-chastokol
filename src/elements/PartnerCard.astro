@@ -1,0 +1,92 @@
+---
+import type { ImageDataProps } from './Image.astro'
+import Image from './Image.astro'
+
+export const backgroundColor = 'white'
+
+export interface Props {
+  class?: string
+  image?: ImageDataProps
+  name?: string
+  type?: string
+  description?: string
+}
+
+const {
+  class: className,
+  name = 'ПАО «Северсталь»',
+  image = { src: '/images/partners/1.png' },
+  description = 'Горнодобывающая компания',
+  ...rest
+} = Astro.props
+---
+
+<div
+  class="partner-card"
+  {...rest}
+>
+  <div class="partner-card__image-box">
+    <Image
+      lazy
+      contain
+      {...image}
+      class="partner-card__image"
+    />
+  </div>
+  <div
+    class="partner-card__title f-d-body-large-medium-16 f-m-body-basic-medium-14"
+    set:html={name}
+  />
+  <div
+    class="partner-card__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    set:html={description}
+  />
+</div>
+
+<style is:global>
+  .partner-card {
+    width: 100%;
+  }
+
+  .partner-card {
+  }
+
+  .partner-card__image-box {
+    height: 32.7rem;
+    margin-bottom: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 2rem;
+    background-color: var(--color-grayscale-200);
+
+    @media (max-width: 768px) {
+      height: 20rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  .partner-card__image {
+    max-width: 24.388rem;
+    max-height: 24.388rem;
+
+    @media (max-width: 768px) {
+      max-width: 17.71rem;
+      max-height: 17.71rem;
+    }
+  }
+
+  .partner-card__title {
+    margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .partner-card__description {
+    color: var(--color-grayscale-400);
+  }
+</style>
