@@ -1,0 +1,88 @@
+---
+import CatalogCard, {
+  type Props as CatalogCardProps,
+} from './CatalogCard.astro'
+
+export interface Props {
+  class?: string
+  name?: CatalogCardProps['name']
+  description?: CatalogCardProps['description']
+  images?: CatalogCardProps['images']
+  labels?: CatalogCardProps['labels']
+}
+
+const {
+  class: className,
+  name = 'Стильный забор в д. Климово',
+  description = 'Работа была разделена на несколько этапов, так&nbsp;как параллельно велась стройка и&nbsp;необходимо было в строго отведённые сроки закончить каждый этап&nbsp;',
+  images = [
+    { src: '/images/home/background.jpg' },
+    { src: '/images/categories/intro.jpg' },
+  ],
+  labels = [{ icon: 'tools', name: 'Изготовление' }],
+  ...rest
+} = Astro.props
+---
+
+<CatalogCard
+  {...rest}
+  {name}
+  {description}
+  {images}
+  {labels}
+  class={`${className || 'photo-gallery-card'}`}
+  nameFont={'f-d-title-medium-24 f-m-body-large-medium-16'}
+/>
+
+<style is:global>
+  .photo-gallery-card {
+    --catalog-card-width: 72.5rem;
+    --catalog-card-image-height: 45rem;
+
+    .catalog-card__labels {
+      top: 3rem;
+      left: 3rem;
+
+      @media (max-width: 768px) {
+        top: 2rem;
+        left: 2rem;
+      }
+    }
+
+    .billboard__buton_prev {
+      @media (max-width: 768px) {
+        left: 2rem;
+      }
+    }
+
+    .billboard__buton_next {
+      @media (max-width: 768px) {
+        right: 2rem;
+      }
+    }
+
+    .catalog-card__content {
+      @media (min-width: 769px) {
+        padding: 3rem;
+        padding-top: calc(3rem + var(--border-radius));
+      }
+      @media (max-width: 768px) {
+        padding: 2rem;
+        padding-top: calc(2rem + var(--border-radius));
+      }
+    }
+
+    .catalog-card__description {
+      margin-top: 2rem;
+
+      @media (max-width: 768px) {
+        margin-top: 1rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      --catalog-card-width: 100%;
+      --catalog-card-image-height: 23.5rem;
+    }
+  }
+</style>

@@ -4,6 +4,7 @@ import Image from './Image.astro'
 import Button from './Button.astro'
 import CardLabel, { type Props as CardLabelProps } from './CardLabel.astro'
 import PlayButton from './PlayButton.astro'
+import Billboard from './Billboard.astro'
 
 //@ts-ignore
 const _ = '_'
@@ -19,6 +20,7 @@ export interface Props {
   labels?: Array<CardLabelProps> | undefined
   description?: string | undefined
   date?: string | undefined
+  nameFont?: string | undefined
   theme?:
     | 'category'
     | 'service'
@@ -26,6 +28,7 @@ export interface Props {
     | 'subcategory'
     | 'variant'
     | 'article'
+  images?: Array<ImageDataProps> | undefined
 }
 
 export type CatalogCardButtonType =
@@ -40,12 +43,17 @@ const {
   href,
   name = 'Заборы',
   price,
-  image = { src: '/images/catalog-item.png' },
+  image,
+  images = [
+    { src: '/images/home/background.jpg' },
+    { src: '/images/categories/intro.jpg' },
+  ],
   labels,
   button,
   tag = 'a',
   description,
   date,
+  nameFont = 'f-d-title-medium-20 f-m-body-large-medium-16',
   theme,
   ...rest
 } = Astro.props
@@ -82,12 +90,26 @@ const themedLabels: Array<CardLabelProps> | undefined = labels
   data-theme={theme}
 >
   <span class="catalog-card__image-box">
-    <Image
-      class="catalog-card__image"
-      cover
-      lazy
-      {...image}
-    />
+    {
+      image && (
+        <Image
+          class="catalog-card__image"
+          cover
+          lazy
+          {...image}
+        />
+      )
+    }
+
+    {
+      images && (
+        <Billboard
+          {images}
+          class="catalog-card__billboard"
+        />
+      )
+    }
+
     {
       themedLabels && (
         <div class="catalog-card__labels">
@@ -112,7 +134,7 @@ const themedLabels: Array<CardLabelProps> | undefined = labels
     <span class="catalog-card__top">
       <span class="catalog-card__name-box">
         <span
-          class="catalog-card__name f-d-title-medium-20 f-m-body-large-medium-16"
+          class:list={['catalog-card__name', nameFont]}
           set:html={name}
         />
         {
@@ -232,6 +254,11 @@ const themedLabels: Array<CardLabelProps> | undefined = labels
   }
 
   .catalog-card__image {
+    width: 100%;
+    height: 100%;
+  }
+
+  .catalog-card__billboard {
     width: 100%;
     height: 100%;
   }

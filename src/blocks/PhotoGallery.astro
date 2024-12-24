@@ -1,0 +1,81 @@
+---
+import PhotoGalleryCard, {
+  type Props as PhotoGalleryCardProps,
+} from '@elements/PhotoGalleryCard.astro'
+
+export interface Props {
+  cards?: Array<PhotoGalleryCardProps>
+}
+
+const {
+  cards = [
+    {
+      name: 'Стильный забор в д. Климово',
+      description:
+        'Работа была разделена на несколько этапов, так&nbsp;как параллельно велась стройка и&nbsp;необходимо было в строго отведённые сроки закончить каждый этап',
+      labels: [{ icon: 'tools', name: 'Изготовление' }],
+      images: [
+        { src: '/images/categories/intro.jpg' },
+        { src: '/images/home/background.jpg' },
+      ],
+    },
+    {
+      name: 'Стильный забор в д. Климово',
+      description:
+        'Работа была разделена на несколько этапов, так&nbsp;как параллельно велась стройка и&nbsp;необходимо было в строго отведённые сроки закончить каждый этап',
+      labels: [{ icon: 'tools', name: 'Изготовление' }],
+      images: [
+        { src: '/images/categories/intro.jpg' },
+        { src: '/images/home/background.jpg' },
+      ],
+    },
+    {
+      name: 'Стильный забор в д. Климово',
+      description:
+        'Работа была разделена на несколько этапов, так&nbsp;как параллельно велась стройка и&nbsp;необходимо было в строго отведённые сроки закончить каждый этап',
+      labels: [{ icon: 'tools', name: 'Изготовление' }],
+      images: [
+        { src: '/images/categories/intro.jpg' },
+        { src: '/images/home/background.jpg' },
+      ],
+    },
+    {
+      name: 'Стильный забор в д. Климово',
+      description:
+        'Работа была разделена на несколько этапов, так&nbsp;как параллельно велась стройка и&nbsp;необходимо было в строго отведённые сроки закончить каждый этап',
+      labels: [{ icon: 'tools', name: 'Изготовление' }],
+      images: [
+        { src: '/images/categories/intro.jpg' },
+        { src: '/images/home/background.jpg' },
+      ],
+    },
+  ],
+} = Astro.props
+---
+
+<div
+  class="photo-gallery"
+  data-white-background="true"
+>
+  {
+    cards.map((card) => {
+      return <PhotoGalleryCard {...card} />
+    })
+  }
+</div>
+
+<style is:global>
+  .photo-gallery {
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8rem 5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 100%;
+      gap: 4rem;
+    }
+  }
+</style>

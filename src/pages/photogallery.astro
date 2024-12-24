@@ -1,0 +1,27 @@
+---
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import PageHeading from '@blocks/PageHeading.astro'
+import Layout from '@layout/Layout.astro'
+import PhotoGallerySection from '@blocks/PhotoGallery.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Фото галерея',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Фото галерея', href: '/photogallery' },
+    ]}
+  />
+
+  <PageHeading heading="Коллекция проектов" />
+
+  <PhotoGallerySection />
+</Layout>
