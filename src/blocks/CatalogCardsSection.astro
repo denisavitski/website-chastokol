@@ -17,7 +17,7 @@ const { class: className, itemInView = 3, cards = [], ...rest } = Astro.props
 
 <SliderSection
   class={`catalog-cards-section ${className || ''}`}
-  data-items-in-view={itemInView}
+  itemInView={itemInView}
   {...rest}
 >
   {
