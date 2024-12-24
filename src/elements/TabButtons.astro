@@ -98,6 +98,7 @@ const {
           data-image={button.image}
           name={button?.title || button.value}
           data-radio-button
+          class="tab-buttons__button"
         />
       )
     })
@@ -107,6 +108,7 @@ const {
 <style is:global>
   .tab-buttons {
     --dots-button-height: 4.5rem;
+    --tab-button-background: var(--color-grayscale-0);
 
     display: inline-flex;
     gap: 1.5rem;
@@ -115,30 +117,6 @@ const {
 
     @media (max-width: 768px) {
       --dots-button-height: 4rem;
-    }
-  }
-
-  .tab-buttons__button {
-    flex-shrink: 0;
-    height: var(--tabs-height);
-    padding: 0 2.5rem;
-
-    border-radius: 3rem;
-
-    color: var(--color-grayscale-400);
-
-    background-color: var(--color-grayscale-0);
-
-    transition-property: color, background-color;
-    transition-duration: var(--duration-button);
-
-    &[data-checked] {
-      color: var(--color-grayscale-0);
-      background-color: var(--color-primary-100);
-    }
-
-    @media (max-width: 768px) {
-      padding: 0 1.5rem;
     }
   }
 

@@ -1,0 +1,51 @@
+---
+import TableList, {
+  type Props as TableListProps,
+} from '@elements/TableList.astro'
+
+export interface Props {
+  items?: TableListProps['items']
+}
+
+const { items } = Astro.props
+---
+
+<div
+  class="company-details"
+  data-white-background="true"
+>
+  <TableList
+    {items}
+    class="company-details__list"
+  />
+</div>
+
+<style is:global>
+  .company-details {
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+
+    @media (max-width: 768px) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+
+  .company-details__list {
+    @media (max-width: 768px) {
+      padding: 0 var(--screen-horisontal-padding);
+
+      .table-list__item:not(:last-child):not(:first-child) {
+        .table-list__item__value {
+          max-width: 30.3rem;
+        }
+      }
+
+      .table-list__item:first-child {
+        .table-list__item__value {
+          max-width: 25.4rem;
+        }
+      }
+    }
+  }
+</style>

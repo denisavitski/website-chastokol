@@ -1,0 +1,125 @@
+---
+export interface Props {
+  class?: string
+  items?: Array<{ title: string; value: string }> | undefined
+}
+
+const {
+  class: className,
+  items = [
+    {
+      title: 'Полное наименование',
+      value: 'Общество с ограниченной ответственностью «СЕРВИС-СТРОЙ»',
+    },
+    {
+      title: 'Сокращенное наименование',
+      value: 'ООО «СЕРВИС-СТРОЙ»',
+    },
+    {
+      title: 'ИНН',
+      value: '9723129098',
+    },
+    {
+      title: 'КПП',
+      value: '772301001',
+    },
+    {
+      title: 'ОГРНИП',
+      value: '1217700548196',
+    },
+    {
+      title: 'Юр. адрес',
+      value:
+        '115193, г. Москва, вн. тер. г. муниципальный округ Южнопортовый, ул. 5-я Кожуховская, д. 9, помещ. VII ком. 1 офис 64',
+    },
+    {
+      title: 'Телефон, факс',
+      value: '+7 (495) 128-98-11',
+    },
+    {
+      title: 'Электронная почта',
+      value: 'info@zaborkin.ru',
+    },
+    {
+      title: 'Банковские реквизиты',
+      value:
+        'БИК 044525999Р/с №40702810901500112677 в «ТОЧКА ПАО БАНКА "ФК ОТКРЫТИЕ"»,Кор/счет 30101810845250000999',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'table-list hidden-scrollbar']}
+>
+  <ul class="table-list__list">
+    {
+      items.map((item) => {
+        return (
+          <li class="table-list__item">
+            <div
+              class="table-list__item__name f-d-body-large-medium-16 f-m-body-basic-medium-14"
+              set:html={item.title}
+            />
+            <div
+              class="table-list__item__value f-d-body-large-regular-16 f-m-body-basic-regular-14"
+              set:html={item.value}
+            />
+          </li>
+        )
+      })
+    }
+  </ul>
+</div>
+
+<style is:global>
+  .table-list {
+    width: 100%;
+    overflow: auto hidden;
+  }
+
+  .table-list__list {
+    width: 100%;
+
+    border-radius: var(--border-radius);
+
+    overflow: auto hidden;
+
+    @media (max-width: 768px) {
+      width: 65.6rem;
+    }
+  }
+
+  .table-list__item {
+    display: flex;
+    gap: 3rem;
+
+    padding: 1.4rem 2rem;
+
+    &:nth-child(odd) {
+      background-color: #f4f4f4;
+    }
+
+    &:nth-child(even) {
+      background-color: #fcfcfc;
+    }
+
+    @media (max-width: 768px) {
+      padding: 1.1rem 2rem;
+    }
+  }
+
+  .table-list__item__name {
+    flex-shrink: 0;
+    width: 41.7rem;
+
+    @media (max-width: 768px) {
+      width: 13rem;
+    }
+  }
+
+  .table-list__item__value {
+  }
+</style>
