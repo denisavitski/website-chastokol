@@ -1,0 +1,410 @@
+---
+import Button from './Button.astro'
+import CommonModal from './CommonModal.astro'
+import ModalCloseButton from './ModalCloseButton.astro'
+import OpenCloseState, {
+  type Props as OpenCloseStateProps,
+} from './OpenCloseState.astro'
+import VacancyIconInfo from './VacancyIconInfo.astro'
+
+export const modal = '#vacancy-1'
+
+export const backgroundColor = 'white'
+
+export interface Props {
+  class?: string
+  state?: OpenCloseStateProps['state']
+  id?: 'vacancy-1'
+  title?: string
+  type?: string
+  city?: string
+  description?: string
+  salary?: string
+
+  phone?: string
+  email?: string
+  workingHours?: string
+
+  text?: string
+}
+
+const {
+  class: className,
+  state = 'open',
+  id = 'vacancy-1',
+  title = 'Инженер сметчик отдаленные районы',
+  type = 'Полная занятость',
+  city = 'Москва',
+  description = 'Составление смет, определение стоимости материалов и работ необходимых для реализации.',
+  salary = 'от 70 000 руб.',
+
+  phone = '+7 (499) 900-60-30',
+  email = 'spb@stockade.ru',
+  workingHours = 'c 10:00 до 19:00, ежедневно',
+
+  text = `\
+    <div>\
+      <h2>Требования:</h2>
+      Высшее образование.
+      Опыт работы в сфере продаж не менее 1 года.
+      Коммуникабельность.
+      Профессиональная активность, стремление к достижению максимального результата.
+      Знание рынка профильной продукции компании.
+      Свободное пользование ПК.
+    </div>\
+    <div>\
+      <h2>Обязанности:</h2>
+      Продажа всех видов продукции согласно номенклатуре компании.
+      Разработка коммерческих предложений.
+      Заключение договоров на поставку продукции/услуг с физическими и юридическими лицами.
+      Взаимодействие с инженерно-техническими и экономическими службами. 
+    </div>\
+    <div>\
+      <h2>Условия:</h2>
+      Официальное трудоустройство по ТК РФ.
+      Режим работы по графику компании.
+      Возможны командировки.\
+    </div>\
+  `,
+
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'vacancy']}
+  data-state={state}
+>
+  <e-popover-button
+    class="vacancy__card"
+    target={id}
+  >
+    <div class="vacancy__card__main">
+      <OpenCloseState
+        class="vacancy__card__state"
+        {state}
+      />
+
+      <div
+        class="vacancy__card__title f-d-title-medium-20 f-m-body-large-medium-16"
+        set:html={title}
+      />
+
+      <VacancyIconInfo
+        class="vacancy__card__icon-info"
+        {type}
+        {city}
+      />
+
+      <div
+        class="vacancy__card__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+        set:html={description}
+      />
+    </div>
+
+    <div class="vacancy__card__bottom">
+      <div
+        class="vacancy__card__salary f-d-body-large-medium-16 f-m-body-basic-medium-14"
+        set:html={salary}
+      />
+
+      <Button
+        name="Подробнее"
+        tag="span"
+        theme={'flat'}
+        disabled={state === 'closed' ? true : false}
+      />
+    </div>
+  </e-popover-button>
+
+  <CommonModal
+    id={id}
+    class="vacancy__popover"
+  >
+    <ModalCloseButton
+      class="vacancy__popover__close-button"
+      modal={id}
+    />
+
+    <div class="vacancy__popover__content hidden-scrollbar">
+      <OpenCloseState
+        class="vacancy__popover__state"
+        {state}
+      />
+
+      <div
+        class="vacancy__popover__title f-d-title-medium-32 f-m-body-large-medium-16"
+        set:html={title}
+      />
+
+      <VacancyIconInfo
+        class="vacancy__popover__icon-info"
+        {type}
+        {city}
+      />
+
+      <div
+        class="vacancy__popover__salary f-d-title-medium-20 f-m-body-basic-medium-14"
+        set:html={salary}
+      />
+
+      <div
+        class="vacancy__popover__text"
+        set:html={text}
+      />
+
+      <div class="vacancy__popover__bottom">
+        <a
+          href={`tel:${phone}`}
+          class="vacancy__popover__contact f-d-body-large-medium-16 f-m-body-basic-medium-14"
+          set:html={phone}
+        />
+        <a
+          href={`mailto:${email}`}
+          class="vacancy__popover__contact f-d-body-large-medium-16 f-m-body-basic-medium-14"
+          set:html={email}
+        />
+
+        <div
+          class="vacancy__popover__hours f-d-body-large-regular-16 f-m-body-basic-regular-14"
+          set:html={workingHours}
+        />
+      </div>
+    </div>
+  </CommonModal>
+</div>
+
+<style is:global>
+  .vacancy {
+  }
+
+  .vacancy__card {
+    display: block;
+
+    width: 46.7rem;
+    border-radius: var(--border-radius);
+    border: 0.1rem solid var(--color-grayscale-300);
+
+    .vacancy[data-state='closed'] {
+      pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+
+  .vacancy__card__main {
+    padding: 3rem;
+
+    @media (max-width: 768px) {
+      padding: 2rem;
+    }
+  }
+
+  .vacancy__card__state {
+    margin-bottom: 3rem;
+  }
+
+  .vacancy__card__title {
+    margin-bottom: 2rem;
+  }
+
+  .vacancy__card__icon-info {
+    margin-bottom: 4rem;
+  }
+
+  .vacancy__card__description {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -moz-box-orient: vertical;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    margin-bottom: 3rem;
+
+    color: var(--color-grayscale-400);
+  }
+
+  .vacancy__card__bottom {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 2rem 3rem;
+
+    border-top: 0.1rem solid var(--color-grayscale-300);
+
+    @media (max-width: 768px) {
+      padding: 1.5rem 2rem;
+    }
+  }
+
+  .vacancy__card__salary {
+  }
+
+  /*
+  --------------
+  POPOVER
+  --------------
+  */
+
+  .vacancy__popover {
+  }
+
+  .vacancy__popover__close-button {
+    @media (max-width: 768px) {
+      top: 4.7rem;
+    }
+  }
+
+  .vacancy__popover__content {
+    --padding: 5rem;
+
+    width: 112rem;
+    height: 80rem;
+
+    padding: var(--padding);
+
+    background-color: var(--color-grayscale-0);
+    border-radius: 2rem;
+
+    overflow: hidden auto;
+
+    @media (max-width: 768px) {
+      --padding: 2rem;
+
+      padding-top: 4.1rem;
+
+      width: 100%;
+      min-height: var(--viewport-height);
+      height: max-content;
+
+      border-radius: 0;
+
+      overflow: hidden;
+    }
+  }
+
+  .vacancy__popover__state {
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .vacancy__popover__title {
+    margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .vacancy__popover__icon-info {
+    margin-bottom: 4rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .vacancy__popover__salary {
+    margin-bottom: 6rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .vacancy__popover__text {
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 130%;
+
+    margin-bottom: var(--padding);
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 125%;
+
+      margin-bottom: 3rem;
+    }
+
+    div {
+      white-space: pre-line;
+    }
+
+    div:not(:last-child) {
+      margin-bottom: 3rem;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-size: 1.6rem;
+      font-weight: 500;
+      line-height: 120%;
+
+      color: var(--color-font);
+
+      @media (max-width: 768px) {
+        font-size: 1.4rem;
+        font-weight: 500;
+        line-height: 125%;
+      }
+    }
+  }
+
+  .vacancy__popover__bottom {
+    position: relative;
+
+    padding-top: var(--padding);
+
+    @media (max-width: 768px) {
+      padding-top: 3rem;
+    }
+
+    &::before {
+      content: '';
+
+      position: absolute;
+      top: 0;
+      left: calc(var(--padding) * -1);
+
+      width: calc(100% + var(--padding));
+      height: 0.1rem;
+
+      background-color: var(--color-grayscale-300);
+    }
+  }
+
+  .vacancy__popover__contact {
+    display: block;
+    margin-bottom: 1rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .vacancy__popover__hours {
+    margin-top: 2rem;
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-bottom: 1.5rem;
+    }
+  }
+</style>

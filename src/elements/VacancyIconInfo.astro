@@ -1,0 +1,74 @@
+---
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+  type?: string
+  city?: string
+}
+
+const {
+  class: className,
+  type = 'Полная занятость',
+  city = 'Москва',
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[
+    className,
+    'vacancy-icon-info f-d-body-large-regular-16 f-m-body-basic-regular-14',
+  ]}
+>
+  <div class="vacancy-icon-info__item">
+    <Icon
+      name={'clock'}
+      class="vacancy-icon-info__item__icon"
+    />
+    <div
+      class="vacancy-icon-info__item__name"
+      set:html={type}
+    />
+  </div>
+  <div class="vacancy-icon-info__item">
+    <Icon
+      name={'marker'}
+      class="vacancy-icon-info__item__icon"
+    />
+    <div
+      class="vacancy-icon-info__item__name"
+      set:html={city}
+    />
+  </div>
+</div>
+
+<style is:global>
+  .vacancy-icon-info {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .vacancy-icon-info__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .vacancy-icon-info__item__icon {
+    width: 1.6rem;
+    height: 1.6rem;
+
+    fill: var(--color-grayscale-600);
+
+    @media (max-width: 768px) {
+      width: 1.4rem;
+      height: 1.4rem;
+    }
+  }
+
+  .vacancy-icon-info__item__name {
+  }
+</style>
