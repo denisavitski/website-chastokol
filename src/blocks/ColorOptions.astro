@@ -1,5 +1,6 @@
 ---
 import Button from '@elements/Button.astro'
+import ColorOption from '@elements/ColorOption.astro'
 import FormSelect from '@elements/FormSelect.astro'
 import Image from '@elements/Image.astro'
 import SliderButton from '@elements/SliderButton.astro'
@@ -96,26 +97,10 @@ const {
             >
               {category.colors.map((color) => {
                 return (
-                  <button
+                  <ColorOption
+                    {...color}
                     class="color-options__option"
-                    style={`--color: ${color.color}`}
-                    data-color={color.color}
-                    data-id={color.id}
-                    data-name={color.name}
-                    type="button"
-                  >
-                    <span class="color-options__option__color" />
-                    <span class="color-options__option__content">
-                      <span
-                        class="color-options__option__id f-d-body-large-medium-16"
-                        set:html={color.id}
-                      />
-                      <span
-                        class="color-options__option__name f-d-body-basic-regular-14"
-                        set:html={color.name}
-                      />
-                    </span>
-                  </button>
+                  />
                 )
               })}
               <SliderButton
@@ -339,90 +324,6 @@ const {
     }
   }
 
-  .color-options__option {
-    text-align: start;
-
-    @media (min-width: 769px) {
-      position: relative;
-      z-index: 1;
-
-      display: flex;
-      align-items: center;
-      gap: 2rem;
-      padding: 1.5rem;
-      border-radius: var(--border-radius);
-      background-color: transparent;
-
-      transition-property: background-color;
-      transition-duration: var(--duration-button);
-
-      &.active {
-        background-color: var(--color-grayscale-0);
-      }
-    }
-
-    @media (max-width: 768px) {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
-  .color-options__option__color {
-    position: relative;
-
-    width: 5rem;
-    height: 5rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    &::after {
-      content: '';
-
-      width: 100%;
-      height: 100%;
-
-      background-color: var(--color, var(--color-grayscale-100));
-
-      border-radius: 50%;
-
-      @media (max-width: 768px) {
-        width: 79%;
-        height: 79%;
-      }
-    }
-
-    @media (max-width: 768px) {
-      width: 3.8rem;
-      height: 3.8rem;
-
-      border: 0.1rem solid transparent;
-
-      .color-options__option.active & {
-        border-color: var(--color-grayscale-300);
-      }
-    }
-  }
-
-  .color-options__option__content {
-    @media (max-width: 768px) {
-      display: none;
-    }
-  }
-
-  .color-options__option__id {
-    display: block;
-    margin-bottom: 0.3rem;
-  }
-
-  .color-options__option__name {
-    color: var(--color-grayscale-400);
-  }
-
   .color-options__category__button {
     --slider-button-size: 2.6rem;
 
@@ -539,6 +440,7 @@ const {
 
   export class ColorOptionsElement extends HTMLElement {
     #categorySelectElement: FormSelectElement | null = null
+    #categoriesElement: HTMLElement | null = null
     #categoryElements: Array<HTMLElement> = []
     #optionElements: Array<HTMLElement> = []
     #resultIdElement: HTMLElement | null = null
@@ -553,6 +455,8 @@ const {
         'change',
         this.#categoryChangeListener,
       )
+
+      this.#categoriesElement = this.querySelector('.color-options__categories')
 
       this.#categoryElements = [
         ...this.querySelectorAll<HTMLElement>('.color-options__category'),
@@ -615,6 +519,10 @@ const {
         } else {
           category.classList.remove('current')
         }
+      })
+
+      this.#categoriesElement?.scroll({
+        top: 0,
       })
     }
 

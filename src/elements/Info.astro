@@ -28,6 +28,7 @@ const {
   <Explanation
     class="info__explanation"
     text={text}
+    font="f-d-body-large-regular-16 f-m-footnote-regular-10"
   />
 </div>
 
@@ -52,8 +53,10 @@ const {
   }
 
   .info__explanation {
+    --pointer-size: 2.2rem;
+
     position: absolute;
-    top: calc(100% + var(--icon-size) / 2);
+    top: calc(100% + var(--icon-size) / 2 + var(--pointer-size) / 2);
     left: 50%;
     transform: translateX(-50%);
 
@@ -63,9 +66,7 @@ const {
     border-radius: var(--border-radius);
     background-color: var(--color-grayscale-0);
     pointer-events: none;
-    box-shadow:
-      0 0.1rem 0.3rem rgba(0, 0, 0, 0.12),
-      0 0.1rem 0.2rem rgba(0, 0, 0, 0.24);
+    box-shadow: 0 0.4rem 1.9rem rgba(34, 34, 34, 0.07);
 
     opacity: 0;
 
@@ -88,6 +89,22 @@ const {
 
       width: 100%;
       height: calc(var(--icon-size) * 2);
+    }
+
+    &::after {
+      content: '';
+
+      position: absolute;
+      left: 50%;
+      bottom: calc(100% - 1px);
+
+      width: var(--pointer-size);
+      height: var(--pointer-size);
+
+      background-color: var(--color-grayscale-0);
+      border-radius: 0.5rem;
+
+      transform: translate(-50%, 50%) rotate(45deg);
     }
 
     .info:hover & {

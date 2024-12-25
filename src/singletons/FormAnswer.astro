@@ -1,0 +1,27 @@
+---
+import CommonModal from '@elements/CommonModal.astro'
+import Icon from '@elements/Icon.astro'
+---
+
+<CommonModal
+  id="form-answer"
+  class="form-answer"
+>
+  <div class="form-answer__content">
+    <div class="form-answer__check">
+      <Icon
+        name={'check'}
+        class="form-answer__check__icon"
+      />
+
+      <div class="form-answer__title">Спасибо!</div>
+
+      <div
+        class="form-answer__description"
+        set:html={'Мы уже получили вашу заявку и свяжемся с вами в ближайшее время'}
+      />
+    </div>
+  </div>
+</CommonModal>
+
+<style is:global></style>

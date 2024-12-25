@@ -2,21 +2,20 @@
 export interface Props {
   class?: string
   text?: string
+  font?: string
 }
 
 const {
   class: className,
   text = 'Данная стоимость является приблизительной, для получения подробного расчета вы можете перейти в <a href="/" target="_blank">подробный калькулятор</a>',
+  font = 'f-d-body-large-regular-16 f-m-footnote-regular-10',
   ...rest
 } = Astro.props
 ---
 
 <span
   {...rest}
-  class:list={[
-    className,
-    'explanation f-d-body-large-regular-16 f-m-footnote-regular-10',
-  ]}
+  class:list={[className, 'explanation', font]}
   set:html={text}
 />
 

@@ -1,0 +1,94 @@
+---
+import Icon from './Icon.astro'
+
+export interface Props {
+  class?: string
+  title?: string
+  description?: string
+}
+
+const {
+  class: className,
+  title = 'Спасибо!',
+  description = 'Мы уже получили вашу заявку и&nbsp;свяжемся с&nbsp;вами в&nbsp;ближайшее время',
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'thank-you']}
+>
+  <div class="thank-you__check">
+    <Icon
+      name={'checkmark-circle'}
+      class="thank-you__check__icon"
+    />
+  </div>
+
+  <div
+    class="thank-you__title f-d-title-medium-56 f-m-title-medium-32"
+    set:html={title}
+  />
+
+  <div
+    class="thank-you__description f-d-body-large-regular-16 f-m-footnote-regular-12"
+    set:html={description}
+  />
+</div>
+
+<style is:global>
+  .thank-you {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+  }
+
+  .thank-you__check {
+    width: 8rem;
+    height: 8rem;
+
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      width: 5rem;
+      height: 5rem;
+
+      margin-bottom: 2.5rem;
+    }
+  }
+
+  .thank-you__check__icon {
+    width: 100%;
+    height: 100%;
+  }
+
+  .thank-you__title {
+    text-align: center;
+
+    max-width: 31.5rem;
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      max-width: 23.2rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .thank-you__description {
+    text-align: center;
+
+    max-width: 31.5rem;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      max-width: 23.2rem;
+    }
+  }
+</style>
