@@ -1,5 +1,5 @@
 ---
-import Explanation from './Explanation.astro'
+import ArrowHint from './ArrowHint.astro'
 import Icon from './Icon.astro'
 
 export const center = true
@@ -25,9 +25,10 @@ const {
     class="info__icon"
   />
 
-  <Explanation
+  <ArrowHint
     class="info__explanation"
     text={text}
+    arrowPosition={'top'}
     font="f-d-body-large-regular-16 f-m-footnote-regular-10"
   />
 </div>
@@ -53,59 +54,15 @@ const {
   }
 
   .info__explanation {
-    --pointer-size: 2.2rem;
-
     position: absolute;
     top: calc(100% + var(--icon-size) / 2 + var(--pointer-size) / 2);
     left: 50%;
     transform: translateX(-50%);
 
-    width: 30rem;
-    padding: 2rem;
-
-    border-radius: var(--border-radius);
-    background-color: var(--color-grayscale-0);
-    pointer-events: none;
-    box-shadow: 0 0.4rem 1.9rem rgba(34, 34, 34, 0.07);
-
     opacity: 0;
 
     transition-property: opacity;
     transition-duration: var(--duration-button);
-
-    @media (max-width: 768px) {
-      width: 20rem;
-      padding: 1.5rem;
-    }
-
-    &::before {
-      content: '';
-
-      position: absolute;
-      top: calc(var(--icon-size) * -2);
-      left: 0;
-
-      display: block;
-
-      width: 100%;
-      height: calc(var(--icon-size) * 2);
-    }
-
-    &::after {
-      content: '';
-
-      position: absolute;
-      left: 50%;
-      bottom: calc(100% - 1px);
-
-      width: var(--pointer-size);
-      height: var(--pointer-size);
-
-      background-color: var(--color-grayscale-0);
-      border-radius: 0.5rem;
-
-      transform: translate(-50%, 50%) rotate(45deg);
-    }
 
     .info:hover & {
       opacity: 1;

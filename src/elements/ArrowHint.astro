@@ -1,0 +1,108 @@
+---
+import Explanation from './Explanation.astro'
+
+export interface Props {
+  class?: string
+  text?: string
+  font?: string
+  arrowPosition?: 'top' | 'bottom' | 'left' | 'right' | 'bottom-left'
+}
+
+const {
+  class: className,
+  text,
+  font,
+  arrowPosition = 'top',
+  ...rest
+} = Astro.props
+---
+
+<Explanation
+  {...rest}
+  class={`arrow-hint ${className || ''}`}
+  text={text}
+  font={font}
+  data-arrow-position={arrowPosition}
+/>
+
+<style is:global>
+  .arrow-hint {
+    --pointer-size: 2.2rem;
+
+    position: relative;
+
+    width: 30rem;
+    padding: 2rem;
+
+    border-radius: var(--border-radius);
+    background-color: var(--color-grayscale-0);
+    pointer-events: none;
+    box-shadow: 0 0.4rem 1.9rem rgba(34, 34, 34, 0.07);
+
+    @media (max-width: 768px) {
+      --pointer-size: 1.7rem;
+      width: 20rem;
+      padding: 1.5rem;
+    }
+
+    &::before {
+      content: '';
+
+      position: absolute;
+      top: calc(var(--hover-extra-size, 0) * -2);
+      left: 0;
+
+      display: block;
+
+      width: 100%;
+      height: calc(var(--hover-extra-size, 0) * 2);
+    }
+
+    &::after {
+      content: '';
+
+      position: absolute;
+
+      width: var(--pointer-size);
+      height: var(--pointer-size);
+
+      background-color: var(--color-grayscale-0);
+      border-radius: 0.5rem;
+    }
+
+    &[data-arrow-position='top']::after {
+      left: 50%;
+      bottom: calc(100% - 1px);
+      transform: translate(-50%, 50%) rotate(45deg);
+    }
+
+    &[data-arrow-position='bottom']::after {
+      left: 50%;
+      top: calc(100% - 1px);
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    &[data-arrow-position='left']::after {
+      right: calc(100% - 1px);
+      top: 50%;
+      transform: translate(50%, -50%) rotate(45deg);
+    }
+
+    &[data-arrow-position='bottom-left']::after {
+      left: 2.5rem;
+      top: calc(100% - 1px);
+      transform: translate(0, -50%) rotate(45deg);
+    }
+
+    &[data-arrow-position='right']::after {
+      left: calc(100% - 1px);
+      top: 50%;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+    .info:hover & {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+</style>

@@ -1,4 +1,5 @@
 ---
+import ArrowHint from './ArrowHint.astro'
 import CheckboxButton from './CheckboxButton.astro'
 import Icon from './Icon.astro'
 import Manager2 from './Manager2.astro'
@@ -29,7 +30,15 @@ const { class: className, ...rest } = Astro.props
 
     <div class="calculator__left__grid"></div>
 
-    <Manager2 class="calculator__manager" />
+    <div class="calculator__manager-wrapper">
+      <ArrowHint
+        class="calculator__manager-hint"
+        arrowPosition={'bottom-left'}
+        text="В нашей компании вы можете приобрести любую конструкцию, а так же ее установку под ключ"
+        font="f-d-body-large-regular-16 f-m-footnote-regular-12"
+      />
+      <Manager2 class="calculator__manager" />
+    </div>
   </div>
 
   <div class="calculator__right">
@@ -119,12 +128,29 @@ const { class: className, ...rest } = Astro.props
   }
 
   .calculator__left__grid {
-    margin-bottom: 4rem;
+  }
+
+  .calculator__manager-wrapper {
+    position: relative;
+
+    margin-top: auto;
+  }
+
+  .calculator__manager-hint {
+    width: 100%;
+    margin-bottom: 4.2rem;
+
+    padding: 1.2rem 1.6rem;
+
+    @media (max-width: 768px) {
+      padding: 1.3rem;
+    }
   }
 
   .calculator__manager {
-    margin-top: auto;
     border: 0.1rem solid var(--color-grayscale-300);
+
+    width: 100%;
 
     .manager-2__main {
       padding: 2rem;
