@@ -22,6 +22,7 @@ export interface Props {
   pixelPerfectImages?: PixelPerfectImages
   headerColor?: 'dark' | 'light'
   headerMobileColor?: 'dark' | 'light'
+  headerBackgroundColor?: 'transparent' | 'white'
 }
 
 let figmaImageName = Astro.url.pathname === '/' ? 'home' : Astro.url.pathname
@@ -44,6 +45,7 @@ const {
   seo,
   headerColor = 'dark',
   headerMobileColor = 'dark',
+  headerBackgroundColor = 'gray',
 } = Astro.props
 ---
 
@@ -51,6 +53,7 @@ const {
   lang="ru"
   data-header-color={headerColor}
   data-header-mobile-color={headerMobileColor}
+  data-header-background-color={headerBackgroundColor}
 >
   <Head {seo} />
 

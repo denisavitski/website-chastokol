@@ -36,6 +36,7 @@ const Tag = href ? 'a' : (tag as any)
   data-disabled={Tag === 'a' ? disabled : undefined}
   disabled={Tag === 'a' ? undefined : disabled}
   data-theme={theme}
+  {href}
 >
   {
     name && (

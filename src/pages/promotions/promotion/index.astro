@@ -1,0 +1,102 @@
+---
+import ArticleChapter from '@blocks/ArticleChapter.astro'
+import ArticleIntro from '@blocks/ArticleIntro.astro'
+import ArticleSuggestions from '@blocks/ArticleSuggestions.astro'
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import Layout from '@layout/Layout.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Статья',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+  headerBackgroundColor={'white'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Акции', href: '/promotions' },
+      { name: 'Акция', href: '/promotions/promotion' },
+    ]}
+    whiteBackground
+    largePadding
+  />
+
+  <ArticleIntro
+    heading="Покажем честные параметры конкурентов"
+    description="Компания Заборкин выступает за честность сотрудничества. У нас всегда заявленные характеристики соответствуют реальным показателям."
+    author={false}
+    chapters={false}
+    paddingBottom={'large'}
+  />
+
+  <ArticleChapter
+    heading="Условия акции"
+    blocks={[
+      {
+        name: 'description',
+        props:
+          'В июне можно воспользоваться необычным предложением от компании  «Частокол». Вы можете просто подписать договор на работы под ключ и поставку всех элементов в течение 20 рабочих дней с момента подписания.<br><br>Вы можете оставить за собой материалы и право на установку к выбранной дате, а в это время спокойно заняться накоплением средств.',
+      },
+      {
+        name: 'highlite',
+        props: {
+          title: 'Важно',
+          description:
+            'Акция распространяется на все имеющиеся&nbsp;в наличии заборы&nbsp;с 01 июня текущего года. Монтаж выполняется в любом населенном пункте в радиусе 70 км от линии МКАД и КАД. Детали уточняйте по телефону у менеджеров компании Заборкин.',
+        },
+      },
+    ]}
+  />
+
+  <ArticleChapter
+    heading="Срок проведения"
+    blocks={[
+      {
+        name: 'description',
+        props:
+          'Акция действует на данный момент, количество предложений не ограничено.',
+      },
+    ]}
+  />
+
+  <ArticleSuggestions
+    heading="Другие акции:"
+    headingLevel="h3"
+    paddingTop={'full'}
+    paddingBottom={'normal'}
+    cards={[
+      {
+        name: 'Предоплата в этом месяце не нужна',
+        description:
+          'Часто предварительная частичная оплата суммы за монтаж забора и секции совершенно ни к чему заказчику, но уложиться необходимо в сезон.',
+        href: '/promotions/promotion',
+        date: '22 ноября 2024 г.',
+      },
+      {
+        name: 'Предоплата в этом месяце не нужна',
+        description:
+          'Часто предварительная частичная оплата суммы за монтаж забора и секции совершенно ни к чему заказчику, но уложиться необходимо в сезон.',
+        href: '/promotions/promotion',
+        date: '22 ноября 2024 г.',
+      },
+      {
+        name: 'Предоплата в этом месяце не нужна',
+        description:
+          'Часто предварительная частичная оплата суммы за монтаж забора и секции совершенно ни к чему заказчику, но уложиться необходимо в сезон.',
+        href: '/promotions/promotion',
+        date: '22 ноября 2024 г.',
+      },
+    ]}
+  />
+
+  <ArticleSuggestions
+    heading="Читать также:"
+    headingLevel="h3"
+    paddingTop={'normal'}
+  />
+</Layout>

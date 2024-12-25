@@ -258,6 +258,14 @@ e-scroll.has-overflow.bullets {
   padding-bottom: var(--section-vertical-padding);
 }
 
+[data-padding-bottom='large'] {
+  padding-bottom: 6rem;
+
+  @media (max-width: 768px) {
+    padding-bottom: var(--section-vertical-padding-full);
+  }
+}
+
 [data-padding-bottom='full'] {
   padding-bottom: var(--section-vertical-padding-full);
 }

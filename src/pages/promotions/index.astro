@@ -1,0 +1,94 @@
+---
+import Advice from '@blocks/Advice.astro'
+import Articles from '@blocks/Articles.astro'
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import PageHeading from '@blocks/PageHeading.astro'
+import Layout from '@layout/Layout.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Акции',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+  headerBackgroundColor={'white'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Акции', href: '/promotions' },
+    ]}
+    whiteBackground
+  />
+
+  <PageHeading
+    heading="Акции"
+    whiteBackground
+    paddingBottom={'normal'}
+  />
+
+  <Advice
+    size={'normal'}
+    label={'Замер'}
+    heading="Покажем честные параметры конкурентов"
+    description="Компания Заборкин выступает за честность сотрудничества. У нас всегда заявленные характеристики соответствуют реальным показателям."
+    href="/promotions/promotion"
+    paddingTop={'normal'}
+  />
+
+  <Articles
+    cards={[
+      {
+        name: 'Предоплата в этом месяце не нужна',
+        description:
+          'Часто предварительная частичная оплата суммы за монтаж забора и секции совершенно ни к чему заказчику, но уложиться необходимо в сезон.',
+        filter: '2024',
+        href: '/promotions/promotion',
+        date: '22 ноября 2024 г.',
+      },
+      {
+        name: 'Предоплата в этом месяце не нужна',
+        description:
+          'Часто предварительная частичная оплата суммы за монтаж забора и секции совершенно ни к чему заказчику, но уложиться необходимо в сезон.',
+        filter: '2023',
+        href: '/promotions/promotion',
+        date: '22 ноября 2024 г.',
+      },
+      {
+        name: 'Предоплата в этом месяце не нужна',
+        description:
+          'Часто предварительная частичная оплата суммы за монтаж забора и секции совершенно ни к чему заказчику, но уложиться необходимо в сезон.',
+        filter: '2022',
+        href: '/promotions/promotion',
+        date: '22 ноября 2024 г.',
+      },
+      {
+        name: 'Предоплата в этом месяце не нужна',
+        description:
+          'Часто предварительная частичная оплата суммы за монтаж забора и секции совершенно ни к чему заказчику, но уложиться необходимо в сезон.',
+        filter: '2021',
+        href: '/promotions/promotion',
+        date: '22 ноября 2024 г.',
+      },
+      {
+        name: 'Предоплата в этом месяце не нужна',
+        description:
+          'Часто предварительная частичная оплата суммы за монтаж забора и секции совершенно ни к чему заказчику, но уложиться необходимо в сезон.',
+        filter: '2020',
+        href: '/promotions/promotion',
+        date: '22 ноября 2024 г.',
+      },
+      {
+        name: 'Предоплата в этом месяце не нужна',
+        description:
+          'Часто предварительная частичная оплата суммы за монтаж забора и секции совершенно ни к чему заказчику, но уложиться необходимо в сезон.',
+        filter: '2019',
+        href: '/promotions/promotion',
+        date: '22 ноября 2024 г.',
+      },
+    ]}
+  />
+</Layout>

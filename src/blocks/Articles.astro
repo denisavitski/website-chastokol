@@ -7,7 +7,7 @@ import Pagination from '@elements/Pagination.astro'
 import Select from '@elements/Select.astro'
 
 export interface Props {
-  cards?: Array<CatalogCardProps>
+  cards?: Array<CatalogCardProps & { filter?: string }>
 }
 
 const {
@@ -93,14 +93,20 @@ const {
 >
   <div class="articles__top">
     <e-radio class="articles__tabs hidden-scrollbar">
+      <TabButton
+        name={'Все'}
+        data-radio-button
+        data-checked={true}
+        data-value={'Все'}
+      />
       {
-        cards.map((card, i) => {
+        cards.map((card) => {
+          const v = card.filter || card.labels?.[0]?.name || ''
           return (
             <TabButton
-              name={card.labels?.[0]?.name || ''}
+              name={v}
               data-radio-button
-              data-checked={i === 0 ? true : undefined}
-              data-value={card.labels?.[0]?.name || ''}
+              data-value={v}
             />
           )
         })

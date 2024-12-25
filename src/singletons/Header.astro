@@ -190,6 +190,10 @@ const {
     transition-property: transform;
     transition-duration: var(--duration-menu);
 
+    [data-header-background-color='white'] & {
+      --header-background-color: var(--color-grayscale-0);
+    }
+
     @media (min-width: 769px) {
       [data-header-color='dark'] & {
         --header-color: var(--color-font);

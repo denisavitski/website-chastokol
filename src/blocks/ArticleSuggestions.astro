@@ -2,10 +2,10 @@
 import CatalogCard, {
   type Props as CatalogCardProps,
 } from '@elements/CatalogCard.astro'
-import Section from './Section.astro'
+import Section, { type Props as SectionProps } from './Section.astro'
 import Slider from '@elements/Slider.astro'
 
-export interface Props {
+export interface Props extends SectionProps {
   cards?: Array<CatalogCardProps>
 }
 
@@ -60,14 +60,19 @@ const {
       date: '22 ноября 2024 г.',
     },
   ],
+  heading = 'Читать также:',
+  paddingHorisontal = 'large',
+  paddingBottom = 'full',
+  ...rest
 } = Astro.props
 ---
 
 <Section
   class="article-suggestions"
-  heading="Читать также:"
-  paddingHorisontal={'large'}
-  paddingBottom={'full'}
+  heading={heading}
+  paddingHorisontal={paddingHorisontal}
+  paddingBottom={paddingBottom}
+  {...rest}
 >
   <Slider
     itemInView={2}

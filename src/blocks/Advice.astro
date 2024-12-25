@@ -9,10 +9,12 @@ export interface Props {
   heading?: string
   description?: string
   href?: string
-  label?: boolean
+  label?: string | false
   size?: 'normal' | 'small'
   button?: string
   padding?: boolean
+  paddingTop?: 'full' | 'normal'
+  paddingBottom?: 'full' | 'normal'
   class?: string
 }
 
@@ -22,9 +24,11 @@ const {
   heading = 'Нормы строительства на&nbsp;земельном участке',
   description = 'Заборы выполняют сразу несколько функций. Они защищают участок, подчеркивают стиль дома и&nbsp;помогают создать уют.',
   href = '/',
-  label = true,
+  label = 'Советы',
   size = 'normal',
   button = 'Читать',
+  paddingTop,
+  paddingBottom,
   padding = true,
 } = Astro.props
 ---
@@ -32,8 +36,8 @@ const {
 <TwoSides
   class={`advice ${className || ''}`}
   data-white-background="true"
-  data-padding-top={padding ? 'full' : undefined}
-  data-padding-bottom={padding ? 'normal' : undefined}
+  data-padding-top={paddingTop || (padding ? 'full' : undefined)}
+  data-padding-bottom={paddingBottom || (padding ? 'normal' : undefined)}
   data-padding-horisontal={padding
     ? size === 'normal'
       ? 'normal'
@@ -56,7 +60,7 @@ const {
     {
       label && (
         <CardLabel
-          name="Советы"
+          name={label}
           class="advice__label"
         />
       )
@@ -94,9 +98,11 @@ const {
     --left-background: var(--color-image-background);
 
     @media (min-width: 769px) {
-      .two-sides__left,
-      .two-sides__right {
-        width: 53.5rem;
+      &[data-size='small'] {
+        .two-sides__left,
+        .two-sides__right {
+          width: 53.5rem;
+        }
       }
     }
 
