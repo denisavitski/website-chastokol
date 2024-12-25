@@ -1,16 +1,14 @@
 ---
-import CostComponent, {
-  type Props as CostComponentProps,
-} from '@elements/CostComponent.astro'
-import Section from '@blocks/Section.astro'
+import Step, { type Props as CostComponentProps } from '@elements/Step.astro'
+import Section, { type Props as SectionProps } from '@blocks/Section.astro'
 
-export interface Props {
+export interface Props extends SectionProps {
   heading?: string
-  components?: Array<CostComponentProps>
+  cards?: Array<CostComponentProps>
 }
 
 const {
-  components = [
+  cards = [
     {
       number: 1,
       title: 'Выбор материала и&nbsp;его&nbsp;характеристики',
@@ -36,27 +34,29 @@ const {
         'Цены могут быть выше из-за повышенного спроса в&nbsp;регионе.',
     },
   ],
+  ...rest
 } = Astro.props
 ---
 
 <!-- BLOCK -->
 <Section
+  class="steps"
   headingLevel={'h3'}
   heading="От чего зависит стоимость"
-  class="cost-components"
   paddingBottom={'full'}
+  {...rest}
 >
-  <e-scroll class="cost-components__slider">
+  <e-scroll class="steps__slider">
     {
-      components.map((component) => {
-        return <CostComponent {...component} />
+      cards.map((component) => {
+        return <Step {...component} />
       })
     }
   </e-scroll>
 </Section>
 
 <style is:global>
-  .cost-components__slider {
+  .steps__slider {
     @media (min-width: 769px) {
       --hibernate: true;
 

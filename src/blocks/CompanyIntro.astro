@@ -1,11 +1,13 @@
 ---
 import Image, { type ImageDataProps } from '@elements/Image.astro'
+import Video, { type Props as VideoProps } from '@elements/Video.astro'
 
 export interface Props {
   class?: string
   heading?: string
   description?: string
   image?: ImageDataProps
+  video?: VideoProps
   border?: boolean
 }
 
@@ -14,6 +16,7 @@ const {
   heading = '«Частокол» – <b>надёжный&nbsp;партнёр</b> в&nbsp;сфере строительства с&nbsp;2007 года',
   description = 'За&nbsp;время своей работы в&nbsp;сфере производства и&nbsp;строительства компания накопила солидный опыт и&nbsp;со&nbsp;100% уверенностью готова заявить, что&nbsp;знаем о&nbsp;заборах&nbsp;все. Клиентам не&nbsp;приходится переплачивать за&nbsp;качество.<br><br>Собственное производство материалов и&nbsp;комплектующих позволяет компании держать уровень цен&nbsp;на&nbsp;заборы и&nbsp;ограждения на&nbsp;приемлемом уровне.',
   image = { src: '/images/categories/intro.jpg' },
+  video,
   border,
   ...rest
 } = Astro.props
@@ -34,13 +37,19 @@ const {
     class="company-intro__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
     set:html={description}
   />
-  <Image
-    lazy
-    lazyBackground
-    cover
-    class="company-intro__image"
-    {...image}
-  />
+  {
+    video ? (
+      <Video class="company-intro__image" />
+    ) : (
+      <Image
+        lazy
+        lazyBackground
+        cover
+        class="company-intro__image"
+        {...image}
+      />
+    )
+  }
 </div>
 
 <style is:global>

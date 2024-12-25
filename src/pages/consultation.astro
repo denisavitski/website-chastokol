@@ -1,0 +1,45 @@
+---
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import Layout from '@layout/Layout.astro'
+import CompanyIntro from '@blocks/CompanyIntro.astro'
+import Steps from '@blocks/Steps.astro'
+import Estimate from '@blocks/Estimate.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Замер',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Замер', href: '/consultation' },
+    ]}
+  />
+
+  <CompanyIntro
+    heading="Замер и консультация"
+    description="Грамотный штатный специалист с опытом работы не менее 5 лет выезжает на объект для точного замера и расчета сметы. Это позволяет учесть особенности участка, а также все ваши пожелания по внешнему виду забора, навеса или ворот."
+    video={{
+      video: `<iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+      cover: { src: '/images/categories/intro.jpg' },
+    }}
+    border
+  />
+
+  <Steps
+    heading="Условия замера"
+    paddingTop={'full'}
+    headingLevel="h2"
+  />
+
+  <Estimate
+    heading={'<b>Назначьте встречу</b> с&nbsp;инженером замерщиком'}
+    description={`При&nbsp;выезде инженера-замерщика на&nbsp;объект, возможно по&nbsp;факту замера, составление сметы и&nbsp;заключение договора.`}
+  />
+</Layout>
