@@ -1,0 +1,82 @@
+---
+import CheckboxButton, {
+  type Props as CheckboxButtonProps,
+} from './CheckboxButton.astro'
+
+export interface Props extends CheckboxButtonProps {
+  class?: string
+}
+
+const {
+  class: className,
+  value = 'Рассчитать забор',
+  icon = 'fence-1',
+  name = 'Рассчитать забор',
+  ...rest
+} = Astro.props
+---
+
+<CheckboxButton
+  {value}
+  {icon}
+  {name}
+  {...rest}
+  type={'radio'}
+  class={`calculator-tab ${className || ''}`}
+  font="f-d-additionally-title-bold-20 f-m-additionally-title-bold-14"
+/>
+
+<style is:global>
+  .calculator-tab {
+    .checkbox__content {
+      --icon-box-background-color: rgba(165, 165, 165, 0.4);
+      --icon-box-color: var(--color-grayscale-400);
+      --icon-box-border-color: transparent;
+      --icon-size: 100%;
+      --icon-box-size: 4.5rem;
+
+      padding: 3rem;
+
+      border-radius: var(--border-radius);
+      border: 0.2rem solid var(--color-grayscale-300);
+
+      @media (max-width: 768px) {
+        --icon-box-size: 3rem;
+        padding: 1.5rem;
+        padding-right: 2.3rem;
+      }
+    }
+
+    .checkbox__input:checked ~ .checkbox__content {
+      border-color: var(--color-primary-100);
+      --icon-box-background-color: var(--color-primary-100);
+      --icon-box-color: var(--color-grayscale-0);
+    }
+
+    .checkbox__icon-box {
+      border-color: var(--color-grayscale-300);
+    }
+
+    .checkbox__input:checked ~ .checkbox__content .checkbox__icon-box {
+      border-color: var(--color-primary-100);
+    }
+
+    .checkbox__title-icon {
+    }
+
+    .checkbox__title {
+      transition-property: color;
+      transition-duration: var(--duration-button);
+
+      color: var(--color-grayscale-300);
+
+      @media (max-width: 768px) {
+        margin-left: 0.5rem;
+      }
+    }
+
+    .checkbox__input:checked ~ .checkbox__content .checkbox__title {
+      color: var(--color-primary-100);
+    }
+  }
+</style>

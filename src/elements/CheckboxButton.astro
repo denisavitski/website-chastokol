@@ -1,5 +1,7 @@
 ---
+import type { SpriteIconName } from '@utils/SpriteIconName'
 import Icon from './Icon.astro'
+import IconBox from './IconBox.astro'
 
 export interface Props {
   class?: string
@@ -8,6 +10,7 @@ export interface Props {
   value?: string
   font?: string
   disabled?: boolean
+  icon?: SpriteIconName
   checked?: boolean | undefined
 }
 
@@ -19,6 +22,7 @@ const {
   font = 'f-d-body-large-regular-16 f-m-body-basic-regular-14',
   disabled,
   checked,
+  icon,
   ...rest
 } = Astro.props
 ---
@@ -44,7 +48,15 @@ const {
       />
     </span>
     {
-      name && (
+      icon && (
+        <IconBox
+          class="checkbox__title-icon"
+          icon={icon}
+        />
+      )
+    }
+    {
+      value && (
         <span
           class="checkbox__title"
           set:html={value}
@@ -57,6 +69,8 @@ const {
 <style is:global>
   .checkbox {
     position: relative;
+
+    display: inline-block;
 
     user-select: none;
   }

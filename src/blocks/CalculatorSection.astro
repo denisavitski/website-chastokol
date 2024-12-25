@@ -1,0 +1,17 @@
+---
+import Calculator from '@elements/Calculator.astro'
+
+export interface Props {}
+
+const {} = Astro.props
+---
+
+<div class="calculator-section">
+  <Calculator />
+</div>
+
+<style is:global>
+  .calculator-section {
+    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
+  }
+</style>

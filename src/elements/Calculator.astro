@@ -1,0 +1,204 @@
+---
+import CheckboxButton from './CheckboxButton.astro'
+import Icon from './Icon.astro'
+import Manager2 from './Manager2.astro'
+import Progress from './Progress.astro'
+
+export interface Props {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<e-calculator
+  {...rest}
+  class:list={[className, 'calculator']}
+>
+  <div class="calculator__left">
+    <div class="calculator__help">
+      <div
+        class="calculator__help__title f-d-body-large-regular-16 f-m-footnote-regular-12"
+        set:html={'Подсказка, появится при клике на'}
+      />
+      <Icon
+        class="calculator__help__question"
+        name={'question'}
+      />
+    </div>
+
+    <div class="calculator__left__grid"></div>
+
+    <Manager2 class="calculator__manager" />
+  </div>
+
+  <div class="calculator__right">
+    <CheckboxButton
+      class="calculator__picket"
+      value="Забор из штекетника"
+      name="picket"
+    />
+
+    <div
+      class="calculator__step-name f-d-title-medium-42 f-m-title-medium-24"
+      set:html="Выберите материал"
+    />
+
+    <Progress class="calculator__progress" />
+
+    <div class="calculator__right__grid">
+      <div class="calculator__step calculator__type"> </div>
+    </div>
+  </div>
+</e-calculator>
+
+<style is:global>
+  .calculator {
+    --padding: 5rem;
+
+    width: 100%;
+    height: 79.3rem;
+
+    display: flex;
+
+    background-color: var(--color-grayscale-0);
+    border-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+      --padding: 2rem;
+      flex-direction: column-reverse;
+    }
+  }
+
+  .calculator__left {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+
+    width: 51.7rem;
+    padding: var(--padding);
+
+    @media (min-width: 769px) {
+      border-right: 0.1rem solid var(--color-grayscale-300);
+    }
+
+    @media (max-width: 768px) {
+      border-top: 0.1rem solid var(--color-grayscale-300);
+      width: 100%;
+    }
+  }
+
+  .calculator__help {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+
+      gap: 1rem;
+    }
+  }
+
+  .calculator__help__title {
+  }
+
+  .calculator__help__question {
+    width: 2rem;
+    height: 2rem;
+
+    fill: var(--color-grayscale-600);
+
+    @media (max-width: 768px) {
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+  }
+
+  .calculator__left__grid {
+    margin-bottom: 4rem;
+  }
+
+  .calculator__manager {
+    margin-top: auto;
+    border: 0.1rem solid var(--color-grayscale-300);
+
+    .manager-2__main {
+      padding: 2rem;
+      gap: 4rem;
+
+      @media (max-width: 768px) {
+        padding: 1rem;
+        gap: 2rem;
+      }
+    }
+
+    .manager-2__image {
+      flex-shrink: 0;
+
+      width: 12rem;
+      height: 12rem;
+
+      @media (max-width: 768px) {
+        width: 7.5rem;
+        height: 7.5rem;
+      }
+    }
+
+    .manager-2__right {
+      padding: 0;
+      background-color: unset;
+    }
+
+    .manager-2__method {
+      padding: 0 2rem;
+
+      @media (max-width: 768px) {
+        padding: 0 1rem;
+      }
+    }
+  }
+
+  .calculator__right {
+    flex-grow: 1;
+    padding: var(--padding);
+  }
+
+  .calculator__picket {
+    margin-bottom: 5rem;
+
+    .checkbox__title {
+      color: var(--color-grayscale-400);
+    }
+
+    @media (max-width: 768px) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .calculator__step-name {
+    margin-bottom: 3rem;
+  }
+
+  .calculator__progress {
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .calculator__right__grid {
+  }
+
+  .calculator__step {
+  }
+
+  .calculator__type {
+  }
+</style>
+
+<script></script>

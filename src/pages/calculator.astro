@@ -1,0 +1,25 @@
+---
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import Layout from '@layout/Layout.astro'
+import CalculatorSection from '@blocks/CalculatorSection.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Замер',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+  headerBackgroundColor={'white'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Замер', href: '/consultation' },
+    ]}
+  />
+
+  <CalculatorSection />
+</Layout>
