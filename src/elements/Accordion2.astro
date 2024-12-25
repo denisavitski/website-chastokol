@@ -1,0 +1,170 @@
+---
+import CircleButton from './CircleButton.astro'
+
+export interface Props {
+  class?: string
+  items?: Array<{ title: string; description: string }>
+}
+
+const {
+  class: className,
+  items = [
+    {
+      title: 'Наша гарантия',
+      description:
+        'Компания «Частокол» предоставляет двухлетнюю гарантию на изготовленную и установленную продукцию (заборы, различные виды ограждений, калитки, ворота, въездные группы и т.д.).<br><br>Срок начала гарантийного периода определяется датой подписания акта выполненных работ.',
+    },
+    {
+      title: 'Наша гарантия',
+      description:
+        'Компания «Частокол» предоставляет двухлетнюю гарантию на изготовленную и установленную продукцию (заборы, различные виды ограждений, калитки, ворота, въездные группы и т.д.).<br><br>Срок начала гарантийного периода определяется датой подписания акта выполненных работ.',
+    },
+    {
+      title: 'Наша гарантия',
+      description:
+        'Компания «Частокол» предоставляет двухлетнюю гарантию на изготовленную и установленную продукцию (заборы, различные виды ограждений, калитки, ворота, въездные группы и т.д.).<br><br>Срок начала гарантийного периода определяется датой подписания акта выполненных работ.',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<e-accordion
+  {...rest}
+  class:list={[className, 'accordion-2']}
+>
+  {
+    items.map((item, i) => {
+      return (
+        <div
+          class="accordion-2__item"
+          data-opened={i === 0 ? true : undefined}
+        >
+          <div class="accordion-2__item__head">
+            <div
+              class="accordion-2__item__head__title f-d-title-medium-24 f-m-title-medium-18"
+              set:html={item.title}
+            />
+
+            <CircleButton
+              class="accordion-2__item__head__toggle"
+              icon={'plus-small'}
+            />
+          </div>
+          <div class="accordion-2__item__body">
+            <div
+              class="accordion-2__item__content f-d-body-large-regular-16 f-m-body-basic-regular-14"
+              set:html={item.description}
+            />
+          </div>
+        </div>
+      )
+    })
+  }
+</e-accordion>
+
+<style is:global>
+  .accordion-2 {
+    --duration: 0.3s;
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 2.5rem;
+
+    width: 100%;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      gap: 2rem;
+    }
+  }
+
+  .accordion-2__item {
+    width: 100%;
+
+    border-radius: var(--border-radius);
+
+    border: 0.1rem solid var(--color-grayscale-300);
+
+    transition-property: border-color;
+    transition-duration: var(--duration);
+
+    &.opened {
+      border-color: var(--color-primary-100);
+    }
+  }
+
+  .accordion-2__item__head {
+    padding: 2.6rem;
+    padding-left: 4rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    cursor: pointer;
+
+    user-select: none;
+
+    border-radius: var(--border-radius);
+    border: 0.1rem solid var(--color-grayscale-300);
+
+    @media (max-width: 768px) {
+      padding: 1.6rem;
+      padding-left: 2rem;
+    }
+  }
+
+  .accordion-2__item__head__title {
+  }
+
+  .accordion-2__item__head__toggle {
+    --circle-button-size: 5.4rem;
+
+    background-color: rgba(48, 124, 50, 0.2);
+
+    transition-property: background-color;
+    transition-duration: var(--duration);
+
+    @media (max-width: 768px) {
+      --circle-button-size: 3.8rem;
+    }
+
+    .accordion-2__item.opened & {
+      background-color: transparent;
+    }
+
+    flex-shrink: 0;
+
+    .circle-button__icon-box::before {
+      content: none;
+    }
+
+    .circle-button__icon {
+      fill: var(--color-grayscale-0);
+      width: 2.2rem;
+      height: 2.2rem;
+
+      transition: transform var(--duration);
+    }
+  }
+
+  .accordion-2__item.opened .circle-button__icon {
+    transform: rotate(45deg);
+  }
+
+  .accordion-2__item__body {
+    transition: height var(--duration);
+  }
+
+  .accordion-2__item__content {
+    padding: 4rem;
+
+    max-width: 110rem;
+
+    @media (max-width: 768px) {
+      max-width: 100%;
+
+      padding: 2rem;
+    }
+  }
+</style>

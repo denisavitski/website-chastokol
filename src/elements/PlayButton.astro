@@ -1,81 +1,17 @@
 ---
-import Icon from './Icon.astro'
+import CircleButton, {
+  type Props as CircleButtonProps,
+} from './CircleButton.astro'
 
-export interface Props {
+export interface Props extends CircleButtonProps {
   class?: string
-  tag?: string
 }
 
-const { class: className, tag = 'button', ...rest } = Astro.props
-
-const Tag = tag
+const { class: className, ...rest } = Astro.props
 ---
 
-<Tag
+<CircleButton
   {...rest}
-  class:list={[className, 'play-button']}
->
-  <span class="play-button__icon-box">
-    <Icon
-      name={'play'}
-      class="play-button__icon"
-    />
-  </span>
-</Tag>
-
-<style is:global>
-  .play-button {
-    width: var(--play-button-size, 7rem);
-    height: var(--play-button-size, 7rem);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background-color: rgba(48, 124, 50, 0.4);
-
-    border-radius: 50%;
-
-    @media (max-width: 768px) {
-      width: var(--play-button-size, 5rem);
-      height: var(--play-button-size, 5rem);
-    }
-  }
-
-  .play-button__icon-box {
-    position: relative;
-    z-index: 1;
-
-    display: block;
-
-    width: 79%;
-    height: 79%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    &::before {
-      content: '';
-
-      position: absolute;
-      z-index: -1;
-
-      width: 70%;
-      height: 70%;
-
-      border-radius: 50%;
-
-      background-color: var(--color-grayscale-0);
-    }
-  }
-
-  .play-button__icon {
-    width: 100%;
-    height: 100%;
-
-    fill: var(--color-primary-100);
-  }
-</style>
+  icon={'play'}
+  class={`play-button ${className || ''}`}
+/>
