@@ -1,5 +1,7 @@
 ---
+import type { SpriteIconName } from '@utils/SpriteIconName'
 import DotsButton from './DotsButton.astro'
+import Icon from './Icon.astro'
 import type { ImageDataProps } from './Image.astro'
 import Image from './Image.astro'
 
@@ -10,7 +12,7 @@ export interface Props {
   image?: ImageDataProps
   name?: string
   position?: string
-  variants?: Array<string>
+  variants?: Array<{ icon: SpriteIconName; href: string; title: string }>
 }
 
 const {
@@ -18,7 +20,23 @@ const {
   image = { src: '/images/company-members/director.jpg' },
   name = 'Вероника Иванова',
   position = 'Персональный менеджер',
-  variants = ['Вариант 1', 'Вариант 2', 'Вариант 3'],
+  variants = [
+    {
+      icon: 'wa',
+      title: 'WhatsApp',
+      href: 'https://google.com',
+    },
+    {
+      icon: 'tg',
+      title: 'Telegram',
+      href: 'https://google.com',
+    },
+    {
+      icon: 'vk',
+      title: 'Vkontakte',
+      href: 'https://google.com',
+    },
+  ],
   ...rest
 } = Astro.props
 ---
@@ -63,18 +81,24 @@ const {
         target="manager-variants"
       />
       <e-popover
-        class="manager-2__method__variants__popover custom-scrollbar"
+        class="manager-2__method__variants__popover"
         id="manager-variants"
       >
         {
-          variants.map((button) => {
+          variants.map((item) => {
             return (
-              <button class="manager-2__method__variant">
-                <span
-                  class="manager-2__method__variant__name f-d-body-large-medium-16 f-m-footnote-medium-12"
-                  set:html={button}
+              <a
+                class="manager-2__method__variant"
+                href={item.href}
+                target="_blank"
+                title={item.title}
+                data-type={item.icon}
+              >
+                <Icon
+                  name={item.icon}
+                  class="manager-2__method__variant__icon"
                 />
-              </button>
+              </a>
             )
           })
         }
@@ -213,58 +237,85 @@ const {
     --click-outside: true;
 
     position: absolute;
-    top: calc(100% - var(--border-radius));
-    left: 0;
+    top: calc(100% + 1.5rem);
+    right: 0;
 
     z-index: -1;
 
-    width: 100%;
-    max-height: 40rem;
-    padding-top: var(--border-radius);
+    display: none;
+    gap: 1.5rem;
+
+    padding: 1.5rem;
 
     background-color: var(--color-grayscale-200);
-    border-bottom-left-radius: var(--border-radius);
-    border-bottom-right-radius: var(--border-radius);
+    border-radius: var(--border-radius);
 
-    box-shadow: 0 0.4rem 1rem 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 0.5rem 0.5rem 3rem 0 rgba(0, 0, 0, 0.1);
 
-    display: none;
     opacity: 0;
 
     transition-property: opacity;
     transition-duration: var(--duration-button);
 
-    overflow: hidden auto;
-
     &.triggered {
-      display: block;
+      display: flex;
     }
 
     &.opened {
       opacity: 1;
     }
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+
+      padding: 1rem;
+    }
   }
 
   .manager-2__method__variant {
-    width: 100%;
+    width: 4rem;
+    height: 4rem;
+
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: center;
 
-    padding: 1rem 3rem;
+    border-radius: 0.7rem;
 
-    transition-property: color, background-color, border-color;
-    transition-duration: var(--duration-button);
-    transition-timing-function: ease;
+    background-color: var(--color-primary-100);
 
-    color: var(--color-grayscale-400);
+    &[data-type='tg'] {
+      background-color: #0088cc;
+    }
 
-    &:not(:last-child) {
-      border-bottom: 0.1rem solid var(--color-grayscale-300);
+    &[data-type='wa'] {
+      background-color: #25d366;
+    }
+
+    &[data-type='vk'] {
+      background-color: #4c75a3;
+    }
+
+    @media (hover: hover) {
+      transition-property: opacity;
+      transition-duration: var(--duration-button);
+      transition-timing-function: ease;
+
+      &:hover {
+        opacity: 0.7;
+      }
     }
 
     @media (max-width: 768px) {
-      padding: 1rem 1.5rem;
+      width: 3rem;
+      height: 3rem;
     }
+  }
+
+  .manager-2__method__variant__icon {
+    width: 60%;
+    height: 60%;
+
+    fill: var(--color-grayscale-0);
   }
 </style>
