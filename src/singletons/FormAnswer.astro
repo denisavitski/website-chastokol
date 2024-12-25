@@ -1,6 +1,9 @@
 ---
 import CommonModal from '@elements/CommonModal.astro'
-import Icon from '@elements/Icon.astro'
+import ModalCloseButton from '@elements/ModalCloseButton.astro'
+import ThankYou from '@elements/ThankYou.astro'
+
+export const modal = '#form-answer'
 ---
 
 <CommonModal
@@ -8,20 +11,23 @@ import Icon from '@elements/Icon.astro'
   class="form-answer"
 >
   <div class="form-answer__content">
-    <div class="form-answer__check">
-      <Icon
-        name={'check'}
-        class="form-answer__check__icon"
-      />
-
-      <div class="form-answer__title">Спасибо!</div>
-
-      <div
-        class="form-answer__description"
-        set:html={'Мы уже получили вашу заявку и свяжемся с вами в ближайшее время'}
-      />
-    </div>
+    <ModalCloseButton modal="form-answer" />
+    <ThankYou />
   </div>
 </CommonModal>
 
-<style is:global></style>
+<style is:global>
+  .form-answer__content {
+    position: relative;
+
+    padding: 8rem;
+    border-radius: var(--border-radius);
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      width: calc(100% - var(--screen-horisontal-padding) * 2);
+      padding: 4rem;
+      height: max-content;
+    }
+  }
+</style>
