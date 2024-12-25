@@ -58,6 +58,19 @@ const { class: className, ...rest } = Astro.props
     <div class="calculator__right__grid">
       <div class="calculator__step calculator__type"> </div>
     </div>
+
+    <div class="calculator__nav">
+      <button
+        class="calculator__prev-button f-d-body-large-regular-16 f-m-body-basic-medium-14"
+        type="button"
+        >Назад</button
+      >
+      <button
+        class="calculator__next-button f-d-body-large-medium-16 f-m-body-basic-medium-14"
+        type="button"
+        >Продолжить</button
+      >
+    </div>
   </div>
 </e-calculator>
 
@@ -190,7 +203,11 @@ const { class: className, ...rest } = Astro.props
 
   .calculator__right {
     flex-grow: 1;
+
     padding: var(--padding);
+
+    display: flex;
+    flex-direction: column;
   }
 
   .calculator__picket {
@@ -218,12 +235,54 @@ const { class: className, ...rest } = Astro.props
   }
 
   .calculator__right__grid {
+    margin-bottom: 7rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
   }
 
   .calculator__step {
   }
 
   .calculator__type {
+  }
+
+  .calculator__nav {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    @media (min-width: 769px) {
+      margin-top: auto;
+      margin-left: auto;
+    }
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+    }
+  }
+
+  .calculator__prev-button,
+  .calculator__next-button {
+    height: 4.5rem;
+    padding: 0 2rem;
+    border-radius: 3rem;
+
+    @media (max-width: 768px) {
+      height: 4rem;
+      padding: 0 1.5rem;
+    }
+  }
+
+  .calculator__prev-button {
+    border: 0.1rem solid var(--color-grayscale-300);
+    color: var(--color-grayscale-400);
+  }
+
+  .calculator__next-button {
+    color: var(--color-grayscale-0);
+    background-color: var(--color-primary-100);
   }
 </style>
 
