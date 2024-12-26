@@ -4,6 +4,9 @@ export interface Props {
   color?: string
   id?: string
   name?: string
+  type?: 'button' | 'input'
+  mobileSmall?: boolean
+  required?: boolean
 }
 
 const {
@@ -11,63 +14,131 @@ const {
   color = '#9B9B9B',
   id = 'RAL 7004',
   name = 'Серый',
+  type = 'button',
+  mobileSmall = false,
+  required,
   ...rest
 } = Astro.props
+
+const isButton = type === 'button'
+
+const Tag = isButton ? 'button' : 'label'
 ---
 
-<button
+<Tag
   {...rest}
   class:list={[className, 'color-option']}
   style={`--color: ${color}`}
-  data-color={color}
-  data-id={id}
-  data-name={name}
-  type="button"
+  data-color={isButton ? color : undefined}
+  data-id={isButton ? id : undefined}
+  data-name={isButton ? name : undefined}
+  type={isButton ? 'button' : undefined}
+  data-mobile-small={mobileSmall}
 >
-  <span class="color-option__color"></span>
-  <span class="color-option__content">
-    <span
-      class="color-option__id f-d-body-large-medium-16"
-      set:html={id}
-    />
-    <span
-      class="color-option__name f-d-body-basic-regular-14"
-      set:html={name}
-    />
+  {
+    !isButton && (
+      <input
+        name="color"
+        value={id}
+        type="radio"
+        {required}
+        data-color={!isButton ? color : undefined}
+        data-id={!isButton ? id : undefined}
+        data-name={!isButton ? name : undefined}
+        class="visually-hidden color-option__input"
+      />
+    )
+  }
+  <span class="color-option__inner">
+    <span class="color-option__color"></span>
+    <span class="color-option__content">
+      <span
+        class="color-option__id f-d-body-large-medium-16 f-m-footnote-medium-12"
+        set:html={id}
+      />
+      <span
+        class="color-option__name f-d-body-basic-regular-14 f-m-footnote-regular-12"
+      >
+        <span
+          class="color-option__name__value"
+          set:html={name}
+        />
+      </span>
+    </span>
   </span>
-</button>
+</Tag>
 
 <style is:global>
   .color-option {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    overflow: hidden;
+  }
+
+  .color-option__inner {
+    --__unchecked-rgba-channel: var(--unchecked-color, 247);
+    --__checked-rgba-channel: var(--checked-color, 255);
+    --__rgba-channel: var(--__unchecked-rgba-channel);
+
+    --__background: rgba(
+      var(--__rgba-channel),
+      var(--__rgba-channel),
+      var(--__rgba-channel),
+      1
+    );
+
+    .color-option.active &,
+    .color-option__input:checked ~ & {
+      --__rgba-channel: var(--__checked-rgba-channel);
+    }
+
     text-align: start;
 
     @media (min-width: 769px) {
-      position: relative;
-      z-index: 1;
+      width: 100%;
 
       display: flex;
       align-items: center;
       gap: 2rem;
+
       padding: 1.5rem;
+
       border-radius: var(--border-radius);
-      background-color: transparent;
+      background-color: var(--__background);
 
       transition-property: background-color;
       transition-duration: var(--duration-button);
-
-      &.active {
-        background-color: var(--color-grayscale-0);
-      }
     }
 
     @media (max-width: 768px) {
       display: flex;
       align-items: center;
-      justify-content: center;
+
+      .color-option:not([data-mobile-small='true']) & {
+        width: 100%;
+
+        gap: 1rem;
+        padding: 1rem;
+        border-radius: var(--border-radius);
+
+        background-color: var(--__background);
+
+        transition-property: background-color;
+        transition-duration: var(--duration-button);
+      }
     }
   }
 
   .color-option__color {
+    flex-shrink: 0;
+
     position: relative;
 
     width: 5rem;
@@ -88,37 +159,91 @@ const {
       background-color: var(--color, var(--color-grayscale-100));
 
       border-radius: 50%;
-
-      @media (max-width: 768px) {
-        width: 79%;
-        height: 79%;
-      }
     }
 
     @media (max-width: 768px) {
-      width: 3.8rem;
-      height: 3.8rem;
+      width: 3rem;
+      height: 3rem;
 
-      border: 0.1rem solid transparent;
+      .color-option[data-mobile-small='true'] & {
+        width: 3.8rem;
+        height: 3.8rem;
 
-      .color-option.active & {
+        border: 0.1rem solid transparent;
+
+        &::after {
+          width: 79%;
+          height: 79%;
+        }
+      }
+
+      .color-option[data-mobile-small='true'].active &,
+      .color-option[data-mobile-small='true']
+        .color-option__input:checked
+        ~ .color-option__inner
+        & {
         border-color: var(--color-grayscale-300);
       }
     }
   }
 
   .color-option__content {
+    overflow: hidden;
+
+    width: 100%;
+
     @media (max-width: 768px) {
-      display: none;
+      .color-option[data-mobile-small='true'] & {
+        display: none;
+      }
     }
   }
 
   .color-option__id {
     display: block;
     margin-bottom: 0.3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 0;
+    }
   }
 
   .color-option__name {
+    position: relative;
+
+    width: 100%;
+
+    @media (max-width: 768px) {
+      &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 3rem;
+        height: 100%;
+
+        background: linear-gradient(
+          to right,
+          rgba(
+            var(--__rgba-channel),
+            var(--__rgba-channel),
+            var(--__rgba-channel),
+            0
+          ),
+          rgba(
+            var(--__rgba-channel),
+            var(--__rgba-channel),
+            var(--__rgba-channel),
+            1
+          )
+        );
+      }
+    }
+  }
+
+  .color-option__name__value {
     color: var(--color-grayscale-400);
+    display: block;
+    width: max-content;
   }
 </style>

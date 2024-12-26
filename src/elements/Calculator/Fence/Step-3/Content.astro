@@ -1,9 +1,62 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+
+import ColorOption, {
+  type Props as ColorOptionProps,
+} from '@elements/ColorOption.astro'
+
+export interface Props {
+  cards: Array<ColorOptionProps>
+}
+
+const {
+  cards = [
+    { color: '#9B9B9B', id: 'RAL 7004', name: 'Серый' },
+    { color: '#DDC49A', id: 'RAL 1004', name: 'Бежевый' },
+    { color: '#FF5733', id: 'RAL 3020', name: 'Красный' },
+    { color: '#33FF57', id: 'RAL 6018', name: 'Зеленый' },
+    { color: '#3357FF', id: 'RAL 5002', name: 'Синий' },
+    { color: '#FFC300', id: 'RAL 1023', name: 'Желтый' },
+    { color: '#8E44AD', id: 'RAL 4005', name: 'Фиолетовый' },
+    { color: '#FF69B4', id: 'RAL 4010', name: 'Розовый' },
+    { color: '#34495E', id: 'RAL 7015', name: 'Темно-серый' },
+    { color: '#E74C3C', id: 'RAL 2002', name: 'Оранжево-красный' },
+  ],
+} = Astro.props
 ---
 
 <CalculatorStep
   type={'content'}
   name="Выберите цвет"
-  >CONTENT</CalculatorStep
 >
+  <div class="calculator__color-options">
+    {
+      cards.map((card) => {
+        return (
+          <ColorOption
+            {...card}
+            class="calculator__color-option"
+            type={'input'}
+            required
+          />
+        )
+      })
+    }
+  </div>
+</CalculatorStep>
+
+<style is:global>
+  .calculator {
+  }
+
+  .calculator__color-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 5rem;
+  }
+
+  .calculator__color-option {
+    --unchecked-color: 255;
+    --checked-color: 250;
+  }
+</style>
