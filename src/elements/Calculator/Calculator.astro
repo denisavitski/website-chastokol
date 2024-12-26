@@ -364,7 +364,12 @@ const { class: className, steps = 8, ...rest } = Astro.props
           (el) => !el.checkVisibility() || el.validity.valid,
         )
       ) {
-        this.#currentInputElements[0]?.reportValidity()
+        const firstVisible = this.#currentInputElements.find((el) => {
+          return el.checkVisibility()
+        })
+
+        firstVisible?.reportValidity()
+
         return
       }
 
