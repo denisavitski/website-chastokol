@@ -1,5 +1,44 @@
 ---
+import Billboard from '@elements/Billboard.astro'
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
 ---
 
-<CalculatorStep type={'info'} />
+<CalculatorStep type={'info'}>
+  <div class="calculator__gaw-info">
+    <Billboard class="calculator__gaw-info__billboard" />
+    <div
+      class="calculator__gaw-info__desc f-d-body-large-regular-16 f-m-footnote-regular-12"
+      set:html="Распашные ворота"
+    />
+  </div>
+</CalculatorStep>
+
+<style is:global>
+  .calculator__gaw-info {
+  }
+
+  .calculator__gaw-info__billboard {
+    --offset: 2rem;
+
+    height: 24rem;
+    margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+      --offset: 1.5rem;
+      height: 18rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .billboard__buton {
+      --slider-button-size: 2.8rem;
+
+      @media (max-width: 768px) {
+        --slider-button-size: 2.4rem;
+      }
+    }
+  }
+
+  .calculator__gaw-info__desc {
+    color: var(--color-grayscale-400);
+  }
+</style>

@@ -1,0 +1,76 @@
+---
+import FormInput, { type Props as FormInputProps } from './FormInput.astro'
+import FormSelect from './FormSelect.astro'
+import Info from './Info.astro'
+
+export const backgroundColor = 'white'
+
+export interface Props extends FormInputProps {
+  class?: string
+  label?: string
+  info?: string
+  tag?: 'input' | 'select'
+}
+
+const {
+  class: className,
+  label = 'Кол-во ворот',
+  info = 'asdas',
+  tag = 'select',
+  ...rest
+} = Astro.props
+
+const Tag = tag === 'input' ? FormInput : FormSelect
+---
+
+<Tag
+  {...rest}
+  class={`calculator-input ${className || ''}`}
+>
+  <span
+    class="calculator-input__top"
+    slot="top"
+  >
+    {
+      info && (
+        <Info
+          class="calculator-input__info"
+          text={info}
+        />
+      )
+    }
+    <span
+      class="calculator-input__name f-d-body-large-medium-16 f-m-body-basic-medium-14"
+      set:html={label}
+    />
+  </span>
+</Tag>
+
+<style is:global>
+  .calculator-input {
+    --background-color: var(--color-grayscale-100);
+  }
+
+  .calculator-input__top {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    margin-bottom: 1.45rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .calculator-input__info {
+    --icon-size: 2rem;
+
+    @media (max-width: 768px) {
+      --icon-size: 1.4rem;
+    }
+  }
+
+  .calculator-input__name {
+  }
+</style>

@@ -113,11 +113,11 @@ const {
   .billboard__buton_prev {
     @media (min-width: 769px) {
       .billboard[data-theme='inside'] & {
-        left: 3rem;
+        left: var(--offset, 3rem);
       }
 
       .billboard[data-theme='outside'] & {
-        right: calc(100% + 5rem);
+        right: calc(100% + var(--offset, 5rem));
       }
     }
 
@@ -129,11 +129,11 @@ const {
   .billboard__buton_next {
     @media (min-width: 769px) {
       .billboard[data-theme='inside'] & {
-        right: 3rem;
+        right: var(--offset, 3rem);
       }
 
       .billboard[data-theme='outside'] & {
-        left: calc(100% + 5rem);
+        left: calc(100% + var(--offset, 5rem));
       }
     }
 
@@ -153,11 +153,11 @@ const {
 
     @media (min-width: 769px) {
       .billboard[data-theme='inside'] & {
-        bottom: 3rem;
+        bottom: var(--offset, 3rem);
       }
 
       .billboard[data-theme='outside'] & {
-        top: calc(100% + 5rem);
+        top: calc(100% + var(--offset, 5rem));
       }
     }
 
