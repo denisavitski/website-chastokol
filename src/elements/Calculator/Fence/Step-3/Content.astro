@@ -46,13 +46,14 @@ const {
 </CalculatorStep>
 
 <style is:global>
-  .calculator {
-  }
-
   .calculator__color-options {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2.5rem 5rem;
+
+    @media (max-width: 768px) {
+      max-height: 22.9rem;
+    }
   }
 
   .calculator__color-option {
