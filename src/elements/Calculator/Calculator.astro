@@ -353,12 +353,16 @@ const { class: className, steps = 8, ...rest } = Astro.props
 
     #stepCounter = 0
 
+    #stepsResult: Array<Array<{ name: string; value: string }>> = []
+
     public setStep(value: number) {
       const newCounterValue = clamp(value, 0, this.#stepElements.length - 1)
 
       if (
         newCounterValue > this.#stepCounter &&
-        !this.#currentInputElements.every((el) => el.validity.valid)
+        !this.#currentInputElements.every(
+          (el) => !el.checkVisibility() || el.validity.valid,
+        )
       ) {
         this.#currentInputElements[0]?.reportValidity()
         return
@@ -393,9 +397,56 @@ const { class: className, steps = 8, ...rest } = Astro.props
       const currentStepElement = this.#stepElements[this.#stepCounter]
 
       if (currentStepElement) {
+        this.#currentInputElements.forEach((element) => {
+          element.removeEventListener('input', this.#currentInputListener)
+          element.removeEventListener('change', this.#currentInputListener)
+        })
+
         this.#currentInputElements = [
           ...currentStepElement.querySelectorAll('input'),
         ]
+
+        this.#currentInputElements.forEach((element) => {
+          this.#toggleElement(element, true)
+
+          const filter = element.getAttribute('data-filter')
+
+          const filterItems = filter
+            ?.split(',')
+            .map((v) => v.split(':'))
+            .map((v) => {
+              return {
+                name: v[0]?.trim(),
+                value: v[1]?.trim(),
+              }
+            })
+
+          if (filterItems) {
+            const slicedStepsResult = this.#stepsResult.slice(
+              0,
+              this.#stepCounter,
+            )
+
+            const filterResult = filterItems.filter((filterItem) => {
+              const stepItems = slicedStepsResult.find((step) => {
+                return step.find(
+                  (stepItem) => stepItem.name === filterItem.name,
+                )
+              })
+
+              return stepItems?.every(
+                (stepItem) => stepItem.value === filterItem.value,
+              )
+            })
+
+            if (!filterResult.length) {
+              this.#toggleElement(element, false)
+            }
+          }
+
+          element.addEventListener('input', this.#currentInputListener)
+          element.addEventListener('change', this.#currentInputListener)
+        })
 
         const name = currentStepElement.getAttribute('data-name')
 
@@ -453,6 +504,37 @@ const { class: className, steps = 8, ...rest } = Astro.props
 
     #nextButtonListener = () => {
       this.shiftStep(1)
+    }
+
+    #currentInputListener = (e: Event) => {
+      const el = e.currentTarget as HTMLInputElement
+
+      const name = el.name
+      const value = el.value
+
+      let arr = this.#stepsResult[this.#stepCounter]
+
+      if (!arr) {
+        arr = []
+
+        this.#stepsResult[this.#stepCounter] = arr
+      }
+
+      let obj = arr.find((item) => item.name === name)
+
+      if (!obj) {
+        obj = { name, value: '' }
+        arr.push(obj)
+      }
+
+      obj.value = value
+    }
+
+    #toggleElement(element: HTMLElement, visible = false) {
+      const wrapperElement =
+        (element.closest('.hide') as HTMLElement) || element
+
+      wrapperElement.style.display = visible ? '' : 'none'
     }
   }
 
