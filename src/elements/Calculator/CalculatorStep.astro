@@ -1,0 +1,34 @@
+---
+export interface Props {
+  class?: string
+  type?: 'info' | 'content'
+  name?: string
+}
+
+const { class: className, type = 'info', name } = Astro.props
+---
+
+<div
+  class:list={[
+    type === 'info' ? 'calculator__step-info' : 'calculator__step',
+    className,
+  ]}
+  data-name={name}
+>
+  <slot />
+</div>
+
+<style is:global>
+  .calculator__step-info,
+  .calculator__step {
+    &.unactive {
+      display: none;
+    }
+  }
+
+  .calculator__step-info {
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+</style>

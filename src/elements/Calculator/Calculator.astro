@@ -1,18 +1,19 @@
 ---
-import ArrowHint from './ArrowHint.astro'
-import CheckboxButton from './CheckboxButton.astro'
-import Icon from './Icon.astro'
-import Manager2 from './Manager2.astro'
-import Progress from './Progress.astro'
-import ThankYou from './ThankYou.astro'
+import ArrowHint from '@elements/ArrowHint.astro'
+import CheckboxButton from '@elements/CheckboxButton.astro'
+import Icon from '@elements/Icon.astro'
+import Manager2 from '@elements/Manager2.astro'
+import Progress from '@elements/Progress.astro'
+import ThankYou from '@elements/ThankYou.astro'
 
 export const backgroundColor = '#F7F7F7'
 
 export interface Props {
   class?: string
+  steps?: number | string
 }
 
-const { class: className, ...rest } = Astro.props
+const { class: className, steps = 8, ...rest } = Astro.props
 ---
 
 <e-calculator
@@ -31,7 +32,9 @@ const { class: className, ...rest } = Astro.props
       />
     </div>
 
-    <div class="calculator__left__grid"></div>
+    <div class="calculator__left__grid">
+      <slot name="step-info" />
+    </div>
 
     <div class="calculator__manager-wrapper">
       <ArrowHint
@@ -51,58 +54,18 @@ const { class: className, ...rest } = Astro.props
       name="picket"
     />
 
-    <div
-      class="calculator__step-name f-d-title-medium-42 f-m-title-medium-24"
-      set:html="Выберите тип забора"
-    />
+    <div class="calculator__step-name f-d-title-medium-42 f-m-title-medium-24"
+    ></div>
 
     <Progress
       class="calculator__progress"
       max={99}
-      steps={8}
+      steps={steps}
     />
 
     <div class="calculator__right__grid">
-      <div
-        data-name="Выберите тип забора"
-        class="calculator__step"
-      >
-      </div>
-      <div
-        data-name="Выберите материал"
-        class="calculator__step"
-      >
-      </div>
-      <div
-        data-name="Выберите цвет"
-        class="calculator__step"
-      >
-      </div>
-      <div
-        data-name="Ворота и калитки"
-        class="calculator__step"
-      >
-      </div>
-      <div
-        data-name="Заполните параметры"
-        class="calculator__step"
-      >
-      </div>
-      <div
-        data-name="Выберите основу забора"
-        class="calculator__step"
-      >
-      </div>
-      <div
-        data-name="Требуются ли вам доп. услуги"
-        class="calculator__step"
-      >
-      </div>
-      <div
-        data-name="Данные для связи с вами"
-        class="calculator__step"
-      >
-      </div>
+      <slot name="step-content" />
+
       <div class="calculator__step">
         <ThankYou class="calculator__thank-you" />
       </div>
@@ -136,8 +99,6 @@ const { class: className, ...rest } = Astro.props
 
     background-color: var(--color-grayscale-0);
     border-radius: var(--border-radius);
-
-    overflow: hidden;
 
     @media (max-width: 768px) {
       --padding: 2rem;
@@ -299,14 +260,6 @@ const { class: className, ...rest } = Astro.props
     }
   }
 
-  .calculator__step {
-    display: none;
-
-    &.active {
-      display: block;
-    }
-  }
-
   .calculator__type {
   }
 
@@ -340,11 +293,13 @@ const { class: className, ...rest } = Astro.props
   .calculator__prev-button {
     border: 0.1rem solid var(--color-grayscale-300);
     color: var(--color-grayscale-400);
+    user-select: none;
   }
 
   .calculator__next-button {
     color: var(--color-grayscale-0);
     background-color: var(--color-primary-100);
+    user-select: none;
   }
 
   .calculator__thank-you {
@@ -358,18 +313,21 @@ const { class: className, ...rest } = Astro.props
     height: 100%;
 
     background-color: var(--color-grayscale-0);
+
+    border-radius: var(--border-radius);
   }
 </style>
 
 <script>
   import { clamp } from 'aptechka/utils'
-  import type { ProgressElement } from './Progress.astro.0.mts'
+  import type { ProgressElement } from '@elements/Progress.astro.0.mts'
 
   export class CalculatorElement extends HTMLElement {
     #stepNameElement: HTMLElement | null = null
     #prevButtonElement: HTMLElement | null = null
     #nextButtonElement: HTMLElement | null = null
     #stepElements: Array<HTMLElement> = []
+    #stepInfoElements: Array<HTMLElement> = []
     #managerHintElement: HTMLElement | null = null
     #progressElement: ProgressElement | null = null
 
@@ -386,9 +344,17 @@ const { class: className, ...rest } = Astro.props
 
       this.#stepElements.forEach((element, i) => {
         if (i === this.#stepCounter) {
-          element.classList.add('active')
+          element.classList.remove('unactive')
         } else {
-          element.classList.remove('active')
+          element.classList.add('unactive')
+        }
+      })
+
+      this.#stepInfoElements.forEach((element, i) => {
+        if (i === this.#stepCounter) {
+          element.classList.remove('unactive')
+        } else {
+          element.classList.add('unactive')
         }
       })
 
@@ -414,6 +380,10 @@ const { class: className, ...rest } = Astro.props
 
       this.#stepElements = [
         ...this.querySelectorAll<HTMLElement>('.calculator__step'),
+      ]
+
+      this.#stepInfoElements = [
+        ...this.querySelectorAll<HTMLElement>('.calculator__step-info'),
       ]
 
       this.#prevButtonElement = this.querySelector('.calculator__prev-button')
