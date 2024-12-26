@@ -1,5 +1,44 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+import Image from '@elements/Image.astro'
 ---
 
-<CalculatorStep type={'info'} />
+<CalculatorStep type={'info'}>
+  <div class="calculator__color-info">
+    <Image
+      class="calculator__color-info__image"
+      lazy
+      lazyBackground
+      cover
+      src={'/images/catalog-item.png'}
+    />
+    <div
+      class="calculator__color-info__description f-d-body-large-regular-16 f-m-footnote-regular-12"
+      set:html={'Так будет выглядеть ваш забор'}
+    />
+  </div>
+</CalculatorStep>
+
+<style>
+  .calculator__color-info {
+  }
+
+  .calculator__color-info__image {
+    width: 100%;
+    height: 24rem;
+
+    margin-bottom: 2rem;
+
+    background-color: var(--color-image-background);
+    border-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+      height: 18rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .calculator__color-info__description {
+    color: var(--color-grayscale-400);
+  }
+</style>

@@ -3,15 +3,18 @@ export interface Props {
   class?: string
   type?: 'info' | 'content'
   name?: string
+  empty?: boolean
 }
 
-const { class: className, type = 'info', name } = Astro.props
+const { class: className, type = 'info', empty, name } = Astro.props
 ---
 
 <div
   class:list={[
     type === 'info' ? 'calculator__step-info' : 'calculator__step',
     className,
+    'custom-scrollbar',
+    { empty },
   ]}
   data-name={name}
 >
@@ -26,8 +29,30 @@ const { class: className, type = 'info', name } = Astro.props
     }
   }
 
-  .calculator__step-info {
+  .calculator__step {
+    height: 100%;
+
+    padding-right: 6rem;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden auto;
+
     @media (max-width: 768px) {
+      padding-right: 2rem;
+    }
+  }
+
+  .calculator__step-info {
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: hidden auto;
+
+    &:not(.empty) {
       margin-bottom: 4rem;
     }
   }

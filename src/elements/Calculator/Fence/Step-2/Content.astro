@@ -1,9 +1,88 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+import RadioCards, {
+  type Props as RadioCardsProps,
+} from '@elements/RadioCards.astro'
+
+export interface Props extends RadioCardsProps {}
+
+const {
+  cards = [
+    {
+      image: { src: '/images/catalog-item.png' },
+      value: 'type-1-material-1',
+      data: {
+        'data-type': 'type-1',
+      },
+      required: true,
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      value: 'type-1-material-2',
+      data: {
+        'data-type': 'type-1',
+      },
+      required: true,
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      value: 'type-2-material-1',
+      data: {
+        'data-type': 'type-2',
+      },
+      required: true,
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      value: 'type-2-material-2',
+      data: {
+        'data-type': 'type-2',
+      },
+      required: true,
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      value: 'type-3-material-1',
+      data: {
+        'data-type': 'type-3',
+      },
+      required: true,
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      value: 'type-3-material-2',
+      data: {
+        'data-type': 'type-3',
+      },
+      required: true,
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      value: 'type-4-material-1',
+      data: {
+        'data-type': 'type-4',
+      },
+      required: true,
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      value: 'type-4-material-2',
+      data: {
+        'data-type': 'type-4',
+      },
+      required: true,
+    },
+  ],
+  name = 'fence-material',
+} = Astro.props
 ---
 
 <CalculatorStep
   type={'content'}
   name="Выберите материал"
-  >CONTENT</CalculatorStep
 >
+  <RadioCards
+    {cards}
+    {name}
+  />
+</CalculatorStep>

@@ -1,0 +1,67 @@
+---
+import RadioCard, {
+  type Props as RadioCardProps,
+} from '@elements/RadioCard.astro'
+
+export interface Props {
+  class?: string
+  cards?: Array<Omit<RadioCardProps, 'name' | 'class'>> | undefined
+  name?: string | undefined
+}
+
+const {
+  class: className,
+  cards = [
+    {
+      image: { src: '/images/catalog-item.png' },
+      value: 'Профнастил',
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      value: 'Евроштакетник',
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      value: 'Рабица',
+    },
+    {
+      image: { src: '/images/catalog-item.png' },
+      value: 'Какой-нибудь еще',
+    },
+  ],
+  name = 'fence-type',
+} = Astro.props
+---
+
+<div class:list={['radio-cards', className]}
+  >{
+    cards.map((card) => {
+      return (
+        <RadioCard
+          {...card}
+          class="radio-cards__card"
+          name={name}
+        />
+      )
+    })
+  }</div
+>
+
+<style is:global>
+  .radio-cards {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
+
+    @media (max-width: 768px) {
+      height: 40rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  .radio-cards__card {
+    width: 100%;
+  }
+</style>

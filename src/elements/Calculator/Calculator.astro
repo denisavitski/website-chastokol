@@ -20,70 +20,72 @@ const { class: className, steps = 8, ...rest } = Astro.props
   {...rest}
   class:list={[className, 'calculator']}
 >
-  <div class="calculator__left">
-    <div class="calculator__help">
-      <div
-        class="calculator__help__title f-d-body-large-regular-16 f-m-footnote-regular-12"
-        set:html={'Подсказка, появится при клике на'}
-      />
-      <Icon
-        class="calculator__help__question"
-        name={'question'}
-      />
-    </div>
+  <form class="calculator__form">
+    <div class="calculator__left">
+      <div class="calculator__help">
+        <div
+          class="calculator__help__title f-d-body-large-regular-16 f-m-footnote-regular-12"
+          set:html={'Подсказка, появится при клике на'}
+        />
+        <Icon
+          class="calculator__help__question"
+          name={'question'}
+        />
+      </div>
 
-    <div class="calculator__left__grid">
-      <slot name="step-info" />
-    </div>
+      <div class="calculator__left__grid">
+        <slot name="step-info" />
+      </div>
 
-    <div class="calculator__manager-wrapper">
-      <ArrowHint
-        class="calculator__manager-hint"
-        arrowPosition={'bottom-left'}
-        text="В нашей компании вы можете приобрести любую конструкцию, а так же ее установку под ключ"
-        font="f-d-body-large-regular-16 f-m-footnote-regular-12"
-      />
-      <Manager2 class="calculator__manager" />
-    </div>
-  </div>
-
-  <div class="calculator__right">
-    <CheckboxButton
-      class="calculator__picket"
-      value="Забор из штекетника"
-      name="picket"
-    />
-
-    <div class="calculator__step-name f-d-title-medium-42 f-m-title-medium-24"
-    ></div>
-
-    <Progress
-      class="calculator__progress"
-      max={99}
-      steps={steps}
-    />
-
-    <div class="calculator__right__grid">
-      <slot name="step-content" />
-
-      <div class="calculator__step">
-        <ThankYou class="calculator__thank-you" />
+      <div class="calculator__manager-wrapper">
+        <ArrowHint
+          class="calculator__manager-hint"
+          arrowPosition={'bottom-left'}
+          text="В нашей компании вы можете приобрести любую конструкцию, а так же ее установку под ключ"
+          font="f-d-body-large-regular-16 f-m-footnote-regular-12"
+        />
+        <Manager2 class="calculator__manager" />
       </div>
     </div>
 
-    <div class="calculator__nav">
-      <button
-        class="calculator__prev-button f-d-body-large-regular-16 f-m-body-basic-medium-14"
-        type="button"
-        >Назад</button
-      >
-      <button
-        class="calculator__next-button f-d-body-large-medium-16 f-m-body-basic-medium-14"
-        type="button"
-        >Продолжить</button
-      >
+    <div class="calculator__right">
+      <CheckboxButton
+        class="calculator__picket"
+        value="Забор из штекетника"
+        name="picket"
+      />
+
+      <div class="calculator__step-name f-d-title-medium-42 f-m-title-medium-24"
+      ></div>
+
+      <Progress
+        class="calculator__progress"
+        max={99}
+        steps={steps}
+      />
+
+      <div class="calculator__right__grid">
+        <slot name="step-content" />
+
+        <div class="calculator__step">
+          <ThankYou class="calculator__thank-you" />
+        </div>
+      </div>
+
+      <div class="calculator__nav">
+        <button
+          class="calculator__prev-button f-d-body-large-regular-16 f-m-body-basic-medium-14"
+          type="button"
+          >Назад</button
+        >
+        <button
+          class="calculator__next-button f-d-body-large-medium-16 f-m-body-basic-medium-14"
+          type="button"
+          >Продолжить</button
+        >
+      </div>
     </div>
-  </div>
+  </form>
 </e-calculator>
 
 <style is:global>
@@ -102,8 +104,13 @@ const { class: className, steps = 8, ...rest } = Astro.props
 
     @media (max-width: 768px) {
       --padding: 2rem;
+      height: unset;
       flex-direction: column-reverse;
     }
+  }
+
+  .calculator__form {
+    display: contents;
   }
 
   .calculator__left {
@@ -155,6 +162,8 @@ const { class: className, steps = 8, ...rest } = Astro.props
   }
 
   .calculator__left__grid {
+    flex-basis: 100%;
+    overflow: hidden;
   }
 
   .calculator__manager-wrapper {
@@ -253,6 +262,10 @@ const { class: className, steps = 8, ...rest } = Astro.props
   }
 
   .calculator__right__grid {
+    flex-basis: 100%;
+
+    overflow: hidden;
+
     margin-bottom: 7rem;
 
     @media (max-width: 768px) {
@@ -294,6 +307,12 @@ const { class: className, steps = 8, ...rest } = Astro.props
     border: 0.1rem solid var(--color-grayscale-300);
     color: var(--color-grayscale-400);
     user-select: none;
+
+    display: none;
+
+    .calculator:not([data-step='1']) & {
+      display: block;
+    }
   }
 
   .calculator__next-button {
@@ -330,11 +349,24 @@ const { class: className, steps = 8, ...rest } = Astro.props
     #stepInfoElements: Array<HTMLElement> = []
     #managerHintElement: HTMLElement | null = null
     #progressElement: ProgressElement | null = null
+    #currentInputElements: Array<HTMLInputElement> = []
 
     #stepCounter = 0
 
     public setStep(value: number) {
-      this.#stepCounter = clamp(value, 0, this.#stepElements.length - 1)
+      const newCounterValue = clamp(value, 0, this.#stepElements.length - 1)
+
+      if (
+        newCounterValue > this.#stepCounter &&
+        !this.#currentInputElements.every((el) => el.validity.valid)
+      ) {
+        this.#currentInputElements[0]?.reportValidity()
+        return
+      }
+
+      this.#stepCounter = newCounterValue
+
+      this.setAttribute('data-step', (this.#stepCounter + 1).toString())
 
       if (this.#stepCounter > 0) {
         this.#managerHintElement?.classList.add('inactive')
@@ -361,6 +393,10 @@ const { class: className, steps = 8, ...rest } = Astro.props
       const currentStepElement = this.#stepElements[this.#stepCounter]
 
       if (currentStepElement) {
+        this.#currentInputElements = [
+          ...currentStepElement.querySelectorAll('input'),
+        ]
+
         const name = currentStepElement.getAttribute('data-name')
 
         if (name && this.#stepNameElement) {

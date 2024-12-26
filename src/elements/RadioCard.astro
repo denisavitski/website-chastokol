@@ -1,0 +1,111 @@
+---
+import type { ImageDataProps } from './Image.astro'
+import Image from './Image.astro'
+
+export interface Props {
+  class?: string
+  image?: ImageDataProps
+  name?: string
+  value?: string
+  data?: { [key: string]: string }
+  required?: boolean
+}
+
+const {
+  class: className,
+  image = { src: '/images/catalog-item.png' },
+  name = 'radio-card',
+  value = 'Профнастил',
+  data,
+  required,
+  ...rest
+} = Astro.props
+---
+
+<label
+  {...rest}
+  class:list={[className, 'radio-card']}
+>
+  <input
+    type="radio"
+    class="radio-card__input visually-hidden"
+    {name}
+    {value}
+    {required}
+    {...data}
+  />
+
+  <span class="radio-card__content">
+    <Image
+      class="radio-card__image"
+      {...image}
+      lazy
+      lazyBackground
+      cover
+    />
+    <div
+      class="radio-card__name f-d-body-large-regular-16 f-m-body-basic-regular-14"
+      set:html={value}
+    />
+  </span>
+</label>
+
+<style is:global>
+  .radio-card {
+    width: 24.1rem;
+
+    position: relative;
+
+    display: inline-block;
+
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+      width: 13rem;
+    }
+  }
+
+  .radio-card__input {
+  }
+
+  .radio-card__content {
+  }
+
+  .radio-card__image {
+    width: 100%;
+    height: 24.1rem;
+
+    margin-bottom: 1.5rem;
+
+    border-radius: var(--border-radius);
+
+    background-color: var(--color-image-background);
+
+    border: 0.2rem solid transparent;
+
+    transition-property: border-color;
+    transition-duration: var(--duration-button);
+
+    .radio-card__input:checked ~ .radio-card__content & {
+      border-color: var(--color-primary-100);
+    }
+
+    @media (max-width: 768px) {
+      height: 13rem;
+
+      border-width: 0.1rem;
+    }
+  }
+
+  .radio-card__name {
+    display: block;
+    color: var(--color-grayscale-400);
+
+    transition-property: color;
+    transition-duration: var(--duration-button);
+
+    .radio-card__input:checked ~ .radio-card__content & {
+      color: var(--color-primary-100);
+    }
+  }
+</style>
