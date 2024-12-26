@@ -63,7 +63,7 @@ const {
     lazyBackground
     cover
     src={'/images/colors/1.jpg'}
-    class="color-options__image"
+    class="color-options__image filter-image"
     slot={'left'}
   />
 
@@ -193,32 +193,6 @@ const {
     height: 55.3rem;
 
     overflow: hidden;
-
-    img {
-      filter: grayscale(1) brightness(1.5);
-    }
-
-    &::after {
-      content: '';
-
-      position: absolute;
-      top: 0;
-      left: 0;
-
-      z-index: 1;
-
-      width: 100%;
-      height: 100%;
-
-      background-color: transparent;
-      mix-blend-mode: multiply;
-      pointer-events: none;
-
-      background-color: var(--picked-color);
-
-      transition-property: background-color;
-      transition-duration: var(--duration-button);
-    }
 
     @media (max-width: 768px) {
       width: 25.5rem;

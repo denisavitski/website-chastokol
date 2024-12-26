@@ -317,3 +317,35 @@ e-scroll.has-overflow.bullets {
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: var(--color-scrollbar-thumb);
 }
+
+.filter-image {
+  position: relative;
+
+  overflow: hidden;
+
+  img {
+    filter: grayscale(1) brightness(1.5);
+  }
+
+  &::after {
+    content: '';
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: transparent;
+    mix-blend-mode: multiply;
+    pointer-events: none;
+
+    background-color: var(--picked-color);
+
+    transition-property: background-color;
+    transition-duration: var(--duration-button);
+  }
+}

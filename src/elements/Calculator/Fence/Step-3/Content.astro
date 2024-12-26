@@ -29,7 +29,7 @@ const {
   type={'content'}
   name="Выберите цвет"
 >
-  <div class="calculator__color-options">
+  <e-calculator-colors class="calculator__color-options">
     {
       cards.map((card) => {
         return (
@@ -42,7 +42,7 @@ const {
         )
       })
     }
-  </div>
+  </e-calculator-colors>
 </CalculatorStep>
 
 <style is:global>
@@ -60,3 +60,49 @@ const {
     --checked-color: 250;
   }
 </style>
+
+<script>
+  import type { CalculatorElement } from '@elements/Calculator/Calculator.astro.0.mjs'
+
+  export class CalculatorColorsElement extends HTMLElement {
+    #colorInputElements: Array<HTMLInputElement> = []
+    #calculatorElement: CalculatorElement | null = null
+
+    protected connectedCallback() {
+      this.#calculatorElement = this.closest('e-calculator')
+
+      this.#colorInputElements = [
+        ...this.querySelectorAll<HTMLInputElement>('.color-option__input'),
+      ]
+
+      this.#colorInputElements.forEach((el) => {
+        el.addEventListener('change', this.#inputListener)
+      })
+    }
+
+    protected disconnectedCallback() {
+      this.#colorInputElements.forEach((el) => {
+        el.removeEventListener('change', this.#inputListener)
+      })
+    }
+
+    #inputListener = (e: Event) => {
+      const ct = e.currentTarget as HTMLInputElement
+
+      this.#calculatorElement?.style.setProperty(
+        '--picked-color',
+        ct.getAttribute('data-color'),
+      )
+    }
+  }
+
+  if (!customElements.get('e-calculator-colors')) {
+    customElements.define('e-calculator-colors', CalculatorColorsElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-calculator-colors': CalculatorColorsElement
+    }
+  }
+</script>
