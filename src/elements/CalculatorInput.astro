@@ -34,7 +34,7 @@ const Tag = tag === 'input' ? FormInput : FormSelect
     {
       info && (
         <e-calculator-input-info-button
-          target={info}
+          group={info}
           class="calculator-input__info-button"
           data-prevent-focus
         >
@@ -112,9 +112,9 @@ const Tag = tag === 'input' ? FormInput : FormSelect
           'change',
           this.#selectChangeListener,
         )
-
-        this.#changeModal()
       }
+
+      this.#changeModal()
     }
 
     protected override disconnectedCallback() {
@@ -129,15 +129,17 @@ const Tag = tag === 'input' ? FormInput : FormSelect
     #changeModal() {
       const oldPopover = this.popoverElement
 
-      const name = this.#selectElement?.name
+      const name = this.getAttribute('group')
+
+      console.log(this, name)
 
       if (name) {
-        let selector = `[data-group="${name}"]`
+        let selector = `[group="${name}"]`
 
         const value = this.#selectElement?.value
 
         if (value) {
-          const valueSelector = `${selector}[data-value="${value}"]`
+          const valueSelector = `${selector}[value="${value}"]`
 
           if (document.querySelector(valueSelector)) {
             selector = valueSelector

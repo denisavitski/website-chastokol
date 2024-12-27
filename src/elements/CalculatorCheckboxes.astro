@@ -1,0 +1,43 @@
+---
+import CheckboxButton, {
+  type Props as CheckboxButtonProps,
+} from './CheckboxButton.astro'
+
+export interface Props {
+  class?: string
+  checkboxes?: Array<CheckboxButtonProps>
+}
+
+const {
+  class: className,
+  checkboxes = [{ name: 'fence-installation', value: 'Установка' }],
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'calculator-checkboxes']}
+>
+  {
+    checkboxes.map((checkbox) => {
+      return <CheckboxButton {...checkbox} />
+    })
+  }
+</div>
+
+<style is:global>
+  .calculator-checkboxes {
+    display: flex;
+    gap: 5rem;
+
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 2rem;
+
+      margin-bottom: 4rem;
+    }
+  }
+</style>

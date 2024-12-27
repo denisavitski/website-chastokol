@@ -1,9 +1,41 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+import CalculatorCheckboxes from '@elements/CalculatorCheckboxes.astro'
+import CalculatorInput from '@elements/CalculatorInput.astro'
+import CalculatorInputs from '@elements/CalculatorInputs.astro'
 ---
 
 <CalculatorStep
   type={'content'}
   name="Требуются ли вам доп. услуги"
-  >CONTENT</CalculatorStep
 >
+  <div class="calculator__additional-services">
+    <CalculatorCheckboxes
+      checkboxes={[
+        {
+          name: 'fence-installation',
+          value: 'Установка',
+          checked: true,
+        },
+        {
+          name: 'fence-dismantling',
+          value: 'Демонтаж',
+        },
+        {
+          name: 'fence-delivery',
+          value: 'Доставка',
+        },
+      ]}
+    />
+
+    <CalculatorInputs>
+      <CalculatorInput
+        info="fence-mkad-distance"
+        label="Доставка, км. от МКАД"
+        name="fence-mkad-distance"
+        placeholder="Укажите удаленность"
+        required
+      />
+    </CalculatorInputs>
+  </div>
+</CalculatorStep>

@@ -1,0 +1,42 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+
+export interface Props extends HTMLAttributes<any> {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<e-popover
+  {...rest}
+  class:list={[className, 'calculator-popover']}
+>
+  <slot />
+</e-popover>
+
+<style is:global>
+  .calculator-popover {
+    grid-column: 1/1;
+    grid-row: 1/1;
+
+    --group: calculator-info;
+    --close-rest-in-group: true;
+
+    display: none;
+
+    transition-property: opacity;
+    transition-duration: var(--duration-button);
+    transition-timing-function: ease;
+
+    opacity: 0;
+
+    &.triggered {
+      display: block;
+    }
+
+    &.opened {
+      opacity: 1;
+    }
+  }
+</style>

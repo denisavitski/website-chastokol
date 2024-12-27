@@ -1,5 +1,6 @@
 ---
 import Billboard from './Billboard.astro'
+import CalculatorPopover from './CalculatorPopover.astro'
 import type { ImageDataProps } from './Image.astro'
 
 export interface Props {
@@ -18,9 +19,9 @@ const {
 const arrayImages = Array.isArray(images) ? images : [images]
 ---
 
-<e-popover
+<CalculatorPopover
   {...rest}
-  class:list={[className, 'calculator-image-info']}
+  class={`calculator-image-info ${className || ''}`}
 >
   <Billboard
     class="calculator-image-info__billboard"
@@ -31,33 +32,9 @@ const arrayImages = Array.isArray(images) ? images : [images]
     class="calculator__gaw-info__desc f-d-body-large-regular-16 f-m-footnote-regular-12"
     set:html={description}
   />
-</e-popover>
+</CalculatorPopover>
 
 <style is:global>
-  .calculator-image-info {
-    grid-column: 1/1;
-    grid-row: 1/1;
-
-    --group: calculator-info;
-    --close-rest-in-group: true;
-
-    display: none;
-
-    transition-property: opacity;
-    transition-duration: var(--duration-button);
-    transition-timing-function: ease;
-
-    opacity: 0;
-
-    &.triggered {
-      display: block;
-    }
-
-    &.opened {
-      opacity: 1;
-    }
-  }
-
   .calculator-image-info__billboard {
     --offset: 2rem;
 

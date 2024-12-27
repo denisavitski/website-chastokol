@@ -1,32 +1,13 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+import CalculatorTextInfo from '@elements/CalculatorTextInfo.astro'
 ---
 
 <CalculatorStep type={'info'}>
-  <div
-    class="calculator__material-info f-d-body-large-regular-16 f-m-footnote-regular-12"
-  >
-    <div
-      class="calculator__material-info__item"
-      set:html="С8 – стеновой профлист с высотой профиля 8 мм, ширина листа - 1200 мм, рабочая ширина - 1150 мм."
-    />
-    <div
-      class="calculator__material-info__item"
-      set:html="С20 - стеновой профлист с высотой профиля 20 мм, ширина листа 1150 мм, рабочая ширина - 1100 мм."
-    />
-  </div>
+  <CalculatorTextInfo
+    items={[
+      'С8 – стеновой профлист с высотой профиля 8 мм, ширина листа - 1200 мм, рабочая ширина - 1150 мм.',
+      'С20 - стеновой профлист с высотой профиля 20 мм, ширина листа 1150 мм, рабочая ширина - 1100 мм.',
+    ]}
+  />
 </CalculatorStep>
-
-<style is:global>
-  .calculator__material-info {
-    display: grid;
-    grid-auto-rows: max-content;
-    gap: 2rem;
-
-    margin-bottom: var(--info-margin);
-  }
-
-  .calculator__material-info__item {
-    color: var(--color-grayscale-400);
-  }
-</style>

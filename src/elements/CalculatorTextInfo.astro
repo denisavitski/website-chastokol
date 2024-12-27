@@ -1,0 +1,51 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import CalculatorPopover from './CalculatorPopover.astro'
+
+export interface Props extends HTMLAttributes<any> {
+  class?: string
+  items?: Array<string>
+  isPopover?: boolean
+}
+
+const {
+  class: className,
+  items = [
+    'С8 – стеновой профлист с высотой профиля 8 мм, ширина листа - 1200 мм, рабочая ширина - 1150 мм.',
+  ],
+  isPopover,
+  ...rest
+} = Astro.props
+
+const Tag = isPopover ? CalculatorPopover : 'div'
+---
+
+<Tag
+  {...rest}
+  class={`calculator-text-info f-d-body-large-regular-16 f-m-footnote-regular-12 ${className || ''}`}
+>
+  {
+    items.map((item) => {
+      return (
+        <div
+          class="calculator-text-info__item"
+          set:html={item}
+        />
+      )
+    })
+  }
+</Tag>
+
+<style is:global>
+  .calculator-text-info {
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 2rem;
+
+    margin-bottom: var(--info-margin);
+  }
+
+  .calculator-text-info__item {
+    color: var(--color-grayscale-400);
+  }
+</style>

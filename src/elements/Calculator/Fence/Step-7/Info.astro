@@ -1,5 +1,18 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+import CalculatorTextInfo from '@elements/CalculatorTextInfo.astro'
 ---
 
-<CalculatorStep type={'info'} />
+<CalculatorStep type={'info'}>
+  <CalculatorTextInfo
+    items={[
+      'Сроки и условия, установленные для поставки товара или оказания услуги в соответствии с договором.',
+    ]}
+  />
+
+  <CalculatorTextInfo
+    isPopover
+    group="fence-mkad-distance"
+    items={['Какое-то объяснение']}
+  />
+</CalculatorStep>
