@@ -127,19 +127,33 @@ const Tag = tag === 'input' ? FormInput : FormSelect
     }
 
     #changeModal() {
-      const opened = this.popoverElement?.opened
-      this.popoverElement?.close()
+      const oldPopover = this.popoverElement
 
       const name = this.#selectElement?.name
-      const value = this.#selectElement?.value
 
-      if (name && value) {
-        const selector = `[data-group="${name}"][data-value="${value}"]`
+      if (name) {
+        let selector = `[data-group="${name}"]`
+
+        const value = this.#selectElement?.value
+
+        if (value) {
+          const valueSelector = `${selector}[data-value="${value}"]`
+
+          if (document.querySelector(valueSelector)) {
+            selector = valueSelector
+          }
+        }
 
         this.changePopover(selector)
 
-        if (opened) {
-          this.popoverElement.open()
+        if (this.popoverElement) {
+          if (oldPopover?.opened) {
+            this.popoverElement.open()
+          }
+
+          if (this.popoverElement !== oldPopover) {
+            oldPopover?.close()
+          }
         }
       }
     }

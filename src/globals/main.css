@@ -242,6 +242,10 @@ e-scroll.has-overflow.bullets {
   margin-bottom: var(--section-bullets-padding);
 }
 
+.grid {
+  display: grid;
+}
+
 [data-white-background='true'] {
   background-color: var(--color-grayscale-0);
 }

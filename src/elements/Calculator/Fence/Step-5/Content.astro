@@ -1,9 +1,55 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+import CalculatorInput from '@elements/CalculatorInput.astro'
+import CalculatorInputs from '@elements/CalculatorInputs.astro'
 ---
 
 <CalculatorStep
   type={'content'}
   name="Заполните параметры"
-  >CONTENT</CalculatorStep
 >
+  <CalculatorInputs>
+    <CalculatorInput
+      label="Длина забора, м."
+      placeholder="Укажите длину забора"
+      name="fence-length"
+      required
+    />
+    <CalculatorInput
+      label="Высота забора, м."
+      placeholder="Укажите высоту забора"
+      name="fence-height"
+      required
+    />
+    <CalculatorInput
+      info="fence-posts"
+      label="Столбы"
+      placeholder="Укажите тип столбов"
+      name="fence-posts"
+      required
+      tag="select"
+      value="Квадратный профиль"
+      options={['Квадратный профиль', 'Треугольный профиль']}
+    />
+    <CalculatorInput
+      info="fence-logs"
+      label="Лаги"
+      placeholder="Укажите требуются ли лаги"
+      name="fence-logs"
+      required
+      tag="select"
+      value="Квадратный профиль"
+      options={['Требуются', 'Не требуются']}
+    />
+    <CalculatorInput
+      info="fence-depth"
+      label="Заглубление, м."
+      placeholder="Укажите заглубление"
+      name="fence-depth"
+      required
+      tag="select"
+      value="0,5"
+      options={['0,5', '1', '2']}
+    />
+  </CalculatorInputs>
+</CalculatorStep>

@@ -428,10 +428,9 @@ const { class: className, steps = 8, ...rest } = Astro.props
             })
 
           if (filterItems) {
-            const slicedStepsResult = this.#stepsResult.slice(
-              0,
-              this.#stepCounter,
-            )
+            const slicedStepsResult = this.#stepsResult
+              .slice(0, this.#stepCounter)
+              .filter((v) => !!v)
 
             const filterResult = filterItems.filter((filterItem) => {
               const stepItems = slicedStepsResult.find((step) => {

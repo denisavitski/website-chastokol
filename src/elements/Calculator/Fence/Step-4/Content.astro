@@ -1,57 +1,48 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
 import CalculatorInput from '@elements/CalculatorInput.astro'
+import CalculatorInputs from '@elements/CalculatorInputs.astro'
 ---
 
 <CalculatorStep
   type={'content'}
   name="Ворота и калитки"
-  ><div class="calculator__gaw">
+>
+  <CalculatorInputs>
     <CalculatorInput
       label="Кол-во ворот"
       placeholder="Укажите количество ворот"
-      name="gates-amount"
+      name="fence-gates-amount"
       required
     />
 
     <CalculatorInput
-      info="gates-type"
+      info="fence-gates-type"
       label="Тип ворот"
       placeholder="Укажите тип ворот"
-      name="gates-type"
+      name="fence-gates-type"
       required
       tag="select"
+      value="Откатные"
       options={['Откатные', 'Распашные']}
     />
 
     <CalculatorInput
       label="Кол-во калиток"
       placeholder="Укажите количество калиток"
-      name="wickets-amount"
+      name="fence-wickets-amount"
       required
     />
 
     <CalculatorInput
-      info="wickets-type"
+      info="fence-wickets-type"
       label="Тип калиток"
       placeholder="Укажите тип калиток"
-      name="wickets-type"
+      name="fence-wickets-type"
       required
       tag="select"
+      value="Глухая"
       options={['Глухая', 'Не глухая']}
     />
-  </div></CalculatorStep
->
-
-<style is:global>
-  .calculator__gaw {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4.9rem 5.5rem;
-
-    @media (max-width: 768px) {
-      grid-template-columns: 100%;
-      gap: 3rem;
-    }
-  }
-</style>
+  </CalculatorInputs>
+</CalculatorStep>

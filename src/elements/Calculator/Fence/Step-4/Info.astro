@@ -1,116 +1,48 @@
 ---
-import Billboard from '@elements/Billboard.astro'
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+import CalculatorImageInfo from '@elements/CalculatorImageInfo.astro'
 ---
 
 <CalculatorStep type={'info'}>
-  <div class="calculator__gaw-info">
-    <div class="calculator__gaw-info__billboards">
-      <e-popover
-        data-group="gates-type"
-        data-value="Распашные"
-      >
-        <Billboard class="calculator__gaw-info__billboard" />
+  <div class="calculator__gaw-info grid">
+    <CalculatorImageInfo
+      data-group="fence-gates-type"
+      data-value="Распашные"
+      description="Распашные ворота"
+      images={[
+        { src: '/images/catalog-item.png' },
+        { src: '/images/categories/intro.jpg' },
+      ]}
+    />
 
-        <div
-          class="calculator__gaw-info__desc f-d-body-large-regular-16 f-m-footnote-regular-12"
-          set:html="Распашные ворота"
-        />
-      </e-popover>
-      <e-popover
-        data-group="gates-type"
-        data-value="Откатные"
-      >
-        <Billboard class="calculator__gaw-info__billboard" />
+    <CalculatorImageInfo
+      data-group="fence-gates-type"
+      data-value="Откатные"
+      description="Откатные ворота"
+      images={[
+        { src: '/images/catalog-item.png' },
+        { src: '/images/categories/intro.jpg' },
+      ]}
+    />
 
-        <div
-          class="calculator__gaw-info__desc f-d-body-large-regular-16 f-m-footnote-regular-12"
-          set:html="Откатные ворота"
-        />
-      </e-popover>
-      <e-popover
-        data-group="wickets-type"
-        data-value="Глухая"
-      >
-        <Billboard class="calculator__gaw-info__billboard" />
+    <CalculatorImageInfo
+      data-group="fence-wickets-type"
+      data-value="Глухая"
+      description="Глухая"
+      images={[
+        { src: '/images/catalog-item.png' },
+        { src: '/images/categories/intro.jpg' },
+      ]}
+    />
 
-        <div
-          class="calculator__gaw-info__desc f-d-body-large-regular-16 f-m-footnote-regular-12"
-          set:html="Глухая"
-        />
-      </e-popover>
-      <e-popover
-        data-group="wickets-type"
-        data-value="Не глухая"
-      >
-        <Billboard class="calculator__gaw-info__billboard" />
-
-        <div
-          class="calculator__gaw-info__desc f-d-body-large-regular-16 f-m-footnote-regular-12"
-          set:html="Не глухая"
-        />
-      </e-popover>
-    </div>
+    <CalculatorImageInfo
+      data-group="fence-wickets-type"
+      data-value="Не глухая"
+      description="Не глухая"
+      images={[
+        { src: '/images/catalog-item.png' },
+        { src: '/images/categories/intro.jpg' },
+      ]}
+    />
   </div>
 </CalculatorStep>
-
-<style is:global>
-  .calculator__gaw-info {
-  }
-
-  .calculator__gaw-info__billboards {
-    display: grid;
-
-    e-popover {
-      --group: calculator-info;
-      --close-rest-in-group: true;
-
-      grid-column: 1/1;
-      grid-row: 1/1;
-
-      display: none;
-
-      transition-property: opacity;
-      transition-duration: var(--duration-button);
-      transition-timing-function: ease;
-
-      opacity: 0;
-
-      &.triggered {
-        display: block;
-      }
-
-      &.opened {
-        opacity: 1;
-      }
-    }
-  }
-
-  .calculator__gaw-info__billboard {
-    --offset: 2rem;
-
-    width: 100%;
-    height: 24rem;
-
-    margin-bottom: 2rem;
-
-    @media (max-width: 768px) {
-      --offset: 1.5rem;
-
-      height: 18rem;
-      margin-bottom: 1.5rem;
-    }
-
-    .billboard__buton {
-      --slider-button-size: 2.8rem;
-
-      @media (max-width: 768px) {
-        --slider-button-size: 2.4rem;
-      }
-    }
-  }
-
-  .calculator__gaw-info__desc {
-    color: var(--color-grayscale-400);
-  }
-</style>

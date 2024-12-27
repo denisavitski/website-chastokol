@@ -1,5 +1,32 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+import CalculatorImageInfo from '@elements/CalculatorImageInfo.astro'
 ---
 
-<CalculatorStep type={'info'} />
+<CalculatorStep type={'info'}>
+  <div class="calculator__gaw-info grid">
+    <CalculatorImageInfo
+      data-group="fence-posts"
+      description="Столбы – это несущий компонент конструкции. Обеспечивают жёсткость и устойчивость."
+      images={{
+        src: '/images/categories/intro.jpg',
+      }}
+    />
+
+    <CalculatorImageInfo
+      data-group="fence-logs"
+      description="Лаги – это несущий компонент конструкции. Обеспечивают жёсткость и устойчивость."
+      images={{
+        src: '/images/categories/intro.jpg',
+      }}
+    />
+
+    <CalculatorImageInfo
+      data-group="fence-depth"
+      description="Заглубление – это несущий компонент конструкции. Обеспечивают жёсткость и устойчивость."
+      images={{
+        src: '/images/categories/intro.jpg',
+      }}
+    />
+  </div>
+</CalculatorStep>
