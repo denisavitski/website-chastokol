@@ -1,5 +1,30 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+import CalculatorImageInfo from '@elements/CalculatorImageInfo.astro'
 ---
 
-<CalculatorStep type={'info'} />
+<CalculatorStep type={'info'}>
+  <div class="calculator__gaw-info grid">
+    <CalculatorImageInfo
+      data-group="fence-basement-part"
+      description="Цокольная часть"
+      images={{
+        src: '/images/categories/intro.jpg',
+      }}
+    />
+    <CalculatorImageInfo
+      data-group="fence-strengthening"
+      description="Усиление столбов"
+      images={{
+        src: '/images/categories/intro.jpg',
+      }}
+    />
+    <CalculatorImageInfo
+      data-group="fence-support-pillars"
+      description="Опорные стобы"
+      images={{
+        src: '/images/categories/intro.jpg',
+      }}
+    />
+  </div>
+</CalculatorStep>

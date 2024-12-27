@@ -1,7 +1,6 @@
 ---
 import Billboard from './Billboard.astro'
 import type { ImageDataProps } from './Image.astro'
-import Image from './Image.astro'
 
 export interface Props {
   class?: string
@@ -15,28 +14,18 @@ const {
   description = 'Распашные ворота',
   ...rest
 } = Astro.props
+
+const arrayImages = Array.isArray(images) ? images : [images]
 ---
 
 <e-popover
   {...rest}
   class:list={[className, 'calculator-image-info']}
 >
-  {
-    Array.isArray(images) ? (
-      <Billboard
-        class="calculator-image-info__billboard"
-        images={images}
-      />
-    ) : (
-      <Image
-        {...images}
-        lazy
-        lazyBackground
-        cover
-        class="calculator-image-info__billboard"
-      />
-    )
-  }
+  <Billboard
+    class="calculator-image-info__billboard"
+    images={arrayImages}
+  />
 
   <div
     class="calculator__gaw-info__desc f-d-body-large-regular-16 f-m-footnote-regular-12"
