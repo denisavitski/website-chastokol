@@ -1,11 +1,11 @@
 ---
 import FormInput, { type Props as FormInputProps } from './FormInput.astro'
-import FormSelect from './FormSelect.astro'
+import FormSelect, { type Props as FormSelectProps } from './FormSelect.astro'
 import Info from './Info.astro'
 
 export const backgroundColor = 'white'
 
-export interface Props extends FormInputProps {
+export interface Props extends FormInputProps, FormSelectProps {
   class?: string
   label?: string
   info?: string
@@ -16,7 +16,7 @@ const {
   class: className,
   label = 'Кол-во ворот',
   info = 'asdas',
-  tag = 'select',
+  tag = 'input',
   ...rest
 } = Astro.props
 

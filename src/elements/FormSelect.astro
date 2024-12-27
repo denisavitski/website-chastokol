@@ -17,9 +17,9 @@ const {
 <FormInput
   {...rest}
   class:list={[className, 'form-select']}
-  disabled
   tag="e-form-select"
-  tabindex="0"
+  readonly
+  autocompleteOff
 >
   <slot
     name="top"
@@ -31,7 +31,10 @@ const {
     class="form-select__icon"
   />
 
-  <div class="form-select__options">
+  <div
+    class="form-select__options"
+    slot="after"
+  >
     {
       options.map((option) => {
         return (
@@ -133,7 +136,7 @@ const {
 
 <script>
   import { ClassLinkedStatus } from 'aptechka/class-linked-status'
-  import { requestIdleCallback } from 'aptechka/utils'
+  import { debounce } from 'aptechka/utils'
 
   export class FormSelectElement extends HTMLElement {
     #inputElement: HTMLInputElement | null = null
@@ -143,33 +146,8 @@ const {
     constructor() {
       super()
 
-      const clickOutside = () => {
-        this.#status.set('opened', false)
-      }
-
-      const toggle = () => {
-        const opened = this.#status.isTrue('opened')
-
-        this.#status.set('opened', !opened)
-
-        if (!opened) {
-          requestIdleCallback(() => {
-            addEventListener('click', clickOutside, { once: true })
-          })
-        } else {
-          removeEventListener('click', clickOutside)
-        }
-      }
-
-      this.addEventListener('click', () => {
-        toggle()
-      })
-
-      this.addEventListener('keyup', (e) => {
-        if (e.code === 'Space') {
-          toggle()
-        }
-      })
+      this.addEventListener('focusin', this.#focusListener)
+      this.addEventListener('focusout', this.#blurListener)
     }
 
     public get value() {
@@ -201,6 +179,7 @@ const {
       ]
 
       this.#optionElements.forEach((element) => {
+        element.addEventListener('focus', this.#optionFocusListener)
         element.addEventListener('click', this.#optionListener)
       })
 
@@ -223,8 +202,29 @@ const {
 
       if (value) {
         this.value = value
+        this.#toggle(false)
       }
     }
+
+    #focusListener = () => {
+      this.#debouncedToggle(true)
+    }
+
+    #blurListener = () => {
+      this.#debouncedToggle(false)
+    }
+
+    #optionFocusListener = () => {
+      this.#toggle(true)
+    }
+
+    #toggle = (open: boolean) => {
+      this.#status.set('opened', open)
+    }
+
+    #debouncedToggle = debounce((open: boolean) => {
+      this.#toggle(open)
+    }, 0)
   }
 
   if (!customElements.get('e-form-select')) {

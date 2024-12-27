@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "aptechka": "^0.50.8",
+    "astro-merge-assets": "^0.1.2",
     "construct-style-sheets-polyfill": "^3.1.0"
   }
 }

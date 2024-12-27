@@ -365,7 +365,7 @@ const { class: className, steps = 8, ...rest } = Astro.props
         )
       ) {
         const firstVisible = this.#currentInputElements.find((el) => {
-          return el.checkVisibility()
+          return el.checkVisibility() && !el.validity.valid
         })
 
         firstVisible?.reportValidity()

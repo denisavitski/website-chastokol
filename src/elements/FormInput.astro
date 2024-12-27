@@ -8,10 +8,10 @@ export interface Props extends HTMLAttributes<any> {
   placeholder?: string
   required?: boolean
   theme?: 'gray' | 'white'
-  disabled?: boolean
   value?: string
   tag?: string
   type?: JSX.InputHTMLAttributes['type']
+  autocompleteOff?: boolean
 }
 
 const {
@@ -19,11 +19,12 @@ const {
   name,
   placeholder,
   required,
-  disabled,
+  readonly,
   value,
   theme,
   tag = 'label',
   type,
+  autocompleteOff,
   ...rest
 } = Astro.props
 
@@ -47,8 +48,11 @@ const Tag = tag
       {value}
       {placeholder}
       {required}
-      {disabled}
+      autocomplete={autocompleteOff ? 'off' : undefined}
+      onkeypress={readonly ? 'return false;' : undefined}
     />
+
+    <slot name="after" />
   </span>
 </Tag>
 

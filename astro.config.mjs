@@ -1,6 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config'
-import { astroMergeAssets } from './astroMergeAssets'
+import { astroMergeAssets } from 'astro-merge-assets'
 import { loadEnv } from 'vite'
 // import { rm } from 'fs/promises'
 
