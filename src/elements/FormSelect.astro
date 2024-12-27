@@ -20,6 +20,7 @@ const {
   tag="e-form-select"
   readonly
   autocompleteOff
+  tabindex="0"
 >
   <slot
     name="top"
@@ -206,8 +207,12 @@ const {
       }
     }
 
-    #focusListener = () => {
-      this.#debouncedToggle(true)
+    #focusListener = (e: Event) => {
+      const target = e.target as HTMLElement
+
+      if (!target.closest('[data-prevent-focus]')) {
+        this.#debouncedToggle(true)
+      }
     }
 
     #blurListener = () => {

@@ -5,11 +5,24 @@ import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
 
 <CalculatorStep type={'info'}>
   <div class="calculator__gaw-info">
-    <Billboard class="calculator__gaw-info__billboard" />
-    <div
-      class="calculator__gaw-info__desc f-d-body-large-regular-16 f-m-footnote-regular-12"
-      set:html="Распашные ворота"
-    />
+    <div class="calculator__gaw-info__billboards">
+      <e-popover id="gates-type">
+        <Billboard class="calculator__gaw-info__billboard" />
+
+        <div
+          class="calculator__gaw-info__desc f-d-body-large-regular-16 f-m-footnote-regular-12"
+          set:html="Распашные ворота"
+        />
+      </e-popover>
+      <e-popover id="wickets-type">
+        <Billboard class="calculator__gaw-info__billboard" />
+
+        <div
+          class="calculator__gaw-info__desc f-d-body-large-regular-16 f-m-footnote-regular-12"
+          set:html="Распашные калитки"
+        />
+      </e-popover>
+    </div>
   </div>
 </CalculatorStep>
 
@@ -17,15 +30,52 @@ import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
   .calculator__gaw-info {
   }
 
-  .calculator__gaw-info__billboard {
-    --offset: 2rem;
+  .calculator__gaw-info__billboards {
+    display: grid;
 
     height: 24rem;
     margin-bottom: 2rem;
 
+    e-popover {
+      --group: calculator-info;
+      --close-rest-in-group: true;
+
+      grid-column: 1/1;
+      grid-row: 1/1;
+
+      display: none;
+
+      transition-property: opacity;
+      transition-duration: var(--duration-button);
+      transition-timing-function: ease;
+
+      opacity: 0;
+
+      &.triggered {
+        display: block;
+      }
+
+      &.opened {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      height: 18rem;
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  .calculator__gaw-info__billboard {
+    --offset: 2rem;
+
+    width: 100%;
+    height: 100%;
+
+    margin-bottom: 2rem;
+
     @media (max-width: 768px) {
       --offset: 1.5rem;
-      height: 18rem;
       margin-bottom: 1.5rem;
     }
 
