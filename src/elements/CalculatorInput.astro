@@ -33,7 +33,7 @@ const Tag = tag === 'input' ? FormInput : FormSelect
   >
     {
       info && (
-        <e-popover-button
+        <e-calculator-input-info-button
           target={info}
           class="calculator-input__info-button"
           data-prevent-focus
@@ -42,7 +42,7 @@ const Tag = tag === 'input' ? FormInput : FormSelect
             name={'info'}
             class="calculator-input__info-button__icon"
           />
-        </e-popover-button>
+        </e-calculator-input-info-button>
       )
     }
     <span
@@ -92,3 +92,73 @@ const Tag = tag === 'input' ? FormInput : FormSelect
     }
   }
 </style>
+
+<script>
+  import { PopoverButtonElement } from 'aptechka/popover'
+  import type { FormSelectElement } from './FormSelect.astro.0.mts'
+
+  export class CalculatorInputInfoButtonElement extends PopoverButtonElement {
+    #selectElement: FormSelectElement | null = null
+
+    protected override connectedCallback() {
+      super.connectedCallback()
+
+      const wrapperElement = this.closest('.calculator-input')
+
+      if (wrapperElement?.tagName === 'E-FORM-SELECT') {
+        this.#selectElement = wrapperElement as FormSelectElement
+
+        this.#selectElement.addEventListener(
+          'change',
+          this.#selectChangeListener,
+        )
+
+        this.#changeModal()
+      }
+    }
+
+    protected override disconnectedCallback() {
+      super.disconnectedCallback()
+
+      this.#selectElement?.removeEventListener(
+        'change',
+        this.#selectChangeListener,
+      )
+    }
+
+    #changeModal() {
+      const opened = this.popoverElement?.opened
+      this.popoverElement?.close()
+
+      const name = this.#selectElement?.name
+      const value = this.#selectElement?.value
+
+      if (name && value) {
+        const selector = `[data-group="${name}"][data-value="${value}"]`
+
+        this.changePopover(selector)
+
+        if (opened) {
+          this.popoverElement.open()
+        }
+      }
+    }
+
+    #selectChangeListener = () => {
+      this.#changeModal()
+    }
+  }
+
+  if (!customElements.get('e-calculator-input-info-button')) {
+    customElements.define(
+      'e-calculator-input-info-button',
+      CalculatorInputInfoButtonElement,
+    )
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-calculator-input-info-button': CalculatorInputInfoButtonElement
+    }
+  }
+</script>

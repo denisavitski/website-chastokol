@@ -155,6 +155,10 @@ const {
       return this.#inputElement?.value
     }
 
+    public get name() {
+      return this.#inputElement?.name
+    }
+
     public set value(value: string | undefined) {
       this.#optionElements.forEach((element) => {
         const elementValue = element.getAttribute('data-value')

@@ -48,5 +48,10 @@ import CalculatorInput from '@elements/CalculatorInput.astro'
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 4.9rem 5.5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 100%;
+      gap: 3rem;
+    }
   }
 </style>

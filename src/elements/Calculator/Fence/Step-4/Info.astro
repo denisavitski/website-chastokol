@@ -6,7 +6,10 @@ import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
 <CalculatorStep type={'info'}>
   <div class="calculator__gaw-info">
     <div class="calculator__gaw-info__billboards">
-      <e-popover id="gates-type">
+      <e-popover
+        data-group="gates-type"
+        data-value="Распашные"
+      >
         <Billboard class="calculator__gaw-info__billboard" />
 
         <div
@@ -14,12 +17,37 @@ import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
           set:html="Распашные ворота"
         />
       </e-popover>
-      <e-popover id="wickets-type">
+      <e-popover
+        data-group="gates-type"
+        data-value="Откатные"
+      >
         <Billboard class="calculator__gaw-info__billboard" />
 
         <div
           class="calculator__gaw-info__desc f-d-body-large-regular-16 f-m-footnote-regular-12"
-          set:html="Распашные калитки"
+          set:html="Откатные ворота"
+        />
+      </e-popover>
+      <e-popover
+        data-group="wickets-type"
+        data-value="Глухая"
+      >
+        <Billboard class="calculator__gaw-info__billboard" />
+
+        <div
+          class="calculator__gaw-info__desc f-d-body-large-regular-16 f-m-footnote-regular-12"
+          set:html="Глухая"
+        />
+      </e-popover>
+      <e-popover
+        data-group="wickets-type"
+        data-value="Не глухая"
+      >
+        <Billboard class="calculator__gaw-info__billboard" />
+
+        <div
+          class="calculator__gaw-info__desc f-d-body-large-regular-16 f-m-footnote-regular-12"
+          set:html="Не глухая"
         />
       </e-popover>
     </div>
@@ -32,9 +60,6 @@ import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
 
   .calculator__gaw-info__billboards {
     display: grid;
-
-    height: 24rem;
-    margin-bottom: 2rem;
 
     e-popover {
       --group: calculator-info;
@@ -59,23 +84,20 @@ import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
         opacity: 1;
       }
     }
-
-    @media (max-width: 768px) {
-      height: 18rem;
-      margin-bottom: 1.5rem;
-    }
   }
 
   .calculator__gaw-info__billboard {
     --offset: 2rem;
 
     width: 100%;
-    height: 100%;
+    height: 24rem;
 
     margin-bottom: 2rem;
 
     @media (max-width: 768px) {
       --offset: 1.5rem;
+
+      height: 18rem;
       margin-bottom: 1.5rem;
     }
 
