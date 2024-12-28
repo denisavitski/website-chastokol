@@ -1,15 +1,16 @@
 ---
 export interface Props {
-  class?: string
-  placeholder?: string
-  name?: string
-  value?: string
-  label?: string
-  type?: 'text' | 'select'
-  options?: Array<string>
-  info?: string
-  required?: boolean
-  theme?: 'white' | 'grey' | 'lightgrey'
+  class?: string | undefined
+  placeholder?: string | undefined
+  name?: string | undefined
+  value?: string | undefined
+  label?: string | undefined
+  type?: 'text' | 'select' | undefined
+  options?: Array<string> | undefined
+  info?: string | undefined
+  required?: boolean | undefined
+  theme?: 'white' | 'grey' | 'lightgrey' | undefined
+  reportValidityTextField?: boolean
 }
 
 const { class: className, ...rest } = Astro.props
@@ -67,7 +68,9 @@ const { class: className, ...rest } = Astro.props
 
     @media (max-width: 768px) {
       .info {
-        top: 0.1rem;
+        width: 1.4rem;
+        height: 1.4rem;
+        top: 0.2rem;
       }
     }
 
@@ -96,12 +99,25 @@ const { class: className, ...rest } = Astro.props
       margin-left: 3.5rem;
     }
 
+    @media (max-width: 768px) {
+      .name {
+        font-size: 1.4rem;
+        line-height: 125%;
+        font-weight: 500;
+        margin-bottom: 1rem;
+      }
+
+      :host(.has-info) .name {
+        margin-left: 2.4rem;
+      }
+    }
+
     .main {
       position: relative;
       display: block;
     }
 
-    input {
+    .main-input {
       box-sizing: border-box;
 
       font-size: 1.6rem;
@@ -116,27 +132,38 @@ const { class: className, ...rest } = Astro.props
 
       border-radius: var(--border-radius, 1.5rem);
       border: none;
-     
-    }
 
-    :host([theme="white"]) input {
       background-color: var(--color-grayscale-0);
     }
 
-    :host([theme="grey"]) input {
+    :host([theme="white"]) .main-input {
+      background-color: var(--color-grayscale-0);
+    }
+
+    :host([theme="grey"]) .main-input {
       background-color: var(--color-grayscale-200);
     }
 
-    :host([theme="lightgrey"]) input {
+    :host([theme="lightgrey"]) .main-input {
       background-color: var(--color-grayscale-100);
     }
 
-    input::placeholder {
+    .main-input::placeholder {
       color: var(--color-grayscale-400);
     }
 
-    input:disabled {
+    .main-input:disabled {
       pointer-events: none;
+    }
+
+    @media (max-width: 768px) {
+      .main-input {
+        font-size: 1.4rem;
+        line-height: 125%;
+        font-weight: 500;
+
+        border-radius: var(--border-radius, 1.2rem);
+      }
     }
 
     .icons {
@@ -151,10 +178,23 @@ const { class: className, ...rest } = Astro.props
       gap: 1rem;
     }
 
+    @media (max-width: 768px) {
+      .icons  {
+        gap: 0.5rem;
+      }
+    }
+
     .validity-icons {
       display: grid;
       width: 1.7rem;
       height: 1.7rem;
+    }
+
+    @media (max-width: 768px) {
+      .validity-icons  {
+        width: 1.4rem;
+        height: 1.4rem;
+      }
     }
 
     .invalid-icon,
@@ -194,6 +234,13 @@ const { class: className, ...rest } = Astro.props
 
       stroke: var(--color-grayscale-700);
       fill: none;
+    }
+
+     @media (max-width: 768px) {
+      .select-icon  {
+        width: 1.6rem;
+        height: 1.6rem;
+      }
     }
 
     :host(.opened) .select-icon {
@@ -275,20 +322,18 @@ const { class: className, ...rest } = Astro.props
 
       background-color: var(--color-grayscale-300);
     }
-
-    @media (max-width: 768px) {
-      .main-input {
-        border-radius: var(--border-radius, 1.2rem);
-      }
-    }
   `)
 
   export class InputElement extends HTMLElement {
+    static formAssociated = true
+
     #labelElement: HTMLElement | null
     #infoButtonElement: PopoverButtonElement | null
     #mainInputElement: HTMLInputElement
-    #errorElement: HTMLElement
+    #errorElement: HTMLElement | null
+    #optionsElement: HTMLElement | null
     #optionElements: Array<HTMLElement>
+    #internals: ElementInternals
 
     constructor() {
       super()
@@ -296,7 +341,7 @@ const { class: className, ...rest } = Astro.props
       const shadow = this.attachShadow({ mode: 'open' })
       shadow.adoptedStyleSheets = [...shadow.adoptedStyleSheets, stylesheet]
 
-      this.attachInternals()
+      this.#internals = this.attachInternals()
 
       const placeholder = this.getAttribute('placeholder')
       const name = this.getAttribute('name')
@@ -310,6 +355,9 @@ const { class: className, ...rest } = Astro.props
       const onkeypress = type === 'select' ? 'return false;' : ''
       const info = this.getAttribute('info')
       const required = this.hasAttribute('required')
+      const reportValidityTextField = this.hasAttribute(
+        'reportValidityTextField',
+      )
 
       this.classList.toggle('has-info', !!info)
 
@@ -361,7 +409,8 @@ const { class: className, ...rest } = Astro.props
               </span>
             </span>
 
-            <span class="error"></span>
+            ${reportValidityTextField ? `<span class="error"></span>` : ''}
+            
 
             ${
               type === 'select' && options
@@ -383,6 +432,7 @@ const { class: className, ...rest } = Astro.props
       this.#infoButtonElement = shadow.querySelector('e-popover-button')
       this.#labelElement = shadow.querySelector('label')!
       this.#mainInputElement = shadow.querySelector('.main-input')!
+      this.#optionsElement = shadow.querySelector('.options')
       this.#optionElements = [
         ...shadow.querySelectorAll<HTMLElement>('.option'),
       ]
@@ -395,6 +445,8 @@ const { class: className, ...rest } = Astro.props
         this.reportValidity()
       }
 
+      this.#updateInternals()
+
       if (type === 'select') {
         this.#labelElement.addEventListener('focusin', this.#focusListener)
         this.#labelElement.addEventListener('focusout', this.#blurListener)
@@ -405,6 +457,14 @@ const { class: className, ...rest } = Astro.props
 
         this.#checkSelectOptions()
       }
+
+      this.addEventListener('focus', () => {
+        this.#mainInputElement.focus()
+      })
+
+      this.addEventListener('blur', () => {
+        this.#mainInputElement.blur()
+      })
     }
 
     public get value() {
@@ -413,6 +473,10 @@ const { class: className, ...rest } = Astro.props
 
     public get name() {
       return this.#mainInputElement.name
+    }
+
+    public get required() {
+      return this.#mainInputElement.required
     }
 
     public get validity() {
@@ -426,7 +490,10 @@ const { class: className, ...rest } = Astro.props
     public reportValidity() {
       const valid = this.#mainInputElement.checkValidity()
 
-      this.#errorElement.textContent = this.#mainInputElement.validationMessage
+      if (this.#errorElement) {
+        this.#errorElement.textContent =
+          this.#mainInputElement.validationMessage
+      }
 
       if (valid) {
         this.classList.remove('invalid')
@@ -443,6 +510,8 @@ const { class: className, ...rest } = Astro.props
           this.#changeInfoModal()
         }
       })
+
+      this.setAttribute('tabindex', '0')
     }
 
     protected disconnectedCallback() {}
@@ -497,6 +566,13 @@ const { class: className, ...rest } = Astro.props
 
     #toggleSelect = (open: boolean) => {
       this.classList.toggle('opened', open)
+
+      if (open) {
+        this.#optionsElement?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+        })
+      }
     }
 
     #debouncedToggleSelect = debounce((open: boolean) => {
@@ -519,6 +595,14 @@ const { class: className, ...rest } = Astro.props
       }
     }
 
+    #updateInternals() {
+      this.#internals.setFormValue(this.#mainInputElement.value)
+      this.#internals.setValidity(
+        this.#mainInputElement.validity,
+        this.#mainInputElement.validationMessage,
+      )
+    }
+
     #focusListener = () => {
       this.#debouncedToggleSelect(true)
     }
@@ -528,6 +612,7 @@ const { class: className, ...rest } = Astro.props
     }
 
     #mainInputListener = () => {
+      this.#updateInternals()
       this.reportValidity()
     }
   }

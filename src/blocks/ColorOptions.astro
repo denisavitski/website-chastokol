@@ -1,8 +1,8 @@
 ---
 import Button from '@elements/Button.astro'
 import ColorOption from '@elements/ColorOption.astro'
-import FormSelect from '@elements/FormSelect.astro'
 import Image from '@elements/Image.astro'
+import Input from '@elements/Input.astro'
 import SliderButton from '@elements/SliderButton.astro'
 import TwoSides from '@elements/TwoSides.astro'
 
@@ -80,11 +80,12 @@ const {
         class="color-options__category-pick__title f-d-body-large-medium-16 f-m-body-basic-regular-14"
         set:html="Выберите категорию:"
       />
-      <FormSelect
+      <Input
         class="color-options__category-pick__input"
         options={categories.map((category) => category.name)}
         value={categories[0]?.name}
-        theme={'gray'}
+        type={'select'}
+        theme={'grey'}
       />
     </div>
     <div class="color-options__categories">
@@ -405,7 +406,7 @@ const {
 </style>
 
 <script>
-  import type { FormSelectElement } from '@elements/FormSelect.astro.0.mjs'
+  import type { InputElement } from '@elements/Input.astro.0.mjs'
 
   export interface ColorOptionsPickedColor {
     name: string
@@ -414,7 +415,7 @@ const {
   }
 
   export class ColorOptionsElement extends HTMLElement {
-    #categorySelectElement: FormSelectElement | null = null
+    #categorySelectElement: InputElement | null = null
     #categoriesElement: HTMLElement | null = null
     #categoryElements: Array<HTMLElement> = []
     #optionElements: Array<HTMLElement> = []

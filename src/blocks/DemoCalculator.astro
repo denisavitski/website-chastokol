@@ -2,8 +2,7 @@
 import Button from '@elements/Button.astro'
 import Explanation from '@elements/Explanation.astro'
 import FormAgreement from '@elements/FormAgreement.astro'
-import FormInput from '@elements/FormInput.astro'
-import FormSelect from '@elements/FormSelect.astro'
+import Input from '@elements/Input.astro'
 import PriceRange from '@elements/PriceRange.astro'
 import TwoSides from '@elements/TwoSides.astro'
 
@@ -25,30 +24,43 @@ export interface Props {}
 
     <form class="demo-calculator__form">
       <div class="demo-calculator__form__inputs">
-        <FormInput
+        <Input
           name="Длина"
           placeholder="Длина"
           class="demo-calculator__form__input-1"
+          required
+          theme={'white'}
         />
-        <FormInput
+        <Input
           name="Высота"
           placeholder="Высота"
           class="demo-calculator__form__input-2"
+          required
+          theme={'white'}
         />
-        <FormInput
+        <Input
           name="Количество ворот"
           placeholder="Количество ворот"
           class="demo-calculator__form__input-3"
+          required
+          theme={'white'}
         />
-        <FormInput
+        <Input
           name="Количество калиток"
           placeholder="Количество калиток"
           class="demo-calculator__form__input-4"
+          required
+          theme={'white'}
         />
-        <FormSelect
+        <Input
+          type="select"
           name="Материал конструкции"
           placeholder="Материал конструкции"
           class="demo-calculator__form__input-5"
+          required
+          theme={'white'}
+          options={['Материал 1', 'Материал 2']}
+          reportValidityTextField
         />
       </div>
       <FormAgreement class="demo-calculator__form__agreement" />
