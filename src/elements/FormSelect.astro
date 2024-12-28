@@ -26,6 +26,11 @@ const {
     slot="top"
   />
 
+  <slot
+    name="outside-label"
+    slot="outside-label"
+  />
+
   <Icon
     name={'arrow-down'}
     class="form-select__icon"
@@ -73,7 +78,7 @@ const {
 
     transform: translateY(-50%);
 
-    .form-select.opened & {
+    .form-input__inner.opened & {
       transform: translateY(-50%) scaleY(-1);
       stroke: var(--color-primary-100);
     }
@@ -96,7 +101,7 @@ const {
     border: 0.1rem solid var(--color-primary-100);
     background-color: var(--color-grayscale-0);
 
-    .form-select.opened & {
+    .form-input__inner.opened & {
       display: grid;
     }
   }
@@ -209,12 +214,8 @@ const {
       }
     }
 
-    #focusListener = (e: Event) => {
-      const target = e.target as HTMLElement
-
-      if (!target.closest('[data-prevent-focus]')) {
-        this.#debouncedToggle(true)
-      }
+    #focusListener = () => {
+      this.#debouncedToggle(true)
     }
 
     #blurListener = () => {

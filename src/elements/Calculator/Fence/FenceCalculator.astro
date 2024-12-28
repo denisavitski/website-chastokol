@@ -27,6 +27,9 @@ import Step8Info from './Step-8/Info.astro'
 ---
 
 <Calculator steps={8}>
+  <Step8Content slot="step-content" />
+  <Step8Info slot="step-info" />
+
   <Step1Content slot="step-content" />
   <Step1Info slot="step-info" />
 
@@ -47,7 +50,4 @@ import Step8Info from './Step-8/Info.astro'
 
   <Step7Content slot="step-content" />
   <Step7Info slot="step-info" />
-
-  <Step8Content slot="step-content" />
-  <Step8Info slot="step-info" />
 </Calculator>

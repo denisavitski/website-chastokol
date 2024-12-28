@@ -1,9 +1,15 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+import Input from '@elements/Input.astro'
 ---
 
 <CalculatorStep
   type={'content'}
   name="Данные для связи с вами"
-  >CONTENT</CalculatorStep
 >
+  <Input
+    type={'text'}
+    label="Когда с вами связаться?"
+    placeholder="--.--.----"
+  />
+</CalculatorStep>

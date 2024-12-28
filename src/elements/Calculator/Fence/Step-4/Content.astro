@@ -1,7 +1,7 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
-import CalculatorInput from '@elements/CalculatorInput.astro'
 import CalculatorInputs from '@elements/CalculatorInputs.astro'
+import Input from '@elements/Input.astro'
 ---
 
 <CalculatorStep
@@ -9,40 +9,44 @@ import CalculatorInputs from '@elements/CalculatorInputs.astro'
   name="Ворота и калитки"
 >
   <CalculatorInputs>
-    <CalculatorInput
+    <Input
       label="Кол-во ворот"
       placeholder="Укажите количество ворот"
       name="fence-gates-amount"
       required
+      theme={'lightgrey'}
     />
 
-    <CalculatorInput
+    <Input
       info="fence-gates-type"
       label="Тип ворот"
       placeholder="Укажите тип ворот"
       name="fence-gates-type"
       required
-      tag="select"
+      type="select"
       value="Откатные"
       options={['Откатные', 'Распашные']}
+      theme={'lightgrey'}
     />
 
-    <CalculatorInput
+    <Input
       label="Кол-во калиток"
       placeholder="Укажите количество калиток"
       name="fence-wickets-amount"
       required
+      theme={'lightgrey'}
     />
 
-    <CalculatorInput
+    <Input
       info="fence-wickets-type"
       label="Тип калиток"
       placeholder="Укажите тип калиток"
       name="fence-wickets-type"
       required
-      tag="select"
+      type="select"
       value="Глухая"
       options={['Глухая', 'Не глухая']}
+      theme={'lightgrey'}
     />
   </CalculatorInputs>
 </CalculatorStep>

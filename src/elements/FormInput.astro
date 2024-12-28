@@ -22,13 +22,13 @@ const {
   readonly,
   value,
   theme,
-  tag = 'label',
+  tag,
   type,
   autocompleteOff,
   ...rest
 } = Astro.props
 
-const Tag = tag
+const Tag = tag || 'span'
 ---
 
 <Tag
@@ -36,28 +36,33 @@ const Tag = tag
   class:list={[className, 'form-input']}
   data-theme={theme}
 >
-  <slot name="top" />
+  <slot name="outside-label" />
 
-  <span class="form-input__main">
-    <slot />
+  <label class="form-input__label">
+    <slot name="top" />
 
-    <input
-      class="form-input__input f-d-body-large-regular-16 f-m-body-basic-regular-14"
-      {type}
-      {name}
-      {value}
-      {placeholder}
-      {required}
-      autocomplete={autocompleteOff ? 'off' : undefined}
-      onkeypress={readonly ? 'return false;' : undefined}
-    />
+    <span class="form-input__main">
+      <slot />
 
-    <slot name="after" />
-  </span>
+      <input
+        class="form-input__input f-d-body-large-regular-16 f-m-body-basic-regular-14"
+        {type}
+        {name}
+        {value}
+        {placeholder}
+        {required}
+        autocomplete={autocompleteOff ? 'off' : undefined}
+        onkeypress={readonly ? 'return false;' : undefined}
+      />
+
+      <slot name="after" />
+    </span>
+  </label>
 </Tag>
 
 <style is:global>
   .form-input {
+    position: relative;
   }
 
   .form-input__main {

@@ -161,86 +161,46 @@ const {
 
 <script>
   import { ClassLinkedStatus } from 'aptechka/class-linked-status'
-  import { requestIdleCallback } from 'aptechka/utils'
+  import { debounce } from 'aptechka/utils'
 
   export class SelectElement extends HTMLElement {
     #selectedElement: HTMLElement | null = null
-    #inputElements: Array<HTMLInputElement> = []
+    #optionElements: Array<HTMLInputElement> = []
     #status = new ClassLinkedStatus(this, { opened: false })
 
     constructor() {
       super()
 
-      const clickOutside = () => {
-        this.#status.set('opened', false)
-      }
-
-      const toggle = () => {
-        const opened = this.#status.isTrue('opened')
-
-        this.#status.set('opened', !opened)
-
-        if (!opened) {
-          requestIdleCallback(() => {
-            addEventListener('click', clickOutside, { once: true })
-          })
-        } else {
-          removeEventListener('click', clickOutside)
-        }
-      }
-
-      this.addEventListener('click', () => {
-        toggle()
-      })
-
-      this.addEventListener('keyup', (e) => {
-        if (e.code === 'Space') {
-          toggle()
-        }
-      })
-
-      this.addEventListener('change', () => {
-        console.log('A')
-      })
+      this.addEventListener('focusin', this.#focusListener)
+      this.addEventListener('focusout', this.#blurListener)
     }
 
     public get value() {
-      return this.#inputElements.find((input) => input.checked)?.value
+      return this.#optionElements.find((v) => v.checked)?.value
     }
 
-    public set value(value: string | undefined) {
-      this.#inputElements.forEach((el) => {
-        if (el.value === value) {
-          if (this.#selectedElement) {
-            this.#selectedElement.textContent = value
-          }
-
-          if (!el.checked) {
-            el.checked = true
-            el.dispatchEvent(new Event('change'))
-          }
-        } else {
-          el.checked = false
-        }
-      })
+    public get name() {
+      return this.#optionElements.find((v) => v.checked)?.name
     }
 
     protected connectedCallback() {
       this.#selectedElement = this.querySelector('.select__selected')
 
-      this.#inputElements = [
+      this.#optionElements = [
         ...this.querySelectorAll<HTMLInputElement>('.checkbox__input'),
       ]
 
-      this.#inputElements.forEach((element) => {
+      this.#optionElements.forEach((element) => {
         element.addEventListener('change', this.#optionListener)
-      })
 
-      this.value = this.#inputElements.find((el) => el.checked)?.value
+        if (element.checked && this.#selectedElement) {
+          this.#selectedElement.textContent = element.value || ''
+        }
+      })
     }
 
     protected disconnectedCallback() {
-      this.#inputElements.forEach((element) => {
+      this.#optionElements.forEach((element) => {
         element.removeEventListener('change', this.#optionListener)
       })
 
@@ -251,10 +211,30 @@ const {
       const ct = e.currentTarget as HTMLInputElement
       const value = ct.value
 
+      if (this.#selectedElement) {
+        this.#selectedElement.textContent = value || ''
+      }
+
       if (value) {
-        this.value = value
+        this.#toggle(false)
       }
     }
+
+    #focusListener = () => {
+      this.#debouncedToggle(true)
+    }
+
+    #blurListener = () => {
+      this.#debouncedToggle(false)
+    }
+
+    #toggle = (open: boolean) => {
+      this.#status.set('opened', open)
+    }
+
+    #debouncedToggle = debounce((open: boolean) => {
+      this.#toggle(open)
+    }, 0)
   }
 
   if (!customElements.get('e-select')) {

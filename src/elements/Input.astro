@@ -1,0 +1,544 @@
+---
+export interface Props {
+  class?: string
+  placeholder?: string
+  name?: string
+  value?: string
+  label?: string
+  type?: 'text' | 'select'
+  options?: Array<string>
+  info?: string
+  required?: boolean
+  theme?: 'white' | 'grey' | 'lightgrey'
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<e-input
+  {...rest}
+  class:list={[className, 'custom-input']}
+>
+</e-input>
+
+<style is:global></style>
+
+<script>
+  import type { PopoverButtonElement } from 'aptechka/popover'
+  import { createStylesheet, debounce } from 'aptechka/utils'
+
+  const stylesheet = createStylesheet(`
+    :host {
+      position: relative;
+    }
+
+    button,
+    input,
+    textarea {
+      font-family: inherit;
+      font-size: inherit;
+      font-weight: inherit;
+      border: none;
+      background: none;
+      color: inherit;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+      font-family: inherit;
+      font-size: inherit;
+    }
+
+    .info {
+      --type: toggle;
+
+      display: block;
+
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      cursor: pointer;
+
+      width: 2rem;
+      height: 2rem;
+    }
+
+
+    @media (max-width: 768px) {
+      .info {
+        top: 0.1rem;
+      }
+    }
+
+    .info-icon {
+      width: 100%;
+      height: 100%;
+
+      fill: var(--color-grayscale-600);
+    }
+
+    .info.opened .info-icon {
+      fill: var(--color-primary-100);
+    }
+
+    .name {
+      font-size: 1.6rem;
+      line-height: 120%;
+      font-weight: 500;
+
+      display: block;
+
+      margin-bottom: 1.4rem;
+    }
+
+    :host(.has-info) .name {
+      margin-left: 3.5rem;
+    }
+
+    .main {
+      position: relative;
+      display: block;
+    }
+
+    input {
+      box-sizing: border-box;
+
+      font-size: 1.6rem;
+      line-height: 130%;
+      font-weight: 400;
+
+      width: 100%;
+      height: var(--input-height);
+      padding: 1.4rem 2rem;
+
+      display: block;
+
+      border-radius: var(--border-radius, 1.5rem);
+      border: none;
+     
+    }
+
+    :host([theme="white"]) input {
+      background-color: var(--color-grayscale-0);
+    }
+
+    :host([theme="grey"]) input {
+      background-color: var(--color-grayscale-200);
+    }
+
+    :host([theme="lightgrey"]) input {
+      background-color: var(--color-grayscale-100);
+    }
+
+    input::placeholder {
+      color: var(--color-grayscale-400);
+    }
+
+    input:disabled {
+      pointer-events: none;
+    }
+
+    .icons {
+      position: absolute;
+      right: 1.2rem;
+      top: 50%;
+
+      transform: translateY(-50%);
+
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .validity-icons {
+      display: grid;
+      width: 1.7rem;
+      height: 1.7rem;
+    }
+
+    .invalid-icon,
+    .valid-icon {
+      grid-column: 1/1;
+      grid-row: 1/1;
+
+      width: 100%;
+      height: 100%;
+
+      opacity: 0;
+      pointer-events: none;
+
+      transition-property: opacity;
+      transition-duration: var(--duration-button);
+    }
+
+    .invalid-icon {
+      fill: var(--color-red);
+    }
+
+    .valid-icon {
+      fill: var(--color-primary-100);
+    }
+
+    :host(.invalid) .invalid-icon {
+      opacity: 1;
+    }
+
+    :host(.valid) .valid-icon {
+      opacity: 1;
+    }
+
+    .select-icon {
+      width: 2rem;
+      height: 2rem;
+
+      stroke: var(--color-grayscale-700);
+      fill: none;
+    }
+
+    :host(.opened) .select-icon {
+      transform: scaleY(-1);
+    }
+
+    .error {
+      font-size: 1.2rem;
+      font-weight: 500;
+
+      position: absolute;
+      left: 0;
+      top: calc(100% + 0.4rem);
+
+      color: var(--color-red);
+    }
+
+    .options {
+      box-sizing: border-box;
+
+      position: absolute;
+      left: 0;
+      top: calc(100% + 0.6rem);
+
+      z-index: 2;
+
+      width: 100%;
+      padding: 0.4rem;
+
+      display: none;
+      grid-auto-rows: max-content;
+
+      border-radius: 1.5rem;
+      border: 0.1rem solid var(--color-primary-100);
+      background-color: var(--color-grayscale-0);
+    }
+
+    :host(.opened) .options {
+      display: grid;
+    }
+
+    .option {
+      --padding: 1.6rem;
+
+      box-sizing: border-box;
+
+      font-size: 1.6rem;
+      line-height: 130%;
+      font-weight: 400;
+
+      position: relative;
+
+      height: var(--input-height);
+      text-align: start;
+
+      padding: 0 var(--padding);
+
+      border-radius: 1.2rem;
+      border: none;
+      background: none;
+
+      cursor: pointer;
+    }
+
+    .option.checked {
+      color: var(--color-grayscale-0);
+      background-color: var(--color-primary-100);
+    }
+
+    .option:not(:last-of-type):after {
+      content: '';
+
+      position: absolute;
+      top: 100%;
+      left: var(--padding);
+
+      width: calc(100% - var(--padding) * 2);
+      height: 0.1rem;
+
+      background-color: var(--color-grayscale-300);
+    }
+
+    @media (max-width: 768px) {
+      .main-input {
+        border-radius: var(--border-radius, 1.2rem);
+      }
+    }
+  `)
+
+  export class InputElement extends HTMLElement {
+    #labelElement: HTMLElement | null
+    #infoButtonElement: PopoverButtonElement | null
+    #mainInputElement: HTMLInputElement
+    #errorElement: HTMLElement
+    #optionElements: Array<HTMLElement>
+
+    constructor() {
+      super()
+
+      const shadow = this.attachShadow({ mode: 'open' })
+      shadow.adoptedStyleSheets = [...shadow.adoptedStyleSheets, stylesheet]
+
+      this.attachInternals()
+
+      const placeholder = this.getAttribute('placeholder')
+      const name = this.getAttribute('name')
+      const value = this.getAttribute('value')
+      const label = this.getAttribute('label')
+      const type = this.getAttribute('type')
+      const options = this.getAttribute('options')
+        ?.split(',')
+        .map((v) => v.trim())
+      const autocomplete = type === 'select' ? 'off' : ''
+      const onkeypress = type === 'select' ? 'return false;' : ''
+      const info = this.getAttribute('info')
+      const required = this.hasAttribute('required')
+
+      this.classList.toggle('has-info', !!info)
+
+      shadow.innerHTML = `
+        <span>
+          ${
+            info
+              ? `<e-popover-button target-group="${info}" class="info">
+                  <svg class="info-icon">
+                    <use xlink:href=${`/sprite.svg#sprite:info`}></use>
+                  </svg>
+                </e-popover-button>`
+              : ''
+          }
+          
+          <label>
+            ${label ? `<span class="name">${label}</span>` : ''}
+
+            <span class="main">
+              <input 
+                class="main-input" 
+                ${placeholder ? `placeholder="${placeholder}"` : ''}
+                ${name ? `name="${name}"` : ''}
+                ${value ? `value="${value}"` : ''}
+                ${autocomplete ? `autocomplete="${autocomplete}"` : ''}
+                ${onkeypress ? `onkeypress="${onkeypress}"` : ''}
+                ${required ? `required` : ''}
+              />
+
+              <span class="icons">
+                <span class="validity-icons">
+                  <svg class="invalid-icon">
+                    <use xlink:href=${`/sprite.svg#sprite:attention-circle`}></use>
+                  </svg>
+                  <svg class="valid-icon">
+                    <use xlink:href=${`/sprite.svg#sprite:check-circle`}></use>
+                  </svg>
+                </span>
+                ${
+                  type === 'select'
+                    ? `
+                      <svg class="select-icon">
+                        <use xlink:href=${`/sprite.svg#sprite:arrow-down`}></use>
+                      </svg>
+                    `
+                    : ''
+                }
+
+              </span>
+            </span>
+
+            <span class="error"></span>
+
+            ${
+              type === 'select' && options
+                ? `
+                  <span class="options">
+                    ${options
+                      .map((option) => {
+                        return `<button class="option" type="button" data-value="${option}">${option}</button>`
+                      })
+                      .join(' ')}
+                  </span>
+                `
+                : ''
+            }
+          </label>  
+        </span>
+      `
+
+      this.#infoButtonElement = shadow.querySelector('e-popover-button')
+      this.#labelElement = shadow.querySelector('label')!
+      this.#mainInputElement = shadow.querySelector('.main-input')!
+      this.#optionElements = [
+        ...shadow.querySelectorAll<HTMLElement>('.option'),
+      ]
+      this.#errorElement = shadow.querySelector('.error')!
+
+      this.#mainInputElement.addEventListener('input', this.#mainInputListener)
+      this.#mainInputElement.addEventListener('change', this.#mainInputListener)
+
+      if (this.#mainInputElement.value) {
+        this.reportValidity()
+      }
+
+      if (type === 'select') {
+        this.#labelElement.addEventListener('focusin', this.#focusListener)
+        this.#labelElement.addEventListener('focusout', this.#blurListener)
+
+        this.#optionElements.forEach((el) => {
+          el.addEventListener('click', this.#selectOptionListener)
+        })
+
+        this.#checkSelectOptions()
+      }
+    }
+
+    public get value() {
+      return this.#mainInputElement.value
+    }
+
+    public get name() {
+      return this.#mainInputElement.name
+    }
+
+    public get validity() {
+      return this.#mainInputElement.validity
+    }
+
+    public checkValidity() {
+      return this.#mainInputElement.checkValidity()
+    }
+
+    public reportValidity() {
+      const valid = this.#mainInputElement.checkValidity()
+
+      this.#errorElement.textContent = this.#mainInputElement.validationMessage
+
+      if (valid) {
+        this.classList.remove('invalid')
+        this.classList.add('valid')
+      } else {
+        this.classList.remove('valid')
+        this.classList.add('invalid')
+      }
+    }
+
+    protected connectedCallback() {
+      customElements.whenDefined('e-popover').then(() => {
+        if (this.isConnected) {
+          this.#changeInfoModal()
+        }
+      })
+    }
+
+    protected disconnectedCallback() {}
+
+    #changeInfoModal() {
+      if (!this.#infoButtonElement) {
+        return
+      }
+
+      const oldPopover = this.#infoButtonElement.popoverElement
+
+      const name = this.#infoButtonElement.getAttribute('target-group')
+
+      if (name) {
+        let selector = `[data-group="${name}"]`
+
+        const value = this.value
+
+        if (value) {
+          const valueSelector = `${selector}[data-value="${value}"]`
+
+          if (document.querySelector(valueSelector)) {
+            selector = valueSelector
+          }
+        }
+
+        this.#infoButtonElement.changePopover(selector)
+
+        if (this.#infoButtonElement.popoverElement) {
+          if (oldPopover?.opened) {
+            this.#infoButtonElement.popoverElement.open()
+          }
+
+          if (this.#infoButtonElement.popoverElement !== oldPopover) {
+            oldPopover?.close()
+          }
+        }
+      }
+    }
+
+    #checkSelectOptions = () => {
+      this.#optionElements.forEach((element) => {
+        const elementValue = element.getAttribute('data-value')
+
+        if (elementValue === this.value) {
+          element.classList.add('checked')
+        } else {
+          element.classList.remove('checked')
+        }
+      })
+    }
+
+    #toggleSelect = (open: boolean) => {
+      this.classList.toggle('opened', open)
+    }
+
+    #debouncedToggleSelect = debounce((open: boolean) => {
+      this.#toggleSelect(open)
+    }, 30)
+
+    #selectOptionListener = (e: Event) => {
+      const ct = e.currentTarget as HTMLElement
+      const value = ct.getAttribute('data-value')
+
+      if (value) {
+        this.#mainInputElement.value = value
+        this.#mainInputElement.dispatchEvent(new Event('change'))
+
+        this.#checkSelectOptions()
+
+        this.#toggleSelect(false)
+
+        this.#changeInfoModal()
+      }
+    }
+
+    #focusListener = () => {
+      this.#debouncedToggleSelect(true)
+    }
+
+    #blurListener = () => {
+      this.#debouncedToggleSelect(false)
+    }
+
+    #mainInputListener = () => {
+      this.reportValidity()
+    }
+  }
+
+  if (!customElements.get('e-input')) {
+    customElements.define('e-input', InputElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-input': InputElement
+    }
+  }
+</script>

@@ -1,7 +1,7 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
-import CalculatorInput from '@elements/CalculatorInput.astro'
 import CalculatorInputs from '@elements/CalculatorInputs.astro'
+import Input from '@elements/Input.astro'
 ---
 
 <CalculatorStep
@@ -9,41 +9,45 @@ import CalculatorInputs from '@elements/CalculatorInputs.astro'
   name="Выберите основу забора"
 >
   <CalculatorInputs>
-    <CalculatorInput
+    <Input
       label="Фундамент"
       placeholder="Укажите тип фундамента"
       name="fence-foundation"
       required
+      theme={'lightgrey'}
     />
-    <CalculatorInput
+    <Input
       info="fence-basement-part"
       label="Цокольная часть"
       placeholder="Укажите требуется ли цокольная часть"
       name="fence-basement-part"
       required
-      tag="select"
+      type="select"
       value="Требуется"
       options={['Требуется', 'Не требуется']}
+      theme={'lightgrey'}
     />
-    <CalculatorInput
+    <Input
       info="fence-strengthening"
       label="Усиление столбов"
       placeholder="Укажите требуется ли усиление столбов"
       name="fence-strengthening"
       required
-      tag="select"
+      type="select"
       value="Требуется"
       options={['Требуется', 'Не требуется']}
+      theme={'lightgrey'}
     />
-    <CalculatorInput
+    <Input
       info="fence-support-pillars"
       label="Опорные стобы"
       placeholder="Укажите требуются ли опорные столбы"
       name="fence-support-pillars"
       required
-      tag="select"
+      type="select"
       value="Требуется"
       options={['Требуются', 'Не требуются']}
+      theme={'lightgrey'}
     />
   </CalculatorInputs>
 </CalculatorStep>

@@ -1,8 +1,8 @@
 ---
-import FormInput from './FormInput.astro'
+import FormInput, { type Props as FormInputProps } from './FormInput.astro'
 import Icon from './Icon.astro'
 
-export interface Props {
+export interface Props extends FormInputProps {
   class?: string
 }
 
@@ -10,23 +10,32 @@ const { class: className, ...rest } = Astro.props
 ---
 
 <FormInput
-  {...rest}
-  class={`${className || ''} calendar-input`}
+  class={`${className || ''} date-input`}
   disabled
   placeholder="Дата монтажа"
   name="date"
-  tag="e-calendar-input"
-  tabindex="0"
+  tag="e-date-input"
   target="calendar"
+  {...rest}
 >
+  <slot
+    name="top"
+    slot="top"
+  />
+
+  <slot
+    name="outside-label"
+    slot="outside-label"
+  />
+
   <Icon
     name={'calendar'}
-    class="calendar-input__icon"
+    class="date-input__icon"
   />
 </FormInput>
 
 <style is:global>
-  .calendar-input {
+  .date-input {
     cursor: pointer;
 
     .form-input__input {
@@ -34,7 +43,7 @@ const { class: className, ...rest } = Astro.props
     }
   }
 
-  .calendar-input__icon {
+  .date-input__icon {
     position: absolute;
     top: 50%;
     right: 2rem;
@@ -73,13 +82,13 @@ const { class: className, ...rest } = Astro.props
     }
   }
 
-  if (!customElements.get('e-calendar-input')) {
-    customElements.define('e-calendar-input', CalendarInputElement)
+  if (!customElements.get('e-date-input')) {
+    customElements.define('e-date-input', CalendarInputElement)
   }
 
   declare global {
     interface HTMLElementTagNameMap {
-      'e-calendar-input': CalendarInputElement
+      'e-date-input': CalendarInputElement
     }
   }
 </script>

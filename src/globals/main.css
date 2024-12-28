@@ -28,6 +28,8 @@ body {
   --color-button-text: #fdfdfd;
   --color-button-disabled: #efefef;
 
+  --color-red: #d12c2c;
+
   --color-image-background: #f0f0f0;
 
   --color-lazy: var(--color-image-background);

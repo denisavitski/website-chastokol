@@ -1,8 +1,8 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
 import CalculatorCheckboxes from '@elements/CalculatorCheckboxes.astro'
-import CalculatorInput from '@elements/CalculatorInput.astro'
 import CalculatorInputs from '@elements/CalculatorInputs.astro'
+import Input from '@elements/Input.astro'
 ---
 
 <CalculatorStep
@@ -29,12 +29,13 @@ import CalculatorInputs from '@elements/CalculatorInputs.astro'
     />
 
     <CalculatorInputs>
-      <CalculatorInput
+      <Input
         info="fence-mkad-distance"
         label="Доставка, км. от МКАД"
         name="fence-mkad-distance"
         placeholder="Укажите удаленность"
         required
+        theme={'lightgrey'}
       />
     </CalculatorInputs>
   </div>

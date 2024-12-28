@@ -1,4 +1,5 @@
 ---
+import DateInput from './DateInput.astro'
 import FormInput, { type Props as FormInputProps } from './FormInput.astro'
 import FormSelect, { type Props as FormSelectProps } from './FormSelect.astro'
 import Icon from './Icon.astro'
@@ -9,7 +10,7 @@ export interface Props extends FormInputProps, FormSelectProps {
   class?: string
   label?: string
   info?: string
-  tag?: 'input' | 'select'
+  tag?: 'input' | 'select' | 'date'
 }
 
 const {
@@ -20,31 +21,33 @@ const {
   ...rest
 } = Astro.props
 
-const Tag = tag === 'input' ? FormInput : FormSelect
+const Tag =
+  tag === 'select' ? FormSelect : tag === 'date' ? DateInput : FormInput
 ---
 
 <Tag
   {...rest}
   class={`calculator-input ${className || ''}`}
+  data-has-info={info ? true : undefined}
 >
+  {
+    info && (
+      <e-calculator-input-info-button
+        target-group={info}
+        class="calculator-input__info-button"
+        slot={'outside-label'}
+      >
+        <Icon
+          name={'info'}
+          class="calculator-input__info-button__icon"
+        />
+      </e-calculator-input-info-button>
+    )
+  }
   <span
     class="calculator-input__top"
     slot="top"
   >
-    {
-      info && (
-        <e-calculator-input-info-button
-          group={info}
-          class="calculator-input__info-button"
-          data-prevent-focus
-        >
-          <Icon
-            name={'info'}
-            class="calculator-input__info-button__icon"
-          />
-        </e-calculator-input-info-button>
-      )
-    }
     <span
       class="calculator-input__name f-d-body-large-medium-16 f-m-body-basic-medium-14"
       set:html={label}
@@ -54,7 +57,13 @@ const Tag = tag === 'input' ? FormInput : FormSelect
 
 <style is:global>
   .calculator-input {
+    --icon-size: 2rem;
+
     --background-color: var(--color-grayscale-100);
+
+    @media (max-width: 768px) {
+      --icon-size: 1.4rem;
+    }
   }
 
   .calculator-input__top {
@@ -64,20 +73,35 @@ const Tag = tag === 'input' ? FormInput : FormSelect
 
     margin-bottom: 1.45rem;
 
+    .calculator-input[data-has-info='true'] & {
+      margin-left: calc(var(--icon-size) + 1.5rem);
+    }
+
     @media (max-width: 768px) {
       margin-bottom: 1rem;
+
+      .calculator-input[data-has-info='true'] & {
+        margin-left: calc(var(--icon-size) + 1rem);
+      }
     }
   }
 
   .calculator-input__info-button {
-    --icon-size: 2rem;
     --type: toggle;
+
+    display: block;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    cursor: pointer;
 
     width: var(--icon-size);
     height: var(--icon-size);
 
     @media (max-width: 768px) {
-      --icon-size: 1.4rem;
+      top: 0.1rem;
     }
   }
 
@@ -129,17 +153,15 @@ const Tag = tag === 'input' ? FormInput : FormSelect
     #changeModal() {
       const oldPopover = this.popoverElement
 
-      const name = this.getAttribute('group')
-
-      console.log(this, name)
+      const name = this.getAttribute('target-group')
 
       if (name) {
-        let selector = `[group="${name}"]`
+        let selector = `[data-group="${name}"]`
 
         const value = this.#selectElement?.value
 
         if (value) {
-          const valueSelector = `${selector}[value="${value}"]`
+          const valueSelector = `${selector}[data-value="${value}"]`
 
           if (document.querySelector(valueSelector)) {
             selector = valueSelector
