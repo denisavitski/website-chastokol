@@ -1,11 +1,10 @@
 ---
 import Button from '@elements/Button.astro'
-import DateInput from '@elements/DateInput.astro'
+import Input from '@elements/Input.astro'
 import CompanyMember, {
   type Props as CompanyMemberProps,
 } from '@elements/CompanyMember.astro'
 import FormAgreement from '@elements/FormAgreement.astro'
-import Input from '@elements/Input.astro'
 import type { ImageDataProps } from '@elements/Image.astro'
 import Image from '@elements/Image.astro'
 import TwoSides from '@elements/TwoSides.astro'
@@ -71,7 +70,13 @@ const {
         class="estimate__form__input"
       />
 
-      <DateInput class="estimate__form__input" />
+      <Input
+        name="date"
+        type={'date'}
+        placeholder="Дата монтажа"
+        required
+        class="estimate__form__input"
+      />
 
       <FormAgreement class="estimate__form__agreement" />
 

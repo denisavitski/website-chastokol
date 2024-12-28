@@ -5,7 +5,7 @@ export interface Props {
   name?: string | undefined
   value?: string | undefined
   label?: string | undefined
-  type?: 'text' | 'select' | undefined | 'date' | 'time'
+  type?: 'text' | 'select' | undefined | 'date' | 'time' | 'phone'
   options?: Array<string> | undefined
   info?: string | undefined
   required?: boolean | undefined
@@ -19,7 +19,6 @@ const { class: className, ...rest } = Astro.props
 <e-input
   {...rest}
   class:list={[className, 'custom-input']}
-  type="time"
 >
 </e-input>
 
@@ -162,7 +161,7 @@ const { class: className, ...rest } = Astro.props
       .main-input {
         font-size: 1.4rem;
         line-height: 125%;
-        font-weight: 500;
+        font-weight: 400;
 
         border-radius: var(--border-radius, 1.2rem);
       }
@@ -255,6 +254,12 @@ const { class: className, ...rest } = Astro.props
       top: calc(100% + 0.4rem);
 
       color: var(--color-red);
+    }
+
+    @media (max-width: 768px) {
+      .error  {
+        font-size: 1rem;
+      }
     }
 
     .options {
@@ -358,12 +363,14 @@ const { class: className, ...rest } = Astro.props
         'reportValidityTextField',
       )
 
-      if (type === 'date' && !placeholder) {
-        placeholder = '- - . - - . - - - -'
-      }
-
-      if (type === 'time' && !placeholder) {
-        placeholder = '- - : - -'
+      if (!placeholder) {
+        if (type === 'date') {
+          placeholder = '- - . - - . - - - -'
+        } else if (type === 'time') {
+          placeholder = '- - : - -'
+        } else if (type === 'phone') {
+          placeholder = '+ 7 (- - -)  - - -  - -  - -'
+        }
       }
 
       this.classList.toggle('has-info', !!info)
@@ -582,6 +589,36 @@ const { class: className, ...rest } = Astro.props
       input.value = value
     }
 
+    #applyPhoneMask() {
+      let value = this.#mainInputElement.value
+
+      let unmasked = value.replace(/\D/g, '')
+
+      if (unmasked === '') {
+        this.#mainInputElement.value = ''
+        return
+      }
+
+      if (unmasked.startsWith('7')) {
+        unmasked = unmasked.slice(1)
+      }
+
+      const matches = unmasked.match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/)
+
+      if (matches) {
+        const masked =
+          `+7 (${matches[1] || ''}` +
+          (matches[2] ? `) ${matches[2]}` : '') +
+          (matches[3] ? `-${matches[3]}` : '') +
+          (matches[4] ? `-${matches[4]}` : '')
+
+        // Ограничиваем длину строки
+        this.#mainInputElement.value = masked.slice(0, 19)
+      } else {
+        this.#mainInputElement.value = '+7 ('
+      }
+    }
+
     #changeInfoModal() {
       if (!this.#infoButtonElement) {
         return
@@ -662,7 +699,30 @@ const { class: className, ...rest } = Astro.props
     }
 
     #updateInternals() {
+      if (this.getAttribute('type') === 'phone') {
+        if (this.value.length !== 18) {
+          this.#mainInputElement.setCustomValidity(
+            'Заполните телефон полностью',
+          )
+        } else {
+          this.#mainInputElement.setCustomValidity('')
+        }
+      } else if (this.getAttribute('type') === 'date') {
+        if (this.value.length !== 10) {
+          this.#mainInputElement.setCustomValidity('Заполните дату полностью')
+        } else {
+          this.#mainInputElement.setCustomValidity('')
+        }
+      } else if (this.getAttribute('type') === 'time') {
+        if (this.value.length !== 5) {
+          this.#mainInputElement.setCustomValidity('Заполните время полностью')
+        } else {
+          this.#mainInputElement.setCustomValidity('')
+        }
+      }
+
       this.#internals.setFormValue(this.#mainInputElement.value)
+
       this.#internals.setValidity(
         this.#mainInputElement.validity,
         this.#mainInputElement.validationMessage,
@@ -682,6 +742,8 @@ const { class: className, ...rest } = Astro.props
         this.#applyDateMask()
       } else if (this.getAttribute('type') === 'time') {
         this.#applyTimeMask()
+      } else if (this.getAttribute('type') === 'phone') {
+        this.#applyPhoneMask()
       }
 
       this.#updateInternals()

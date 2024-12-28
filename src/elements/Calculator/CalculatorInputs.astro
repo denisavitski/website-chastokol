@@ -1,0 +1,60 @@
+---
+export interface Props {
+  class?: string
+  title?: string
+}
+
+const { class: className, title, ...rest } = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'calculator-inputs']}
+>
+  {
+    title && (
+      <div
+        class="calculator-inputs__title f-d-title-medium-20 f-m-body-large-medium-16"
+        set:html={title}
+      />
+    )
+  }
+  <div class="calculator-inputs__list">
+    <slot />
+  </div>
+</div>
+
+<style is:global>
+  .calculator-inputs {
+    width: 100%;
+
+    &:not(:last-of-type) {
+      margin-bottom: 5rem;
+
+      @media (max-width: 768px) {
+        margin-bottom: 4rem;
+      }
+    }
+  }
+
+  .calculator-inputs__list {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 100%;
+      gap: 3rem;
+    }
+  }
+
+  .calculator-inputs__title {
+    margin-bottom: 5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 3rem;
+    }
+  }
+</style>

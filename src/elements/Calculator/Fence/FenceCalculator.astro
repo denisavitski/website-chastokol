@@ -1,4 +1,5 @@
 ---
+import type { HTMLAttributes } from 'astro/types'
 import Calculator from '../Calculator.astro'
 
 import Step1Content from './Step-1/Content.astro'
@@ -24,15 +25,16 @@ import Step7Info from './Step-7/Info.astro'
 
 import Step8Content from './Step-8/Content.astro'
 import Step8Info from './Step-8/Info.astro'
+
+export interface Props extends HTMLAttributes<any> {
+  class?: string
+}
 ---
 
-<Calculator steps={8}>
-  <Step4Content slot="step-content" />
-  <Step4Info slot="step-info" />
-
-  <Step8Content slot="step-content" />
-  <Step8Info slot="step-info" />
-
+<Calculator
+  {...Astro.props}
+  steps={8}
+>
   <Step1Content slot="step-content" />
   <Step1Info slot="step-info" />
 
@@ -42,6 +44,9 @@ import Step8Info from './Step-8/Info.astro'
   <Step3Content slot="step-content" />
   <Step3Info slot="step-info" />
 
+  <Step4Content slot="step-content" />
+  <Step4Info slot="step-info" />
+
   <Step5Content slot="step-content" />
   <Step5Info slot="step-info" />
 
@@ -50,4 +55,7 @@ import Step8Info from './Step-8/Info.astro'
 
   <Step7Content slot="step-content" />
   <Step7Info slot="step-info" />
+
+  <Step8Content slot="step-content" />
+  <Step8Info slot="step-info" />
 </Calculator>

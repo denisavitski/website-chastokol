@@ -1,5 +1,6 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+import CalculatorInputs from '@elements/Calculator/CalculatorInputs.astro'
 import Input from '@elements/Input.astro'
 ---
 
@@ -7,10 +8,42 @@ import Input from '@elements/Input.astro'
   type={'content'}
   name="Данные для связи с вами"
 >
-  <Input
-    type={'text'}
-    label="Когда с вами связаться?"
-    placeholder="--.--.----"
-    reportValidityTextField
-  />
+  <CalculatorInputs>
+    <Input
+      label="Имя"
+      placeholder="Ваше имя"
+      reportValidityTextField
+      theme={'lightgrey'}
+      required
+      name="name"
+    />
+
+    <Input
+      label="Телефон"
+      type={'phone'}
+      reportValidityTextField
+      theme={'lightgrey'}
+      required
+      name="phone"
+    />
+  </CalculatorInputs>
+  <CalculatorInputs title="Когда с вами связаться?">
+    <Input
+      label="Дата"
+      type={'date'}
+      reportValidityTextField
+      theme={'lightgrey'}
+      required
+      name="date"
+    />
+
+    <Input
+      label="Время"
+      type={'time'}
+      reportValidityTextField
+      theme={'lightgrey'}
+      required
+      name="time"
+    />
+  </CalculatorInputs>
 </CalculatorStep>

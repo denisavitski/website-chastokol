@@ -1,0 +1,200 @@
+---
+import CalculatorTab from '@elements/Calculator/CalculatorTab.astro'
+import FenceCalculator from '@elements/Calculator/Fence/FenceCalculator.astro'
+
+export interface Props {
+  heading?: string
+}
+
+const { heading = 'Калькулятор заборов' } = Astro.props
+---
+
+<e-calculators class="calculators">
+  <div
+    class="calculators__top"
+    data-white-background="true"
+  >
+    <h1
+      class="calculators__heading f-d-title-medium-76 f-m-title-medium-30"
+      set:html={heading}
+    />
+
+    <div class="calculators__tabs hidden-scrollbar">
+      <div class="calculators__tabs__inner">
+        <CalculatorTab
+          icon="fence-1"
+          name="calculator"
+          value="Рассчитать забор"
+          checked
+          class="calculators__tab"
+        />
+        <CalculatorTab
+          icon="fence-2"
+          name="calculator"
+          value="Рассчитать ворота"
+          class="calculators__tab"
+          disabled
+        />
+        <CalculatorTab
+          icon="fence-4"
+          name="calculator"
+          value="Рассчитать навес"
+          class="calculators__tab"
+          disabled
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="calculators__list">
+    <FenceCalculator
+      data-name="Рассчитать забор"
+      class="calculators__calculator"
+    />
+    <!-- <FenceCalculator
+      data-name="Рассчитать ворота"
+      class="calculators__calculator"
+    />
+    <FenceCalculator
+      data-name="Рассчитать навес"
+      class="calculators__calculator"
+    /> -->
+  </div>
+</e-calculators>
+
+<style is:global>
+  .calculators {
+  }
+
+  .calculators__top {
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+
+    padding-top: 0;
+  }
+
+  .calculators__heading {
+    margin-bottom: 8rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .calculators__tabs {
+    @media (max-width: 768px) {
+      margin-left: calc(var(--screen-horisontal-padding) * -1);
+      width: calc(100% + var(--screen-horisontal-padding) * 2);
+      padding: 0 var(--screen-horisontal-padding);
+      overflow: auto hidden;
+    }
+  }
+
+  .calculators__tabs__inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 4.9rem;
+
+    .checkbox__content {
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      width: max-content;
+      gap: 2rem;
+    }
+  }
+
+  .calculators__tab {
+    width: 100%;
+
+    @media (max-width: 768px) {
+      width: max-content;
+    }
+  }
+
+  .calculators__list {
+    padding: var(--section-vertical-padding-full)
+      var(--screen-horisontal-padding);
+
+    @media (max-width: 768px) {
+      /* padding-left: 0; */
+      /* padding-right: 0; */
+    }
+  }
+
+  .calculators__calculator {
+    display: none;
+
+    &.active {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  import type { CalculatorElement } from '@elements/Calculator/Calculator.astro.0.mjs'
+
+  export class CalcualtorsElement extends HTMLElement {
+    #tabElements: Array<HTMLInputElement> = []
+    #calculatorElements: Array<CalculatorElement> = []
+
+    protected connectedCallback() {
+      this.#tabElements = [
+        ...this.querySelectorAll<HTMLInputElement>(
+          '.calculators__tab .checkbox__input',
+        ),
+      ]
+
+      this.#tabElements.forEach((el) => {
+        el.addEventListener('change', this.#tabButtonListener)
+      })
+
+      this.#calculatorElements = [...this.querySelectorAll('e-calculator')]
+
+      const value = this.#tabElements.find((t) => t.checked)?.value
+
+      if (value) {
+        this.#changeCalculator(value)
+      }
+    }
+
+    protected disconnectedCallback() {
+      this.#tabElements.forEach((el) => {
+        el.removeEventListener('change', this.#tabButtonListener)
+      })
+    }
+
+    #changeCalculator(name: string) {
+      this.#calculatorElements.forEach((el) => {
+        if (el.getAttribute('data-name') === name) {
+          el.classList.add('active')
+        } else {
+          el.classList.remove('active')
+        }
+      })
+    }
+
+    #tabButtonListener = (e: Event) => {
+      const el = e.target as HTMLInputElement
+
+      if (el) {
+        const value = el.value
+
+        if (value) {
+          this.#changeCalculator(value)
+        }
+      }
+    }
+  }
+
+  if (!customElements.get('e-calculators')) {
+    customElements.define('e-calculators', CalcualtorsElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-calculators': CalcualtorsElement
+    }
+  }
+</script>

@@ -8,25 +8,28 @@ export interface Props {
   paddingHorisontal?: 'large' | 'normal'
   whiteBackground?: boolean | undefined
   border?: boolean | undefined
+  tag?: string
 }
 
 const {
   class: className,
-  heading = 'Ворота',
+  heading,
   headingLevel = 'h2',
   paddingTop = 'normal',
   paddingBottom = 'normal',
   paddingHorisontal = 'normal',
   whiteBackground,
   border,
+  tag = 'section',
   ...rest
 } = Astro.props
 
+const Tag = tag
 const HeadingTag = headingLevel
 ---
 
 <!-- BLOCK -->
-<section
+<Tag
   {...rest}
   class:list={[className, 'section']}
   data-padding-top={paddingTop}
@@ -35,21 +38,25 @@ const HeadingTag = headingLevel
   data-white-background={whiteBackground}
   data-border={border}
 >
-  <HeadingTag
-    class:list={[
-      'section__heading',
-      {
-        'f-d-title-medium-42 f-m-title-medium-24': headingLevel === 'h3',
-        'f-d-title-medium-56 f-m-title-medium-24': headingLevel === 'h2',
-      },
-    ]}
-    set:html={heading}
-  />
+  {
+    heading && (
+      <HeadingTag
+        class:list={[
+          'section__heading',
+          {
+            'f-d-title-medium-42 f-m-title-medium-24': headingLevel === 'h3',
+            'f-d-title-medium-56 f-m-title-medium-24': headingLevel === 'h2',
+          },
+        ]}
+        set:html={heading}
+      />
+    )
+  }
 
   <div class="section__content">
     <slot />
   </div>
-</section>
+</Tag>
 
 <style is:global>
   .section__heading {

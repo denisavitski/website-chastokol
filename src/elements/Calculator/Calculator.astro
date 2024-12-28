@@ -190,6 +190,7 @@ const { class: className, steps = 8, ...rest } = Astro.props
 
   .calculator__manager {
     border: 0.1rem solid var(--color-grayscale-300);
+    background-color: unset;
 
     width: 100%;
 
@@ -222,6 +223,8 @@ const { class: className, steps = 8, ...rest } = Astro.props
 
     .manager-2__method {
       padding: 0 2rem;
+
+      background-color: unset;
 
       @media (max-width: 768px) {
         padding: 0 1rem;
@@ -402,6 +405,11 @@ const { class: className, steps = 8, ...rest } = Astro.props
       })
 
       const currentStepElement = this.#stepElements[this.#stepCounter]
+
+      this?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      })
 
       if (currentStepElement) {
         this.#currentInputElements.forEach((element) => {

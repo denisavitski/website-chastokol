@@ -1,7 +1,7 @@
 ---
 import CheckboxButton, {
   type Props as CheckboxButtonProps,
-} from './CheckboxButton.astro'
+} from '@elements/CheckboxButton.astro'
 
 export interface Props extends CheckboxButtonProps {
   class?: string
@@ -34,14 +34,17 @@ const {
       --icon-box-border-color: transparent;
       --icon-size: 100%;
       --icon-box-size: 4.5rem;
+      --icon-box-duration: 0s;
+      --checkbox-size: 2.4rem;
 
-      padding: 3rem;
+      padding: 2.8rem 3rem;
 
       border-radius: var(--border-radius);
       border: 0.2rem solid var(--color-grayscale-300);
 
       @media (max-width: 768px) {
         --icon-box-size: 3rem;
+        --checkbox-size: 1.5rem;
         padding: 1.5rem;
         padding-right: 2.3rem;
       }
@@ -62,12 +65,16 @@ const {
     }
 
     .checkbox__title-icon {
+      margin-left: 1.6rem;
+      margin-right: 1.4rem;
+
+      @media (max-width: 768px) {
+        margin-left: 0rem;
+        margin-right: 0rem;
+      }
     }
 
     .checkbox__title {
-      transition-property: color;
-      transition-duration: var(--duration-button);
-
       color: var(--color-grayscale-300);
 
       @media (max-width: 768px) {

@@ -1,7 +1,9 @@
 ---
 import Breadcrumbs from '@blocks/Breadcrumbs.astro'
 import Layout from '@layout/Layout.astro'
-import CalculatorSection from '@blocks/CalculatorSection.astro'
+import Calculators from '@blocks/Calculators.astro'
+import Section from '@blocks/Section.astro'
+import Highlite from '@elements/Highlite.astro'
 ---
 
 <Layout
@@ -19,7 +21,20 @@ import CalculatorSection from '@blocks/CalculatorSection.astro'
       { name: 'Главная', href: '/' },
       { name: 'Замер', href: '/consultation' },
     ]}
+    whiteBackground
   />
 
-  <CalculatorSection />
+  <Calculators />
+
+  <Section
+    whiteBackground
+    paddingTop={'full'}
+    paddingBottom={'full'}
+    tag={'div'}
+  >
+    <Highlite
+      title="Важно"
+      description="Уважаемые пользователи сайта, обращаем ваше внимание на то, что все расчеты калькулятор являются приблизительными. Составить наиболее точную смету возможно только после выезда замерщика на ваш участок. На стоимость влияют результаты исследования грунта, а так же места расположения."
+    />
+  </Section>
 </Layout>
