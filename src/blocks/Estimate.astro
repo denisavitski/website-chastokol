@@ -5,7 +5,7 @@ import CompanyMember, {
   type Props as CompanyMemberProps,
 } from '@elements/CompanyMember.astro'
 import FormAgreement from '@elements/FormAgreement.astro'
-import FormInput from '@elements/FormInput.astro'
+import Input from '@elements/Input.astro'
 import type { ImageDataProps } from '@elements/Image.astro'
 import Image from '@elements/Image.astro'
 import TwoSides from '@elements/TwoSides.astro'
@@ -57,14 +57,14 @@ const {
     />
 
     <form class="estimate__form">
-      <FormInput
+      <Input
         name="name"
         placeholder="Ваше имя"
         required
         class="estimate__form__input"
       />
 
-      <FormInput
+      <Input
         name="phone"
         placeholder="Номер телефона"
         required
@@ -136,6 +136,8 @@ const {
   }
 
   .estimate__form__input {
+    display: block;
+
     margin-bottom: 1.5rem;
 
     @media (max-width: 768px) {

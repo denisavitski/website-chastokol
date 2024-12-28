@@ -1,7 +1,7 @@
 ---
 import Button from '@elements/Button.astro'
 import FormAgreement from '@elements/FormAgreement.astro'
-import FormInput from '@elements/FormInput.astro'
+import Input from '@elements/Input.astro'
 import Phone from '@elements/Phone.astro'
 
 export interface Props {
@@ -35,18 +35,18 @@ const {
       <Phone class="call-request__phone" />
     </div>
     <form class="call-request__form">
-      <FormInput
+      <Input
         class="call-request__form__input"
         name="name"
         placeholder="Ваше имя"
-        theme={'gray'}
+        theme={'grey'}
         required
       />
-      <FormInput
+      <Input
         class="call-request__form__input"
         name="phone"
         placeholder="Номер телефона"
-        theme={'gray'}
+        theme={'grey'}
         required
       />
       <FormAgreement class="call-request__form-agreement" />
