@@ -63,6 +63,8 @@ const { class: className, ...rest } = Astro.props
 
       width: 2rem;
       height: 2rem;
+
+      user-select: none;
     }
 
 
@@ -458,8 +460,17 @@ const { class: className, ...rest } = Astro.props
         this.#checkSelectOptions()
       }
 
-      this.addEventListener('focus', () => {
-        this.#mainInputElement.focus()
+      this.addEventListener('focus', (e) => {
+        if (
+          !e
+            .composedPath()
+            .find(
+              (el) =>
+                el instanceof HTMLElement && el.classList.contains('info'),
+            )
+        ) {
+          this.#mainInputElement.focus()
+        }
       })
 
       this.addEventListener('blur', () => {
