@@ -1,0 +1,30 @@
+---
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import PageHeading from '@blocks/PageHeading.astro'
+import Communication from '@blocks/Сommunication.astro'
+import Layout from '@layout/Layout.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Контакты',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Контакты', href: '/contacts' },
+    ]}
+  />
+
+  <PageHeading
+    heading="Контакты"
+    paddingBottom={'full'}
+  />
+
+  <Communication />
+</Layout>

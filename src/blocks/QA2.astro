@@ -1,0 +1,102 @@
+---
+import Filter from '@elements/Filter.astro'
+import Section from './Section.astro'
+import TabButtons2 from '@elements/TabButtons2.astro'
+import Accordion2, { type Accordion2Item } from '@elements/Accordion2.astro'
+
+export interface Props {
+  class?: string
+  groups?: Array<Accordion2Item & { group: string }>
+}
+
+const {
+  class: className,
+  groups = [
+    {
+      group: 'Общее',
+      title: 'Наша гарантия',
+      description:
+        'Компания «Частокол» предоставляет двухлетнюю гарантию на изготовленную и установленную продукцию (заборы, различные виды ограждений, калитки, ворота, въездные группы и т.д.).<br><br>Срок начала гарантийного периода определяется датой подписания акта выполненных работ.',
+      data: {
+        'data-filter': 'Общее',
+      },
+    },
+
+    {
+      group: 'Профнастил',
+      title: 'Наша гарантия',
+      description:
+        'Компания «Частокол» предоставляет двухлетнюю гарантию на изготовленную и установленную продукцию (заборы, различные виды ограждений, калитки, ворота, въездные группы и т.д.).<br><br>Срок начала гарантийного периода определяется датой подписания акта выполненных работ.',
+      data: {
+        'data-filter': 'Профнастил',
+      },
+    },
+    {
+      group: 'Сетка рабица',
+      title: 'Наша гарантия',
+      description:
+        'Компания «Частокол» предоставляет двухлетнюю гарантию на изготовленную и установленную продукцию (заборы, различные виды ограждений, калитки, ворота, въездные группы и т.д.).<br><br>Срок начала гарантийного периода определяется датой подписания акта выполненных работ.',
+      data: {
+        'data-filter': 'Сетка рабица',
+      },
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<Section
+  class:list={[className, 'qa2']}
+  paddingTop={false}
+  paddingBottom={'full'}
+  border
+  {...rest}
+>
+  <Filter class="qa2__filter">
+    <TabButtons2
+      class="qa2__tab-buttons"
+      buttons={groups.map((tab) => tab.group)}
+    />
+
+    <Accordion2
+      items={groups}
+      class="qa2__accordion"
+    />
+  </Filter>
+</Section>
+
+<style is:global>
+  .qa2__filter {
+    width: 100%;
+  }
+
+  .qa2__tab-buttons {
+    margin-bottom: 8rem;
+
+    --tab-button-background: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+
+  .qa2__accordion {
+    .accordion-2__item {
+      display: none;
+
+      background-color: var(--color-grayscale-0);
+    }
+
+    .accordion-2__item:not(.opened) {
+      border-color: transparent;
+    }
+
+    .accordion-2__item.active {
+      display: block;
+    }
+
+    .accordion-2__item:not(.opened) .accordion-2__item__head {
+      border-color: transparent;
+    }
+  }
+</style>

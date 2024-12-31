@@ -1,0 +1,85 @@
+<e-filter>
+  <slot />
+</e-filter>
+
+<script>
+  import type { AccordionElement } from 'aptechka/accordion'
+  import type { RadioElement } from 'aptechka/radio'
+
+  export class TabsElement extends HTMLElement {
+    #radioElement: RadioElement | null = null
+    #filterElements: Array<HTMLElement> = []
+    #accordionElement: AccordionElement | null = null
+
+    protected connectedCallback() {
+      this.#radioElement = this.querySelector('e-radio')
+
+      this.#filterElements = [
+        ...this.querySelectorAll<HTMLElement>('[data-filter]'),
+      ]
+
+      this.#accordionElement = this.querySelector('e-accordion')
+
+      customElements.whenDefined('e-accordion').then(() => {
+        setTimeout(() => {
+          if (this.isConnected) {
+            this.#radioElement?.addEventListener(
+              'radioChange',
+              this.#radioChangeListener,
+            )
+
+            this.#filter()
+          }
+        }, 0)
+      })
+    }
+
+    protected disconnectedCallback() {
+      this.#radioElement?.removeEventListener(
+        'radioChange',
+        this.#radioChangeListener,
+      )
+    }
+
+    #filter({ closeAccordion = false }: { closeAccordion?: boolean } = {}) {
+      if (closeAccordion && this.#accordionElement) {
+        this.#accordionElement.closeAll({ skipTransition: true })
+      }
+
+      this.#filterElements.forEach((element) => {
+        const values = element
+          .getAttribute('data-filter')
+          ?.split(',')
+          .map((v) => v.trim())
+
+        if (
+          this.#radioElement?.value === '*' ||
+          (this.#radioElement?.value &&
+            values?.includes(this.#radioElement.value))
+        ) {
+          element.classList.add('active')
+        } else {
+          element.classList.remove('active')
+        }
+      })
+
+      setTimeout(() => {
+        window.dispatchEvent(new Event('resize'))
+      }, 0)
+    }
+
+    #radioChangeListener = () => {
+      this.#filter({ closeAccordion: true })
+    }
+  }
+
+  if (!customElements.get('e-filter')) {
+    customElements.define('e-filter', TabsElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-filter': TabsElement
+    }
+  }
+</script>

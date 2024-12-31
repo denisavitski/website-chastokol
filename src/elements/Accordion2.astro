@@ -1,9 +1,15 @@
 ---
 import CircleButton from './CircleButton.astro'
 
+export interface Accordion2Item {
+  title: string
+  description: string
+  data?: { [key: string]: any }
+}
+
 export interface Props {
   class?: string
-  items?: Array<{ title: string; description: string }>
+  items?: Array<Accordion2Item>
 }
 
 const {
@@ -39,6 +45,7 @@ const {
         <div
           class="accordion-2__item"
           data-opened={i === 0 ? true : undefined}
+          {...item.data}
         >
           <div class="accordion-2__item__head">
             <div
@@ -107,6 +114,9 @@ const {
 
     border-radius: var(--border-radius);
     border: 0.1rem solid var(--color-grayscale-300);
+
+    transition-property: border-color;
+    transition-duration: var(--duration);
 
     @media (max-width: 768px) {
       padding: 1.6rem;

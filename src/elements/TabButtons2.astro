@@ -1,0 +1,51 @@
+---
+import TabButton from './TabButton.astro'
+
+export interface Props {
+  class?: string
+  name?: string
+  buttons?: Array<string>
+}
+
+const { class: className, buttons = [], ...rest } = Astro.props
+---
+
+<e-radio
+  {...rest}
+  class:list={[className, 'tab-buttons-2 hidden-scrollbar']}
+>
+  <TabButton
+    name={'Все'}
+    data-radio-button
+    data-checked={true}
+    data-value={'*'}
+  />
+  {
+    Array.from(new Set(buttons)).map((button) => {
+      return (
+        <TabButton
+          data-radio-button
+          name={button}
+          data-value={button}
+        />
+      )
+    })
+  }
+</e-radio>
+
+<style is:global>
+  .tab-buttons-2 {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+
+    @media (max-width: 768px) {
+      margin-left: calc(var(--screen-horisontal-padding) * -1);
+      width: calc(100% + var(--screen-horisontal-padding) * 2);
+      padding: 0 var(--screen-horisontal-padding);
+
+      flex-wrap: nowrap;
+      overflow: auto hidden;
+    }
+  }
+</style>

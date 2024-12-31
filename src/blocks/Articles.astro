@@ -2,9 +2,9 @@
 import CatalogCard, {
   type Props as CatalogCardProps,
 } from '@elements/CatalogCard.astro'
-import TabButton from '@elements/TabButton.astro'
 import Pagination from '@elements/Pagination.astro'
 import Select from '@elements/Select.astro'
+import TabButtons2 from '@elements/TabButtons2.astro'
 
 export interface Props {
   cards?: Array<CatalogCardProps & { filter?: string }>
@@ -92,26 +92,13 @@ const {
   data-white-background="true"
 >
   <div class="articles__top">
-    <e-radio class="articles__tabs hidden-scrollbar">
-      <TabButton
-        name={'Все'}
-        data-radio-button
-        data-checked={true}
-        data-value={'Все'}
-      />
-      {
-        cards.map((card) => {
-          const v = card.filter || card.labels?.[0]?.name || ''
-          return (
-            <TabButton
-              name={v}
-              data-radio-button
-              data-value={v}
-            />
-          )
-        })
-      }
-    </e-radio>
+    <TabButtons2
+      class="articles__tabs"
+      buttons={cards.map((card) => {
+        const v = card.filter || card.labels?.[0]?.name || ''
+        return v
+      })}
+    />
 
     <Select
       class="articles__select"
@@ -219,23 +206,13 @@ const {
   }
 
   .articles__tabs {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-
     max-width: 129.6rem;
 
     --tab-button-background: var(--color-grayscale-100);
 
     @media (max-width: 768px) {
       max-width: unset;
-      margin-left: calc(var(--screen-horisontal-padding) * -1);
-      width: calc(100% + var(--screen-horisontal-padding) * 2);
-      padding: 0 var(--screen-horisontal-padding);
       margin-bottom: 1.5rem;
-
-      flex-wrap: nowrap;
-      overflow: auto hidden;
     }
   }
 

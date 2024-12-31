@@ -4,7 +4,7 @@ import { undefined } from 'astro:schema'
 export interface Props {
   class?: string
   heading?: string
-  headingLevel?: 'h2' | 'h3'
+  headingLevel?: 'h1' | 'h2' | 'h3'
   paddingTop?: 'full' | 'normal' | false
   paddingBottom?: 'full' | 'normal' | false
   paddingHorisontal?: 'large' | 'normal'
@@ -49,6 +49,8 @@ const HeadingTag = headingLevel
           'section__heading',
           headingFont,
           {
+            'f-d-title-medium-76 f-m-title-medium-30':
+              !headingFont && headingLevel === 'h3',
             'f-d-title-medium-42 f-m-title-medium-24':
               !headingFont && headingLevel === 'h3',
             'f-d-title-medium-56 f-m-title-medium-24':

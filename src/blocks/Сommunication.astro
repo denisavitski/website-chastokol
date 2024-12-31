@@ -1,0 +1,144 @@
+---
+import type { SpriteIconName } from '@utils/SpriteIconName'
+import Section, { type Props as SectionProps } from '@blocks/Section.astro'
+import Icon from '@elements/Icon.astro'
+import { tryCreateHrefFromContact } from '@utils/href'
+import Social from '@elements/Social.astro'
+
+export interface Props extends SectionProps {
+  columns?: Array<{
+    icon: SpriteIconName
+    title: string
+    contact: 'social' | (string & {})
+  }>
+}
+
+const {
+  columns = [
+    {
+      icon: 'phone-flip',
+      title: 'Справочная служба:',
+      contact: '+7 (499) 900-60-30',
+    },
+    {
+      icon: 'envelope',
+      title: 'Электронная почта:',
+      contact: 'spb@stockade.ru',
+    },
+    {
+      icon: 'circle-user',
+      title: 'Социальные сети:',
+      contact: 'social',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<Section
+  class="communication"
+  whiteBackground
+  paddingTop={'full'}
+  paddingBottom={'full'}
+  {...rest}
+>
+  <div class="communication__columns"
+    >{
+      columns.map((col) => {
+        const contact =
+          col.contact === 'social' ? (
+            <Social class="communication__column__social" />
+          ) : (
+            <a
+              href={tryCreateHrefFromContact(col.contact).href}
+              set:html={col.contact}
+              class="communication__column__link f-d-title-medium-28 f-m-title-medium-20"
+            />
+          )
+
+        return (
+          <div class="communication__column">
+            <div class="communication__column__head">
+              <Icon
+                name={col.icon}
+                class="communication__column__icon"
+              />
+              <div
+                set:html={col.title}
+                class="communication__column__name f-d-body-large-regular-16 f-m-body-basic-regular-14"
+              />
+            </div>
+            {contact}
+          </div>
+        )
+      })
+    }</div
+  >
+</Section>
+
+<style is:global>
+  .communication {
+  }
+
+  .communication__columns {
+    display: flex;
+    gap: 5rem;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 4rem;
+    }
+  }
+
+  .communication__column {
+    width: 33.7rem;
+  }
+
+  .communication__column__head {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    margin-bottom: 3.5rem;
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+
+      margin-bottom: 1rem;
+    }
+  }
+
+  .communication__column__icon {
+    flex-shrink: 0;
+    width: 1.4rem;
+    height: 1.4rem;
+
+    fill: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      width: 1.3rem;
+      height: 1.3rem;
+    }
+  }
+
+  .communication__column__name {
+    color: var(--color-grayscale-400);
+  }
+
+  .communication__column__social {
+    --icon-box-border-color: transparent;
+    --icon-box-background-color: var(--color-grayscale-200);
+    --icon-box-color: var(--color-primary-100);
+    --icon-box-size: 4.6rem;
+    --icon-size: 2.2rem;
+
+    @media (max-width: 768px) {
+      --icon-box-size: 3.8rem;
+      --icon-size: 1.8rem;
+    }
+  }
+
+  .communication__column__link {
+    color: var(--color-primary-100);
+  }
+</style>
