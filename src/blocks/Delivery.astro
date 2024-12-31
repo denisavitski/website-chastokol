@@ -1,0 +1,278 @@
+---
+import TabButton from '@elements/TabButton.astro'
+import Section from './Section.astro'
+import HeadingAndDescription from '@elements/HeadingAndDescription.astro'
+import DeliveryCard, {
+  type Props as DeliveryCardProps,
+} from '@elements/DeliveryCard.astro'
+import PaymentCard, {
+  type Props as PaymentCardProps,
+} from '@elements/PaymentCard.astro'
+
+export interface Props {
+  delivery?: {
+    heading: string
+    description: string
+    zones: Array<DeliveryCardProps>
+  }
+  payment?: {
+    heading: string
+    description: string
+    cards: Array<PaymentCardProps>
+  }
+}
+
+const {
+  delivery = {
+    heading: 'Условия доставки',
+    description:
+      'Доставляем по г. Санкт-Петербург и Ленинградской области в удобный для вас интервал. Стоимость доставки зависит от вашего адреса. Нажмите на цветную зону на карте ниже, чтобы посмотреть условия.',
+    zones: [
+      {
+        name: 'Зона 1',
+        description:
+          'Доставка по пятницам с 8 до 23 (любой 6-ти часовой интервал)',
+        price: 'Стоимость – 490 руб.',
+        zone: 1,
+      },
+      {
+        name: 'Зона 2',
+        description:
+          'Доставка по пятницам  с 9 до 22 (4&nbsp;удобных интервала)',
+        price: 'Стоимость – 690 руб.',
+        zone: 2,
+      },
+      {
+        name: 'Зона 3',
+        description:
+          'Доставка по пятницам с 8 до 23 (любой 6-ти часовой интервал)',
+        price: 'Стоимость – 890 руб.',
+        zone: 3,
+      },
+      {
+        name: 'Зона 4',
+        description:
+          'Доставка по пятницам с 8 до 23 (любой 6-ти часовой интервал)',
+        price: 'Стоимость – 890 руб.',
+        zone: 4,
+      },
+    ],
+  },
+  payment = {
+    heading: 'Условия оплаты',
+    description:
+      'Мы ценим ваше доверие и готовы предоставить гибкие условия оплаты, чтобы сделать процесс сотрудничества максимально удобным для вас. Пожалуйста, свяжитесь с нами для получения дополнительной информации о конкретных условиях оплаты',
+    cards: [
+      {
+        images: [
+          { src: '/images/payment/mir.svg', boxType: 'large' },
+          { src: '/images/payment/sbp.svg', boxType: 'large' },
+          { src: '/images/payment/mastercard.svg', boxType: 'large' },
+        ],
+        title: 'Банковской картой',
+        description:
+          'Мы принимаем оплату по безналичному расчету. После оформления заказа, мы предоставим вам наши банковские реквизиты для осуществления оплаты',
+      },
+      {
+        images: [{ src: '/images/payment/credit-card.svg', boxType: 'small' }],
+        title: 'Банковской картой',
+        description:
+          'Мы принимаем оплату наличными. Пожалуйста, свяжитесь с нами, чтобы уточнить возможность использования этого варианта оплаты',
+      },
+      {
+        images: [{ src: '/images/payment/cash.svg', boxType: 'small' }],
+        title: 'Наличные',
+        description:
+          'Мы принимаем оплату наличными. Пожалуйста, свяжитесь с нами, чтобы уточнить возможность использования этого варианта оплаты',
+      },
+    ],
+  },
+} = Astro.props
+---
+
+<Section
+  class="delivery"
+  tag="e-billboard"
+  paddingBottom={'full'}
+>
+  <div class="delivery__tabs">
+    <TabButton
+      name="Условия доставки"
+      tag="e-billboard-set-button"
+      style="--index: 0;"
+      class="delivery__tab"
+    />
+    <TabButton
+      name="Условия оплаты"
+      tag="e-billboard-set-button"
+      style="--index: 1;"
+      class="delivery__tab"
+    />
+  </div>
+
+  <div class="delivery__slides">
+    <div
+      class="delivery__slide delivery__zones"
+      data-billboard-item
+    >
+      <HeadingAndDescription
+        heading={delivery.heading}
+        description={delivery.description}
+        headingFont="f-d-title-medium-42 f-m-title-medium-24"
+      />
+
+      <e-scroll class="delivery__zones__list">
+        {
+          delivery.zones.map((zone) => {
+            return (
+              <DeliveryCard
+                {...zone}
+                class="delivery__zones__zone"
+              />
+            )
+          })
+        }
+      </e-scroll>
+
+      <div class="delivery__zones__map-wrapper">
+        <div class="delivery__zones__map"></div>
+      </div>
+    </div>
+    <div
+      class="delivery__slide delivery__payment"
+      data-billboard-item
+    >
+      <HeadingAndDescription
+        heading={payment.heading}
+        description={payment.description}
+        headingFont="f-d-title-medium-42 f-m-title-medium-24"
+      />
+
+      <div class="delivery__payment__cards">
+        {
+          payment.cards.map((card) => {
+            return (
+              <PaymentCard
+                class="delivery__payment__card"
+                {...card}
+              />
+            )
+          })
+        }
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style is:global>
+  .delivery {
+  }
+
+  .delivery__tabs {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1.5rem;
+
+    margin-bottom: 8rem;
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+      margin-bottom: 4rem;
+    }
+  }
+
+  .delivery__tab {
+    --tab-button-background: var(--color-grayscale-0);
+    flex: 1;
+  }
+
+  .delivery__slides {
+  }
+
+  .delivery__slide {
+    display: none;
+
+    &.current {
+      display: block;
+    }
+  }
+
+  .delivery__zones {
+  }
+
+  .delivery__zones__list {
+    --gap: 5rem;
+
+    display: flex;
+    gap: var(--gap);
+
+    margin-bottom: 8rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+
+    @media (min-width: 769px) {
+      --hibernate: true;
+    }
+
+    @media (max-width: 768px) {
+      --axis: x;
+      --gap: 2rem;
+      --sectional: true;
+      --auto-size: true;
+      --sections-in-view: var(--slider-mobile-sections-in-view);
+    }
+  }
+
+  .delivery__zones__zone {
+    flex: 1;
+  }
+
+  .delivery__zones__map-wrapper {
+    position: relative;
+    padding-top: var(--section-vertical-padding-full);
+
+    &::before {
+      content: '';
+
+      position: absolute;
+
+      left: calc(var(--screen-horisontal-padding) * -1);
+      top: 0;
+
+      width: calc(100% + var(--screen-horisontal-padding) * 2);
+      height: 0.1rem;
+
+      background-color: var(--color-grayscale-300);
+    }
+  }
+
+  .delivery__zones__map {
+    width: 100%;
+    height: 56.4rem;
+
+    border-radius: var(--border-radius);
+    overflow: hidden;
+
+    background-color: var(--color-grayscale-0);
+
+    @media (max-width: 768px) {
+      height: 37.6rem;
+    }
+  }
+
+  .delivery__payment__cards {
+    display: flex;
+    gap: 5rem;
+
+    @media (max-width: 768px) {
+      gap: 2rem;
+      flex-direction: column;
+    }
+  }
+
+  .delivery__payment__card {
+    flex: 1;
+  }
+</style>

@@ -1,0 +1,131 @@
+---
+import type { ImageDataProps } from './Image.astro'
+import Image from './Image.astro'
+
+export interface Props {
+  class?: string
+  images?: Array<ImageDataProps & { boxType?: 'large' | 'small' }>
+  title?: string
+  description?: string
+}
+
+const {
+  class: className,
+  images = [{ src: '/images/payment/mir.svg', boxType: 'large' }],
+  title = 'Банковской картой',
+  description = 'Мы принимаем оплату по безналичному расчету. После оформления заказа, мы предоставим вам наши банковские реквизиты для осуществления оплаты',
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'payment-card']}
+>
+  <div class="payment-card__images"
+    >{
+      images.map((image) => {
+        return (
+          <div
+            class="payment-card__image-box"
+            data-box-type={image.boxType}
+          >
+            <Image
+              {...image}
+              lazy
+              contain
+              class="payment-card__image"
+            />
+          </div>
+        )
+      })
+    }
+  </div>
+
+  <div
+    class="payment-card__title f-d-title-medium-24 f-m-body-large-medium-16"
+    set:html={title}
+  />
+  <div
+    class="payment-card__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    set:html={description}
+  />
+</div>
+
+<style is:global>
+  .payment-card {
+    width: 46.7rem;
+    min-height: 26.9rem;
+
+    padding: 3rem;
+    background-color: var(--color-grayscale-0);
+    border-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+      width: 100%;
+      min-height: 20.6rem;
+      padding: 2rem;
+    }
+  }
+
+  .payment-card__images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    margin-bottom: 6rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .payment-card__image-box {
+    height: 4rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: var(--color-grayscale-200);
+
+    &[data-box-type='large'] {
+      border-radius: 0.5rem;
+      width: 7.429rem;
+
+      @media (max-width: 768px) {
+        width: 6.5rem;
+      }
+    }
+
+    &[data-box-type='small'] {
+      width: 4rem;
+      border-radius: 0.7rem;
+
+      @media (max-width: 768px) {
+        width: 3.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      height: 3.5rem;
+    }
+  }
+
+  .payment-card__image {
+    max-width: 90%;
+    max-height: 90%;
+  }
+
+  .payment-card__title {
+    margin-bottom: 2rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  .payment-card__description {
+    color: var(--color-grayscale-400);
+  }
+</style>

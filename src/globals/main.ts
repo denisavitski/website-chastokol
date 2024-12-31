@@ -15,3 +15,7 @@ import './page'
 
 import '@globals/typography.css'
 import '@globals/main.css'
+
+addEventListener('resize', () => {
+  console.log('res')
+})

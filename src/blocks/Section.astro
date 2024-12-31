@@ -1,10 +1,12 @@
 ---
+import { undefined } from 'astro:schema'
+
 export interface Props {
   class?: string
   heading?: string
   headingLevel?: 'h2' | 'h3'
-  paddingTop?: 'full' | 'normal'
-  paddingBottom?: 'full' | 'normal'
+  paddingTop?: 'full' | 'normal' | false
+  paddingBottom?: 'full' | 'normal' | false
   paddingHorisontal?: 'large' | 'normal'
   whiteBackground?: boolean | undefined
   border?: boolean | undefined
@@ -32,8 +34,8 @@ const HeadingTag = headingLevel
 <Tag
   {...rest}
   class:list={[className, 'section']}
-  data-padding-top={paddingTop}
-  data-padding-bottom={paddingBottom}
+  data-padding-top={paddingTop || undefined}
+  data-padding-bottom={paddingBottom || undefined}
   data-padding-horisontal={paddingHorisontal}
   data-white-background={whiteBackground}
   data-border={border}
@@ -59,6 +61,10 @@ const HeadingTag = headingLevel
 </Tag>
 
 <style is:global>
+  .section {
+    display: block;
+  }
+
   .section__heading {
     margin-bottom: 8rem;
 

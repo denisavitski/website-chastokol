@@ -342,7 +342,7 @@ const { class: className, steps = 8, ...rest } = Astro.props
 </style>
 
 <script>
-  import { clamp } from 'aptechka/utils'
+  import { clamp, scrollToElement } from 'aptechka/utils'
   import type { ProgressElement } from '@elements/Progress.astro.0.mts'
   import type { InputElement } from '@elements/Input.astro.0.mjs'
 
@@ -406,10 +406,12 @@ const { class: className, steps = 8, ...rest } = Astro.props
 
       const currentStepElement = this.#stepElements[this.#stepCounter]
 
-      this?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      })
+      // this?.scrollIntoView({
+      //   behavior: 'smooth',
+      //   block: 'nearest',
+      // })
+
+      scrollToElement(this, { behavior: 'smooth', offset: '.header' })
 
       if (currentStepElement) {
         this.#currentInputElements.forEach((element) => {

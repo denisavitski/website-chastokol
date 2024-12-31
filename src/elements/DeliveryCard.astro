@@ -1,0 +1,86 @@
+---
+import CardLabel from './CardLabel.astro'
+
+export interface Props {
+  class?: string
+  name?: string
+  description?: string
+  price?: string
+  zone?: 1 | 2 | 3 | 4
+}
+
+const {
+  class: className,
+  name = 'Зона 1',
+  description = 'Доставка по пятницам с 8 до 23 (любой 6-ти часовой интервал)',
+  price = 'Стоимость – 490 руб.',
+  zone = 1,
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'delivery-card']}
+  data-zone={zone}
+>
+  <CardLabel
+    {name}
+    class="delivery-card__name"
+  />
+  <div
+    class="delivery-card__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    set:html={description}
+  />
+  <div
+    class="delivery-card__price f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    set:html={price}
+  />
+</div>
+
+<style is:global>
+  .delivery-card {
+    width: 33.7rem;
+    min-height: 21.2rem;
+
+    padding: 3rem;
+    background-color: var(--color-grayscale-0);
+    border-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+      width: 26rem;
+      padding: 2rem;
+      min-height: 16.8rem;
+    }
+  }
+
+  .delivery-card__name {
+    margin-bottom: 3rem;
+
+    [data-zone='1'] & {
+      background-color: rgba(158, 226, 147, 0.6);
+      color: #40673a;
+    }
+    [data-zone='2'] & {
+      background-color: rgba(255, 231, 121, 0.6);
+      color: #766400;
+    }
+    [data-zone='3'] & {
+      background-color: rgba(255, 175, 75, 0.6);
+      color: #945300;
+    }
+    [data-zone='4'] & {
+      background-color: #fa9b8d;
+      color: #851100;
+    }
+  }
+
+  .delivery-card__description {
+    margin-bottom: 2rem;
+    color: var(--color-grayscale-400);
+  }
+
+  .delivery-card__price {
+    color: var(--color-grayscale-400);
+  }
+</style>

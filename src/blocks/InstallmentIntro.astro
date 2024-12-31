@@ -1,0 +1,78 @@
+---
+import HeadingAndDescription, {
+  type Props as HeadingAndDescriptionProps,
+} from '@elements/HeadingAndDescription.astro'
+import Section from './Section.astro'
+import InstallmentCard, {
+  type Props as InstallmentCardProps,
+} from '@elements/InstallmentCard.astro'
+
+export interface Props extends HeadingAndDescriptionProps {
+  cards?: Array<InstallmentCardProps>
+}
+
+const {
+  heading,
+  description,
+  cards = [
+    {
+      labels: [{ name: 'На все' }],
+      name: 'Рассрочка 0-0-12',
+      description:
+        'Без переплат, на 12 месяцев.<br>При досрочном погашении&nbsp;— выгода до&nbsp;10%',
+      href: '/',
+    },
+    {
+      labels: [{ name: 'На все' }],
+      name: 'Рассрочка 0-0-12',
+      description:
+        'Без переплат, на 12 месяцев.<br>При досрочном погашении&nbsp;— выгода до&nbsp;10%',
+      href: '/',
+    },
+    {
+      labels: [{ name: 'На все' }],
+      name: 'Рассрочка 0-0-12',
+      description: 'Без переплат, на 12 месяцев.',
+      href: '/',
+    },
+  ],
+} = Astro.props
+---
+
+<Section
+  class="installment-intro"
+  border
+  paddingBottom={'full'}
+  paddingTop={false}
+>
+  <HeadingAndDescription
+    {heading}
+    {description}
+    headingFont="f-d-title-medium-56 f-m-title-medium-30"
+  />
+
+  <div class="installment-intro__cards">
+    {
+      cards.map((card) => {
+        return <InstallmentCard {...card} />
+      })
+    }
+  </div>
+</Section>
+
+<style is:global>
+  .installment-intro__cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
+
+    .installment-card {
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      grid-template-columns: 100%;
+      gap: 2rem;
+    }
+  }
+</style>

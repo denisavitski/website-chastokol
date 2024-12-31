@@ -9,6 +9,7 @@ export interface Props extends SectionProps {
   list?: Array<Omit<CircleDataProps, 'theme'>>
   border?: boolean
   theme?: CircleDataProps['theme']
+  whiteBackground?: boolean
 }
 
 const {
@@ -32,6 +33,7 @@ const {
   ],
   border,
   theme = 'fact',
+  whiteBackground = true,
   ...rest
 } = Astro.props
 ---
@@ -41,7 +43,7 @@ const {
   class="circles"
   paddingTop={'full'}
   paddingBottom={'normal'}
-  whiteBackground
+  {whiteBackground}
   border={border}
   data-theme={theme}
   {...rest}

@@ -4,10 +4,11 @@ import Icon from './Icon.astro'
 
 export interface Props {
   class?: string
-  icon?: SpriteIconName
+  icon?: SpriteIconName | false
   number?: string
   title?: string
   theme?: 'fact' | 'asset'
+  numberSize?: 'normal' | 'small'
 }
 
 const {
@@ -16,6 +17,7 @@ const {
   number,
   title = 'Год основания',
   theme = 'fact',
+  numberSize = 'normal',
   ...rest
 } = Astro.props
 ---
@@ -24,15 +26,21 @@ const {
   {...rest}
   class:list={[className, 'circle-data']}
   data-theme={theme}
+  data-number-size={numberSize}
 >
   <Icon
     name={'border'}
     class={'circle-data__border'}
   />
-  <Icon
-    name={icon}
-    class="circle-data__icon"
-  />
+
+  {
+    icon && (
+      <Icon
+        name={icon}
+        class="circle-data__icon"
+      />
+    )
+  }
 
   {
     number && (
@@ -117,9 +125,19 @@ const {
 
     color: var(--color-primary-100);
 
+    .circle-data[data-number-size='small'] & {
+      font-size: 4.4rem;
+      margin-bottom: 2.1rem;
+    }
+
     @media (max-width: 768px) {
       font-size: 4.8rem;
       margin-bottom: 0rem;
+
+      .circle-data[data-number-size='small'] & {
+        font-size: 3.7rem;
+        margin-bottom: 0.8rem;
+      }
     }
   }
 

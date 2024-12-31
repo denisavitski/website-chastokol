@@ -1,0 +1,30 @@
+---
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import PageHeading from '@blocks/PageHeading.astro'
+import Layout from '@layout/Layout.astro'
+import Delivery from '@blocks/Delivery.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Фото галерея',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Доставка и оплата', href: '/delivery-and-payment' },
+    ]}
+  />
+
+  <PageHeading
+    heading="Доставка и оплата"
+    paddingBottom={'normal'}
+  />
+
+  <Delivery />
+</Layout>

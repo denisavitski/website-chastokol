@@ -1,4 +1,5 @@
 ---
+import HeadingAndDescription from '@elements/HeadingAndDescription.astro'
 import Image, { type ImageDataProps } from '@elements/Image.astro'
 import Video, { type Props as VideoProps } from '@elements/Video.astro'
 
@@ -29,13 +30,9 @@ const {
   data-padding-bottom="full"
   data-border={border}
 >
-  <h1
-    class="company-intro__heading two-color-heading f-d-title-medium-56 f-m-title-medium-24"
-    set:html={heading}
-  />
-  <p
-    class="company-intro__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
-    set:html={description}
+  <HeadingAndDescription
+    {heading}
+    {description}
   />
   {
     video ? (
@@ -53,28 +50,6 @@ const {
 </div>
 
 <style is:global>
-  .company-intro__heading {
-    width: 103.3rem;
-    margin-bottom: 3rem;
-
-    @media (max-width: 768px) {
-      width: 100%;
-      margin-bottom: 2rem;
-    }
-  }
-
-  .company-intro__description {
-    width: 103.3rem;
-    margin-bottom: 8rem;
-
-    color: var(--color-grayscale-400);
-
-    @media (max-width: 768px) {
-      width: 100%;
-      margin-bottom: 4rem;
-    }
-  }
-
   .company-intro__image {
     width: 100%;
     height: 65rem;

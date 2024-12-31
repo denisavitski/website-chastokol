@@ -2,8 +2,9 @@
 import Accordion2, {
   type Props as Accordion2Props,
 } from '@elements/Accordion2.astro'
+import Section, { type Props as SectionProps } from './Section.astro'
 
-export interface Props {
+export interface Props extends SectionProps {
   items?: Accordion2Props['items']
 }
 
@@ -25,15 +26,17 @@ const {
         'Компания «Частокол» предоставляет двухлетнюю гарантию на изготовленную и установленную продукцию (заборы, различные виды ограждений, калитки, ворота, въездные группы и т.д.).<br><br>Срок начала гарантийного периода определяется датой подписания акта выполненных работ.',
     },
   ],
+  ...rest
 } = Astro.props
 ---
 
-<div
+<Section
   class="accordion-2-section"
-  data-padding-top="full"
-  data-padding-bottom="full"
-  data-padding-horisontal="normal"
-  data-white-background="true"
+  paddingTop="full"
+  paddingBottom="full"
+  paddingHorisontal="normal"
+  whiteBackground={true}
+  {...rest}
 >
   <Accordion2 {items} />
-</div>
+</Section>

@@ -1,0 +1,61 @@
+---
+export interface Props {
+  class?: string
+  heading?: string | undefined
+  description?: string | undefined
+  headingFont?: string
+}
+
+const {
+  class: className,
+  heading = 'Выгодная рассрочка',
+  description = 'Выбирайте удобный срок рассрочки и наслаждайтесь покупкой без переплат. Мы предлагаем индивидуальный подход к каждому клиенту и гарантируем прозрачные условия сотрудничества. Данную услугу мы предоставляем совместно с банком партнером – Почта-Банк.',
+  headingFont = 'f-d-title-medium-56 f-m-title-medium-24',
+  ...rest
+} = Astro.props
+---
+
+<div
+  {...rest}
+  class:list={[className, 'had']}
+>
+  <h1
+    class:list={['had__heading two-color-heading', headingFont]}
+    set:html={heading}
+  />
+  <p
+    class="had__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+    set:html={description}
+  />
+</div>
+
+<style is:global>
+  .had {
+    width: 103.3rem;
+
+    margin-bottom: 8rem;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      margin-bottom: 4rem;
+    }
+  }
+
+  .had__heading {
+    margin-bottom: 3rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+  }
+
+  .had__description {
+    margin-bottom: 8rem;
+
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      margin-bottom: 4rem;
+    }
+  }
+</style>

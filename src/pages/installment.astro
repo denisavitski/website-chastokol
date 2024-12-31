@@ -1,0 +1,60 @@
+---
+import Accordion2Section from '@blocks/Accordion2Section.astro'
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import Circles from '@blocks/Circles.astro'
+import InstallmentIntro from '@blocks/InstallmentIntro.astro'
+import Layout from '@layout/Layout.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Реквизиты',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Рассрочка', href: '/installment' },
+    ]}
+  />
+  <InstallmentIntro />
+  <Circles
+    theme={'asset'}
+    heading={'Как оформить покупку'}
+    border
+    paddingBottom={'full'}
+    whiteBackground={false}
+    list={[
+      {
+        icon: false,
+        number: '1',
+        title: 'Выберите комфортный срок, заполните короткую форму',
+        numberSize: 'small',
+      },
+      {
+        icon: false,
+        number: '2',
+        title: 'Получите предварительное решение от 3-4 минут',
+        numberSize: 'small',
+      },
+      {
+        icon: false,
+        number: '3',
+        title: 'Подпишите кредитный договор по SMS',
+        numberSize: 'small',
+      },
+      {
+        icon: false,
+        number: '4',
+        title: 'Получите ваш заказ в согласованный срокв',
+        numberSize: 'small',
+      },
+    ]}
+  />
+
+  <Accordion2Section heading="Частые вопросы" />
+</Layout>
