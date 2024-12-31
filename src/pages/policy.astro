@@ -1,0 +1,33 @@
+---
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import PageHeading from '@blocks/PageHeading.astro'
+import Technical from '@blocks/Technical.astro'
+import Layout from '@layout/Layout.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Политика конфиденциальности',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+  headerBackgroundColor={'white'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Политика конфиденциальности', href: '/policy' },
+    ]}
+    whiteBackground
+  />
+
+  <PageHeading
+    heading="Политика конфиденциальности"
+    whiteBackground
+    headingFont={'f-d-title-medium-76 f-m-title-medium-20'}
+  />
+
+  <Technical whiteBackground />
+</Layout>

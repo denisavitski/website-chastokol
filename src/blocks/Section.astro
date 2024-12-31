@@ -11,6 +11,7 @@ export interface Props {
   whiteBackground?: boolean | undefined
   border?: boolean | undefined
   tag?: string
+  headingFont?: string
 }
 
 const {
@@ -22,6 +23,7 @@ const {
   paddingHorisontal = 'normal',
   whiteBackground,
   border,
+  headingFont,
   tag = 'section',
   ...rest
 } = Astro.props
@@ -45,9 +47,12 @@ const HeadingTag = headingLevel
       <HeadingTag
         class:list={[
           'section__heading',
+          headingFont,
           {
-            'f-d-title-medium-42 f-m-title-medium-24': headingLevel === 'h3',
-            'f-d-title-medium-56 f-m-title-medium-24': headingLevel === 'h2',
+            'f-d-title-medium-42 f-m-title-medium-24':
+              !headingFont && headingLevel === 'h3',
+            'f-d-title-medium-56 f-m-title-medium-24':
+              !headingFont && headingLevel === 'h2',
           },
         ]}
         set:html={heading}
