@@ -5,7 +5,7 @@ export interface Props {
   name?: string | undefined
   value?: string | undefined
   label?: string | undefined
-  type?: 'text' | 'select' | undefined | 'date' | 'time' | 'phone'
+  type?: 'text' | 'select' | undefined | 'date' | 'time' | 'phone' | 'textarea'
   options?: Array<string> | undefined
   info?: string | undefined
   required?: boolean | undefined
@@ -48,6 +48,23 @@ const { class: className, ...rest } = Astro.props
     textarea::placeholder {
       font-family: inherit;
       font-size: inherit;
+    }
+
+    textarea {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+      min-height: var(--min-height, 9.8rem);
+      resize: none;
+    }
+
+    @media (max-width: 768px) {
+      textarea {
+        min-height: var(--min-height, 8rem);
+      }
+    }
+
+    textarea::-webkit-scrollbar {
+      display: none;
     }
 
     .info {
@@ -170,7 +187,7 @@ const { class: className, ...rest } = Astro.props
     .icons {
       position: absolute;
       right: 1.2rem;
-      top: 50%;
+      top: calc(var(--input-height) / 2);
 
       transform: translateY(-50%);
 
@@ -391,7 +408,7 @@ const { class: className, ...rest } = Astro.props
             ${label ? `<span class="name">${label}</span>` : ''}
 
             <span class="main">
-              <input 
+              <${type === 'textarea' ? 'textarea' : 'input'} 
                 class="main-input" 
                 ${placeholder ? `placeholder="${placeholder}"` : ''}
                 ${name ? `name="${name}"` : ''}
@@ -399,7 +416,7 @@ const { class: className, ...rest } = Astro.props
                 ${autocomplete ? `autocomplete="${autocomplete}"` : ''}
                 ${onkeypress ? `onkeypress="${onkeypress}"` : ''}
                 ${required ? `required` : ''}
-              />
+              ${type === 'textarea' ? '></textarea>' : '/>'} 
 
               <span class="icons">
                 <span class="validity-icons icon">

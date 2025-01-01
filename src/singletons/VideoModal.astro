@@ -1,0 +1,89 @@
+---
+import CommonModal from '@elements/CommonModal.astro'
+import Video from '@elements/Video.astro'
+
+export const modal = '#video-modal'
+
+export interface Props {
+  video?: string
+}
+
+const {
+  video = `<iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+} = Astro.props
+---
+
+<!-- SINGLETON -->
+<CommonModal
+  id="video-modal"
+  class="video-modal"
+  tag="e-video-modal"
+>
+  <Video
+    {video}
+    class="video-modal__content"
+  />
+</CommonModal>
+
+<style is:global>
+  .video-modal {
+  }
+
+  .video-modal__content {
+    width: 124.4rem;
+    height: 70rem;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+    }
+  }
+</style>
+
+<script>
+  import type { VideoFrameElement } from '@elements/Video.astro.0.mjs'
+  import { PopoverElement } from 'aptechka/popover'
+
+  export class VideoModalElement extends PopoverElement {
+    #videoFrameElement: VideoFrameElement | null = null
+
+    constructor() {
+      super()
+
+      this.addEventListener('popoverTriggered', (e) => {
+        if (
+          e.detail.trigger instanceof HTMLElement &&
+          this.#videoFrameElement
+        ) {
+          const video = e.detail.trigger.getAttribute('data-video')
+
+          if (video) {
+            this.#videoFrameElement.update(video)
+            this.#videoFrameElement.play()
+          }
+        }
+      })
+    }
+
+    protected override connectedCallback() {
+      super.connectedCallback()
+
+      this.#videoFrameElement = this.querySelector('e-video-frame')
+    }
+
+    protected override disconnectedCallback() {
+      super.disconnectedCallback()
+    }
+  }
+
+  if (!customElements.get('e-video-modal')) {
+    customElements.define('e-video-modal', VideoModalElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-video-modal': VideoModalElement
+    }
+  }
+</script>

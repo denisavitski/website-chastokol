@@ -13,6 +13,7 @@ const {
   class: className,
   cover = { src: '/images/categories/intro.jpg' },
   video = `<iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+  // video = `/videos/1.mp4`,
   ...rest
 } = Astro.props
 ---
@@ -50,6 +51,13 @@ const {
     background-color: var(--color-image-background);
 
     overflow: hidden;
+
+    video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
 
     @media (max-width: 768px) {
       height: 23.5rem;
@@ -99,14 +107,32 @@ const {
     #holderElement: HTMLElement | null = null
     #buttonElement: HTMLElement | null = null
     #status = new ClassLinkedStatus(this, { playing: false })
+    #video: string = ''
+    #isIframe = false
+    #videoElement: HTMLVideoElement | null = null
+
+    public update(video: string) {
+      this.#video = video
+    }
+
+    public play() {
+      this.#create()
+    }
 
     protected connectedCallback() {
-      this.#holderElement = this.querySelector('.video__holder')
+      this.#video = this.getAttribute('video') || ''
+      this.#isIframe = this.#video?.includes('<iframe')
 
-      this.#buttonElement = this.querySelector('.video__button')
-      this.#buttonElement?.addEventListener('click', this.#clickListener)
+      if (this.#video) {
+        this.#holderElement = this.querySelector('.video__holder')
 
-      intersector.subscribe(this, this.#intersectionListener)
+        this.#buttonElement = this.querySelector('.video__button')
+        this.#buttonElement?.addEventListener('click', this.#clickListener)
+
+        intersector.subscribe(this, this.#intersectionListener)
+      } else {
+        console.warn(this, 'не указан атрибут video')
+      }
     }
 
     protected disconnectedCallback() {
@@ -116,24 +142,42 @@ const {
     }
 
     #clickListener = () => {
-      this.#load()
+      this.#create()
     }
 
-    #load() {
-      const video = this.getAttribute('video')
+    #create() {
+      if (this.#holderElement) {
+        if (this.#isIframe) {
+          this.#holderElement.innerHTML = this.#video
+        } else {
+          this.#videoElement = document.createElement('video')
+          this.#videoElement.src = this.#video
+          this.#videoElement.autoplay = true
+          this.#videoElement.loop = true
+          this.#videoElement.controls = true
+          this.#holderElement.appendChild(this.#videoElement)
+        }
 
-      if (video && this.#holderElement) {
-        this.#holderElement.innerHTML = video
         this.#status.set('playing', true)
+      }
+    }
+
+    #destroy() {
+      if (this.#holderElement) {
+        if (this.#isIframe) {
+          this.#holderElement.innerHTML = ''
+        } else if (this.#videoElement) {
+          this.#videoElement.currentTime = 0
+          this.#videoElement.pause()
+        }
+
+        this.#status.set('playing', false)
       }
     }
 
     #intersectionListener = (e: IntersectionObserverEntry) => {
       if (!e.isIntersecting && this.#status.isTrue('playing')) {
-        if (this.#holderElement) {
-          this.#holderElement.innerHTML = ''
-          this.#status.set('playing', false)
-        }
+        this.#destroy()
       }
     }
   }

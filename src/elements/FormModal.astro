@@ -1,0 +1,159 @@
+---
+import Button from './Button.astro'
+import CommonModal from './CommonModal.astro'
+import FormAgreement from './FormAgreement.astro'
+import Input, { type Props as InputProps } from './Input.astro'
+import ModalCloseButton from './ModalCloseButton.astro'
+
+export const modal = '#form-modal'
+
+export interface Props {
+  class?: string
+  id?: string
+  title?: string
+  description?: string
+  inputs?: Array<InputProps>
+}
+
+const {
+  class: className,
+  id = 'form-modal',
+  title = 'Задать вопрос',
+  description = 'Оставьте заявку и&nbsp;мы&nbsp;свяжемся с&nbsp;вами в&nbsp;ближайшее время',
+  inputs = [
+    {
+      placeholder: 'Ваше имя',
+      name: 'name',
+      required: true,
+      theme: 'lightgrey',
+    },
+    {
+      placeholder: 'Номер телефона',
+      name: 'phone',
+      required: true,
+      theme: 'lightgrey',
+    },
+    {
+      placeholder: 'Ваш вопрос',
+      name: 'question',
+      required: true,
+      theme: 'lightgrey',
+      type: 'textarea',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<CommonModal
+  {...rest}
+  {id}
+  class:list={['form-modal', className]}
+>
+  <ModalCloseButton
+    modal={id}
+    class="form-modal__close-button"
+  />
+
+  <form class="form-modal__form">
+    <div
+      class="form-modal__form__title f-d-additionally-title-bold-24 f-m-additionally-title-bold-20"
+      set:html={title}
+    />
+    <div
+      class="form-modal__form__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
+      set:html={description}
+    />
+    <div class="form-modal__form__inputs">
+      {
+        inputs.map((input) => {
+          return (
+            <Input
+              {...input}
+              class="form-modal__form__input"
+              data-popover-content
+            />
+          )
+        })
+      }
+    </div>
+
+    <FormAgreement class="form-modal__form__agreement" />
+
+    <Button
+      theme={'only-text'}
+      class="form-modal__form__submit-button"
+      name="Отправить"
+    />
+  </form>
+</CommonModal>
+
+<style is:global>
+  .form-modal__close-button {
+    @media (max-width: 768px) {
+      top: 4.3rem;
+    }
+  }
+
+  .form-modal__form {
+    padding: 5rem;
+
+    background-color: var(--color-grayscale-0);
+    border-radius: var(--border-radius);
+
+    @media (max-width: 768px) {
+      border-radius: 0;
+      padding: 4rem 2rem;
+
+      min-height: var(--viewport-height);
+    }
+  }
+
+  .form-modal__form__title {
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 0.9rem;
+    }
+  }
+
+  .form-modal__form__description {
+    margin-bottom: 4rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .form-modal__form__inputs {
+    display: grid;
+    grid-auto-rows: max-content;
+    gap: 1.5rem;
+
+    margin-bottom: 1.5rem;
+
+    @media (max-width: 768px) {
+      gap: 1rem;
+    }
+  }
+
+  .form-modal__form__input {
+  }
+
+  .form-modal__form__agreement {
+    margin-bottom: 4.5rem;
+
+    @media (max-width: 768px) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .form-modal__form__submit-button {
+    width: 100%;
+    --button-height: 5rem;
+
+    @media (max-width: 768px) {
+      --button-height: 4rem;
+    }
+  }
+</style>

@@ -9,6 +9,11 @@ import PixelPerfect, {
   type PixelPerfectImages,
 } from '@elements/PixelPerfect.astro'
 import City from '@singletons/City.astro'
+import FormAnswer from '@singletons/FormAnswer.astro'
+import InstallmentForm from '@singletons/InstallmentForm.astro'
+import QuestionForm from '@singletons/QuestionForm.astro'
+import RequestForm from '@singletons/RequestForm.astro'
+import VideoModal from '@singletons/VideoModal.astro'
 
 export interface Props {
   header?: boolean
@@ -60,6 +65,11 @@ const {
   <body>
     <div class="page">
       {header && <Header />}
+      <FormAnswer />
+      <InstallmentForm />
+      <QuestionForm />
+      <RequestForm />
+      <VideoModal />
 
       <div
         class="scroll hidden-scrollbar"

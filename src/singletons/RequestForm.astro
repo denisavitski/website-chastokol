@@ -1,0 +1,37 @@
+---
+import FormModal from '@elements/FormModal.astro'
+
+export const modal = '#request-form'
+---
+
+<!-- SINGLETON -->
+<FormModal
+  id="request-form"
+  title="Оставить заявку"
+  inputs={[
+    {
+      placeholder: 'Категория',
+      name: 'category',
+      required: true,
+      theme: 'lightgrey',
+    },
+    {
+      placeholder: 'Цвет',
+      name: 'color',
+      required: true,
+      theme: 'lightgrey',
+    },
+    {
+      placeholder: 'Ваше имя',
+      name: 'name',
+      required: true,
+      theme: 'lightgrey',
+    },
+    {
+      placeholder: 'Номер телефона',
+      name: 'phone',
+      required: true,
+      theme: 'lightgrey',
+    },
+  ]}
+/>

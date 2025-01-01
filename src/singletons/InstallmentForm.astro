@@ -1,0 +1,31 @@
+---
+import FormModal from '@elements/FormModal.astro'
+
+export const modal = '#installment-form'
+---
+
+<!-- SINGLETON -->
+<FormModal
+  id="installment-form"
+  title="Оставить заявку"
+  inputs={[
+    {
+      placeholder: 'Тип',
+      name: 'type',
+      required: true,
+      theme: 'lightgrey',
+    },
+    {
+      placeholder: 'Ваше имя',
+      name: 'name',
+      required: true,
+      theme: 'lightgrey',
+    },
+    {
+      placeholder: 'Номер телефона',
+      name: 'phone',
+      required: true,
+      theme: 'lightgrey',
+    },
+  ]}
+/>
