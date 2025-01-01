@@ -1,15 +1,30 @@
 ---
-import Section from './Section.astro'
+import Button from '@elements/Button.astro'
+import Section, { type Props as SectionProps } from './Section.astro'
 
-export interface Props {}
+export interface Props extends SectionProps {
+  href?: string
+}
 
-const {} = Astro.props
+const { href, ...rest } = Astro.props
 ---
 
 <Section
   heading="Цены на заборы"
+  {...rest}
   class="prices"
 >
+  {
+    href ? (
+      <Button
+        slot="heading"
+        name="Подробнее"
+        {href}
+        theme="flat"
+        class="prices__link"
+      />
+    ) : null
+  }
   <div class="prices__table-wrapper hidden-scrollbar">
     <table
       class="prices__table f-d-body-large-regular-16 f-m-body-basic-regular-14"
@@ -58,6 +73,22 @@ const {} = Astro.props
 </Section>
 
 <style is:global>
+  .prices {
+    .section__heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .prices__link {
+    margin-top: 1rem;
+
+    @media (max-width: 768px) {
+      margin-top: 0.5rem;
+    }
+  }
+
   .prices__table-wrapper {
     @media (max-width: 768px) {
       padding: 0.2rem var(--screen-horisontal-padding);

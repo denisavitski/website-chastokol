@@ -55,8 +55,10 @@ const HeadingTag = headingLevel
               !headingFont && headingLevel === 'h2',
           },
         ]}
-        set:html={heading}
-      />
+      >
+        <span set:html={heading} />
+        <slot name="heading" />
+      </HeadingTag>
     )
   }
 

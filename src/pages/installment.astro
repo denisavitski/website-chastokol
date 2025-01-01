@@ -2,7 +2,8 @@
 import Accordion2Section from '@blocks/Accordion2Section.astro'
 import Breadcrumbs from '@blocks/Breadcrumbs.astro'
 import Circles from '@blocks/Circles.astro'
-import InstallmentIntro from '@blocks/InstallmentIntro.astro'
+import InstallmentVariants from '@blocks/InstallmentVariants.astro'
+import TextIntro from '@blocks/TextIntro.astro'
 import Layout from '@layout/Layout.astro'
 ---
 
@@ -21,7 +22,15 @@ import Layout from '@layout/Layout.astro'
       { name: 'Рассрочка', href: '/installment' },
     ]}
   />
-  <InstallmentIntro />
+
+  <TextIntro
+    heading="Выгодная рассрочка"
+    description="Выбирайте удобный срок рассрочки и наслаждайтесь покупкой без переплат. Мы предлагаем индивидуальный подход к каждому клиенту и гарантируем прозрачные условия сотрудничества. Данную услугу мы предоставляем совместно с банком партнером – Почта-Банк."
+    headingFont="f-d-title-medium-56 f-m-title-medium-30"
+  />
+
+  <InstallmentVariants />
+
   <Circles
     theme={'asset'}
     heading={'Как оформить покупку'}

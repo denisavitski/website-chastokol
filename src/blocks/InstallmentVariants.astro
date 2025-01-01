@@ -1,19 +1,14 @@
 ---
-import HeadingAndDescription, {
-  type Props as HeadingAndDescriptionProps,
-} from '@elements/HeadingAndDescription.astro'
-import Section from './Section.astro'
+import Section, { type Props as SectionProps } from './Section.astro'
 import InstallmentCard, {
   type Props as InstallmentCardProps,
 } from '@elements/InstallmentCard.astro'
 
-export interface Props extends HeadingAndDescriptionProps {
+export interface Props extends SectionProps {
   cards?: Array<InstallmentCardProps>
 }
 
 const {
-  heading,
-  description,
   cards = [
     {
       labels: [{ name: 'На все' }],
@@ -36,6 +31,7 @@ const {
       href: '/',
     },
   ],
+  ...rest
 } = Astro.props
 ---
 
@@ -44,13 +40,8 @@ const {
   border
   paddingBottom={'full'}
   paddingTop={false}
+  {...rest}
 >
-  <HeadingAndDescription
-    {heading}
-    {description}
-    headingFont="f-d-title-medium-56 f-m-title-medium-30"
-  />
-
   <div class="installment-intro__cards">
     {
       cards.map((card) => {

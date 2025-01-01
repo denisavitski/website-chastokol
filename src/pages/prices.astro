@@ -1,0 +1,48 @@
+---
+import Breadcrumbs from '@blocks/Breadcrumbs.astro'
+import PricesSection from '@blocks/Prices.astro'
+import TextIntro from '@blocks/TextIntro.astro'
+import Layout from '@layout/Layout.astro'
+---
+
+<Layout
+  seo={{
+    title: 'Частокол: Политика конфиденциальности',
+    description: 'Металлические заборы в Санкт-Петербурге',
+    cover: '/images/seo/home.jpg',
+  }}
+  headerColor={'dark'}
+  headerMobileColor={'dark'}
+>
+  <Breadcrumbs
+    links={[
+      { name: 'Главная', href: '/' },
+      { name: 'Цены', href: '/prices' },
+    ]}
+  />
+
+  <TextIntro
+    heading="Цены на заборы"
+    description="На этой странице можно посмотреть цены на заборы, которые предлагает наша компания. Мы устанавливаем заборы «под ключ» в Санкт-Петербурге и Ленинградской области. Строим ограждения, ворота и калитки из материалов собственного производства. Принимаем заказы на строительство заборов из материала заказчика."
+    headingFont="f-d-title-medium-56 f-m-title-medium-30"
+  />
+
+  <PricesSection
+    whiteBackground
+    heading="Профнастил"
+    headingLevel="h3"
+    paddingTop={'full'}
+    paddingBottom={'full'}
+    href="/"
+    border
+  />
+
+  <PricesSection
+    whiteBackground
+    heading="Евроштакетник"
+    headingLevel="h3"
+    paddingTop={'full'}
+    paddingBottom={'full'}
+    href="/"
+  />
+</Layout>
