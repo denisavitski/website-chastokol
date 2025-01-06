@@ -72,7 +72,9 @@ const {
 
 <style is:global>
   .category-intro {
-    padding: 2.5rem 16rem var(--section-vertical-padding) 16rem;
+    --padding: calc(var(--screen-horisontal-padding) * 0.76);
+    padding: 2.5rem var(--padding) var(--section-vertical-padding)
+      var(--padding);
 
     @media (max-width: 768px) {
       padding: 0;

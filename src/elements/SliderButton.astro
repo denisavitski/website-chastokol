@@ -37,6 +37,8 @@ const Tag = tag
 
 <style is:global>
   .slider-button {
+    --offset: 5rem;
+
     display: none;
     align-items: center;
     justify-content: center;
@@ -59,6 +61,10 @@ const Tag = tag
     .has-overflow &,
     .has-length & {
       display: inline-flex;
+    }
+
+    @media (max-width: 1600px) {
+      --offset: 3rem;
     }
 
     @media (max-width: 768px) {
@@ -85,11 +91,11 @@ const Tag = tag
     }
 
     &[data-center='true'][data-type='prev'] {
-      right: calc(100% + 5rem);
+      right: calc(100% + var(--offset));
     }
 
     &[data-center='true'][data-type='next'] {
-      left: calc(100% + 5rem);
+      left: calc(100% + var(--offset));
     }
 
     &[disabled] {

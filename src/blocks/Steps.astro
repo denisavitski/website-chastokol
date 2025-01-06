@@ -49,7 +49,12 @@ const {
   <e-scroll class="steps__slider">
     {
       cards.map((component) => {
-        return <Step {...component} />
+        return (
+          <Step
+            {...component}
+            class="steps__slider__item"
+          />
+        )
       })
     }
   </e-scroll>
@@ -58,19 +63,23 @@ const {
 <style is:global>
   .steps__slider {
     @media (min-width: 769px) {
+      --gap: 5rem;
       --hibernate: true;
 
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 5rem;
+      display: flex;
+      gap: var(--gap);
     }
 
     @media (max-width: 768px) {
       --axis: x;
       --gap: 2rem;
+    }
+  }
 
-      display: flex;
-      gap: var(--gap);
+  .steps__slider__item {
+    @media (min-width: 769px) {
+      width: 100%;
+      flex: 1;
     }
   }
 </style>

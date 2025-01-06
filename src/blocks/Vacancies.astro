@@ -1,11 +1,12 @@
 ---
 import Vacancy, { type Props as VacancyProps } from '@elements/Vacancy.astro'
+import Section, { type Props as SectionProps } from './Section.astro'
 
-export interface Props {
+export interface Props extends SectionProps {
   list?: Array<VacancyProps>
 }
 
-const { list } = Astro.props
+const { list, ...rest } = Astro.props
 
 const defaultObject: VacancyProps = {
   state: 'open',
@@ -65,22 +66,30 @@ const dblist =
   })
 ---
 
-<div
+<!-- BLOCK -->
+<Section
   class="vacancies"
-  data-white-background="true"
+  whiteBackground
+  paddingTop={'full'}
+  paddingBottom={'full'}
+  {...rest}
 >
-  {
-    dblist.map((item) => {
-      return <Vacancy {...item} />
-    })
-  }
-</div>
+  <div class="vacancies__list">
+    {
+      dblist.map((item) => {
+        return (
+          <Vacancy
+            {...item}
+            class="vacancies__card"
+          />
+        )
+      })
+    }
+  </div>
+</Section>
 
 <style is:global>
-  .vacancies {
-    padding: var(--section-vertical-padding-full)
-      var(--screen-horisontal-padding);
-
+  .vacancies__list {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 5rem;
@@ -88,6 +97,14 @@ const dblist =
     @media (max-width: 768px) {
       grid-template-columns: 100%;
       gap: 2rem;
+    }
+  }
+
+  .vacancies__card {
+    width: 100%;
+
+    .vacancy__card {
+      width: 100%;
     }
   }
 </style>

@@ -121,8 +121,10 @@ const {
 
     --right-padding: 0;
 
-    &[data-theme='questions'] {
-      --left-height: 49.6rem;
+    @media (min-width: 769px) {
+      &[data-theme='questions'] {
+        --left-height: 49.6rem;
+      }
     }
 
     @media (max-width: 768px) {

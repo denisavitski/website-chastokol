@@ -53,6 +53,7 @@ const {
       list.map((fact) => {
         return (
           <CircleData
+            class="circles__list__circle"
             {...fact}
             {theme}
           />
@@ -90,6 +91,12 @@ const {
       .circle-data {
         flex-shrink: 0;
       }
+    }
+  }
+
+  .circles__list__circle {
+    @media (min-width: 769px) {
+      flex: 1;
     }
   }
 </style>
