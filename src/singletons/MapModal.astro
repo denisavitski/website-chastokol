@@ -1,0 +1,44 @@
+---
+import CommonModal from '@elements/CommonModal.astro'
+import Map from '@elements/Map.astro'
+import ModalCloseButton from '@elements/ModalCloseButton.astro'
+
+export const modal = '#map-modal'
+---
+
+<!-- 
+  SINGLETON 
+-->
+<CommonModal
+  id="map-modal"
+  class="map-modal"
+>
+  <div class="map-modal__content">
+    <ModalCloseButton modal="map-modal" />
+    <Map class="map-modal__map" />
+  </div>
+</CommonModal>
+
+<style is:global>
+  .map-modal__content {
+    position: relative;
+
+    width: 124rem;
+    height: 70rem;
+
+    border-radius: var(--border-radius);
+    background-color: var(--color-grayscale-0);
+    overflow: hidden;
+
+    .modal-close-button {
+      z-index: 1;
+    }
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: var(--viewport-height);
+      max-height: 100%;
+      border-radius: 0;
+    }
+  }
+</style>

@@ -13,6 +13,7 @@ export interface Props {
   title?: string
   description?: string
   inputs?: Array<InputProps>
+  tag?: string
 }
 
 const {
@@ -20,6 +21,7 @@ const {
   id = 'form-modal',
   title = 'Задать вопрос',
   description = 'Оставьте заявку и&nbsp;мы&nbsp;свяжемся с&nbsp;вами в&nbsp;ближайшее время',
+
   inputs = [
     {
       placeholder: 'Ваше имя',
@@ -41,6 +43,7 @@ const {
       type: 'textarea',
     },
   ],
+  tag,
   ...rest
 } = Astro.props
 ---
@@ -48,6 +51,7 @@ const {
 <CommonModal
   {...rest}
   {id}
+  {tag}
   class:list={['form-modal', className]}
 >
   <ModalCloseButton

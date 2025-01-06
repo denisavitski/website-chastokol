@@ -16,6 +16,9 @@
       "@utils/*": ["src/utils/*"],
       "ymaps3": ["@yandex/ymaps3-types"]
     },
-    "typeRoots": ["./node_modules/@types", "./node_modules/@yandex/ymaps3-types"]
+    "typeRoots": [
+      "./node_modules/@types",
+      "./node_modules/@yandex/ymaps3-types"
+    ]
   }
 }

@@ -86,6 +86,7 @@ const {
         value={categories[0]?.name}
         type={'select'}
         theme={'grey'}
+        noValidityIcons
       />
     </div>
     <div class="color-options__categories">
@@ -149,9 +150,18 @@ const {
             />
           </div>
         </div>
+
+        <!-- 
+        в data-fill-inputs через точку с запятой указываются названия инпутов 
+        и значения к ним которые нужно заполнить при открытии модалки.
+
+        отдельно, в data-color-input-name нужно указать название инпута который будет содержать значение цвета.
+        -->
         <Button
           name="Хочу такой цвет"
           class="color-options__result__button"
+          data-fill-inputs={`product: Забор из профильной трубы`}
+          data-color-input-name="color"
         />
       </div>
     </div>
@@ -407,6 +417,7 @@ const {
 
 <script>
   import type { InputElement } from '@elements/Input.astro.0.mjs'
+  import type { PopoverElement } from 'aptechka/popover'
 
   export interface ColorOptionsPickedColor {
     name: string
@@ -421,11 +432,14 @@ const {
     #optionElements: Array<HTMLElement> = []
     #resultIdElement: HTMLElement | null = null
     #resultNameElement: HTMLElement | null = null
+    #popoverButtonElement: HTMLElement | null = null
 
     #pickedColor: ColorOptionsPickedColor | null = null
 
     protected connectedCallback() {
-      this.#categorySelectElement = this.querySelector('e-form-select')
+      this.#categorySelectElement = this.querySelector(
+        '.color-options__category-pick__input',
+      )
 
       this.#categorySelectElement?.addEventListener(
         'change',
@@ -452,7 +466,19 @@ const {
         '.color-options__result__name',
       )
 
-      this.#changeCategory()
+      this.#popoverButtonElement = this.querySelector(
+        '.color-options__result__button',
+      )
+      this.#popoverButtonElement?.addEventListener(
+        'click',
+        this.#popoverButtonListener,
+      )
+
+      customElements.whenDefined('e-input').then(() => {
+        if (this.isConnected) {
+          this.#changeCategory()
+        }
+      })
     }
 
     protected disconnectedCallback() {
@@ -464,6 +490,11 @@ const {
       this.#optionElements.forEach((element) => {
         element.removeEventListener('click', this.#optionListener)
       })
+
+      this.#popoverButtonElement?.removeEventListener(
+        'click',
+        this.#popoverButtonListener,
+      )
     }
 
     #categoryChangeListener = () => {
@@ -542,6 +573,25 @@ const {
           e.classList.remove('active')
         }
       })
+    }
+
+    #popoverButtonListener = () => {
+      const popoverElement =
+        document.querySelector<PopoverElement>('#color-order-form')
+
+      if (popoverElement) {
+        const colorInputName = this.#popoverButtonElement?.getAttribute(
+          'data-color-input-name',
+        )
+        let fillInputsData =
+          this.#popoverButtonElement!.getAttribute(
+            'data-fill-inputs',
+          )?.trim() || ''
+
+        fillInputsData += `${fillInputsData?.endsWith(';') ? '' : ';'}${colorInputName}: ${this.#pickedColor?.id || ''}`
+
+        popoverElement.open({ trigger: fillInputsData })
+      }
     }
   }
 

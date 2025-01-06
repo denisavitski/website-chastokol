@@ -8,6 +8,7 @@ import DeliveryCard, {
 import PaymentCard, {
   type Props as PaymentCardProps,
 } from '@elements/PaymentCard.astro'
+import Map from '@elements/Map.astro'
 
 export interface Props {
   delivery?: {
@@ -119,6 +120,7 @@ const {
         heading={delivery.heading}
         description={delivery.description}
         headingFont="f-d-title-medium-42 f-m-title-medium-24"
+        margin
       />
 
       <e-scroll class="delivery__zones__list">
@@ -135,7 +137,7 @@ const {
       </e-scroll>
 
       <div class="delivery__zones__map-wrapper">
-        <div class="delivery__zones__map"></div>
+        <Map class="delivery__zones__map" />
       </div>
     </div>
     <div
@@ -146,6 +148,7 @@ const {
         heading={payment.heading}
         description={payment.description}
         headingFont="f-d-title-medium-42 f-m-title-medium-24"
+        margin
       />
 
       <div class="delivery__payment__cards">

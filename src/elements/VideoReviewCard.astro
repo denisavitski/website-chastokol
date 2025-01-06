@@ -9,6 +9,7 @@ export interface Props {
   short?: string
   stats?: Array<{ title: string; value: string }>
   image?: ImageDataProps
+  video?: string
 }
 
 const {
@@ -32,6 +33,7 @@ const {
   image = {
     src: '/images/video-reviews/image.jpg',
   },
+  video = '<iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
   ...rest
 } = Astro.props
 ---
@@ -76,7 +78,12 @@ const {
       cover
       class="video-review-card__image"
     />
-    <PlayButton class="video-review-card__play-button" />
+    <PlayButton
+      class="video-review-card__play-button"
+      tag="e-popover-button"
+      target="video-modal"
+      data-video={video}
+    />
   </div>
 </div>
 

@@ -1,18 +1,18 @@
 ---
 import FormModal from '@elements/FormModal.astro'
 
-export const modal = '#installment-form'
+export const modal = '#order-form'
 ---
 
 <!-- SINGLETON -->
 <FormModal
   tag="e-form-popover"
-  id="installment-form"
-  title="Оставить заявку"
+  id="order-form"
+  title="Заказать"
   inputs={[
     {
-      placeholder: 'Тип',
-      name: 'type',
+      placeholder: 'Товар',
+      name: 'product',
       required: true,
       theme: 'lightgrey',
     },

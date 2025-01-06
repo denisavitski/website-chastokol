@@ -4,6 +4,7 @@ import DotsButton from './DotsButton.astro'
 import Icon from './Icon.astro'
 import type { ImageDataProps } from './Image.astro'
 import Image from './Image.astro'
+import { generateId } from 'aptechka/utils'
 
 export const backgroundColor = 'white'
 
@@ -39,6 +40,8 @@ const {
   ],
   ...rest
 } = Astro.props
+
+const popoverId = `manager-${generateId(5)}-variants`
 ---
 
 <div
@@ -78,11 +81,11 @@ const {
       <DotsButton
         class="manager-2__method__variants__button"
         flat
-        target="manager-variants"
+        target={popoverId}
       />
       <e-popover
         class="manager-2__method__variants__popover"
-        id="manager-variants"
+        id={popoverId}
       >
         {
           variants.map((item) => {

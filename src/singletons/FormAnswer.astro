@@ -6,7 +6,12 @@ import ThankYou from '@elements/ThankYou.astro'
 export const modal = '#form-answer'
 ---
 
-<!-- SINGLETON -->
+<!-- 
+  SINGLETON 
+
+  После отправки форм нужно открывать эту модалку.
+  document.querySelector("#form-answer")?.open()
+-->
 <CommonModal
   id="form-answer"
   class="form-answer"

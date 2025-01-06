@@ -31,6 +31,7 @@ export interface Props {
     | 'media'
   playButton?: boolean | undefined
   images?: Array<ImageDataProps> | undefined
+  video?: string
 }
 
 export type CatalogCardButtonType =
@@ -49,16 +50,25 @@ const {
   images,
   labels,
   button,
-  tag = 'a',
+  tag,
   description,
   date,
   nameFont = 'f-d-title-medium-20 f-m-body-large-medium-16',
   theme,
   playButton,
+  video,
   ...rest
 } = Astro.props
 
-const Tag = tag as any
+const isVideoCard = theme === 'video' || video || playButton
+
+const Tag = tag
+  ? tag
+  : isVideoCard
+    ? 'e-popover-button'
+    : href
+      ? 'a'
+      : ('div' as any)
 
 const themedButton: CatalogCardButtonType = button
   ? button
@@ -88,6 +98,12 @@ const themedLabels: Array<CardLabelProps> | undefined = labels
   {href}
   class:list={[className, 'catalog-card']}
   data-theme={theme}
+  target={isVideoCard ? 'video-modal' : undefined}
+  data-video={video
+    ? video
+    : isVideoCard
+      ? '<iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>'
+      : undefined}
 >
   <span class="catalog-card__image-box">
     {
@@ -124,6 +140,7 @@ const themedLabels: Array<CardLabelProps> | undefined = labels
         <PlayButton
           class="catalog-card__play-button"
           slot={'image-box'}
+          tag="span"
         />
       ) : null
     }

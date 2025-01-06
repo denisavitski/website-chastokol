@@ -7,7 +7,7 @@ import MediaGallery from '@blocks/MediaGallery.astro'
 
 <Layout
   seo={{
-    title: 'Частокол: Видео проекты',
+    title: 'Частокол: Видеоотчеты',
     description: 'Металлические заборы в Санкт-Петербурге',
     cover: '/images/seo/home.jpg',
   }}
@@ -17,11 +17,46 @@ import MediaGallery from '@blocks/MediaGallery.astro'
   <Breadcrumbs
     links={[
       { name: 'Главная', href: '/' },
-      { name: 'Видео проекты', href: '/videogallery' },
+      { name: 'Видеоотчеты', href: '/videogallery' },
     ]}
   />
 
   <PageHeading heading="Видео проекты" />
 
-  <MediaGallery />
+  <MediaGallery
+    cards={[
+      {
+        name: 'Стильный забор в д. Климово',
+        description:
+          'Работа была разделена на несколько этапов, так&nbsp;как параллельно велась стройка и&nbsp;необходимо было в строго отведённые сроки закончить каждый этап',
+        labels: [{ icon: 'tools', name: 'Изготовление' }],
+        image: { src: '/images/categories/intro.jpg' },
+        playButton: true,
+      },
+      {
+        name: 'Стильный забор в д. Климово',
+        description:
+          'Работа была разделена на несколько этапов, так&nbsp;как параллельно велась стройка и&nbsp;необходимо было в строго отведённые сроки закончить каждый этап',
+        labels: [{ icon: 'tools', name: 'Изготовление' }],
+        image: { src: '/images/categories/intro.jpg' },
+        playButton: true,
+      },
+      {
+        name: 'Стильный забор в д. Климово',
+        description:
+          'Работа была разделена на несколько этапов, так&nbsp;как параллельно велась стройка и&nbsp;необходимо было в строго отведённые сроки закончить каждый этап',
+        labels: [{ icon: 'tools', name: 'Изготовление' }],
+        image: { src: '/images/categories/intro.jpg' },
+        playButton: true,
+      },
+      {
+        name: 'Стильный забор в д. Климово',
+        description:
+          'Работа была разделена на несколько этапов, так&nbsp;как параллельно велась стройка и&nbsp;необходимо было в строго отведённые сроки закончить каждый этап',
+        labels: [{ icon: 'tools', name: 'Изготовление' }],
+        image: { src: '/images/categories/intro.jpg' },
+        playButton: true,
+      },
+    ]}
+  />
 </Layout>

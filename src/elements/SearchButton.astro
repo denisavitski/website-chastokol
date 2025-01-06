@@ -9,7 +9,10 @@ const { class: className, ...rest } = Astro.props
 <button
   {...rest}
   type="submit"
-  class:list={[className, 'search-button f-d-body-large-medium-16']}
+  class:list={[
+    className,
+    'search-button f-d-body-large-medium-16 f-m-body-basic-medium-14',
+  ]}
   >Поиск</button
 >
 

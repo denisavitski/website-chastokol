@@ -1,21 +1,24 @@
 ---
-export interface Props {}
+import MapElement from '@elements/Map.astro'
+import Section, { type Props as SectionProps } from './Section.astro'
+export interface Props extends SectionProps {}
 
-const {} = Astro.props
+const { ...rest } = Astro.props
 ---
 
 <!-- BLOCK -->
-<div class="map">
-  <div class="map__holder"></div>
-</div>
+<Section
+  paddingBottom={'full'}
+  whiteBackground
+  {...rest}
+  class="map"
+>
+  <div class="map__holder">
+    <MapElement />
+  </div>
+</Section>
 
 <style is:global>
-  .map {
-    padding: var(--section-vertical-padding) var(--screen-horisontal-padding);
-    padding-bottom: var(--section-vertical-padding-full);
-    background-color: var(--color-grayscale-0);
-  }
-
   .map__holder {
     width: 100%;
     height: 56.2rem;

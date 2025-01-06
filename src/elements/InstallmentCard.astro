@@ -20,10 +20,15 @@ const {
 } = Astro.props
 ---
 
-<a
+<!-- 
+в data-fill-inputs через точку с запятой указываются названия инпутов 
+и значения к ним которые нужно заполнить при открытии модалки
+-->
+<e-popover-button
   {...rest}
   class:list={[className, 'installment-card']}
-  {href}
+  target="installment-form"
+  data-fill-inputs={`type: ${name}`}
 >
   <div class="installment-card__labels">
     {
@@ -52,7 +57,7 @@ const {
     theme={'flat'}
     name="Оставить заявку"
   />
-</a>
+</e-popover-button>
 
 <style is:global>
   .installment-card {

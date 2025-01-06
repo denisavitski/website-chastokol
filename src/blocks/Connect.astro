@@ -7,6 +7,7 @@ import CompanyMember, {
   type Props as CompanyMemberProps,
 } from '@elements/CompanyMember.astro'
 import TwoSides from '@elements/TwoSides.astro'
+import Map from '@elements/Map.astro'
 
 export interface Props {
   class?: string
@@ -110,10 +111,7 @@ const {
     }
   </div>
 
-  <div
-    class="two-sides__cover"
-    slot={'right'}
-  ></div>
+  <Map slot={'right'} />
 </TwoSides>
 
 <style is:global>

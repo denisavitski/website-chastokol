@@ -4,9 +4,7 @@ import CatalogCard, {
 } from '@elements/CatalogCard.astro'
 
 export interface Props {
-  cards?: Array<
-    Pick<CatalogCardProps, 'name' | 'description' | 'labels' | 'images'>
-  >
+  cards?: Array<CatalogCardProps>
 }
 
 const {

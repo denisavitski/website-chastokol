@@ -7,6 +7,7 @@ import TabButton from '@elements/TabButton.astro'
 
 export interface Props {
   characteristics?: CharacteristicsProps['list']
+  assurance?: string
 }
 
 const {
@@ -32,11 +33,21 @@ const {
       value: '60 x 60 x 3 мм',
     },
   ],
+  assurance = `\
+    Компания «Заборкин» предоставляет&nbsp;двухлетнюю гарантию&nbsp;на изготовленную и установленную продукцию (заборы, различные виды ограждений, калитки, ворота, въездные группы и т.д.). Срок начала гарантийного периода определяется датой подписания акта выполненных работ.
+    
+    Оперативность:&nbsp;в наличии 10 бригад, готовых к выездам в любое время года, высокоточное зарубежное оборудование, высококачественные материалы и огромное желание делать любимое дело!
+    
+    Отменное качество продукции:&nbsp;у нас собрана современная технологическая линия, имеется новейшее оборудование для производства материалов и комплектующих, соответствующих европейским нормам и стандартам. Также мы дополнительно контролируем материалы при поставке на производство.
+  `,
 } = Astro.props
 ---
 
 <!-- BLOCK -->
-<e-billboard class="product-info">
+<e-billboard
+  class="product-info"
+  id="product-info"
+>
   <div class="product-info__category-names hidden-scrollbar">
     <TabButton
       style="--index: 0;"
@@ -60,29 +71,33 @@ const {
 
   <div class="product-info__categories">
     <div
-      class="product-info__category product-info__characteristics"
+      class="product-info__category"
       data-billboard-item
     >
       <div
         class="product-info__category__title f-d-title-medium-42 f-m-title-medium-24"
         >Характеристики</div
       >
-      <div class="product-info__characteristics__content">
-        <Characteristics
-          class="product-info__characteristics__list"
-          list={characteristics}
-        />
-        <Manager2 class="product-info__characteristics__manager" />
+      <div class="product-info__category__content">
+        <Characteristics list={characteristics} />
+        <Manager2 class="product-info__manager" />
       </div>
     </div>
     <div
-      class="product-info__category"
+      class="product-info__category product-info__assurance"
       data-billboard-item
     >
       <div
         class="product-info__category__title f-d-title-medium-42 f-m-title-medium-24"
         >Гарантии</div
       >
+      <div class="product-info__category__content">
+        <p
+          class="product-info__category__text f-d-body-large-regular-16 f-m-body-basic-regular-14"
+          set:html={assurance}
+        />
+        <Manager2 class="product-info__manager" />
+      </div>
     </div>
     <div
       class="product-info__category"
@@ -92,6 +107,13 @@ const {
         class="product-info__category__title f-d-title-medium-42 f-m-title-medium-24"
         >Способ оплаты</div
       >
+      <div class="product-info__category__content">
+        <p
+          class="product-info__category__text f-d-body-large-regular-16 f-m-body-basic-regular-14"
+          set:html={assurance}
+        />
+        <Manager2 class="product-info__manager" />
+      </div>
     </div>
   </div>
 </e-billboard>
@@ -159,7 +181,7 @@ const {
     }
   }
 
-  .product-info__characteristics__content {
+  .product-info__category__content {
     display: flex;
     justify-content: space-between;
     gap: 5rem;
@@ -170,10 +192,12 @@ const {
     }
   }
 
-  .product-info__characteristics {
+  .product-info__manager {
+    flex-shrink: 0;
   }
 
-  .product-info__characteristics__manager {
-    flex-shrink: 0;
+  .product-info__category__text {
+    white-space: pre-line;
+    color: var(--color-grayscale-400);
   }
 </style>

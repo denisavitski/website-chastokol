@@ -16,6 +16,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.4",
     "@types/node": "^22.10.2",
+    "@yandex/ymaps3-types": "^1.0.15542062",
     "astro": "^5.1.0",
     "automizer": "^0.3.7",
     "postcss-preset-env": "^10.1.2",
@@ -26,7 +27,7 @@
     "vite": "^6.0.3"
   },
   "dependencies": {
-    "aptechka": "^0.50.12",
+    "aptechka": "^0.50.15",
     "astro-merge-assets": "^0.1.2",
     "construct-style-sheets-polyfill": "^3.1.0"
   }

@@ -1,5 +1,7 @@
 ---
-export interface Props {
+import type { HTMLAttributes } from 'astro/types'
+
+export interface Props extends HTMLAttributes<any> {
   class?: string | undefined
   placeholder?: string | undefined
   name?: string | undefined
@@ -11,6 +13,7 @@ export interface Props {
   required?: boolean | undefined
   theme?: 'white' | 'grey' | 'lightgrey' | undefined
   reportValidityTextField?: boolean
+  noValidityIcons?: boolean
 }
 
 const { class: className, ...rest } = Astro.props
@@ -379,6 +382,7 @@ const { class: className, ...rest } = Astro.props
       const reportValidityTextField = this.hasAttribute(
         'reportValidityTextField',
       )
+      const noValidityIcons = this.hasAttribute('noValidityIcons')
 
       if (!placeholder) {
         if (type === 'date') {
@@ -419,14 +423,18 @@ const { class: className, ...rest } = Astro.props
               ${type === 'textarea' ? '></textarea>' : '/>'} 
 
               <span class="icons">
-                <span class="validity-icons icon">
-                  <svg class="invalid-icon">
-                    <use xlink:href=${`/sprite.svg#sprite:attention-circle`}></use>
-                  </svg>
-                  <svg class="valid-icon">
-                    <use xlink:href=${`/sprite.svg#sprite:check-circle`}></use>
-                  </svg>
-                </span>
+                ${
+                  !noValidityIcons
+                    ? `<span class="validity-icons icon">
+                        <svg class="invalid-icon">
+                          <use xlink:href=${`/sprite.svg#sprite:attention-circle`}></use>
+                        </svg>
+                        <svg class="valid-icon">
+                          <use xlink:href=${`/sprite.svg#sprite:check-circle`}></use>
+                        </svg>
+                      </span>`
+                    : ''
+                }
                 ${
                   type === 'select'
                     ? `
@@ -517,6 +525,13 @@ const { class: className, ...rest } = Astro.props
 
     public get value() {
       return this.#mainInputElement.value
+    }
+
+    public set value(value: string) {
+      this.#mainInputElement.value = value
+      this.#mainInputElement.dispatchEvent(
+        new Event('change', { bubbles: true, composed: true }),
+      )
     }
 
     public get name() {
@@ -705,7 +720,9 @@ const { class: className, ...rest } = Astro.props
 
       if (value) {
         this.#mainInputElement.value = value
-        this.#mainInputElement.dispatchEvent(new Event('change'))
+        this.#mainInputElement.dispatchEvent(
+          new Event('change', { bubbles: true, composed: true }),
+        )
 
         this.#checkSelectOptions()
 

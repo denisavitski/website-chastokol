@@ -4,6 +4,7 @@ export interface Props {
   category?: string
   title?: string
   description?: string
+  href?: string
 }
 
 const {
@@ -11,38 +12,43 @@ const {
   category = 'Часто задаваемые вопросы',
   title = 'Готовы к широкомасштабной деятельности',
   description = 'Для наших сотрудников он стал не только руководителем, но и духовным наставником, способным настроить на продуктивную деятельность вне зависимости от погодных условий. Егор крайне ответственно подходит к вопросам формирования рабочего графика. Он планирует...',
+  href = '/',
   ...rest
 } = Astro.props
 ---
 
-<div
+<a
   {...rest}
-  class:list={[className, 'search-match']}>
-  <div class="search-match__category">
-    <div
+  class:list={[className, 'search-match']}
+  href={href}
+>
+  <span class="search-match__category">
+    <span
       class="f-d-body-basic-regular-14 f-m-footnote-regular-12 search-match__category__title"
-      >Раздел</div
+      >Раздел</span
     >
-    <div
+    <span
       class="f-d-body-basic-medium-14 f-m-footnote-medium-12 search-match__category__name"
       set:html={category}
     />
-  </div>
+  </span>
 
-  <div class="search-match__content">
-    <div
+  <span class="search-match__content">
+    <span
       class="f-d-body-basic-medium-14 search-match__title"
       set:html={title}
     />
-    <div
+    <span
       class="f-d-body-basic-regular-14 search-match__description"
       set:html={description}
     />
-  </div>
-</div>
+  </span>
+</a>
 
 <style is:global>
   .search-match {
+    display: block;
+
     padding: 3rem;
 
     @media (min-width: 769px) {
@@ -55,8 +61,10 @@ const {
   }
 
   .search-match__category {
+    flex-shrink: 0;
+
     @media (min-width: 769px) {
-      width: 47.3rem;
+      width: 44rem;
     }
 
     @media (max-width: 768px) {
@@ -68,6 +76,7 @@ const {
   }
 
   .search-match__category__title {
+    display: block;
     margin-bottom: 0.5rem;
     color: var(--color-grayscale-400);
   }
@@ -80,6 +89,7 @@ const {
   }
 
   .search-match__title {
+    display: block;
     margin-bottom: 1.5rem;
 
     @media (max-width: 768px) {

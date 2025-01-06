@@ -7,7 +7,7 @@ export interface Props {
 
 const {
   class: className,
-  text = 'Данная стоимость является приблизительной, для получения подробного расчета вы можете перейти в <a href="/" target="_blank">подробный калькулятор</a>',
+  text = 'Данная стоимость является приблизительной, для получения подробного расчета вы можете перейти в <a href="/calculator">подробный калькулятор</a>',
   font = 'f-d-body-large-regular-16 f-m-footnote-regular-10',
   ...rest
 } = Astro.props
@@ -25,7 +25,9 @@ const {
 
     color: var(--color-grayscale-400);
 
-    a {
+    a,
+    button,
+    e-popover-button {
       color: var(--color-primary-100);
       text-decoration: underline;
       text-decoration-skip-ink: none;

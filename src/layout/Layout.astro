@@ -14,6 +14,9 @@ import InstallmentForm from '@singletons/InstallmentForm.astro'
 import QuestionForm from '@singletons/QuestionForm.astro'
 import RequestForm from '@singletons/RequestForm.astro'
 import VideoModal from '@singletons/VideoModal.astro'
+import MapModal from '@singletons/MapModal.astro'
+import OrderForm from '@singletons/OrderForm.astro'
+import ColorOrderForm from '@singletons/ColorOrderForm.astro'
 
 export interface Props {
   header?: boolean
@@ -65,11 +68,15 @@ const {
   <body>
     <div class="page">
       {header && <Header />}
-      <FormAnswer />
+
       <InstallmentForm />
       <QuestionForm />
       <RequestForm />
       <VideoModal />
+      <MapModal />
+      <OrderForm />
+      <ColorOrderForm />
+      <FormAnswer />
 
       <div
         class="scroll hidden-scrollbar"
@@ -118,6 +125,8 @@ const {
     padding-top: var(--header-full-height);
 
     overflow: hidden auto;
+
+    scroll-behavior: smooth;
 
     .dragging & {
       overflow: hidden;

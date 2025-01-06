@@ -54,7 +54,10 @@ modules.forEach((module) => {
                       ? ('/' + name.replace('index', '/')).replace('//', '/')
                       : `/ui/${folderName}/${name}`
 
-                  href = href.endsWith('/') ? href.slice(0, -1) : href
+                  href =
+                    href.endsWith('/') && href !== '/'
+                      ? href.slice(0, -1)
+                      : href
 
                   return (
                     <a

@@ -1,0 +1,97 @@
+---
+export interface Props {
+  class?: string
+}
+
+const { class: className, ...rest } = Astro.props
+---
+
+<!-- 
+  Доступ к инстансу карты можно получить так:
+
+  const mapElement = document.querySelector('e-map')
+  
+  mapElement.addEventListener('mapReady', () => {
+    console.log(mapElement.isReady, mapElement.map)
+  })
+ -->
+<e-map
+  {...rest}
+  class:list={[className]}
+>
+</e-map>
+
+<style is:global>
+  e-map {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<script>
+  import type { YMap } from '@yandex/ymaps3-types'
+  import { dispatchEvent } from 'aptechka/utils'
+
+  export interface MapEvents {
+    mapReady: CustomEvent
+  }
+
+  export class MapElement extends HTMLElement {
+    #map: YMap | null = null
+    #isReady = false
+
+    public get map() {
+      return this.#map
+    }
+
+    public get isReady() {
+      return this.#isReady
+    }
+
+    protected async connectedCallback() {
+      if (!(window as any).ymaps3) {
+        console.warn(this, `ymaps3 не найден`)
+        return
+      }
+
+      await ymaps3.ready
+
+      const { YMap, YMapDefaultSchemeLayer } = ymaps3
+
+      this.#map = new YMap(
+        this,
+
+        {
+          location: {
+            center: [37.588144, 55.733842],
+
+            zoom: 10,
+          },
+        },
+      )
+
+      // Добавляем слой для отображения схематической карты
+      this.#map.addChild(new YMapDefaultSchemeLayer({}))
+
+      this.#isReady = true
+
+      dispatchEvent(this, 'mapReady', { custom: true })
+    }
+
+    protected disconnectedCallback() {
+      this.#map?.destroy()
+    }
+  }
+
+  if (!customElements.get('e-map')) {
+    customElements.define('e-map', MapElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-map': MapElement
+    }
+    interface HTMLElementEventMap extends MapEvents {}
+  }
+</script>

@@ -50,6 +50,7 @@ const {
 } = Astro.props
 ---
 
+<!-- BlOCK -->
 <TwoSides class="product-card">
   <ProductImages
     slot={'left'}
@@ -76,9 +77,16 @@ const {
         set:html={installment}
       />
     </div>
+    <!-- 
+      в data-fill-inputs через точку с запятой указываются названия инпутов 
+      и значения к ним которые нужно заполнить при открытии модалки
+      -->
     <Button
       name="Заказать"
       class="product-card__order-button"
+      data-fill-inputs={`product: ${heading}`}
+      target={'order-form'}
+      tag="e-popover-button"
     />
     <p
       class="product-card__description f-d-body-large-regular-16 f-m-body-basic-regular-14"
@@ -108,6 +116,7 @@ const {
       class="product-card__all-parameters-button"
       theme="flat"
       name="Подробные характеристики"
+      href="#product-info"
     />
   </div>
 </TwoSides>
