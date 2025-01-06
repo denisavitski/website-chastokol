@@ -1,0 +1,118 @@
+---
+import CatalogCard, {
+  type Props as CatalogCardProps,
+} from './CatalogCard.astro'
+
+export interface Props extends CatalogCardProps {
+  class?: string
+  items?: Array<{ title: string; description: string }>
+}
+
+const {
+  class: className,
+  images = [
+    {
+      src: '/images/catalog-item.png',
+    },
+    {
+      src: '/images/categories/intro.jpg',
+    },
+    {
+      src: '/images/categories/intro.jpg',
+    },
+    {
+      src: '/images/categories/intro.jpg',
+    },
+  ],
+  name = 'Ленинградская область',
+  nameFont = 'f-d-title-medium-28 f-m-title-medium-20',
+  items = [
+    {
+      title: 'Адрес:',
+      description:
+        'г. Санкт-Петербург, Набережная реки Мойки, д.&nbsp;58, офис&nbsp;400',
+    },
+    {
+      title: 'Время работы:',
+      description: 'с 10:00 до 19:00 (без выходных)',
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<CatalogCard
+  {images}
+  {name}
+  {nameFont}
+  {...rest}
+  class=`${className || ''} address-card`
+>
+  <div class="address-card__items">
+    {
+      items.map((item) => {
+        return (
+          <div class="address-card__item">
+            <div
+              class="address-card__item__title f-d-body-large-regular-16 f-m-body-basic-regular-14"
+              set:html={item.title}
+            />
+            <div
+              class="address-card__item__description f-d-body-large-medium-16 f-m-body-basic-medium-14"
+              set:html={item.description}
+            />
+          </div>
+        )
+      })
+    }
+  </div>
+</CatalogCard>
+
+<style is:global>
+  .address-card {
+    --catalog-card-image-height: 33.7rem;
+    --slider-button-size: 3.4rem;
+    --offset: 2.5rem;
+
+    width: 46.7rem;
+
+    @media (max-width: 768px) {
+      --catalog-card-image-height: 23.5rem;
+      width: 100%;
+    }
+
+    .catalog-card__content {
+      padding: 3rem;
+      padding-top: calc(3rem + var(--border-radius));
+
+      @media (max-width: 768px) {
+        padding: 2rem;
+        padding-top: calc(2rem + var(--border-radius));
+      }
+    }
+  }
+
+  .address-card__items {
+    margin-top: 3rem;
+
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 3rem;
+  }
+
+  .address-card__item {
+  }
+
+  .address-card__item__title {
+    margin-bottom: 1rem;
+    color: var(--color-grayscale-400);
+  }
+
+  .address-card__item__description {
+    max-width: 90%;
+
+    @media (max-width: 768px) {
+      max-width: 80%;
+    }
+  }
+</style>

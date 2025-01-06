@@ -99,14 +99,13 @@ const {
   }
 
   .billboard__buton {
-    --slider-button-size: 3.8rem;
     position: absolute;
-    top: calc(50% - var(--slider-button-size) / 2);
+    top: calc(50% - var(--slider-button-size, 3.8rem) / 2);
 
     z-index: 1;
 
     @media (max-width: 768px) {
-      --slider-button-size: 2.6rem;
+      top: calc(50% - var(--slider-button-size, 2.6rem) / 2);
     }
   }
 

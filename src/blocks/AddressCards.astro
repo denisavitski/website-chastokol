@@ -1,0 +1,109 @@
+---
+import Section, { type Props as SectionProps } from './Section.astro'
+import AddressCard, {
+  type Props as AddressCardProps,
+} from '@elements/AddressCard.astro'
+
+export interface Props extends SectionProps {
+  cards?: Array<AddressCardProps>
+}
+
+const {
+  cards = [
+    {
+      images: [
+        {
+          src: '/images/catalog-item.png',
+        },
+        {
+          src: '/images/categories/intro.jpg',
+        },
+        {
+          src: '/images/categories/intro.jpg',
+        },
+        {
+          src: '/images/categories/intro.jpg',
+        },
+      ],
+      name: 'Ленинградская область',
+      items: [
+        {
+          title: 'Адрес:',
+          description:
+            'г. Санкт-Петербург, Набережная реки Мойки, д.&nbsp;58, офис&nbsp;400',
+        },
+        {
+          title: 'Время работы:',
+          description: 'с 10:00 до 19:00 (без выходных)',
+        },
+      ],
+    },
+    {
+      images: [
+        {
+          src: '/images/catalog-item.png',
+        },
+        {
+          src: '/images/categories/intro.jpg',
+        },
+        {
+          src: '/images/categories/intro.jpg',
+        },
+        {
+          src: '/images/categories/intro.jpg',
+        },
+      ],
+      name: 'Ленинградская область',
+      items: [
+        {
+          title: 'Адрес:',
+          description:
+            'г. Санкт-Петербург, Набережная реки Мойки, д.&nbsp;58, офис&nbsp;400',
+        },
+        {
+          title: 'Время работы:',
+          description: 'с 10:00 до 19:00 (без выходных)',
+        },
+      ],
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<Section
+  whiteBackground
+  paddingBottom={'full'}
+  {...rest}
+  class="address-cards"
+>
+  <div class="address-cards__list">
+    {
+      cards?.map((card) => {
+        return (
+          <AddressCard
+            {...card}
+            class="address-cards__list__item"
+          />
+        )
+      })
+    }
+  </div>
+</Section>
+
+<style is:global>
+  .address-cards__list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5rem;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 100%;
+      gap: 4rem;
+    }
+  }
+
+  .address-cards__list__item {
+    width: 100%;
+  }
+</style>

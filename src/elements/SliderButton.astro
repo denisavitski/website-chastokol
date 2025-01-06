@@ -37,8 +37,6 @@ const Tag = tag
 
 <style is:global>
   .slider-button {
-    --offset: 5rem;
-
     display: none;
     align-items: center;
     justify-content: center;
@@ -91,11 +89,11 @@ const Tag = tag
     }
 
     &[data-center='true'][data-type='prev'] {
-      right: calc(100% + var(--offset));
+      right: calc(100% + var(--offset, 5rem));
     }
 
     &[data-center='true'][data-type='next'] {
-      left: calc(100% + var(--offset));
+      left: calc(100% + var(--offset, 5rem));
     }
 
     &[disabled] {
