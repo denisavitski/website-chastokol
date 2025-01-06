@@ -1,5 +1,75 @@
 ---
 import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+import PriceRange from '@elements/PriceRange.astro'
 ---
 
-<CalculatorStep type={'info'} />
+<CalculatorStep type={'info'}>
+  <PriceRange class="calculator__price-range" />
+</CalculatorStep>
+
+<style is:global>
+  .calculator__price-range {
+    width: 100%;
+    padding: 2rem;
+    background-color: var(--color-grayscale-100);
+
+    @media (max-width: 768px) {
+      padding: 1.5rem;
+    }
+
+    .price-range__title {
+      font-family: 'font-primary';
+      font-weight: 400;
+      line-height: 125%;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .price-range__price {
+      font-family: 'font-primary';
+      font-weight: 500;
+      line-height: 110%;
+      font-size: 2.8rem;
+      margin-bottom: 2rem;
+
+      @media (max-width: 768px) {
+        font-size: 2.4rem;
+      }
+    }
+
+    .price-range__graph {
+      height: 20.464rem;
+      margin-bottom: 2rem;
+    }
+
+    .price-range__graph__cols {
+      font-family: 'font-primary';
+      font-weight: 400;
+      line-height: 120%;
+      font-size: 0.8rem;
+    }
+
+    .price-range__graph__col {
+      width: 9.398rem;
+      padding-bottom: 0.25rem;
+
+      @media (max-width: 768px) {
+        width: 7.348rem;
+      }
+    }
+
+    .price-range__graph__rows {
+      gap: 1.935rem;
+      top: 1.996rem;
+      height: 14.6rem;
+    }
+
+    .price-range__graph__row {
+      height: 3.5rem;
+
+      @media (max-width: 768px) {
+        height: 2.8rem;
+      }
+    }
+  }
+</style>
