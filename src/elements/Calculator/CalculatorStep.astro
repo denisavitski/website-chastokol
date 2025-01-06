@@ -4,9 +4,16 @@ export interface Props {
   type?: 'info' | 'content'
   name?: string
   empty?: boolean
+  overflow?: boolean
 }
 
-const { class: className, type = 'info', empty, name } = Astro.props
+const {
+  class: className,
+  type = 'info',
+  overflow = true,
+  empty,
+  name,
+} = Astro.props
 ---
 
 <div
@@ -17,6 +24,7 @@ const { class: className, type = 'info', empty, name } = Astro.props
     { empty },
   ]}
   data-name={name}
+  data-overflow={overflow}
 >
   <slot />
 </div>
@@ -37,7 +45,9 @@ const { class: className, type = 'info', empty, name } = Astro.props
     display: flex;
     flex-direction: column;
 
-    overflow: hidden auto;
+    .has-overflow & {
+      overflow: hidden auto;
+    }
 
     @media (max-width: 768px) {
       padding-right: 2rem;

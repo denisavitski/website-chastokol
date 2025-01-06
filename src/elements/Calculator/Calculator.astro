@@ -268,7 +268,9 @@ const { class: className, steps = 8, ...rest } = Astro.props
   .calculator__right__grid {
     flex-basis: 100%;
 
-    overflow: hidden;
+    .has-overflow & {
+      overflow: hidden;
+    }
 
     margin-bottom: 3.2rem;
 
@@ -473,6 +475,8 @@ const { class: className, steps = 8, ...rest } = Astro.props
       }
 
       this.#progressElement?.setStep(this.#stepCounter + 1)
+
+      this.#updateOverflow()
     }
 
     public shiftStep(value: number) {
@@ -507,6 +511,8 @@ const { class: className, steps = 8, ...rest } = Astro.props
       this.#progressElement = this.querySelector('.calculator__progress')
 
       customElements.whenDefined('e-progress').then(() => {
+        this.#updateOverflow()
+
         if (this.isConnected) {
           this.setStep(0)
         }
@@ -514,6 +520,16 @@ const { class: className, steps = 8, ...rest } = Astro.props
     }
 
     protected disconnectedCallback() {}
+
+    #updateOverflow() {
+      const currentStepElement = this.#stepElements[this.#stepCounter]
+
+      if (currentStepElement?.getAttribute('data-overflow') === 'true') {
+        this.classList.add('has-overflow')
+      } else {
+        this.classList.remove('has-overflow')
+      }
+    }
 
     #prevButtonListener = () => {
       this.shiftStep(-1)

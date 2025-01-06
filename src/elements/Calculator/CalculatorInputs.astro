@@ -35,6 +35,12 @@ const { class: className, title, ...rest } = Astro.props
         margin-bottom: 4rem;
       }
     }
+
+    e-input[type='date'] {
+      @media (max-width: 768px) {
+        --gap: 0rem;
+      }
+    }
   }
 
   .calculator-inputs__list {

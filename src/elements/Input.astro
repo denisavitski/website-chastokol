@@ -28,6 +28,8 @@ const { class: className, ...rest } = Astro.props
 <style is:global></style>
 
 <script>
+  import '@lib/CalendarElement'
+  import { CalendarElement } from '@lib/CalendarElement'
   import type { PopoverButtonElement } from 'aptechka/popover'
   import { clamp, createStylesheet, debounce } from 'aptechka/utils'
 
@@ -346,17 +348,34 @@ const { class: className, ...rest } = Astro.props
 
       background-color: var(--color-grayscale-300);
     }
+
+    e-calendar {
+      position: absolute;
+      top: calc(100% + 1rem);
+      left: 0;
+
+      z-index: 2;
+
+      box-shadow: 0rem 0.4rem 1rem 0 rgba(0, 0, 0, 0.1);
+
+      display: none;
+    }
+
+    :host(.opened) e-calendar {
+      display: inline-block;
+    }
   `)
 
   export class InputElement extends HTMLElement {
     static formAssociated = true
 
-    #labelElement: HTMLElement | null
+    #labelElement: HTMLLabelElement
     #infoButtonElement: PopoverButtonElement | null
     #mainInputElement: HTMLInputElement
     #errorElement: HTMLElement | null
     #optionsElement: HTMLElement | null
     #optionElements: Array<HTMLElement>
+    #calendarElement: CalendarElement | null
     #internals: ElementInternals
 
     constructor() {
@@ -375,8 +394,9 @@ const { class: className, ...rest } = Astro.props
       const options = this.getAttribute('options')
         ?.split(',')
         .map((v) => v.trim())
-      const autocomplete = type === 'select' ? 'off' : ''
-      const onkeypress = type === 'select' ? 'return false;' : ''
+      const autocomplete = type === 'select' || type === 'date' ? 'off' : ''
+      const onkeypress =
+        type === 'select' || type === 'date' ? 'return false;' : ''
       const info = this.getAttribute('info')
       const required = this.hasAttribute('required')
       const reportValidityTextField = this.hasAttribute(
@@ -457,7 +477,6 @@ const { class: className, ...rest } = Astro.props
             </span>
 
             ${reportValidityTextField ? `<span class="error"></span>` : ''}
-            
 
             ${
               type === 'select' && options
@@ -473,16 +492,18 @@ const { class: className, ...rest } = Astro.props
                 : ''
             }
           </label>  
+          ${type === 'date' ? '<e-calendar></e-calendar>' : ''}
         </span>
       `
 
-      this.#infoButtonElement = shadow.querySelector('e-popover-button')
       this.#labelElement = shadow.querySelector('label')!
+      this.#infoButtonElement = shadow.querySelector('e-popover-button')
       this.#mainInputElement = shadow.querySelector('.main-input')!
       this.#optionsElement = shadow.querySelector('.options')
       this.#optionElements = [
         ...shadow.querySelectorAll<HTMLElement>('.option'),
       ]
+      this.#calendarElement = shadow.querySelector('e-calendar')
       this.#errorElement = shadow.querySelector('.error')!
 
       this.#mainInputElement.addEventListener('input', this.#mainInputListener)
@@ -494,15 +515,26 @@ const { class: className, ...rest } = Astro.props
 
       this.#updateInternals()
 
-      if (type === 'select') {
+      if (type === 'select' || type === 'date') {
         this.#labelElement.addEventListener('focusin', this.#focusListener)
-        this.#labelElement.addEventListener('focusout', this.#blurListener)
 
-        this.#optionElements.forEach((el) => {
-          el.addEventListener('click', this.#selectOptionListener)
-        })
+        if (type === 'select') {
+          this.#labelElement.addEventListener('focusout', this.#blurListener)
 
-        this.#checkSelectOptions()
+          this.#optionElements.forEach((el) => {
+            el.addEventListener('click', this.#selectOptionListener)
+          })
+
+          this.#checkSelectOptions()
+        } else if (type === 'date') {
+          this.addEventListener('focusin', this.#focusListener)
+          this.addEventListener('focusout', this.#blurListener)
+
+          this.#calendarElement?.addEventListener(
+            'calendarPick',
+            this.#calendarListener,
+          )
+        }
       }
 
       this.addEventListener('focus', (e) => {
@@ -529,6 +561,7 @@ const { class: className, ...rest } = Astro.props
 
     public set value(value: string) {
       this.#mainInputElement.value = value
+
       this.#mainInputElement.dispatchEvent(
         new Event('change', { bubbles: true, composed: true }),
       )
@@ -579,30 +612,30 @@ const { class: className, ...rest } = Astro.props
 
     protected disconnectedCallback() {}
 
-    #applyDateMask() {
-      const input = this.#mainInputElement
+    // #applyDateMask() {
+    //   const input = this.#mainInputElement
 
-      let value = input.value.replace(/\D/g, '')
+    //   let value = input.value.replace(/\D/g, '')
 
-      if (value.length > 2) {
-        const day = clamp(parseInt(value.slice(0, 2)), 1, 31)
-        const month = clamp(parseInt(value.slice(2, 4)), 1, 12)
-        const dot = value.slice(4)
+    //   if (value.length > 2) {
+    //     const day = clamp(parseInt(value.slice(0, 2)), 1, 31)
+    //     const month = clamp(parseInt(value.slice(2, 4)), 1, 12)
+    //     const dot = value.slice(4)
 
-        value = `${day}.${month}${dot}`
-      }
+    //     value = `${day}.${month}${dot}`
+    //   }
 
-      if (value.length > 5) {
-        const dayMonth = value.slice(0, 5)
-        const year = value.slice(5)
+    //   if (value.length > 5) {
+    //     const dayMonth = value.slice(0, 5)
+    //     const year = value.slice(5)
 
-        value = `${dayMonth}.${year}`
-      }
+    //     value = `${dayMonth}.${year}`
+    //   }
 
-      value = value.slice(0, 10)
+    //   value = value.slice(0, 10)
 
-      input.value = value
-    }
+    //   input.value = value
+    // }
 
     #applyTimeMask() {
       const input = this.#mainInputElement
@@ -699,7 +732,7 @@ const { class: className, ...rest } = Astro.props
       })
     }
 
-    #toggleSelect = (open: boolean) => {
+    #toggleContent = (open: boolean) => {
       this.classList.toggle('opened', open)
 
       if (open) {
@@ -707,11 +740,16 @@ const { class: className, ...rest } = Astro.props
           behavior: 'smooth',
           block: 'nearest',
         })
+
+        this.#calendarElement?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+        })
       }
     }
 
-    #debouncedToggleSelect = debounce((open: boolean) => {
-      this.#toggleSelect(open)
+    #debouncedToggleContent = debounce((open: boolean) => {
+      this.#toggleContent(open)
     }, 30)
 
     #selectOptionListener = (e: Event) => {
@@ -726,7 +764,7 @@ const { class: className, ...rest } = Astro.props
 
         this.#checkSelectOptions()
 
-        this.#toggleSelect(false)
+        this.#toggleContent(false)
 
         this.#changeInfoModal()
       }
@@ -743,7 +781,7 @@ const { class: className, ...rest } = Astro.props
         }
       } else if (this.getAttribute('type') === 'date') {
         if (this.value.length !== 10) {
-          this.#mainInputElement.setCustomValidity('Заполните дату полностью')
+          this.#mainInputElement.setCustomValidity('Выберите дату')
         } else {
           this.#mainInputElement.setCustomValidity('')
         }
@@ -764,16 +802,16 @@ const { class: className, ...rest } = Astro.props
     }
 
     #focusListener = () => {
-      this.#debouncedToggleSelect(true)
+      this.#debouncedToggleContent(true)
     }
 
     #blurListener = () => {
-      this.#debouncedToggleSelect(false)
+      this.#debouncedToggleContent(false)
     }
 
     #mainInputListener = () => {
       if (this.getAttribute('type') === 'date') {
-        this.#applyDateMask()
+        // this.#applyDateMask()
       } else if (this.getAttribute('type') === 'time') {
         this.#applyTimeMask()
       } else if (this.getAttribute('type') === 'phone') {
@@ -782,6 +820,11 @@ const { class: className, ...rest } = Astro.props
 
       this.#updateInternals()
       this.reportValidity()
+    }
+
+    #calendarListener = () => {
+      const { day, month, year } = this.#calendarElement!.pickedDate
+      this.value = `${day.toString().padStart(2, '0')}.${month.toString().padStart(2, '0')}.${year}`
     }
   }
 
