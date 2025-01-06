@@ -15,4 +15,5 @@ const { class: className, itemInView = 3, ...rest } = Astro.props
   {...rest}
 >
   <Slider {itemInView}><slot /></Slider>
+  <slot name="after" />
 </Section>

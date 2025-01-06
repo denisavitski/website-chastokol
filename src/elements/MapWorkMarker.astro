@@ -1,0 +1,171 @@
+---
+export interface MapWorkMarkerData {
+  image: string
+  name: string
+  description: string
+  lng: number | string
+  lat: number | string
+}
+
+export interface Props extends Partial<MapWorkMarkerData> {
+  class?: string
+}
+
+const {
+  lng = 37.588144,
+  lat = 55.733842,
+  image = '/images/catalog-item.png',
+  name = 'Забор из профналстила',
+  description = 'Грунт - суглинок средней пластичности. Высота 2 метра.',
+  class: className,
+  ...rest
+} = Astro.props
+---
+
+<e-map-work-marker
+  {...rest}
+  {lng}
+  {lat}
+  {image}
+  {name}
+  {description}
+>
+</e-map-work-marker>
+
+<style is:global>
+  e-map-work-marker {
+    display: none;
+  }
+
+  .work-marker {
+    --x-offset: 2rem;
+
+    display: block;
+
+    position: relative;
+
+    width: 25rem;
+    padding: 1.5rem;
+    border-radius: 2rem;
+    background-color: var(--color-grayscale-0);
+    box-shadow: 0rem 0rem 1.5rem rgba(0, 0, 0, 0.15);
+    transform: translate(calc(var(--x-offset) * -1), -100%);
+
+    @media (max-width: 768px) {
+      width: 17.5rem;
+      padding: 1rem;
+      border-radius: 1.5rem;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+
+      top: 100%;
+      left: var(--x-offset);
+
+      width: 2.2rem;
+      height: 2.2rem;
+
+      clip-path: polygon(100% 0, 0 0, 50% 100%);
+
+      transform: translateY(-50%);
+
+      background-color: var(--color-grayscale-0);
+
+      @media (max-width: 768px) {
+        width: 1.8rem;
+        height: 1.8rem;
+      }
+    }
+  }
+
+  .work-marker__image {
+    display: block;
+
+    width: 100%;
+    height: 14rem;
+
+    margin-bottom: 1.5rem;
+
+    border-radius: 1.2rem;
+
+    object-fit: cover;
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      height: 10rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  .work-marker__name {
+    font-size: 1.4rem;
+    font-weight: 500;
+    line-height: 125%;
+    margin-bottom: 0.8rem;
+
+    @media (max-width: 768px) {
+      font-size: 1.2rem;
+      margin-bottom: 0.7rem;
+    }
+  }
+
+  .work-marker__description {
+    font-size: 1.4rem;
+    font-weight: 400;
+    line-height: 125%;
+    color: var(--color-grayscale-400);
+
+    @media (max-width: 768px) {
+      font-size: 1rem;
+    }
+  }
+</style>
+
+<script>
+  export class MapWorkMarkerElement extends HTMLElement {
+    #image: string = ''
+    #name: string = ''
+    #description: string = ''
+    #lng: string = ''
+    #lat: string = ''
+
+    public get image() {
+      return this.#image
+    }
+
+    public get name() {
+      return this.#name
+    }
+    public get description() {
+      return this.#description
+    }
+
+    public get lng() {
+      return this.#lng
+    }
+
+    public get lat() {
+      return this.#lat
+    }
+
+    protected connectedCallback() {
+      this.#image = this.getAttribute('image') || ''
+      this.#name = this.getAttribute('name') || ''
+      this.#description = this.getAttribute('description') || ''
+      this.#lng = this.getAttribute('lng') || ''
+      this.#lat = this.getAttribute('lat') || ''
+    }
+  }
+
+  if (!customElements.get('e-map-work-marker')) {
+    customElements.define('e-map-work-marker', MapWorkMarkerElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-map-work-marker': MapWorkMarkerElement
+    }
+  }
+</script>

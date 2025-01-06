@@ -20,6 +20,11 @@ const { class: className, itemInView = 3, cards = [], ...rest } = Astro.props
   itemInView={itemInView}
   {...rest}
 >
+  <slot
+    name="after"
+    slot="after"
+  />
+
   {
     cards.map((card) => {
       return <CatalogCard {...card} />

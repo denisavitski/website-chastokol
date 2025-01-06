@@ -1,0 +1,133 @@
+---
+import Map from '@elements/Map.astro'
+import CatalogCardsSection, {
+  type Props as CatalogCardsSectionPropsProps,
+} from './CatalogCardsSection.astro'
+import { type Props as CatalogCardProps } from '@elements/CatalogCard.astro'
+import type { MapWorkMarkerData } from '@elements/MapWorkMarker.astro'
+import MapWorkMarker from '@elements/MapWorkMarker.astro'
+
+export interface Props extends CatalogCardsSectionPropsProps {
+  cards?: Array<CatalogCardProps & { marker?: MapWorkMarkerData }>
+}
+
+const {
+  cards = [
+    {
+      name: 'Заборы',
+      image: { src: '/images/catalog-item.png' },
+      theme: 'video',
+      labels: [{ icon: 'tools', name: 'Монтаж' }],
+      video:
+        '<iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+      marker: {
+        lng: 37.588144,
+        lat: 55.733842,
+        image: '/images/catalog-item.png',
+        name: 'Забор из профналстила',
+        description: 'Грунт - суглинок средней пластичности. Высота 2 метра.',
+      },
+    },
+    {
+      name: 'Заборы',
+      image: { src: '/images/catalog-item.png' },
+      theme: 'video',
+      labels: [{ icon: 'tools', name: 'Монтаж' }],
+      video:
+        '<iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+      marker: {
+        lng: 37.6,
+        lat: 55.733842,
+        image: '/images/catalog-item.png',
+        name: 'Забор из профналстила',
+        description: 'Грунт - суглинок средней пластичности. Высота 2 метра.',
+      },
+    },
+    {
+      name: 'Заборы',
+      image: { src: '/images/catalog-item.png' },
+      theme: 'video',
+      labels: [{ icon: 'tools', name: 'Монтаж' }],
+      video:
+        '<iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+      marker: {
+        lng: 37.7,
+        lat: 55.733842,
+        image: '/images/catalog-item.png',
+        name: 'Забор из профналстила',
+        description: 'Грунт - суглинок средней пластичности. Высота 2 метра.',
+      },
+    },
+    {
+      name: 'Заборы',
+      image: { src: '/images/catalog-item.png' },
+      theme: 'video',
+      labels: [{ icon: 'tools', name: 'Монтаж' }],
+      video:
+        '<iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+      marker: {
+        lng: 37.8,
+        lat: 55.733842,
+        image: '/images/catalog-item.png',
+        name: 'Забор из профналстила',
+        description: 'Грунт - суглинок средней пластичности. Высота 2 метра.',
+      },
+    },
+    {
+      name: 'Заборы',
+      image: { src: '/images/catalog-item.png' },
+      theme: 'video',
+      labels: [{ icon: 'tools', name: 'Монтаж' }],
+      video:
+        '<iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>',
+      marker: {
+        lng: 37.9,
+        lat: 55.733842,
+        image: '/images/catalog-item.png',
+        name: 'Забор из профналстила',
+        description: 'Грунт - суглинок средней пластичности. Высота 2 метра.',
+      },
+    },
+  ],
+  ...rest
+} = Astro.props
+---
+
+<CatalogCardsSection
+  heading="Выполненные работы"
+  headingLevel="h2"
+  paddingTop={'full'}
+  paddingBottom={'full'}
+  whiteBackground
+  cards={cards}
+  {...rest}
+  class="completed-works"
+>
+  <Map
+    slot="after"
+    class="completed-works__map"
+  >
+    {
+      cards.map((card) => {
+        return <MapWorkMarker {...card.marker} />
+      })
+    }
+  </Map>
+</CatalogCardsSection>
+
+<style is:global>
+  .completed-works__map {
+    display: block;
+
+    height: 56.2rem;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    margin-top: calc(
+      var(--section-vertical-padding-full) + var(--section-bullets-padding)
+    );
+
+    @media (max-width: 768px) {
+      height: 56.2rem;
+    }
+  }
+</style>

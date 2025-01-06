@@ -5,7 +5,6 @@ import CategoryIntro from '@blocks/CategoryIntro.astro'
 import Steps from '@blocks/Steps.astro'
 import Estimate from '@blocks/Estimate.astro'
 import ProductVariants from '@blocks/ProductVariants.astro'
-import Map from '@blocks/Map.astro'
 import Layout from '@layout/Layout.astro'
 import Vkontakte from '@blocks/Vkontakte.astro'
 import VideoReviews from '@blocks/VideoReviews.astro'
@@ -13,6 +12,7 @@ import TextReviews from '@blocks/TextReviews.astro'
 import QA from '@blocks/QA.astro'
 import Keywords from '@blocks/Keywords.astro'
 import Connect from '@blocks/Connect.astro'
+import CompletedWorks from '@blocks/CompletedWorks.astro'
 ---
 
 <Layout
@@ -114,51 +114,7 @@ import Connect from '@blocks/Connect.astro'
 
   <ProductVariants />
 
-  <CatalogCardsSection
-    heading="Выполненные работы"
-    headingLevel="h2"
-    paddingTop={'full'}
-    whiteBackground
-    cards={[
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-    ]}
-  />
-
-  <Map />
+  <CompletedWorks />
 
   <Vkontakte />
   <VideoReviews />

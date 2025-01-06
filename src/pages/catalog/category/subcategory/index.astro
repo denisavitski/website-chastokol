@@ -1,7 +1,6 @@
 ---
 import CategoryIntro from '@blocks/CategoryIntro.astro'
 import Steps from '@blocks/Steps.astro'
-import Map from '@blocks/Map.astro'
 import Layout from '@layout/Layout.astro'
 import Vkontakte from '@blocks/Vkontakte.astro'
 import VideoReviews from '@blocks/VideoReviews.astro'
@@ -14,8 +13,8 @@ import Prices from '@blocks/Prices.astro'
 import DemoCalculator from '@blocks/DemoCalculator.astro'
 import Stages from '@blocks/Stages.astro'
 import CallRequest from '@blocks/CallRequest.astro'
-import CatalogCardsSection from '@blocks/CatalogCardsSection.astro'
 import ColorOptions from '@blocks/ColorOptions.astro'
+import CompletedWorks from '@blocks/CompletedWorks.astro'
 ---
 
 <Layout
@@ -51,51 +50,7 @@ import ColorOptions from '@blocks/ColorOptions.astro'
 
   <CallRequest fullPadding />
 
-  <CatalogCardsSection
-    heading="Выполненные работы"
-    headingLevel="h2"
-    paddingTop={'full'}
-    whiteBackground
-    cards={[
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-    ]}
-  />
-
-  <Map />
+  <CompletedWorks />
   <Vkontakte />
   <VideoReviews />
   <TextReviews />

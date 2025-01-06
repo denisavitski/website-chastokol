@@ -1,5 +1,4 @@
 ---
-import Map from '@blocks/Map.astro'
 import Layout from '@layout/Layout.astro'
 import Vkontakte from '@blocks/Vkontakte.astro'
 import VideoReviews from '@blocks/VideoReviews.astro'
@@ -9,6 +8,7 @@ import CatalogCardsSection from '@blocks/CatalogCardsSection.astro'
 import ProductCard from '@blocks/ProductCard.astro'
 import Breadcrumbs from '@blocks/Breadcrumbs.astro'
 import ProductInfo from '@blocks/ProductInfo.astro'
+import CompletedWorks from '@blocks/CompletedWorks.astro'
 ---
 
 <Layout
@@ -37,51 +37,7 @@ import ProductInfo from '@blocks/ProductInfo.astro'
 
   <Stages />
 
-  <CatalogCardsSection
-    heading="Выполненные работы"
-    headingLevel="h2"
-    paddingTop={'full'}
-    whiteBackground
-    cards={[
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-    ]}
-  />
-
-  <Map />
+  <CompletedWorks />
   <Vkontakte />
   <VideoReviews />
 

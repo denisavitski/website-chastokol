@@ -1,9 +1,8 @@
 ---
 import Breadcrumbs from '@blocks/Breadcrumbs.astro'
-import CatalogCardsSection from '@blocks/CatalogCardsSection.astro'
 import PageHeading from '@blocks/PageHeading.astro'
 import Layout from '@layout/Layout.astro'
-import MapSection from '@blocks/Map.astro'
+import CompletedWorks from '@blocks/CompletedWorks.astro'
 ---
 
 <Layout
@@ -24,48 +23,5 @@ import MapSection from '@blocks/Map.astro'
 
   <PageHeading heading="Карта объектов" />
 
-  <CatalogCardsSection
-    heading="Выполненные работы"
-    headingLevel="h3"
-    paddingTop={'full'}
-    whiteBackground
-    cards={[
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-      {
-        href: '/',
-        name: 'Заборы',
-        image: { src: '/images/catalog-item.png' },
-        theme: 'video',
-        labels: [{ icon: 'tools', name: 'Монтаж' }],
-      },
-    ]}
-  />
-  <MapSection />
+  <CompletedWorks headingLevel="h3" />
 </Layout>
