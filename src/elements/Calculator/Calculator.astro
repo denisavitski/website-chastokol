@@ -362,7 +362,7 @@ const { class: className, steps = 8, ...rest } = Astro.props
 
     #stepsResult: Array<Array<{ name: string; value: string }>> = []
 
-    public setStep(value: number) {
+    public setStep(value: number, scroll = true) {
       const newCounterValue = clamp(value, 0, this.#stepElements.length - 1)
 
       if (
@@ -413,7 +413,9 @@ const { class: className, steps = 8, ...rest } = Astro.props
       //   block: 'nearest',
       // })
 
-      scrollToElement(this, { behavior: 'smooth', offset: '.header' })
+      if (scroll) {
+        scrollToElement(this, { behavior: 'smooth', offset: '.header' })
+      }
 
       if (currentStepElement) {
         this.#currentInputElements.forEach((element) => {
@@ -511,10 +513,8 @@ const { class: className, steps = 8, ...rest } = Astro.props
       this.#progressElement = this.querySelector('.calculator__progress')
 
       customElements.whenDefined('e-progress').then(() => {
-        this.#updateOverflow()
-
         if (this.isConnected) {
-          this.setStep(0)
+          this.setStep(0, false)
         }
       })
     }
