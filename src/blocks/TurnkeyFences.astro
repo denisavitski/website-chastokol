@@ -78,17 +78,19 @@ const {
       />
     </div>
   </TwoSides>
-  <e-scroll class="turnkey-fences__stats">
-    {
-      stats.map((stat) => {
-        return (
-          <div class="turnkey-fences__stats__item">
-            <TitleValueStat {...stat} />
-          </div>
-        )
-      })
-    }
-  </e-scroll>
+  <div class="turnkey-fences__stats hidden-scrollbar">
+    <div class="turnkey-fences__stats__inner">
+      {
+        stats.map((stat) => {
+          return (
+            <div class="turnkey-fences__stats__item">
+              <TitleValueStat {...stat} />
+            </div>
+          )
+        })
+      }
+    </div>
+  </div>
 </section>
 
 <style is:global>
@@ -128,25 +130,33 @@ const {
   }
 
   .turnkey-fences__stats {
-    @media (min-width: 769px) {
-      --hibernate: true;
+    @media (max-width: 768px) {
+      margin-left: calc(var(--screen-horisontal-padding) * -1);
+      width: calc(100% + var(--screen-horisontal-padding) * 2);
+      padding: 0 var(--screen-horisontal-padding);
+      overflow: auto hidden;
+    }
+  }
 
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
+  .turnkey-fences__stats__inner {
+    width: 100%;
+
+    display: flex;
+    gap: 5.1rem;
+
+    @media (min-width: 769px) {
       flex-wrap: wrap;
-      gap: 5.1rem;
     }
 
     @media (max-width: 768px) {
-      --axis: x;
-      --gap: 2rem;
-
-      display: flex;
-      gap: var(--gap);
+      width: max-content;
+      gap: 2rem;
     }
   }
 
   .turnkey-fences__stats__item {
+    flex: 1;
+
     padding: 3rem;
     border-radius: var(--border-radius);
 
