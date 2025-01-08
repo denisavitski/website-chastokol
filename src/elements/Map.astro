@@ -3,9 +3,18 @@ import './MapWorkMarker.astro'
 
 export interface Props {
   class?: string
+  lng?: string | number
+  lat?: string | number
+  zoom?: string | number
 }
 
-const { class: className, ...rest } = Astro.props
+const {
+  class: className,
+  lng = '37.588144',
+  lat = '55.733842',
+  zoom = '10',
+  ...rest
+} = Astro.props
 ---
 
 <!-- 
@@ -19,6 +28,9 @@ const { class: className, ...rest } = Astro.props
  -->
 <e-map
   {...rest}
+  {lng}
+  {lat}
+  {zoom}
   class:list={[className]}
 >
   <slot />
@@ -53,14 +65,17 @@ const { class: className, ...rest } = Astro.props
 
       await ymaps3.ready
 
+      const lng = parseFloat(this.getAttribute('lng') || '37.588144')
+      const lat = parseFloat(this.getAttribute('lat') || '55.733842')
+      const zoom = parseFloat(this.getAttribute('zoom') || '10')
+
       this.#map = new ymaps3.YMap(
         this,
 
         {
           location: {
-            center: [37.588144, 55.733842],
-
-            zoom: 10,
+            center: [lng, lat],
+            zoom: zoom,
           },
         },
       )
