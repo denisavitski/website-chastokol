@@ -5,8 +5,9 @@ import Billboard, {
   type Props as BillboardProps,
 } from '@elements/Billboard.astro'
 import Highlite from '@elements/Highlite.astro'
+import Section, { type Props as SectionProps } from './Section.astro'
 
-export interface Props {
+export interface Props extends SectionProps {
   heading?: string
 
   blocks: Array<
@@ -37,13 +38,20 @@ export interface Props {
   >
 }
 
-const { heading = 'Подготовка к оформлению территории', blocks = [] } =
-  Astro.props
+const {
+  heading = 'Подготовка к оформлению территории',
+  blocks = [],
+  ...rest
+} = Astro.props
 ---
 
-<div
+<Section
   class="article-chapter"
-  data-white-background="true"
+  whiteBackground
+  paddingHorisontal={'large'}
+  paddingTop={false}
+  paddingBottom={'full'}
+  {...rest}
 >
   <h2
     class="article-chapter__heading f-d-title-medium-32 f-m-title-medium-20"
@@ -112,13 +120,10 @@ const { heading = 'Подготовка к оформлению территор
       }
     })
   }
-</div>
+</Section>
 
 <style is:global>
   .article-chapter {
-    padding: 0 var(--screen-horisontal-padding-large);
-    padding-bottom: var(--section-vertical-padding-full);
-
     *:last-child {
       margin-bottom: 0;
     }
@@ -163,7 +168,9 @@ const { heading = 'Подготовка к оформлению территор
   }
 
   .article-chapter__list__item__title {
+    font-variant-numeric: tabular-nums;
     margin-bottom: 3rem;
+    margin-left: 0.3em;
 
     @media (max-width: 768px) {
       margin-bottom: 2rem;

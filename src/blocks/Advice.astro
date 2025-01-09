@@ -15,6 +15,7 @@ export interface Props {
   padding?: boolean
   paddingTop?: 'full' | 'normal'
   paddingBottom?: 'full' | 'normal'
+  reverse?: boolean
   class?: string
 }
 
@@ -30,6 +31,7 @@ const {
   paddingTop,
   paddingBottom,
   padding = true,
+  reverse,
 } = Astro.props
 ---
 
@@ -44,6 +46,7 @@ const {
       : 'large'
     : undefined}
   data-size={size}
+  data-reverse={reverse}
 >
   <Image
     lazy
@@ -108,7 +111,10 @@ const {
 
     @media (max-width: 768px) {
       --left-height: 23.5rem;
-      flex-direction: column-reverse;
+
+      &[data-reverse='true'] {
+        flex-direction: column-reverse;
+      }
     }
   }
 
