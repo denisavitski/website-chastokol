@@ -61,6 +61,15 @@ const { class: className, ...rest } = Astro.props
 
     fill: var(--location-button-color, var(--color-font));
 
+    @media (hover: hover) {
+      transition-property: fill;
+      transition-duration: var(--duration-button);
+
+      .location-button:hover & {
+        fill: var(--color-primary-0);
+      }
+    }
+
     @media (max-width: 768px) {
       width: 1.4rem;
       height: 1.4rem;
@@ -72,6 +81,15 @@ const { class: className, ...rest } = Astro.props
     transition-duration: var(--duration-button);
 
     color: var(--location-button-color, var(--color-font));
+
+    @media (hover: hover) {
+      transition-property: color;
+      transition-duration: var(--duration-button);
+
+      .location-button:hover & {
+        color: var(--color-primary-0);
+      }
+    }
 
     @media (max-width: 768px) {
       display: none;

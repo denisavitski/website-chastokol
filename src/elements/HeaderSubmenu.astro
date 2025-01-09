@@ -262,6 +262,15 @@ const ButtonTag = href ? 'a' : ('e-popover-button' as any)
   }
 
   .header-submenu__link {
+    @media (hover: hover) {
+      transition-property: opacity;
+      transition-duration: var(--duration-button);
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+
     @media (max-width: 768px) {
       padding: 1.5rem var(--screen-horisontal-padding);
       border-bottom: 0.1rem solid var(--color-grayscale-300);

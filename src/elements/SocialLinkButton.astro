@@ -45,6 +45,15 @@ const {
 
     border-radius: 3rem;
 
+    @media (hover: hover) {
+      transition-property: opacity;
+      transition-duration: var(--duration-button);
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
     &[data-type='wa'] {
       background-color: #17c056;
     }

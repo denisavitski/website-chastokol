@@ -549,6 +549,15 @@ const {
   }
 
   .header__contact {
+    @media (hover: hover) {
+      transition-property: color;
+      transition-duration: var(--duration-button);
+      transition-timing-function: ease;
+
+      &:hover {
+        color: var(--color-primary-0);
+      }
+    }
   }
 
   .header__online {

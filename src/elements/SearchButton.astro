@@ -25,6 +25,16 @@ const { class: className, ...rest } = Astro.props
     background-color: var(--color-primary-100);
     color: var(--color-grayscale-0);
 
+    @media (hover: hover) {
+      transition-property: opacity;
+      transition-duration: var(--duration-button);
+      transition-timing-function: ease;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
     @media (max-width: 768px) {
       border-radius: 1.2rem;
     }

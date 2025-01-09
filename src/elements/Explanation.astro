@@ -32,6 +32,15 @@ const {
       text-decoration: underline;
       text-decoration-skip-ink: none;
       text-underline-offset: 0.2em;
+
+      @media (hover: hover) {
+        transition-property: color;
+        transition-duration: var(--duration-button);
+
+        &:hover {
+          color: var(--color-primary-0);
+        }
+      }
     }
   }
 </style>

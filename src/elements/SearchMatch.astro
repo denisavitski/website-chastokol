@@ -51,6 +51,15 @@ const {
 
     padding: 3rem;
 
+    @media (hover: hover) {
+      transition-property: opacity;
+      transition-duration: var(--duration-button);
+
+      &:hover {
+        opacity: 0.5;
+      }
+    }
+
     @media (min-width: 769px) {
       display: flex;
     }

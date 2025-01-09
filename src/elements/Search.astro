@@ -103,6 +103,16 @@ const {
 
     background-color: var(--color-grayscale-100);
     border-radius: 0.7rem;
+
+    @media (hover: hover) {
+      transition-property: opacity;
+      transition-duration: var(--duration-button);
+      transition-timing-function: ease;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
   }
 </style>
 

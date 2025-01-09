@@ -303,6 +303,16 @@ const { class: className, steps = 8, ...rest } = Astro.props
     padding: 0 2rem;
     border-radius: 3rem;
 
+    @media (hover: hover) {
+      transition-property: opacity;
+      transition-duration: var(--duration-button);
+      transition-timing-function: ease;
+
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+
     @media (max-width: 768px) {
       height: 4rem;
       padding: 0 1.5rem;

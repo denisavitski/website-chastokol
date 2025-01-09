@@ -353,6 +353,17 @@ const {
   .footer {
     background-color: var(--color-grayscale-700);
     color: var(--color-grayscale-0);
+
+    @media (hover: hover) {
+      a {
+        transition-property: color;
+        transition-duration: var(--duration-button);
+
+        &:hover {
+          color: var(--color-primary-0);
+        }
+      }
+    }
   }
 
   .footer__main {

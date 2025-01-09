@@ -140,5 +140,14 @@ const {
 
   .communication__column__link {
     color: var(--color-primary-100);
+
+    @media (hover: hover) {
+      transition-property: color;
+      transition-duration: var(--duration-button);
+
+      &:hover {
+        color: var(--color-primary-0);
+      }
+    }
   }
 </style>
