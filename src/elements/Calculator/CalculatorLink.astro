@@ -32,6 +32,15 @@ const { class: className, ...rest } = Astro.props
 
     background-color: var(--color-primary-100);
 
+    @media (hover: hover) {
+      transition-property: background-color;
+      transition-duration: var(--duration-button);
+
+      &:hover {
+        background-color: var(--color-grayscale-0);
+      }
+    }
+
     @media (max-width: 768px) {
       width: 4.5rem;
       height: 4.5rem;
@@ -43,6 +52,15 @@ const { class: className, ...rest } = Astro.props
     height: 3rem;
 
     fill: var(--color-grayscale-0);
+
+    @media (hover: hover) {
+      transition-property: fill;
+      transition-duration: var(--duration-button);
+
+      .calculator-link:hover & {
+        fill: var(--color-primary-100);
+      }
+    }
 
     @media (max-width: 768px) {
       width: 2.234rem;
