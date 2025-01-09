@@ -37,6 +37,10 @@ let figmaImageName = Astro.url.pathname === '/' ? 'home' : Astro.url.pathname
 figmaImageName = figmaImageName.startsWith('/')
   ? figmaImageName.slice(1)
   : figmaImageName
+figmaImageName =
+  figmaImageName.endsWith('/') && figmaImageName !== '/'
+    ? figmaImageName.slice(0, -1)
+    : figmaImageName
 
 const {
   header = true,
