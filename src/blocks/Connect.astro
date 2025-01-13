@@ -84,7 +84,7 @@ const {
           <div class="connect__districts__list">
             {districts.map((district) => {
               return (
-                <button class="connect__district">
+                <span class="connect__district">
                   <Icon
                     name={'marker'}
                     class="connect__district__icon"
@@ -93,7 +93,7 @@ const {
                     class="connect__district__name f-d-body-large-regular-16 f-m-footnote-regular-12"
                     set:html={district.name}
                   />
-                </button>
+                </span>
               )
             })}
           </div>

@@ -3,6 +3,7 @@
   font-weight: 300;
   src: url('/fonts/tt-norms-pro/light.ttf');
   font-display: swap;
+  descent-override: 0%;
 }
 
 @font-face {

@@ -248,6 +248,7 @@ ol {
 
 img {
   display: block;
+  user-select: none;
 }
 
 b {

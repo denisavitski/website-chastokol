@@ -1,7 +1,7 @@
 ---
 import Button from '@elements/Button.astro'
 import ColorOption from '@elements/ColorOption.astro'
-import Image, { type ImageDataProps } from '@elements/Image.astro'
+import { type ImageDataProps } from '@elements/Image.astro'
 import Input from '@elements/Input.astro'
 import SliderButton from '@elements/SliderButton.astro'
 import TwoSides from '@elements/TwoSides.astro'
@@ -69,10 +69,7 @@ const {
   class="color-options"
   tag="e-color-options"
 >
-  <Image
-    lazy
-    lazyBackground
-    cover
+  <img
     class="color-options__image"
     slot={'left'}
   />
@@ -214,6 +211,8 @@ const {
     height: 55.3rem;
 
     overflow: hidden;
+
+    object-fit: cover;
 
     @media (max-width: 768px) {
       width: 25.5rem;
@@ -427,7 +426,6 @@ const {
 
 <script>
   import type { InputElement } from '@elements/Input.astro.0.mjs'
-  import type { ImageCloakElement } from '@lib/ImageCloak'
   import type { PopoverElement } from 'aptechka/popover'
 
   export interface ColorOptionsPickedColor {
@@ -438,7 +436,7 @@ const {
   }
 
   export class ColorOptionsElement extends HTMLElement {
-    #imageElement: ImageCloakElement | null = null
+    #imageElement: HTMLImageElement | null = null
     #categorySelectElement: InputElement | null = null
     #categoriesElement: HTMLElement | null = null
     #categoryElements: Array<HTMLElement> = []
@@ -593,8 +591,7 @@ const {
           }
 
           if (image && this.#imageElement) {
-            console.log(image)
-            this.#imageElement.updateImage(image)
+            this.#imageElement.srcset = image
           }
 
           this.style.setProperty('--picked-color', this.#pickedColor.color)

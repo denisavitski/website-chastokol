@@ -23,12 +23,10 @@ const { class: className, ...rest } = Astro.props
 <style is:global>
   .reset-button {
     @media (hover: hover) {
-      transition-property: opacity;
-      transition-duration: var(--duration-button);
-      transition-timing-function: ease;
-
       &:hover {
-        opacity: 0.8;
+        --icon-box-background-color: var(--color-primary-100);
+        --icon-box-color: var(--color-grayscale-0);
+        --icon-box-border-color: transparent;
       }
     }
   }

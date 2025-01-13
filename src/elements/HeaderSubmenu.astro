@@ -117,6 +117,15 @@ const ButtonTag = href ? 'a' : ('e-popover-button' as any)
     align-items: center;
     gap: 0.5rem;
 
+    transition-property: opacity;
+    transition-duration: var(--duration-button);
+
+    @media (hover: hover) {
+      &:not(.opened):hover {
+        opacity: 0.6;
+      }
+    }
+
     &::before {
       content: '';
 
@@ -170,12 +179,11 @@ const ButtonTag = href ? 'a' : ('e-popover-button' as any)
     stroke: none;
     fill: var(--header-submenu-color, var(--color-grayscale-600));
 
+    transition-property: transform, stroke;
+    transition-duration: var(--duration);
+
     @media (min-width: 769px) {
       transform: rotate(90deg) scaleY(1);
-
-      transition-property: transform, stroke;
-      transition-duration: var(--duration);
-      transition-timing-function: ease;
 
       .header-submenu__name.opened & {
         fill: var(--color-grayscale-400);
@@ -184,6 +192,12 @@ const ButtonTag = href ? 'a' : ('e-popover-button' as any)
 
       .header-submenu:not([has-links='true']) & {
         display: none;
+      }
+
+      @media (hover: hover) {
+        .header-submenu__name:not(.opened):hover & {
+          transform: rotate(90deg) scaleX(-1);
+        }
       }
     }
 

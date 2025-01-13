@@ -24,14 +24,16 @@ const { class: className, ...rest } = Astro.props
     height: var(--input-height);
     background-color: var(--color-primary-100);
     color: var(--color-grayscale-0);
+    border: 0.1rem solid var(--color-primary-100);
 
     @media (hover: hover) {
-      transition-property: opacity;
+      transition-property: color, background-color, border-color;
       transition-duration: var(--duration-button);
-      transition-timing-function: ease;
 
       &:hover {
-        opacity: 0.8;
+        background-color: transparent;
+        color: var(--color-primary-100);
+        border-color: var(--color-primary-100);
       }
     }
 

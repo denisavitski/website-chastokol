@@ -34,9 +34,13 @@ const { class: className, itemInView = 3, ...rest } = Astro.props
     --overflow: hidden;
     --sectional: true;
     --auto-size: true;
+    --mouse-drag: true;
 
     display: flex;
     gap: var(--gap);
+
+    touch-action: none;
+    user-select: none;
 
     &[data-items-in-view='1'] {
       --sections-in-view: 1;
