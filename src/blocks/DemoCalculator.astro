@@ -6,7 +6,13 @@ import Input from '@elements/Input.astro'
 import PriceRange from '@elements/PriceRange.astro'
 import TwoSides from '@elements/TwoSides.astro'
 
-export interface Props {}
+export interface Props {
+  heading?: string
+}
+
+const {
+  heading = `Рассчитайте стоимость&nbsp;<span class="demo-calculator__heading__hidden-on-mobile">забора</span>`,
+} = Astro.props
 ---
 
 <TwoSides
@@ -19,7 +25,7 @@ export interface Props {}
   >
     <h2
       class="demo-calculator__heading f-d-title-medium-56 f-m-title-medium-24"
-      set:html="Рассчитайте стоимость забора"
+      set:html={heading}
     />
 
     <form class="demo-calculator__form">
@@ -129,9 +135,16 @@ export interface Props {}
 
     @media (max-width: 768px) {
       position: absolute;
-      top: var(--section-vertical-padding);
+      top: calc(var(--section-vertical-padding) * 2);
+      left: var(--screen-horisontal-padding);
 
       margin-bottom: 4rem;
+    }
+  }
+
+  .demo-calculator__heading__hidden-on-mobile {
+    @media (max-width: 768px) {
+      display: none;
     }
   }
 

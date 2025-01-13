@@ -184,13 +184,14 @@ const {
     width: 1.7rem;
     height: 1.7rem;
 
-    transition-property: fill;
+    transition-property: fill, transform;
     transition-duration: var(--duration);
 
     fill: var(--color-grayscale-0);
 
     .accordion__item.opened & {
       fill: var(--color-primary-100);
+      transform: rotate(45deg);
     }
 
     @media (max-width: 768px) {

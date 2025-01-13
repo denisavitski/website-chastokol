@@ -2,29 +2,29 @@
 import type { HTMLAttributes } from 'astro/types'
 import Calculator from '../Calculator.astro'
 
-import Step1Content from './Step-1/Content.astro'
-import Step1Info from './Step-1/Info.astro'
+import StepTypeContent from './Step-Type/Content.astro'
+import StepTypeInfo from './Step-Type/Info.astro'
 
-import Step2Content from './Step-2/Content.astro'
-import Step2Info from './Step-2/Info.astro'
+import StepMaterialContent from './Step-Material/Content.astro'
+import StepMaterialInfo from './Step-Material/Info.astro'
 
-import Step3Content from './Step-3/Content.astro'
-import Step3Info from './Step-3/Info.astro'
+import StepBaseContent from './Step-Base/Content.astro'
+import StepBaseInfo from './Step-Base/Info.astro'
 
-import Step4Content from './Step-4/Content.astro'
-import Step4Info from './Step-4/Info.astro'
+import StepColorContent from './Step-Color/Content.astro'
+import StepColorInfo from './Step-Color/Info.astro'
 
-import Step5Content from './Step-5/Content.astro'
-import Step5Info from './Step-5/Info.astro'
+import StepServicesContent from './Step-Services/Content.astro'
+import StepServicesInfo from './Step-Services/Info.astro'
 
-import Step6Content from './Step-6/Content.astro'
-import Step6Info from './Step-6/Info.astro'
+import StepGatesContent from './Step-Gates/Content.astro'
+import StepGatesInfo from './Step-Gates/Info.astro'
 
-import Step7Content from './Step-7/Content.astro'
-import Step7Info from './Step-7/Info.astro'
+import StepParametersContent from './Step-Parameters/Content.astro'
+import StepParametersInfo from './Step-Parameters/Info.astro'
 
-import Step8Content from './Step-8/Content.astro'
-import Step8Info from './Step-8/Info.astro'
+import StepContactsContent from './Step-Contacts/Content.astro'
+import StepContactsInfo from './Step-Contacts/Info.astro'
 
 export interface Props extends HTMLAttributes<any> {
   class?: string
@@ -35,27 +35,27 @@ export interface Props extends HTMLAttributes<any> {
   {...Astro.props}
   steps={8}
 >
-  <Step1Content slot="step-content" />
-  <Step1Info slot="step-info" />
+  <StepTypeContent slot="step-content" />
+  <StepTypeInfo slot="step-info" />
 
-  <Step2Content slot="step-content" />
-  <Step2Info slot="step-info" />
+  <StepMaterialContent slot="step-content" />
+  <StepMaterialInfo slot="step-info" />
 
-  <Step3Content slot="step-content" />
-  <Step3Info slot="step-info" />
+  <StepBaseContent slot="step-content" />
+  <StepBaseInfo slot="step-info" />
 
-  <Step4Content slot="step-content" />
-  <Step4Info slot="step-info" />
+  <StepColorContent slot="step-content" />
+  <StepColorInfo slot="step-info" />
 
-  <Step5Content slot="step-content" />
-  <Step5Info slot="step-info" />
+  <StepServicesContent slot="step-content" />
+  <StepServicesInfo slot="step-info" />
 
-  <Step6Content slot="step-content" />
-  <Step6Info slot="step-info" />
+  <StepGatesContent slot="step-content" />
+  <StepGatesInfo slot="step-info" />
 
-  <Step7Content slot="step-content" />
-  <Step7Info slot="step-info" />
+  <StepParametersContent slot="step-content" />
+  <StepParametersInfo slot="step-info" />
 
-  <Step8Content slot="step-content" />
-  <Step8Info slot="step-info" />
+  <StepContactsContent slot="step-content" />
+  <StepContactsInfo slot="step-info" />
 </Calculator>

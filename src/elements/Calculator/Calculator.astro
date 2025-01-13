@@ -369,11 +369,16 @@ const { class: className, steps = 8, ...rest } = Astro.props
 </style>
 
 <script>
-  import { clamp, scrollToElement } from 'aptechka/utils'
+  import { clamp, dispatchEvent, scrollToElement } from 'aptechka/utils'
   import type { ProgressElement } from '@elements/Progress.astro.0.mts'
   import type { InputElement } from '@elements/Input.astro.0.mjs'
 
+  export interface CalculatorEvents {
+    calculatorStepChange: CustomEvent
+  }
+
   export class CalculatorElement extends HTMLElement {
+    #formElement: HTMLFormElement | null = null
     #stepNameElement: HTMLElement | null = null
     #prevButtonElement: HTMLElement | null = null
     #nextButtonElement: HTMLElement | null = null
@@ -384,7 +389,6 @@ const { class: className, steps = 8, ...rest } = Astro.props
     #currentInputElements: Array<HTMLInputElement | InputElement> = []
 
     #stepCounter = 0
-
     #stepsResult: Array<Array<{ name: string; value: string }>> = []
 
     public setStep(value: number, scroll = true) {
@@ -504,6 +508,12 @@ const { class: className, steps = 8, ...rest } = Astro.props
       this.#progressElement?.setStep(this.#stepCounter + 1)
 
       this.#updateOverflow()
+
+      dispatchEvent(this, 'calculatorStepChange', { custom: true })
+
+      if (newCounterValue === this.#stepElements.length - 1) {
+        this.#submit()
+      }
     }
 
     public shiftStep(value: number) {
@@ -511,6 +521,8 @@ const { class: className, steps = 8, ...rest } = Astro.props
     }
 
     protected connectedCallback() {
+      this.#formElement = this.querySelector('.calculator__form')
+
       this.#stepNameElement = this.querySelector('.calculator__step-name')
 
       this.#stepElements = [
@@ -593,6 +605,23 @@ const { class: className, steps = 8, ...rest } = Astro.props
         (element.closest('.hide') as HTMLElement) || element
 
       wrapperElement.style.display = visible ? '' : 'none'
+
+      if (visible) {
+        element.removeAttribute('disabled')
+      } else {
+        element.setAttribute('disabled', '')
+      }
+    }
+
+    #submit() {
+      if (this.#formElement) {
+        const formData = new FormData(this.#formElement)
+        formData.set('form-name', this.getAttribute('name') || 'unknown')
+
+        for (let pair of formData) {
+          console.log(pair[0] + ', ' + pair[1])
+        }
+      }
     }
   }
 
@@ -604,5 +633,7 @@ const { class: className, steps = 8, ...rest } = Astro.props
     interface HTMLElementTagNameMap {
       'e-calculator': CalculatorElement
     }
+
+    interface HTMLElementEventMap extends CalculatorEvents {}
   }
 </script>

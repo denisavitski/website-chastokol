@@ -10,6 +10,7 @@ export interface Props {
   inputName?: string
   checked?: boolean
   image?: string | undefined
+  filter?: string
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   required,
   inputName = 'color',
   checked,
+  filter,
   ...rest
 } = Astro.props
 
@@ -37,6 +39,10 @@ const Tag = isButton ? 'button' : 'label'
   style={`--color: ${color}`}
   type={isButton ? 'button' : undefined}
   data-mobile-small={mobileSmall}
+  data-color={isButton ? color : undefined}
+  data-id={isButton ? id : undefined}
+  data-name={isButton ? name : undefined}
+  data-image={isButton ? image : undefined}
 >
   {
     !isButton && (
@@ -48,7 +54,8 @@ const Tag = isButton ? 'button' : 'label'
         data-color={!isButton ? color : undefined}
         data-id={!isButton ? id : undefined}
         data-name={!isButton ? name : undefined}
-        data-image={image}
+        data-image={!isButton ? image : undefined}
+        data-filter={filter}
         {checked}
         class="visually-hidden color-option__input"
       />

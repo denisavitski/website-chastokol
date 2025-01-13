@@ -1,0 +1,189 @@
+---
+import CalculatorStep from '@elements/Calculator/CalculatorStep.astro'
+
+import ColorOption, {
+  type Props as ColorOptionProps,
+} from '@elements/ColorOption.astro'
+
+export interface Props {
+  cards?: Array<ColorOptionProps>
+}
+
+const {
+  cards = [
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 7004',
+      name: 'Серый',
+      checked: true,
+    },
+    {
+      image: '/images/colors/2.jpg',
+      color: '#861A22',
+      id: 'RAL 3003',
+      name: 'Рубин',
+    },
+    {
+      image: '/images/colors/3.jpg',
+      color: '#325928',
+      id: 'RAL 6002',
+      name: 'Зеленая листва',
+    },
+    {
+      image: '/images/colors/4.jpg',
+      color: '#442F29',
+      id: 'RAL 8017',
+      name: 'Шоколад',
+    },
+    {
+      image: '/images/colors/5.jpg',
+      color: '#114232',
+      id: 'RAL 6005',
+      name: 'Зеленый мох',
+    },
+  ],
+} = Astro.props
+---
+
+<CalculatorStep
+  type={'content'}
+  name="Выберите цвет"
+>
+  <e-calculator-colors class="calculator__color-options">
+    {
+      cards.map((card) => {
+        return (
+          <ColorOption
+            {...card}
+            class="calculator__color-option hide"
+            filter={'fence-type: type-1'}
+            type={'input'}
+            required
+            inputName={'fence-color'}
+          />
+        )
+      })
+    }
+  </e-calculator-colors>
+</CalculatorStep>
+
+<style is:global>
+  .calculator__color-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem 5rem;
+
+    @media (max-width: 768px) {
+      gap: 1.5rem;
+      max-height: 22.9rem;
+    }
+  }
+
+  .calculator__color-option {
+    --unchecked-color: 255;
+    --checked-color: 250;
+  }
+</style>
+
+<script>
+  import type { CalculatorElement } from '@elements/Calculator/Calculator.astro.0.mjs'
+  import type { ImageCloakElement } from '@lib/ImageCloak'
+
+  export class CalculatorColorsElement extends HTMLElement {
+    #calculatorElement: CalculatorElement | null = null
+    #colorInputElements: Array<HTMLInputElement> = []
+    #infoElement: HTMLElement | null = null
+    #imageElement: ImageCloakElement | null = null
+
+    protected async connectedCallback() {
+      this.#calculatorElement = this.closest('e-calculator')
+
+      if (this.#calculatorElement) {
+        this.#colorInputElements = [
+          ...this.querySelectorAll<HTMLInputElement>('.color-option__input'),
+        ]
+
+        this.#colorInputElements.forEach((el) => {
+          el.addEventListener('change', this.#inputListener)
+        })
+
+        this.#imageElement = this.#calculatorElement.querySelector(
+          '.calculator-color-info__image',
+        )
+
+        this.#infoElement = this.#calculatorElement.querySelector(
+          '.calculator-color-info',
+        )
+
+        await customElements.whenDefined('image-cloak')
+
+        this.#calculatorElement?.addEventListener(
+          'calculatorStepChange',
+          this.#stepChangeListener,
+        )
+
+        this.#updateInfo()
+      } else {
+        console.warn(this, 'Не найден калькулятор')
+      }
+    }
+
+    protected disconnectedCallback() {
+      this.#colorInputElements.forEach((el) => {
+        el.removeEventListener('change', this.#inputListener)
+      })
+
+      this.#calculatorElement?.removeEventListener(
+        'calculatorStepChange',
+        this.#stepChangeListener,
+      )
+    }
+
+    #inputListener = (e: Event) => {
+      const ct = e.currentTarget as HTMLInputElement
+
+      const image = ct.getAttribute('data-image')
+
+      if (image && this.#imageElement) {
+        this.#imageElement.updateImage(image)
+      }
+    }
+
+    #updateInfo() {
+      const lastChecked = this.#colorInputElements.findLast((element) => {
+        return element.checked && !element.disabled
+      })
+
+      if (lastChecked) {
+        const image = lastChecked.getAttribute('data-image')
+
+        if (image && this.#imageElement) {
+          this.#imageElement.updateImage(image)
+        }
+
+        if (this.#infoElement) {
+          this.#infoElement.style.display = ''
+        }
+      } else {
+        if (this.#infoElement) {
+          this.#infoElement.style.display = 'none'
+        }
+      }
+    }
+
+    #stepChangeListener = () => {
+      this.#updateInfo()
+    }
+  }
+
+  if (!customElements.get('e-calculator-colors')) {
+    customElements.define('e-calculator-colors', CalculatorColorsElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-calculator-colors': CalculatorColorsElement
+    }
+  }
+</script>

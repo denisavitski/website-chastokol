@@ -123,6 +123,10 @@ const { href, ...rest } = Astro.props
   .prices__table td {
     font-weight: 400;
     padding: 1.4rem 2rem;
+
+    @media (max-width: 768px) {
+      padding: 1.1rem 2rem;
+    }
   }
 
   .prices__table tbody tr {

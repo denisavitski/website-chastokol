@@ -124,8 +124,26 @@ const { class: className, target = 'menu', ...rest } = Astro.props
   .menu-button__name__opened {
     transform: translateY(101%);
 
-    .menu-button.opened & {
-      transform: translateY(0);
+    @media (min-width: 769px) {
+      .menu-button.opened & {
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      width: 0px;
+
+      transition-property: transform, width;
+      transition-duration: var(--duration-menu);
+
+      .menu-button.triggered & {
+        width: 5.5rem;
+      }
+
+      .menu-button.opened & {
+        transition-delay: var(--duration-menu);
+        transform: translateY(0);
+      }
     }
   }
 </style>

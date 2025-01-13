@@ -159,6 +159,10 @@ body {
   color: var(--color-font);
 
   -webkit-tap-highlight-color: transparent;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 button,
