@@ -36,6 +36,12 @@ const {
   <slot />
 </e-map>
 
+<style is:global>
+  e-map {
+    display: block;
+  }
+</style>
+
 <script>
   import type { YMap, YMapMarker } from '@yandex/ymaps3-types'
   import { dispatchEvent } from 'aptechka/utils'
