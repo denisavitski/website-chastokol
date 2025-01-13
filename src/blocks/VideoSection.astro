@@ -1,16 +1,12 @@
 ---
-import Video from '@elements/Video.astro'
-
-export interface Props {}
-
-const {} = Astro.props
+import Media from '@elements/Media.astro'
 ---
 
 <div
   class="video-section"
   data-white-background="true"
 >
-  <Video class="video-section__video" />
+  <Media class="video-section__media" />
 </div>
 
 <style is:global>
@@ -19,7 +15,7 @@ const {} = Astro.props
       var(--screen-horisontal-padding);
   }
 
-  .video-section__video {
+  .video-section__media {
     height: 65rem;
 
     @media (max-width: 768px) {

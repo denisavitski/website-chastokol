@@ -6,7 +6,7 @@ export interface Props {
   class?: string
   title?: string
   image?: ImageDataProps
-  video?: string
+  media?: string
   visited?: boolean
 }
 
@@ -14,7 +14,7 @@ const {
   class: className,
   title = '5 способов защитить забор от вредителей',
   image = { src: '/images/catalog-item.png' },
-  video = '/videos/1.mp4',
+  media = '/videos/1.mp4',
   visited,
   ...rest
 } = Astro.props
@@ -24,7 +24,7 @@ const {
   {...rest}
   class:list={[className, 'story-card', { visited }]}
   target={'story'}
-  data-video={video}
+  data-media={media}
 >
   <Image
     lazy

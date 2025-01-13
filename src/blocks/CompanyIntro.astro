@@ -1,14 +1,14 @@
 ---
 import HeadingAndDescription from '@elements/HeadingAndDescription.astro'
 import Image, { type ImageDataProps } from '@elements/Image.astro'
-import Video, { type Props as VideoProps } from '@elements/Video.astro'
+import Media, { type Props as MediaProps } from '@elements/Media.astro'
 
 export interface Props {
   class?: string
   heading?: string
   description?: string
   image?: ImageDataProps
-  video?: VideoProps
+  media?: MediaProps
   border?: boolean
 }
 
@@ -17,7 +17,7 @@ const {
   heading = '«Частокол» – <b>надёжный&nbsp;партнёр</b> в&nbsp;сфере строительства с&nbsp;2007 года',
   description = 'За&nbsp;время своей работы в&nbsp;сфере производства и&nbsp;строительства компания накопила солидный опыт и&nbsp;со&nbsp;100% уверенностью готова заявить, что&nbsp;знаем о&nbsp;заборах&nbsp;все. Клиентам не&nbsp;приходится переплачивать за&nbsp;качество.<br><br>Собственное производство материалов и&nbsp;комплектующих позволяет компании держать уровень цен&nbsp;на&nbsp;заборы и&nbsp;ограждения на&nbsp;приемлемом уровне.',
   image = { src: '/images/categories/intro.jpg' },
-  video,
+  media,
   border,
   ...rest
 } = Astro.props
@@ -36,14 +36,17 @@ const {
     margin
   />
   {
-    video ? (
-      <Video class="company-intro__image" />
+    media ? (
+      <Media
+        class="company-intro__media"
+        {...media}
+      />
     ) : (
       <Image
         lazy
         lazyBackground
         cover
-        class="company-intro__image"
+        class="company-intro__media"
         {...image}
       />
     )
@@ -51,7 +54,7 @@ const {
 </div>
 
 <style is:global>
-  .company-intro__image {
+  .company-intro__media {
     width: 100%;
     height: 65rem;
 

@@ -2,15 +2,9 @@
 import './VideoModal.astro'
 import CommonModal from '@elements/CommonModal.astro'
 import ModalCloseButton from '@elements/ModalCloseButton.astro'
-import Video from '@elements/Video.astro'
+import Media from '@elements/Media.astro'
 
 export const modal = '#story'
-
-export interface Props {
-  video?: string
-}
-
-const { video = '/videos/1.mp4' } = Astro.props
 ---
 
 <!-- SINGLETON -->
@@ -19,10 +13,14 @@ const { video = '/videos/1.mp4' } = Astro.props
   class="story"
   tag="e-video-modal"
 >
-  <ModalCloseButton class="story__close-button" />
-  <Video
-    {video}
+  <ModalCloseButton
+    class="story__close-button"
+    modal="story"
+  />
+  <Media
     class="story__content"
+    media={false}
+    cover={false}
   />
 </CommonModal>
 

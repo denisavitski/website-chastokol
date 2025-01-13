@@ -1,16 +1,12 @@
 ---
 import CommonModal from '@elements/CommonModal.astro'
-import Video from '@elements/Video.astro'
+import Media from '@elements/Media.astro'
 
 export const modal = '#video-modal'
 
-export interface Props {
-  video?: string
-}
+export interface Props {}
 
-const {
-  video = `<iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
-} = Astro.props
+const {} = Astro.props
 ---
 
 <!-- SINGLETON -->
@@ -19,9 +15,10 @@ const {
   class="video-modal"
   tag="e-video-modal"
 >
-  <Video
-    {video}
+  <Media
     class="video-modal__content"
+    media={false}
+    cover={false}
   />
 </CommonModal>
 
@@ -43,11 +40,11 @@ const {
 </style>
 
 <script>
-  import type { VideoFrameElement } from '@elements/Video.astro.0.mjs'
+  import type { MediaFrameElement } from '@elements/Media.astro.0.mjs'
   import { PopoverElement } from 'aptechka/popover'
 
   export class VideoModalElement extends PopoverElement {
-    #videoFrameElement: VideoFrameElement | null = null
+    #mediaFrameElement: MediaFrameElement | null = null
 
     constructor() {
       super()
@@ -55,13 +52,13 @@ const {
       this.addEventListener('popoverTriggered', (e) => {
         if (
           e.detail.trigger instanceof HTMLElement &&
-          this.#videoFrameElement
+          this.#mediaFrameElement
         ) {
-          const video = e.detail.trigger.getAttribute('data-video')
+          const media = e.detail.trigger.getAttribute('data-media')
 
-          if (video) {
-            this.#videoFrameElement.update(video)
-            this.#videoFrameElement.play()
+          if (media) {
+            this.#mediaFrameElement.update(media)
+            this.#mediaFrameElement.play()
           }
         }
       })
@@ -70,7 +67,7 @@ const {
     protected override connectedCallback() {
       super.connectedCallback()
 
-      this.#videoFrameElement = this.querySelector('e-video-frame')
+      this.#mediaFrameElement = this.querySelector('e-media-frame')
     }
 
     protected override disconnectedCallback() {

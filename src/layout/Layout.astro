@@ -32,6 +32,7 @@ export interface Props {
   headerColor?: 'dark' | 'light'
   headerMobileColor?: 'dark' | 'light'
   headerBackgroundColor?: 'transparent' | 'white'
+  headerHasBorder?: boolean
 }
 
 let figmaImageName = Astro.url.pathname === '/' ? 'home' : Astro.url.pathname
@@ -59,6 +60,7 @@ const {
   headerColor = 'dark',
   headerMobileColor = 'dark',
   headerBackgroundColor = 'gray',
+  headerHasBorder = true,
 } = Astro.props
 ---
 
@@ -67,6 +69,7 @@ const {
   data-header-color={headerColor}
   data-header-mobile-color={headerMobileColor}
   data-header-background-color={headerBackgroundColor}
+  data-header-has-border={headerHasBorder ? 'true' : 'false'}
 >
   <Head {seo} />
 

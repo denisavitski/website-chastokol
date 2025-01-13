@@ -1,5 +1,5 @@
 ---
-import Video from '@elements/Video.astro'
+import Media from '@elements/Media.astro'
 import Advice, { type Props as AdviceProps } from './Advice.astro'
 import Billboard, {
   type Props as BillboardProps,
@@ -116,8 +116,8 @@ const {
         )
       } else if (block.name === 'video') {
         return (
-          <Video
-            video={block.props}
+          <Media
+            media={block.props}
             class="article-chapter__video"
           />
         )

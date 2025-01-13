@@ -1,0 +1,226 @@
+---
+import type { ImageDataProps } from './Image.astro'
+import Image from './Image.astro'
+import PlayButton from './PlayButton.astro'
+
+export interface Props {
+  class?: string
+  media?: string | false
+  cover?: ImageDataProps | false
+}
+
+const {
+  class: className,
+  cover = { src: '/images/categories/intro.jpg' },
+  media = `<iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>`,
+  ...rest
+} = Astro.props
+---
+
+<!-- 
+  Поддерживаются ссылки таких типов
+
+  1. <iframe width="1337" height="752" src="https://www.youtube.com/embed/F399teRPBaY?autoplay=1" title="Relaxing Night Walk in Kyoto, Yasaka Pagoda, Binaural, City Sounds" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  2. /video.mp4|webm|ogg
+  3. /image.jpg|jpeg|png|gif|svg|webp
+-->
+<e-media-frame
+  {...rest}
+  class:list={[className, 'media']}
+  media={media ? media : undefined}
+>
+  {
+    cover && (
+      <Image
+        lazy
+        lazyBackground
+        cover
+        {...cover}
+        class="media__cover"
+      />
+    )
+  }
+
+  <div class="media__holder"></div>
+  <PlayButton class="media__button" />
+</e-media-frame>
+
+<style is:global>
+  .media {
+    position: relative;
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: var(--border-radius);
+
+    background-color: var(--color-image-background);
+
+    overflow: hidden;
+
+    video,
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media (max-width: 768px) {
+      height: 23.5rem;
+    }
+  }
+
+  .media__cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+
+    width: 100%;
+    height: 100%;
+
+    background-color: var(--color-image-background);
+
+    .media.playing & {
+      display: none;
+    }
+  }
+
+  .media__holder {
+    width: 100%;
+    height: 100%;
+
+    iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .media__button {
+    position: absolute;
+
+    .media.playing & {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  import { ClassLinkedStatus } from 'aptechka/class-linked-status'
+  import { intersector } from 'aptechka/intersector'
+
+  export class MediaFrameElement extends HTMLElement {
+    #holderElement: HTMLElement | null = null
+    #buttonElement: HTMLElement | null = null
+    #status = new ClassLinkedStatus(this, { playing: false })
+    #media: string = ''
+    #type: 'image' | 'video' | 'iframe' = 'video'
+    #videoElement: HTMLVideoElement | null = null
+    #imageElement: HTMLImageElement | null = null
+
+    public update(media: string) {
+      this.#updateType(media)
+    }
+
+    public play() {
+      this.#create()
+    }
+
+    protected connectedCallback() {
+      this.#updateType(this.getAttribute('media') || '')
+
+      this.#holderElement = this.querySelector('.media__holder')
+
+      this.#buttonElement = this.querySelector('.media__button')
+      this.#buttonElement?.addEventListener('click', this.#clickListener)
+
+      intersector.subscribe(this, this.#intersectionListener)
+    }
+
+    protected disconnectedCallback() {
+      this.#buttonElement?.removeEventListener('click', this.#clickListener)
+
+      this.#status.reset()
+    }
+
+    #clickListener = () => {
+      this.#create()
+    }
+
+    #updateType(media: string) {
+      this.#media = media
+
+      if (this.#media?.includes('<iframe')) {
+        this.#type = 'iframe'
+      } else if (/\.(mp4|webm|ogg)(\?.*)?$/i.test(this.#media)) {
+        this.#type = 'video'
+      } else if (/\.(jpg|jpeg|png|gif|svg|webp)(\?.*)?$/i.test(this.#media)) {
+        this.#type = 'image'
+      } else {
+        this.#type = 'video'
+      }
+    }
+
+    #create() {
+      if (this.#holderElement) {
+        if (this.#type === 'iframe') {
+          this.#holderElement.innerHTML = this.#media
+        } else if (this.#type === 'video') {
+          this.#videoElement = document.createElement('video')
+          this.#videoElement.src = this.#media
+          this.#videoElement.autoplay = true
+          this.#videoElement.loop = true
+          this.#videoElement.controls = true
+          this.#videoElement.playsInline = true
+          this.#holderElement.appendChild(this.#videoElement)
+        } else if (this.#type === 'image') {
+          this.#imageElement = document.createElement('img')
+          this.#imageElement.src = this.#media
+          this.#holderElement.appendChild(this.#imageElement)
+        }
+
+        this.#status.set('playing', true)
+      }
+    }
+
+    #destroy() {
+      if (this.#holderElement) {
+        if (this.#type === 'iframe') {
+          this.#holderElement.innerHTML = ''
+        } else if (this.#videoElement) {
+          this.#videoElement.currentTime = 0
+          this.#videoElement.pause()
+          this.#videoElement.remove()
+          this.#videoElement = null
+        } else if (this.#imageElement) {
+          this.#imageElement.remove()
+          this.#imageElement = null
+        }
+
+        this.#status.set('playing', false)
+      }
+    }
+
+    #intersectionListener = (e: IntersectionObserverEntry) => {
+      if (!e.isIntersecting && this.#status.isTrue('playing')) {
+        this.#destroy()
+      }
+    }
+  }
+
+  if (!customElements.get('e-media-frame')) {
+    customElements.define('e-media-frame', MediaFrameElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-media-frame': MediaFrameElement
+    }
+  }
+</script>

@@ -45,8 +45,8 @@ const { class: className, flat, ...rest } = Astro.props
 
       @media (max-width: 768px) {
         --gap: 0.7rem;
-        width: 1.6rem;
-        height: 1.6rem;
+        width: 1.4rem;
+        height: 1.4rem;
       }
     }
   }
@@ -71,6 +71,11 @@ const { class: className, flat, ...rest } = Astro.props
     transition-property: transform;
     transition-duration: var(--duration-button);
     transition-timing-function: ease;
+
+    @media (max-width: 768px) {
+      width: 1.6rem;
+      height: 0.3rem;
+    }
 
     .dots-button.opened & {
       --opened: 1;
