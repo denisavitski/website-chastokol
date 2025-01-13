@@ -7,6 +7,16 @@ import SocialLink, {
 } from '@elements/SocialLink.astro'
 
 import { tryCreateHrefFromContact } from '@utils/href'
+import Icon from '@elements/Icon.astro'
+
+export interface FooterLinks {
+  title: string
+  links: Array<{
+    name: string
+    href: string
+    links?: Array<{ name: string; href: string }>
+  }>
+}
 
 export interface Props {
   class?: string
@@ -19,10 +29,10 @@ export interface Props {
   social?: { title: string; list: SocialProps['list'] }
   online?: { title: string; link: SocialLinkProps }
   contacts?: { title: string; list: Array<string>; workingHours: string }
-  clients?: { title: string; links: Array<{ name: string; href: string }> }
-  catalog?: { title: string; links: Array<{ name: string; href: string }> }
-  gates?: { title: string; links: Array<{ name: string; href: string }> }
-  fences?: { title: string; links: Array<{ name: string; href: string }> }
+  clients?: FooterLinks
+  catalog?: FooterLinks
+  gates?: FooterLinks
+  fences?: FooterLinks
 }
 
 const {
@@ -70,7 +80,14 @@ const {
       { href: '/delivery-and-payment', name: 'Доставка и оплата' },
       { href: '/assurance', name: 'Гарантии' },
       { href: '/installment', name: 'Рассрочка' },
-      { href: '/about', name: 'Еще&nbsp;&nbsp;&nbsp;+' },
+      {
+        href: 'more',
+        links: [
+          { href: '/installment', name: 'Рассрочка' },
+          { href: '/installment', name: 'Рассрочка' },
+          { href: '/installment', name: 'Рассрочка' },
+        ],
+      },
     ],
   },
   catalog = {
@@ -80,7 +97,14 @@ const {
       { href: '/gates', name: 'Ворота' },
       { href: '/wickets', name: 'Калитки' },
       { href: '/awnings', name: 'Навесы' },
-      { href: '/catalog', name: 'Еще&nbsp;&nbsp;&nbsp;+' },
+      {
+        href: 'more',
+        links: [
+          { href: '/installment', name: 'Рассрочка' },
+          { href: '/installment', name: 'Рассрочка' },
+          { href: '/installment', name: 'Рассрочка' },
+        ],
+      },
     ],
   },
   gates = {
@@ -100,7 +124,14 @@ const {
       { href: '/catalog/category', name: 'Деревянные' },
       { href: '/catalog/category', name: 'Пластиковые' },
       { href: '/catalog/category', name: 'Кованые' },
-      { href: '/catalog', name: 'Еще&nbsp;&nbsp;&nbsp;+' },
+      {
+        href: 'more',
+        links: [
+          { href: '/installment', name: 'Рассрочка' },
+          { href: '/installment', name: 'Рассрочка' },
+          { href: '/installment', name: 'Рассрочка' },
+        ],
+      },
     ],
   },
   ...rest
@@ -156,17 +187,63 @@ const {
       <div class="footer__col__list">
         {
           fences.links.map((link) => {
-            return (
-              <a
-                class:list={[
-                  'footer__col__link',
-                  'f-d-body-large-medium-16',
-                  'f-m-body-basic-medium-14',
-                ]}
-                href={link.href}
-                set:html={link.name}
-              />
-            )
+            if (link.links) {
+              return (
+                <div
+                  class:list={[
+                    'footer__col__more',
+                    'f-d-body-large-medium-16',
+                    'f-m-body-basic-medium-14',
+                  ]}
+                >
+                  <label class="footer__col__more__label">
+                    <input
+                      type="checkbox"
+                      class="visually-hidden footer__col__more__input"
+                    />
+
+                    <span class="footer__col__more__name">
+                      <span
+                        class="footer__col__more__name__value"
+                        set:html="Еще"
+                      />
+                      <Icon
+                        class="footer__col__more__name__icon"
+                        name={'plus-small'}
+                      />
+                    </span>
+
+                    <span class="footer__col__more__links footer__col__list">
+                      {link.links.map((link) => {
+                        return (
+                          <a
+                            class:list={[
+                              'footer__col__link',
+                              'f-d-body-large-medium-16',
+                              'f-m-body-basic-medium-14',
+                            ]}
+                            href={link.href}
+                            set:html={link.name}
+                          />
+                        )
+                      })}
+                    </span>
+                  </label>
+                </div>
+              )
+            } else {
+              return (
+                <a
+                  class:list={[
+                    'footer__col__link',
+                    'f-d-body-large-medium-16',
+                    'f-m-body-basic-medium-14',
+                  ]}
+                  href={link.href}
+                  set:html={link.name}
+                />
+              )
+            }
           })
         }
       </div>
@@ -184,17 +261,63 @@ const {
       <div class="footer__col__list">
         {
           gates.links.map((link) => {
-            return (
-              <a
-                class:list={[
-                  'footer__col__link',
-                  'f-d-body-large-medium-16',
-                  'f-m-body-basic-medium-14',
-                ]}
-                href={link.href}
-                set:html={link.name}
-              />
-            )
+            if (link.links) {
+              return (
+                <div
+                  class:list={[
+                    'footer__col__more',
+                    'f-d-body-large-medium-16',
+                    'f-m-body-basic-medium-14',
+                  ]}
+                >
+                  <label class="footer__col__more__label">
+                    <input
+                      type="checkbox"
+                      class="visually-hidden footer__col__more__input"
+                    />
+
+                    <span class="footer__col__more__name">
+                      <span
+                        class="footer__col__more__name__value"
+                        set:html="Еще"
+                      />
+                      <Icon
+                        class="footer__col__more__name__icon"
+                        name={'plus-small'}
+                      />
+                    </span>
+
+                    <span class="footer__col__more__links footer__col__list">
+                      {link.links.map((link) => {
+                        return (
+                          <a
+                            class:list={[
+                              'footer__col__link',
+                              'f-d-body-large-medium-16',
+                              'f-m-body-basic-medium-14',
+                            ]}
+                            href={link.href}
+                            set:html={link.name}
+                          />
+                        )
+                      })}
+                    </span>
+                  </label>
+                </div>
+              )
+            } else {
+              return (
+                <a
+                  class:list={[
+                    'footer__col__link',
+                    'f-d-body-large-medium-16',
+                    'f-m-body-basic-medium-14',
+                  ]}
+                  href={link.href}
+                  set:html={link.name}
+                />
+              )
+            }
           })
         }
       </div>
@@ -212,17 +335,63 @@ const {
       <div class="footer__col__list">
         {
           clients.links.map((link) => {
-            return (
-              <a
-                class:list={[
-                  'footer__col__link',
-                  'f-d-body-large-medium-16',
-                  'f-m-body-basic-medium-14',
-                ]}
-                href={link.href}
-                set:html={link.name}
-              />
-            )
+            if (link.links) {
+              return (
+                <div
+                  class:list={[
+                    'footer__col__more',
+                    'f-d-body-large-medium-16',
+                    'f-m-body-basic-medium-14',
+                  ]}
+                >
+                  <label class="footer__col__more__label">
+                    <input
+                      type="checkbox"
+                      class="visually-hidden footer__col__more__input"
+                    />
+
+                    <span class="footer__col__more__name">
+                      <span
+                        class="footer__col__more__name__value"
+                        set:html="Еще"
+                      />
+                      <Icon
+                        class="footer__col__more__name__icon"
+                        name={'plus-small'}
+                      />
+                    </span>
+
+                    <span class="footer__col__more__links footer__col__list">
+                      {link.links.map((link) => {
+                        return (
+                          <a
+                            class:list={[
+                              'footer__col__link',
+                              'f-d-body-large-medium-16',
+                              'f-m-body-basic-medium-14',
+                            ]}
+                            href={link.href}
+                            set:html={link.name}
+                          />
+                        )
+                      })}
+                    </span>
+                  </label>
+                </div>
+              )
+            } else {
+              return (
+                <a
+                  class:list={[
+                    'footer__col__link',
+                    'f-d-body-large-medium-16',
+                    'f-m-body-basic-medium-14',
+                  ]}
+                  href={link.href}
+                  set:html={link.name}
+                />
+              )
+            }
           })
         }
       </div>
@@ -240,17 +409,63 @@ const {
       <div class="footer__col__list">
         {
           catalog.links.map((link) => {
-            return (
-              <a
-                class:list={[
-                  'footer__col__link',
-                  'f-d-body-large-medium-16',
-                  'f-m-body-basic-medium-14',
-                ]}
-                href={link.href}
-                set:html={link.name}
-              />
-            )
+            if (link.links) {
+              return (
+                <div
+                  class:list={[
+                    'footer__col__more',
+                    'f-d-body-large-medium-16',
+                    'f-m-body-basic-medium-14',
+                  ]}
+                >
+                  <label class="footer__col__more__label">
+                    <input
+                      type="checkbox"
+                      class="visually-hidden footer__col__more__input"
+                    />
+
+                    <span class="footer__col__more__name">
+                      <span
+                        class="footer__col__more__name__value"
+                        set:html="Еще"
+                      />
+                      <Icon
+                        class="footer__col__more__name__icon"
+                        name={'plus-small'}
+                      />
+                    </span>
+
+                    <span class="footer__col__more__links footer__col__list">
+                      {link.links.map((link) => {
+                        return (
+                          <a
+                            class:list={[
+                              'footer__col__link',
+                              'f-d-body-large-medium-16',
+                              'f-m-body-basic-medium-14',
+                            ]}
+                            href={link.href}
+                            set:html={link.name}
+                          />
+                        )
+                      })}
+                    </span>
+                  </label>
+                </div>
+              )
+            } else {
+              return (
+                <a
+                  class:list={[
+                    'footer__col__link',
+                    'f-d-body-large-medium-16',
+                    'f-m-body-basic-medium-14',
+                  ]}
+                  href={link.href}
+                  set:html={link.name}
+                />
+              )
+            }
           })
         }
       </div>
@@ -355,7 +570,8 @@ const {
     color: var(--color-grayscale-0);
 
     @media (hover: hover) {
-      a {
+      a,
+      .footer__col__more__name__value {
         transition-property: color;
         transition-duration: var(--duration-button);
 
@@ -591,6 +807,59 @@ const {
 
     @media (max-width: 768px) {
       margin-bottom: 1rem;
+    }
+  }
+
+  .footer__col__more__label {
+    cursor: pointer;
+  }
+
+  .footer__col__more__input {
+  }
+
+  .footer__col__more__name {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+
+    .footer__col__more__input:checked ~ & {
+      display: none;
+    }
+  }
+
+  .footer__col__more__name__value {
+  }
+
+  .footer__col__more__name__icon {
+    flex-shrink: 0;
+
+    position: absolute;
+    left: calc(100% + 0.5rem);
+    top: 5%;
+
+    width: 1.8rem;
+    height: 1.8rem;
+
+    fill: var(--color-grayscale-0);
+
+    @media (hover: hover) {
+      transition-property: fill, transform;
+      transition-duration: var(--duration-button);
+      transition-timing-function: ease;
+
+      .footer__col__more__label:hover & {
+        fill: var(--color-grayscale-400);
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  .footer__col__more__links {
+    display: none;
+
+    .footer__col__more__input:checked ~ & {
+      display: grid;
     }
   }
 </style>
