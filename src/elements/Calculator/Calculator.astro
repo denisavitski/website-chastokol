@@ -98,6 +98,7 @@ const { class: className, steps = 8, ...rest } = Astro.props
     --padding: 5rem;
     --info-margin: 4rem;
     --content-padding: 0.5rem;
+    --border-radius: 1.5rem;
 
     position: relative;
 
@@ -111,6 +112,7 @@ const { class: className, steps = 8, ...rest } = Astro.props
 
     @media (max-width: 768px) {
       --padding: 2rem;
+      --border-radius: 1.2rem;
       height: unset;
       flex-direction: column-reverse;
     }

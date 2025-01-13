@@ -343,10 +343,12 @@ e-billboard {
 
 .custom-scrollbar::-webkit-scrollbar-track {
   background-color: var(--color-scrollbar-track);
+  border-radius: 0.5rem;
 }
 
 .custom-scrollbar::-webkit-scrollbar-thumb {
   background-color: var(--color-scrollbar-thumb);
+  border-radius: 0.5rem;
 }
 
 .filter-image {
