@@ -8,6 +8,8 @@ export interface Props {
   mobileSmall?: boolean
   required?: boolean
   inputName?: string
+  checked?: boolean
+  image?: string | undefined
 }
 
 const {
@@ -16,9 +18,11 @@ const {
   id = 'RAL 7004',
   name = 'Серый',
   type = 'button',
+  image = '/images/colors/1.jpg',
   mobileSmall,
   required,
   inputName = 'color',
+  checked,
   ...rest
 } = Astro.props
 
@@ -31,9 +35,6 @@ const Tag = isButton ? 'button' : 'label'
   {...rest}
   class:list={[className, 'color-option']}
   style={`--color: ${color}`}
-  data-color={isButton ? color : undefined}
-  data-id={isButton ? id : undefined}
-  data-name={isButton ? name : undefined}
   type={isButton ? 'button' : undefined}
   data-mobile-small={mobileSmall}
 >
@@ -47,6 +48,8 @@ const Tag = isButton ? 'button' : 'label'
         data-color={!isButton ? color : undefined}
         data-id={!isButton ? id : undefined}
         data-name={!isButton ? name : undefined}
+        data-image={image}
+        {checked}
         class="visually-hidden color-option__input"
       />
     )

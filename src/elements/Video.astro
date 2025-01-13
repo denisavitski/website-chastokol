@@ -18,10 +18,11 @@ const {
 } = Astro.props
 ---
 
+<!-- Видео может быть как iframe так и обычной ссылкой(/videos/1.mp4) -->
 <e-video-frame
   {...rest}
   class:list={[className, 'video']}
-  {video}
+  video={video}
 >
   <Image
     lazy
@@ -155,6 +156,7 @@ const {
           this.#videoElement.autoplay = true
           this.#videoElement.loop = true
           this.#videoElement.controls = true
+          this.#videoElement.playsInline = true
           this.#holderElement.appendChild(this.#videoElement)
         }
 
@@ -169,6 +171,7 @@ const {
         } else if (this.#videoElement) {
           this.#videoElement.currentTime = 0
           this.#videoElement.pause()
+          this.#videoElement.remove()
         }
 
         this.#status.set('playing', false)

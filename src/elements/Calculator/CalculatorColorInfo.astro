@@ -13,10 +13,10 @@ const { class: className, ...rest } = Astro.props
   class:list={[className, 'calculator-color-info']}
 >
   <Image
-    class="calculator-color-info__image filter-image"
+    class="calculator-color-info__image"
     lazy
     lazyBackground
-    cover
+    contain
     src={'/images/catalog-item.png'}
   />
 

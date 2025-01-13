@@ -1,11 +1,11 @@
 ---
-import ArticleSmallCard, {
-  type Props as ArticleSmallCardProps,
-} from '@elements/ArticleSmallCard.astro'
+import StoryCard, {
+  type Props as StoryCardProps,
+} from '@elements/StoryCard.astro'
 import Slider from '@elements/Slider.astro'
 
 export interface Props {
-  cards?: Array<ArticleSmallCardProps>
+  cards?: Array<StoryCardProps>
 }
 
 const {
@@ -53,7 +53,7 @@ const {
   <Slider itemInView={4}>
     {
       cards.map((card) => {
-        return <ArticleSmallCard {...card} />
+        return <StoryCard {...card} />
       })
     }
   </Slider>
@@ -68,7 +68,7 @@ const {
       }
     }
 
-    .article-small-card {
+    .story-card {
       width: 24rem;
       height: 28rem;
 

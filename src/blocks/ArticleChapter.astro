@@ -36,11 +36,14 @@ export interface Props extends SectionProps {
         props: string
       }
   >
+
+  id?: string
 }
 
 const {
   heading = 'Подготовка к оформлению территории',
   blocks = [],
+  id,
   ...rest
 } = Astro.props
 ---
@@ -55,6 +58,7 @@ const {
 >
   <h2
     class="article-chapter__heading f-d-title-medium-32 f-m-title-medium-20"
+    {id}
     set:html={heading}
   />
 

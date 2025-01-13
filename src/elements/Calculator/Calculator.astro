@@ -49,20 +49,25 @@ const { class: className, steps = 8, ...rest } = Astro.props
     </div>
 
     <div class="calculator__right">
-      <CheckboxButton
-        class="calculator__picket"
-        value="Забор из штекетника"
-        name="picket"
-      />
+      <div class="calculator__right__top">
+        <CheckboxButton
+          class="calculator__picket"
+          value="Забор из штекетника"
+          name="picket"
+          alwaysChecked
+          disabled
+        />
 
-      <div class="calculator__step-name f-d-title-medium-42 f-m-title-medium-24"
-      ></div>
+        <div
+          class="calculator__step-name f-d-title-medium-42 f-m-title-medium-24"
+        ></div>
 
-      <Progress
-        class="calculator__progress"
-        max={99}
-        steps={steps}
-      />
+        <Progress
+          class="calculator__progress"
+          max={99}
+          steps={steps}
+        />
+      </div>
 
       <div class="calculator__right__grid">
         <slot name="step-content" />
@@ -92,6 +97,7 @@ const { class: className, steps = 8, ...rest } = Astro.props
   .calculator {
     --padding: 5rem;
     --info-margin: 4rem;
+    --content-padding: 0.5rem;
 
     position: relative;
 
@@ -115,6 +121,7 @@ const { class: className, steps = 8, ...rest } = Astro.props
   }
 
   .calculator__left {
+    flex-shrink: 0;
     position: relative;
 
     display: flex;
@@ -151,14 +158,14 @@ const { class: className, steps = 8, ...rest } = Astro.props
   }
 
   .calculator__help__question {
-    width: 2rem;
-    height: 2rem;
+    width: 2.2rem;
+    height: 2.2rem;
 
     fill: var(--color-grayscale-600);
 
     @media (max-width: 768px) {
-      width: 1.3rem;
-      height: 1.3rem;
+      width: 1.5rem;
+      height: 1.5rem;
     }
   }
 
@@ -174,7 +181,7 @@ const { class: className, steps = 8, ...rest } = Astro.props
   }
 
   .calculator__manager-hint {
-    width: 100%;
+    width: 98%;
     margin-bottom: 4.2rem;
 
     padding: 1.2rem 1.6rem;
@@ -239,6 +246,22 @@ const { class: className, steps = 8, ...rest } = Astro.props
 
     display: flex;
     flex-direction: column;
+
+    @media (min-width: 769px) {
+      margin-left: calc(var(--content-padding) * -1);
+    }
+  }
+
+  .calculator__right__top {
+    margin-bottom: 5rem;
+
+    @media (min-width: 769px) {
+      padding-left: var(--content-padding);
+    }
+
+    @media (max-width: 768px) {
+      margin-bottom: 3rem;
+    }
   }
 
   .calculator__picket {
@@ -255,14 +278,6 @@ const { class: className, steps = 8, ...rest } = Astro.props
 
   .calculator__step-name {
     margin-bottom: 3rem;
-  }
-
-  .calculator__progress {
-    margin-bottom: 5rem;
-
-    @media (max-width: 768px) {
-      margin-bottom: 3rem;
-    }
   }
 
   .calculator__right__grid {

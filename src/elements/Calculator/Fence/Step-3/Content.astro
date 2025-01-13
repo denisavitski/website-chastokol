@@ -11,7 +11,7 @@ export interface Props {
 
 const {
   cards = [
-    { color: '#9B9B9B', id: 'RAL 7004', name: 'Серый' },
+    { color: '#9B9B9B', id: 'RAL 7004', name: 'Серый', checked: true },
     { color: '#DDC49A', id: 'RAL 1004', name: 'Бежевый' },
     { color: '#FF5733', id: 'RAL 3020', name: 'Красный' },
     { color: '#33FF57', id: 'RAL 6018', name: 'Зеленый' },
@@ -66,12 +66,14 @@ const {
 
 <script>
   import type { CalculatorElement } from '@elements/Calculator/Calculator.astro.0.mjs'
+  import type { ImageCloakElement } from '@lib/ImageCloak'
 
   export class CalculatorColorsElement extends HTMLElement {
-    #colorInputElements: Array<HTMLInputElement> = []
     #calculatorElement: CalculatorElement | null = null
+    #colorInputElements: Array<HTMLInputElement> = []
+    #imageElement: ImageCloakElement | null = null
 
-    protected connectedCallback() {
+    protected async connectedCallback() {
       this.#calculatorElement = this.closest('e-calculator')
 
       this.#colorInputElements = [
@@ -81,6 +83,21 @@ const {
       this.#colorInputElements.forEach((el) => {
         el.addEventListener('change', this.#inputListener)
       })
+
+      this.#imageElement =
+        this.#calculatorElement?.querySelector(
+          '.calculator-color-info__image',
+        ) || null
+
+      await customElements.whenDefined('image-cloak')
+
+      const lastChecked = this.#colorInputElements.findLast((element) => {
+        return element.checked
+      })
+
+      if (lastChecked) {
+        this.#updateImage(lastChecked)
+      }
     }
 
     protected disconnectedCallback() {
@@ -89,13 +106,22 @@ const {
       })
     }
 
+    #updateImage(inputElement: HTMLElement) {
+      const image = inputElement.getAttribute('data-image')
+
+      if (image && this.#imageElement) {
+        this.#imageElement.updateImage(image)
+      }
+    }
+
     #inputListener = (e: Event) => {
       const ct = e.currentTarget as HTMLInputElement
 
-      this.#calculatorElement?.style.setProperty(
-        '--picked-color',
-        ct.getAttribute('data-color'),
-      )
+      const image = ct.getAttribute('data-image')
+
+      if (image && this.#imageElement) {
+        this.#imageElement.updateImage(image)
+      }
     }
   }
 

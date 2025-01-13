@@ -1,13 +1,13 @@
 ---
-import ArticleSmallCard, {
-  type Props as ArticleSmallCardProps,
-} from '@elements/ArticleSmallCard.astro'
+import StoryCard, {
+  type Props as StoryCardProps,
+} from '@elements/StoryCard.astro'
 
 import Slider from '@elements/Slider.astro'
 
 export interface Props {
   heading?: string
-  cards?: Array<ArticleSmallCardProps>
+  cards?: Array<StoryCardProps>
 }
 
 const {
@@ -27,21 +27,25 @@ const {
       title: '5 способов защитить забор от вредителей',
       image: { src: '/images/catalog-item.png' },
       href: '/',
+      visited: true,
     },
     {
       title: '5 способов защитить забор от вредителей',
       image: { src: '/images/catalog-item.png' },
       href: '/',
+      visited: true,
     },
     {
       title: '5 способов защитить забор от вредителей',
       image: { src: '/images/catalog-item.png' },
       href: '/',
+      visited: true,
     },
     {
       title: '5 способов защитить забор от вредителей',
       image: { src: '/images/catalog-item.png' },
       href: '/',
+      visited: true,
     },
   ],
 } = Astro.props
@@ -56,7 +60,7 @@ const {
   <Slider itemInView={5}>
     {
       cards.map((card) => {
-        return <ArticleSmallCard {...card} />
+        return <StoryCard {...card} />
       })
     }
   </Slider>

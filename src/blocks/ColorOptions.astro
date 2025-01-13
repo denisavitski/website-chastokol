@@ -1,7 +1,7 @@
 ---
 import Button from '@elements/Button.astro'
 import ColorOption from '@elements/ColorOption.astro'
-import Image from '@elements/Image.astro'
+import Image, { type ImageDataProps } from '@elements/Image.astro'
 import Input from '@elements/Input.astro'
 import SliderButton from '@elements/SliderButton.astro'
 import TwoSides from '@elements/TwoSides.astro'
@@ -10,6 +10,7 @@ export interface Props {
   categories?: Array<{
     name: string
     colors: Array<{
+      image: ImageDataProps['src']
       color: string
       name: string
       id: string
@@ -37,16 +38,66 @@ const {
     {
       name: 'Дополнительные цвета',
       colors: [
-        { color: '#7D3C98', id: 'RAL 4006', name: 'Пурпурный' },
-        { color: '#117A65', id: 'RAL 6005', name: 'Изумрудный' },
-        { color: '#F1C40F', id: 'RAL 1021', name: 'Ярко-желтый' },
-        { color: '#1ABC9C', id: 'RAL 6019', name: 'Мятный' },
-        { color: '#2ECC71', id: 'RAL 6032', name: 'Светло-зеленый' },
-        { color: '#3498DB', id: 'RAL 5015', name: 'Голубой' },
-        { color: '#E67E22', id: 'RAL 2003', name: 'Оранжевый' },
-        { color: '#C0392B', id: 'RAL 3001', name: 'Темно-красный' },
-        { color: '#7F8C8D', id: 'RAL 7037', name: 'Серый-бежевый' },
-        { color: '#BDC3C7', id: 'RAL 7047', name: 'Светло-серый' },
+        {
+          image: '/images/categories/intro.jpg',
+          color: '#7D3C98',
+          id: 'RAL 4006',
+          name: 'Пурпурный',
+        },
+        {
+          image: '/images/categories/intro.jpg',
+          color: '#117A65',
+          id: 'RAL 6005',
+          name: 'Изумрудный',
+        },
+        {
+          image: '/images/categories/intro.jpg',
+          color: '#F1C40F',
+          id: 'RAL 1021',
+          name: 'Ярко-желтый',
+        },
+        {
+          image: '/images/categories/intro.jpg',
+          color: '#1ABC9C',
+          id: 'RAL 6019',
+          name: 'Мятный',
+        },
+        {
+          image: '/images/categories/intro.jpg',
+          color: '#2ECC71',
+          id: 'RAL 6032',
+          name: 'Светло-зеленый',
+        },
+        {
+          image: '/images/categories/intro.jpg',
+          color: '#3498DB',
+          id: 'RAL 5015',
+          name: 'Голубой',
+        },
+        {
+          image: '/images/categories/intro.jpg',
+          color: '#E67E22',
+          id: 'RAL 2003',
+          name: 'Оранжевый',
+        },
+        {
+          image: '/images/categories/intro.jpg',
+          color: '#C0392B',
+          id: 'RAL 3001',
+          name: 'Темно-красный',
+        },
+        {
+          image: '/images/categories/intro.jpg',
+          color: '#7F8C8D',
+          id: 'RAL 7037',
+          name: 'Серый-бежевый',
+        },
+        {
+          image: '/images/categories/intro.jpg',
+          color: '#BDC3C7',
+          id: 'RAL 7047',
+          name: 'Светло-серый',
+        },
       ],
     },
   ],
@@ -63,7 +114,7 @@ const {
     lazyBackground
     cover
     src={'/images/colors/1.jpg'}
-    class="color-options__image filter-image"
+    class="color-options__image"
     slot={'left'}
   />
 
@@ -417,15 +468,18 @@ const {
 
 <script>
   import type { InputElement } from '@elements/Input.astro.0.mjs'
+  import type { ImageCloakElement } from '@lib/ImageCloak'
   import type { PopoverElement } from 'aptechka/popover'
 
   export interface ColorOptionsPickedColor {
     name: string
     id: string
     color: string
+    image: string
   }
 
   export class ColorOptionsElement extends HTMLElement {
+    #imageElement: ImageCloakElement | null = null
     #categorySelectElement: InputElement | null = null
     #categoriesElement: HTMLElement | null = null
     #categoryElements: Array<HTMLElement> = []
@@ -436,7 +490,9 @@ const {
 
     #pickedColor: ColorOptionsPickedColor | null = null
 
-    protected connectedCallback() {
+    protected async connectedCallback() {
+      this.#imageElement = this.querySelector('.color-options__image')
+
       this.#categorySelectElement = this.querySelector(
         '.color-options__category-pick__input',
       )
@@ -474,11 +530,14 @@ const {
         this.#popoverButtonListener,
       )
 
-      customElements.whenDefined('e-input').then(() => {
-        if (this.isConnected) {
-          this.#changeCategory()
-        }
-      })
+      await Promise.all([
+        customElements.whenDefined('e-input'),
+        customElements.whenDefined('image-cloak'),
+      ])
+
+      if (this.isConnected) {
+        this.#changeCategory()
+      }
     }
 
     protected disconnectedCallback() {
@@ -541,6 +600,7 @@ const {
           const id = e.getAttribute('data-id')
           const name = e.getAttribute('data-name')
           const color = e.getAttribute('data-color')
+          const image = e.getAttribute('data-image')
 
           if (!id) {
             console.warn(this, 'у элемента остутcтвует атрибут [data-id]')
@@ -554,10 +614,15 @@ const {
             console.warn(this, 'у элемента остутcтвует атрибут [data-color]')
           }
 
+          if (!image) {
+            console.warn(this, 'у элемента остутcтвует атрибут [data-image]')
+          }
+
           this.#pickedColor = {
             id: id || '',
             name: name || '',
             color: color || '',
+            image: image || '',
           }
 
           if (this.#resultIdElement) {
@@ -566,6 +631,11 @@ const {
 
           if (this.#resultNameElement) {
             this.#resultNameElement.textContent = this.#pickedColor.name
+          }
+
+          if (image && this.#imageElement) {
+            console.log(image)
+            this.#imageElement.updateImage(image)
           }
 
           this.style.setProperty('--picked-color', this.#pickedColor.color)

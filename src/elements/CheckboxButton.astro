@@ -12,6 +12,7 @@ export interface Props {
   disabled?: boolean
   icon?: SpriteIconName
   checked?: boolean | undefined
+  alwaysChecked?: boolean | undefined
 }
 
 const {
@@ -22,6 +23,7 @@ const {
   font = 'f-d-body-large-regular-16 f-m-body-basic-regular-14',
   disabled,
   checked,
+  alwaysChecked,
   icon,
   ...rest
 } = Astro.props
@@ -37,7 +39,8 @@ const {
     {disabled}
     {name}
     {value}
-    {checked}
+    checked={alwaysChecked || checked}
+    data-always-checked={alwaysChecked}
   />
 
   <span class="checkbox__content">
@@ -85,9 +88,12 @@ const {
 
     cursor: pointer;
 
-    .checkbox__input:disabled ~ & {
+    .checkbox__input:disabled:not([data-always-checked]) ~ & {
       --icon-box-background-color: var(--color-grayscale-100);
       --icon-box-color: var(--color-grayscale-300);
+    }
+
+    .checkbox__input:disabled ~ & {
       cursor: default;
     }
 
@@ -101,6 +107,8 @@ const {
 
     width: var(--checkbox-size, 2rem);
     height: var(--checkbox-size, 2rem);
+
+    will-change: transform;
 
     display: flex;
     align-items: center;
@@ -118,6 +126,9 @@ const {
 
     .checkbox__input[type='checkbox']:checked:not(:disabled)
       ~ .checkbox__content
+      &,
+    .checkbox__input[type='checkbox'][data-always-checked]
+      ~ .checkbox__content
       & {
       background-color: var(--color-primary-100);
     }
@@ -126,7 +137,9 @@ const {
       box-shadow: 0rem 0rem 0rem 0.2rem rgba(48, 124, 50, 0.15);
     }
 
-    .checkbox__input:disabled ~ .checkbox__content & {
+    .checkbox__input:disabled:not([data-always-checked])
+      ~ .checkbox__content
+      & {
       border-color: var(--color-grayscale-300);
     }
 
@@ -151,11 +164,15 @@ const {
       height: 100%;
     }
 
-    .checkbox__input:checked:not(:disabled) ~ .checkbox__content & {
+    .checkbox__input:checked:not(:disabled) ~ .checkbox__content &,
+    .checkbox__input[data-always-checked] ~ .checkbox__content & {
       opacity: 1;
     }
 
     .checkbox__input[type='checkbox']:checked:not(:disabled)
+      ~ .checkbox__content
+      &,
+    .checkbox__input[type='checkbox'][data-always-checked]
       ~ .checkbox__content
       & {
       fill: var(--color-button-text);
@@ -165,7 +182,9 @@ const {
   .checkbox__title {
     color: #121417;
 
-    .checkbox__input:disabled ~ .checkbox__content & {
+    .checkbox__input:disabled:not([data-always-checked])
+      ~ .checkbox__content
+      & {
       color: var(--color-grayscale-300);
     }
   }

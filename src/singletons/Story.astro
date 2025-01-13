@@ -1,0 +1,54 @@
+---
+import './VideoModal.astro'
+import CommonModal from '@elements/CommonModal.astro'
+import ModalCloseButton from '@elements/ModalCloseButton.astro'
+import Video from '@elements/Video.astro'
+
+export const modal = '#story'
+
+export interface Props {
+  video?: string
+}
+
+const { video = '/videos/1.mp4' } = Astro.props
+---
+
+<!-- SINGLETON -->
+<CommonModal
+  id="story"
+  class="story"
+  tag="e-video-modal"
+>
+  <ModalCloseButton class="story__close-button" />
+  <Video
+    {video}
+    class="story__content"
+  />
+</CommonModal>
+
+<style is:global>
+  .story {
+  }
+
+  .story__close-button {
+    z-index: 2;
+
+    .modal-close-button__icon {
+      fill: var(--color-grayscale-0);
+    }
+  }
+
+  .story__content {
+    width: 45rem;
+    height: 80rem;
+
+    max-height: 90%;
+
+    @media (max-width: 768px) {
+      width: 100%;
+      height: var(--viewport-height);
+      max-height: 100%;
+      border-radius: 0;
+    }
+  }
+</style>
