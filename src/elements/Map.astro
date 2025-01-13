@@ -37,7 +37,7 @@ const {
 </e-map>
 
 <script>
-  import type { YMap } from '@yandex/ymaps3-types'
+  import type { YMap, YMapMarker } from '@yandex/ymaps3-types'
   import { dispatchEvent } from 'aptechka/utils'
   import type { MapWorkMarkerData } from './MapWorkMarker.astro'
 
@@ -48,6 +48,7 @@ const {
   export class MapElement extends HTMLElement {
     #map: YMap | null = null
     #isReady = false
+    #markers: Array<YMapMarker> = []
 
     public get map() {
       return this.#map
@@ -89,15 +90,18 @@ const {
       const workElements = this.querySelectorAll('e-map-work-marker')
 
       workElements.forEach((element) => {
-        this.#map!.addChild(
-          this.#createWorkMarker({
-            image: element.image,
-            description: element.description,
-            lat: element.lat,
-            lng: element.lng,
-            name: element.name,
-          }),
-        )
+        const marker = this.#createWorkMarker({
+          markerImage: element.markerImage,
+          image: element.image,
+          description: element.description,
+          lat: element.lat,
+          lng: element.lng,
+          name: element.name,
+        })
+
+        this.#markers.push(marker)
+
+        this.#map!.addChild(marker)
       })
 
       this.#isReady = true
@@ -113,9 +117,12 @@ const {
       const markerElement = document.createElement('div')
       markerElement.className = 'work-marker'
       markerElement.innerHTML = `
-        <img class="work-marker__image" src="${data.image}" lazy />
-        <div class="work-marker__name">${data.name}</div>
-        <div class="work-marker__description">${data.description}</div>
+        <img class="work-marker__image" srcset="${data.markerImage}" loading="lazy" />
+        <div class="work-marker__popover">
+          <img class="work-marker__popover__image" srcset="${data.image}" loading="lazy" />
+          <div class="work-marker__popover__name">${data.name}</div>
+          <div class="work-marker__popover__description">${data.description}</div>
+        </div>
       `
 
       const marker = new ymaps3.YMapMarker(
@@ -124,6 +131,26 @@ const {
             parseFloat(data.lng.toString()),
             parseFloat(data.lat.toString()),
           ],
+          onFastClick: () => {
+            this.#markers.forEach((m) => {
+              if (m === marker) {
+                this.#map?.update({
+                  location: {
+                    center: m.coordinates,
+                    duration: 500,
+                    zoom: 14,
+                    easing: 'ease-in-out',
+                  },
+                })
+
+                m.update({ zIndex: 1000 })
+                m.element.classList.add('active')
+              } else {
+                m.update({ zIndex: 0 })
+                m.element.classList.remove('active')
+              }
+            })
+          },
         },
         markerElement,
       )
