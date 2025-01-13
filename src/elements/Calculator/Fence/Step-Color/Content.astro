@@ -11,36 +11,484 @@ export interface Props {
 
 const {
   cards = [
+    // Профнастил
     {
       image: '/images/colors/1.jpg',
       color: '#9B9B9B',
       id: 'RAL 7004',
       name: 'Серый',
       checked: true,
+      filter: 'fence-type: Профнастил',
     },
     {
-      image: '/images/colors/2.jpg',
-      color: '#861A22',
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 7004',
+      name: 'серый',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
       id: 'RAL 3003',
-      name: 'Рубин',
+      name: 'рубин',
+      checked: true,
+      filter: 'fence-type: Профнастил',
     },
     {
-      image: '/images/colors/3.jpg',
-      color: '#325928',
-      id: 'RAL 6002',
-      name: 'Зеленая листва',
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 3005',
+      name: 'красное вино',
+      checked: true,
+      filter: 'fence-type: Профнастил',
     },
     {
-      image: '/images/colors/4.jpg',
-      color: '#442F29',
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
       id: 'RAL 8017',
-      name: 'Шоколад',
+      name: 'шоколад',
+      checked: true,
+      filter: 'fence-type: Профнастил',
     },
     {
-      image: '/images/colors/5.jpg',
-      color: '#114232',
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 6002',
+      name: 'светл.зеленый',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
       id: 'RAL 6005',
-      name: 'Зеленый мох',
+      name: 'темно зеленый',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 5021',
+      name: 'морская волна',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 5005',
+      name: 'синий',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 5002',
+      name: 'ультрамарин',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 7024',
+      name: 'мокрый асфальт',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 9005',
+      name: 'черный',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 1018',
+      name: 'желтый',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 1015',
+      name: 'слоновая кость',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 9030',
+      name: 'белый',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 9002',
+      name: 'белая ночь',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'Под дерево',
+      name: '',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'Под под камень',
+      name: '',
+      checked: true,
+      filter: 'fence-type: Профнастил',
+    },
+
+    // Евроштакетник
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 7004',
+      name: 'серый',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 3003',
+      name: 'рубин',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 3005',
+      name: 'красное вино',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 8017',
+      name: 'шоколад',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 6002',
+      name: 'светл.зеленый',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 6005',
+      name: 'темно зеленый',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 5021',
+      name: 'морская волна',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 5005',
+      name: 'синий',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 5002',
+      name: 'ультрамарин',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 7024',
+      name: 'мокрый асфальт',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 9005',
+      name: 'черный',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 1018',
+      name: 'желтый',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 1015',
+      name: 'слоновая кость',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 9030',
+      name: 'белый',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 9002',
+      name: 'белая ночь',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'Под дерево',
+      name: '',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'Под под камень',
+      name: '',
+      checked: true,
+      filter: 'fence-type: Евроштакетник',
+    },
+
+    // 3D сетка Гиттер
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 1705',
+      name: 'темно зеленый',
+      checked: true,
+      filter: 'fence-type: 3D сетка Гиттер',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 5005',
+      name: 'синий',
+      checked: true,
+      filter: 'fence-type: 3D сетка Гиттер',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 8017',
+      name: 'шоколад',
+      checked: true,
+      filter: 'fence-type: 3D сетка Гиттер',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 1705',
+      name: 'темно зеленый',
+      checked: true,
+      filter: 'fence-type: 3D сетка Гиттер',
+    },
+
+    // 2D сварная сетка
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 1705',
+      name: 'темно зеленый',
+      checked: true,
+      filter: 'fence-type: 2D сварная сетка',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 5005',
+      name: 'синий',
+      checked: true,
+      filter: 'fence-type: 2D сварная сетка',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 8017',
+      name: 'шоколад',
+      checked: true,
+      filter: 'fence-type: 2D сварная сетка',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 1705',
+      name: 'темно зеленый',
+      checked: true,
+      filter: 'fence-type: 2D сварная сетка',
+    },
+
+    // Деревянный шаткетник:
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'Естественный, без окраса',
+      name: '',
+      checked: true,
+      filter: 'fence-type: Деревянный шаткетник',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'С окрасом',
+      name: '',
+      checked: true,
+      filter: 'fence-type: Деревянный шаткетник',
+    },
+
+    // Сетка рабица
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 1705',
+      name: 'темно зеленый',
+      checked: true,
+      filter: 'fence-type: Сетка рабица',
+    },
+
+    // Поликарбонат
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'Прозрачный',
+      name: '',
+      checked: true,
+      filter: 'fence-type: Поликарбонат',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'Молоко',
+      name: '',
+      checked: true,
+      filter: 'fence-type: Поликарбонат',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'Бронза',
+      name: '',
+      checked: true,
+      filter: 'fence-type: Поликарбонат',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'Зеленый',
+      name: '',
+      checked: true,
+      filter: 'fence-type: Поликарбонат',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'Синий',
+      name: '',
+      checked: true,
+      filter: 'fence-type: Поликарбонат',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'Красный',
+      name: '',
+      checked: true,
+      filter: 'fence-type: Поликарбонат',
+    },
+
+    // Жалюзи
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 7004',
+      name: ' серый',
+      checked: true,
+      filter: 'fence-type: Жалюзи',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 3005',
+      name: ' красное вино',
+      checked: true,
+      filter: 'fence-type: Жалюзи',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 8017',
+      name: ' шоколад',
+      checked: true,
+      filter: 'fence-type: Жалюзи',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 6005',
+      name: ' темно зеленый',
+      checked: true,
+      filter: 'fence-type: Жалюзи',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 7024',
+      name: ' мокрый асфальт',
+      checked: true,
+      filter: 'fence-type: Жалюзи',
+    },
+    {
+      image: '/images/colors/1.jpg',
+      color: '#9B9B9B',
+      id: 'RAL 9005',
+      name: ' черный',
+      checked: true,
+      filter: 'fence-type: Жалюзи',
     },
   ],
 } = Astro.props
@@ -57,7 +505,7 @@ const {
           <ColorOption
             {...card}
             class="calculator__color-option hide"
-            filter={'fence-type: type-1'}
+            filter={card.filter}
             type={'input'}
             required
             inputName={'fence-color'}
@@ -88,13 +536,12 @@ const {
 
 <script>
   import type { CalculatorElement } from '@elements/Calculator/Calculator.astro.0.mjs'
-  import type { ImageCloakElement } from '@lib/ImageCloak'
 
   export class CalculatorColorsElement extends HTMLElement {
     #calculatorElement: CalculatorElement | null = null
     #colorInputElements: Array<HTMLInputElement> = []
     #infoElement: HTMLElement | null = null
-    #imageElement: ImageCloakElement | null = null
+    #imageElement: HTMLImageElement | null = null
 
     protected async connectedCallback() {
       this.#calculatorElement = this.closest('e-calculator')
@@ -146,7 +593,7 @@ const {
       const image = ct.getAttribute('data-image')
 
       if (image && this.#imageElement) {
-        this.#imageElement.updateImage(image)
+        this.#imageElement.srcset = image
       }
     }
 
@@ -159,7 +606,7 @@ const {
         const image = lastChecked.getAttribute('data-image')
 
         if (image && this.#imageElement) {
-          this.#imageElement.updateImage(image)
+          this.#imageElement.srcset = image
         }
 
         if (this.#infoElement) {

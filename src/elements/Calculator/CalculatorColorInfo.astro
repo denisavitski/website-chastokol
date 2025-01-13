@@ -1,6 +1,4 @@
 ---
-import Image from '@elements/Image.astro'
-
 export interface Props {
   class?: string
 }
@@ -12,11 +10,10 @@ const { class: className, ...rest } = Astro.props
   {...rest}
   class:list={[className, 'calculator-color-info']}
 >
-  <Image
+  <img
     class="calculator-color-info__image"
-    lazy
-    lazyBackground
-    contain
+    src="#"
+    loading="lazy"
   />
 
   <div
@@ -38,6 +35,8 @@ const { class: className, ...rest } = Astro.props
 
     background-color: var(--color-image-background);
     border-radius: var(--border-radius);
+
+    object-fit: contain;
 
     @media (max-width: 768px) {
       height: 18rem;
