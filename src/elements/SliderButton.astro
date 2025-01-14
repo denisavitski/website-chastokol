@@ -54,7 +54,12 @@ const Tag = tag
     transition-timing-function: ease;
 
     user-select: none;
-    cursor: pointer;
+
+    cursor: default;
+
+    &:not([disabled]) {
+      cursor: pointer;
+    }
 
     [data-white-background='true'] & {
       background-color: var(--slider-button-color, var(--color-grayscale-200));
@@ -66,13 +71,13 @@ const Tag = tag
     }
 
     @media (hover: hover) {
-      &:hover {
+      &:not([disabled]):hover {
         background-color: var(--color-primary-100);
       }
     }
 
     @media (max-width: 1600px) {
-      --offset: 3rem;
+      --offset: 2rem;
     }
 
     @media (max-width: 768px) {
@@ -127,7 +132,7 @@ const Tag = tag
     transition-timing-function: ease;
 
     @media (hover: hover) {
-      .slider-button:hover & {
+      .slider-button:not([disabled]):hover & {
         fill: var(--color-grayscale-0);
       }
     }

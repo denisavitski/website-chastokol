@@ -4,6 +4,7 @@ export interface Props {
   links?: Array<{ name: string; href: string }>
   whiteBackground?: boolean
   largePadding?: boolean
+  theme?: 'dark' | 'light'
 }
 
 const {
@@ -14,6 +15,7 @@ const {
   ],
   whiteBackground,
   largePadding,
+  theme = 'dark',
   ...rest
 } = Astro.props
 ---
@@ -24,6 +26,7 @@ const {
   class:list={[className, 'breadcrumbs']}
   data-white-background={whiteBackground}
   data-large-padding={largePadding}
+  data-theme={theme}
 >
   {
     links.map((link) => {
@@ -33,10 +36,12 @@ const {
           data-prefetch
           class="f-d-body-large-regular-16 f-m-body-basic-regular-14 breadcrumbs__link"
         >
-          <span
-            class="breadcrumbs__link__name"
-            set:html={link.name}
-          />
+          <span class="breadcrumbs__link__name">
+            <span
+              class="breadcrumbs__link__name__value"
+              set:html={link.name}
+            />
+          </span>
         </a>
       )
     })
@@ -66,20 +71,6 @@ const {
   }
 
   .breadcrumbs__link__name {
-    color: var(--color-grayscale-400);
-
-    .breadcrumbs__link:last-child & {
-      color: var(--color-font);
-    }
-
-    @media (hover: hover) {
-      transition: color var(--duration-button);
-
-      .breadcrumbs__link:hover & {
-        color: var(--color-grayscale-400);
-      }
-    }
-
     .breadcrumbs__link:not(:last-child) &::after {
       content: '/';
       display: inline-block;
@@ -92,5 +83,43 @@ const {
         margin: 0 0.7rem;
       }
     }
+  }
+
+  .breadcrumbs[data-theme='dark'] .breadcrumbs__link__name {
+    color: var(--color-grayscale-400);
+  }
+
+  .breadcrumbs[data-theme='light'] .breadcrumbs__link__name {
+    color: var(--color-grayscale-300);
+  }
+
+  .breadcrumbs[data-theme='dark']
+    .breadcrumbs__link:last-child
+    .breadcrumbs__link__name {
+    color: var(--color-font);
+  }
+
+  .breadcrumbs[data-theme='light']
+    .breadcrumbs__link:last-child
+    .breadcrumbs__link__name {
+    color: var(--color-grayscale-0);
+  }
+
+  .breadcrumbs__link__name__value {
+    @media (hover: hover) {
+      transition: color var(--duration-button);
+    }
+  }
+
+  .breadcrumbs[data-theme='dark']
+    .breadcrumbs__link:not(:last-child):hover
+    .breadcrumbs__link__name__value {
+    color: var(--color-font);
+  }
+
+  .breadcrumbs[data-theme='light']
+    .breadcrumbs__link:not(:last-child):hover
+    .breadcrumbs__link__name__value {
+    color: var(--color-grayscale-0);
   }
 </style>

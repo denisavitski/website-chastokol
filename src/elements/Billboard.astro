@@ -104,6 +104,12 @@ const {
 
     z-index: 1;
 
+    display: none !important;
+
+    .billboard.has-length & {
+      display: inline-flex !important;
+    }
+
     @media (max-width: 768px) {
       top: calc(50% - var(--slider-button-size, 2.6rem) / 2);
     }
@@ -149,6 +155,12 @@ const {
     z-index: 1;
 
     transform: translateX(-50%);
+
+    display: none !important;
+
+    .billboard.has-length & {
+      display: flex !important;
+    }
 
     @media (min-width: 769px) {
       .billboard[data-theme='inside'] & {

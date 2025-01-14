@@ -13,18 +13,20 @@ export interface Props {
   icon?: SpriteIconName
   checked?: boolean | undefined
   alwaysChecked?: boolean | undefined
+  required?: boolean
 }
 
 const {
   class: className,
   type = 'checkbox',
   name,
-  value = 'Value',
+  value,
   font = 'f-d-body-large-regular-16 f-m-body-basic-regular-14',
   disabled,
   checked,
   alwaysChecked,
   icon,
+  required,
   ...rest
 } = Astro.props
 ---
@@ -39,6 +41,7 @@ const {
     {disabled}
     {name}
     {value}
+    {required}
     checked={alwaysChecked || checked}
     data-always-checked={alwaysChecked}
   />
@@ -114,7 +117,7 @@ const {
     align-items: center;
     justify-content: center;
 
-    border: 0.2rem solid var(--color-primary-100);
+    border: 2px solid var(--color-primary-100);
 
     .checkbox__input[type='radio'] ~ .checkbox__content & {
       border-radius: 50%;
@@ -146,6 +149,7 @@ const {
     @media (max-width: 768px) {
       width: var(--checkbox-size, 1.5rem);
       height: var(--checkbox-size, 1.5rem);
+      border-width: 1px;
     }
   }
 

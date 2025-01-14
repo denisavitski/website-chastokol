@@ -68,10 +68,12 @@ const {
   }
 
   .social-link-button__icon {
-    width: 2.4rem;
-    height: 2.4rem;
+    width: 2.5rem;
+    height: 2.5rem;
 
     fill: var(--color-grayscale-0);
+
+    will-change: transform;
 
     @media (max-width: 768px) {
       width: 1.8rem;
@@ -81,5 +83,6 @@ const {
 
   .social-link-button__name {
     color: var(--color-grayscale-0);
+    line-height: 1 !important;
   }
 </style>

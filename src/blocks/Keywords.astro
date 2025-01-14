@@ -30,6 +30,7 @@ const {
             class="keywords__keyword f-d-title-medium-20 f-m-body-basic-medium-14"
             href={item.href}
             set:html={item.name}
+            draggable="false"
           />
         )
       })
@@ -62,6 +63,9 @@ const {
     --sectional: true;
     --sections-in-view: 4;
     --auto-size: true;
+    --mouse-drag: true;
+
+    user-select: none;
 
     display: flex;
     gap: var(--gap);

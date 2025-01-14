@@ -52,6 +52,10 @@ const Tag = tag
       var(--background, var(--color-grayscale-0))
     );
 
+    @media (max-width: 1600px) {
+      padding: var(--left-padding, 3rem);
+    }
+
     @media (max-width: 768px) {
       width: 100%;
       padding: var(--left-padding, 2rem);
@@ -75,6 +79,10 @@ const Tag = tag
       --right-background,
       var(--background, var(--color-grayscale-0))
     );
+
+    @media (max-width: 1600px) {
+      padding: var(--right-padding, 3rem);
+    }
 
     @media (max-width: 768px) {
       width: 100%;

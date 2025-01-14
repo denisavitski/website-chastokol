@@ -38,6 +38,7 @@ const { class: className, ...rest } = Astro.props
     background-color: #0077ff;
 
     @media (hover: hover) {
+      will-change: opacity;
       transition-property: opacity;
       transition-duration: var(--duration-button);
 
@@ -66,6 +67,7 @@ const { class: className, ...rest } = Astro.props
   }
 
   .vkontakte-link__name {
+    line-height: 1 !important;
     color: var(--color-grayscale-0);
   }
 </style>

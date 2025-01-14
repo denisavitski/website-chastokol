@@ -298,6 +298,7 @@ const { class: className, ...rest } = Astro.props
 
       display: none;
       grid-auto-rows: max-content;
+      grid-template-columns: 100%;
 
       border-radius: 1.5rem;
       border: 1px solid var(--color-primary-100);
@@ -322,6 +323,7 @@ const { class: className, ...rest } = Astro.props
       height: var(--input-height);
       text-align: start;
 
+      width: 100%;
       padding: 0 var(--padding);
 
       border-radius: 1.2rem;
@@ -417,7 +419,7 @@ const { class: className, ...rest } = Astro.props
       this.classList.toggle('has-info', !!info)
 
       shadow.innerHTML = `
-        <span>
+        <span style="display: block; width: 100%;">
           ${
             info
               ? `<e-popover-button target-group="${info}" class="info">
@@ -428,7 +430,7 @@ const { class: className, ...rest } = Astro.props
               : ''
           }
           
-          <label>
+          <label style="display: block; width: 100%;">
             ${label ? `<span class="name">${label}</span>` : ''}
 
             <span class="main">
@@ -750,7 +752,7 @@ const { class: className, ...rest } = Astro.props
 
     #debouncedToggleContent = debounce((open: boolean) => {
       this.#toggleContent(open)
-    }, 30)
+    }, 100)
 
     #selectOptionListener = (e: Event) => {
       const ct = e.currentTarget as HTMLElement
@@ -805,9 +807,9 @@ const { class: className, ...rest } = Astro.props
       this.#debouncedToggleContent(true)
     }
 
-    #blurListener = () => {
+    #blurListener = debounce(() => {
       this.#debouncedToggleContent(false)
-    }
+    }, 50)
 
     #mainInputListener = () => {
       if (this.getAttribute('type') === 'date') {

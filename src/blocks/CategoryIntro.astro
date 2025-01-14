@@ -45,6 +45,7 @@ const {
     <Breadcrumbs
       class="category-intro__breadcrubms"
       links={breadcrumbs}
+      theme={'light'}
     />
     <h1
       class="category-intro__heading f-d-title-medium-76 f-m-title-medium-30"
@@ -129,14 +130,6 @@ const {
   .category-intro__breadcrubms {
     padding: 0;
     margin-bottom: 4rem;
-
-    .breadcrumbs__link__name {
-      color: var(--color-grayscale-300);
-    }
-
-    .breadcrumbs__link:last-child .breadcrumbs__link__name {
-      color: var(--color-grayscale-0);
-    }
 
     @media (max-width: 768px) {
       margin-bottom: 2rem;

@@ -598,11 +598,13 @@ const {
     }
 
     #updateInfo() {
-      const lastChecked = this.#colorInputElements.findLast((element) => {
-        return element.checked && !element.disabled
+      const lastChecked = this.#colorInputElements.find((element) => {
+        return !element.disabled
       })
 
       if (lastChecked) {
+        lastChecked.checked = true
+
         const image = lastChecked.getAttribute('data-image')
 
         if (image && this.#imageElement) {

@@ -230,11 +230,14 @@ const {
 
     #toggle = (open: boolean) => {
       this.#status.set('opened', open)
+      if (!open) {
+        this.blur()
+      }
     }
 
     #debouncedToggle = debounce((open: boolean) => {
       this.#toggle(open)
-    }, 0)
+    }, 10)
   }
 
   if (!customElements.get('e-select')) {

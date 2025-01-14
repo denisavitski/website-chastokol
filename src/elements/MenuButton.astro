@@ -40,6 +40,7 @@ const { class: className, target = 'menu', ...rest } = Astro.props
     border-radius: 3rem;
 
     background-color: var(--color-grayscale-0);
+    border: 1px solid var(--color-grayscale-0);
 
     transition-property: background-color, border-color;
     transition-duration: var(--duration-menu);
@@ -47,6 +48,7 @@ const { class: className, target = 'menu', ...rest } = Astro.props
     &.opened {
       --color: var(--color-grayscale-0);
       background-color: var(--color-primary-100);
+      border-color: var(--color-primary-100);
     }
 
     @media (max-width: 768px) {

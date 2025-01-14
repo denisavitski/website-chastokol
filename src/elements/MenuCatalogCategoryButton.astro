@@ -64,6 +64,16 @@ const {
       color: var(--color-primary-100);
     }
 
+    @media (min-width: 769px) {
+      &:hover {
+        --icon-box-background-color: var(--color-primary-100);
+        --icon-box-color: var(--color-grayscale-0);
+
+        background-color: var(--color-grayscale-100);
+        color: var(--color-primary-100);
+      }
+    }
+
     @media (max-width: 768px) {
       --icon-box-size: 3rem;
       padding: 1.5rem var(--screen-horisontal-padding);

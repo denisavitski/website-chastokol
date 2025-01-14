@@ -48,7 +48,7 @@ const {
   </e-popover-button>
   <e-popover
     id="chapters"
-    class="chapters__list f-d-body-large-medium-16 f-d-body-basic-medium-14"
+    class="chapters__list"
   >
     {
       list.map((item) => {
@@ -56,9 +56,13 @@ const {
           <a
             class="chapters__link"
             href={`#${item.anchor}`}
-            set:html={item.name}
             data-outside
-          />
+          >
+            <span
+              set:html={item.name}
+              class=" f-d-body-large-medium-16 f-d-body-basic-medium-14"
+            />
+          </a>
         )
       })
     }
@@ -165,11 +169,13 @@ const {
     &::before {
       content: '';
 
-      width: 0.4rem;
-      height: 0.4rem;
+      width: 4px;
+      height: 4px;
+      flex-shrink: 0;
 
       background-color: var(--color-primary-100);
       border-radius: 50%;
+      will-change: transform;
     }
   }
 </style>

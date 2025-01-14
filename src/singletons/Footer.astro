@@ -571,7 +571,7 @@ const {
 
     @media (hover: hover) {
       a,
-      .footer__col__more__name__value {
+      .footer__col__more__name {
         transition-property: color;
         transition-duration: var(--duration-button);
 
@@ -604,7 +604,7 @@ const {
       'stats . . . social online';
 
     @media (max-width: 1600px) {
-      grid-template-columns: 28rem 1fr 1fr 1fr 1fr 1fr;
+      grid-template-columns: 35rem 0.5fr 1fr 1fr 1fr 1fr;
     }
 
     @media (max-width: 768px) {
@@ -842,6 +842,8 @@ const {
     height: 1.8rem;
 
     fill: var(--color-grayscale-0);
+
+    will-change: transform;
 
     @media (hover: hover) {
       transition-property: fill, transform;

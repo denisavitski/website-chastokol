@@ -320,16 +320,6 @@ const { class: className, steps = 8, ...rest } = Astro.props
     padding: 0 2rem;
     border-radius: 3rem;
 
-    @media (hover: hover) {
-      transition-property: opacity;
-      transition-duration: var(--duration-button);
-      transition-timing-function: ease;
-
-      &:hover {
-        opacity: 0.9;
-      }
-    }
-
     @media (max-width: 768px) {
       height: 4rem;
       padding: 0 1.5rem;
@@ -343,6 +333,16 @@ const { class: className, steps = 8, ...rest } = Astro.props
 
     display: none;
 
+    @media (hover: hover) {
+      transition-property: opacity;
+      transition-duration: var(--duration-button);
+      transition-timing-function: ease;
+
+      &:hover {
+        opacity: 0.6;
+      }
+    }
+
     .calculator:not([data-step='1']) & {
       display: block;
     }
@@ -351,7 +351,19 @@ const { class: className, steps = 8, ...rest } = Astro.props
   .calculator__next-button {
     color: var(--color-grayscale-0);
     background-color: var(--color-primary-100);
+    border: 1px solid var(--color-primary-100);
     user-select: none;
+
+    @media (hover: hover) {
+      transition-property: background-color, border-color, color;
+      transition-duration: var(--duration-button);
+      transition-timing-function: ease;
+
+      &:hover {
+        background-color: transparent;
+        color: var(--color-primary-100);
+      }
+    }
   }
 
   .calculator__thank-you {
@@ -372,6 +384,7 @@ const { class: className, steps = 8, ...rest } = Astro.props
 
 <script>
   import { clamp, dispatchEvent, scrollToElement } from 'aptechka/utils'
+  import { isVisible } from '@utils/dom'
   import type { ProgressElement } from '@elements/Progress.astro.0.mts'
   import type { InputElement } from '@elements/Input.astro.0.mjs'
 
@@ -398,12 +411,12 @@ const { class: className, steps = 8, ...rest } = Astro.props
 
       if (
         newCounterValue > this.#stepCounter &&
-        !this.#currentInputElements.every(
-          (el) => !el.checkVisibility() || el.validity.valid,
-        )
+        !this.#currentInputElements.every((el) => {
+          return !isVisible(el) || el.validity.valid
+        })
       ) {
         const firstVisible = this.#currentInputElements.find((el) => {
-          return el.checkVisibility() && !el.validity.valid
+          return isVisible(el) && !el.validity.valid
         })
 
         firstVisible?.reportValidity()

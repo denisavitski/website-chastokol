@@ -1,4 +1,6 @@
 ---
+import CheckboxButton from './CheckboxButton.astro'
+
 export interface Props {
   class?: string
 }
@@ -13,11 +15,10 @@ const { class: className, ...rest } = Astro.props
     'form-agreement f-d-body-basic-regular-14 f-m-footnote-regular-10',
   ]}
 >
-  <input
-    type="checkbox"
-    class="form-agreement__input"
+  <CheckboxButton
     name="agreement"
     required
+    class="form-agreement__input"
   />
   <span class="form-agreement__text"
     >Я согласен с <a href="/policy">Политикой обработки персональных данных</a
@@ -34,19 +35,23 @@ const { class: className, ...rest } = Astro.props
   .form-agreement__input {
     display: inline-block;
 
-    width: 1.8rem;
-    height: 1.8rem;
+    --checkbox-size: 1.8rem;
 
     margin-right: 1.2rem;
 
+    .checkbox__icon-box {
+      border-color: var(--color-grayscale-400);
+    }
+
+    .checkbox__input:checked ~ .checkbox__content .checkbox__icon-box {
+      border-color: var(--color-primary-100);
+    }
+
     @media (max-width: 768px) {
-      width: 1.35rem;
-      height: 1.35rem;
+      --checkbox-size: 1.35rem;
 
       margin-right: 1rem;
     }
-
-    accent-color: var(--color-primary-100);
   }
 
   .form-agreement__text {

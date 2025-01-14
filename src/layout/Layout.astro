@@ -93,11 +93,11 @@ const {
       >
         <Scrollbar />
 
-        <!-- { -->
-        <!-- import.meta.env.DEV && pixelPerfectImages ? ( -->
-        <!-- ) : null -->
-        <!-- } -->
-        <PixelPerfect images={pixelPerfectImages} />
+        {
+          import.meta.env.DEV && pixelPerfectImages ? (
+            <PixelPerfect images={pixelPerfectImages} />
+          ) : null
+        }
 
         <main>
           <slot />

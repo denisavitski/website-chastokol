@@ -445,6 +445,36 @@ const {
     }
   }
 
+  @media (min-width: 769px) {
+    @media (hover: hover) {
+      html:not(.page-scrolled) .header__catalog-button:hover {
+        --color: var(--color-grayscale-0);
+        background-color: var(--color-primary-100);
+        border-color: var(--color-primary-100);
+      }
+
+      html:not([data-header-color='dark'])
+        .header__catalog-button.opened:hover {
+        --color: var(--color-primary-100);
+        background-color: transparent;
+        border-color: var(--color-primary-100);
+      }
+
+      html:not([data-header-color='dark']).page-scrolled
+        .header__catalog-button:hover {
+        --color: var(--color-primary-100);
+        background-color: transparent;
+        border-color: var(--color-primary-100);
+      }
+
+      html[data-header-color='dark'] .header__catalog-button:hover {
+        --color: var(--color-primary-100);
+        background-color: transparent;
+        border-color: var(--color-primary-100);
+      }
+    }
+  }
+
   .header__catalog-button__name {
     display: inline-block;
     line-height: 1;
