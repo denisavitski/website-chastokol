@@ -10,17 +10,15 @@ const { class: className, ...rest } = Astro.props
 
 <label
   {...rest}
-  class:list={[
-    className,
-    'form-agreement f-d-body-basic-regular-14 f-m-footnote-regular-10',
-  ]}
+  class:list={[className, 'form-agreement ']}
 >
   <CheckboxButton
     name="agreement"
     required
     class="form-agreement__input"
   />
-  <span class="form-agreement__text"
+  <span
+    class="form-agreement__text f-d-body-basic-regular-14 f-m-footnote-regular-10"
     >Я согласен с <a href="/policy">Политикой обработки персональных данных</a
     ></span
   >
@@ -56,6 +54,7 @@ const { class: className, ...rest } = Astro.props
 
   .form-agreement__text {
     color: var(--color-grayscale-400);
+    line-height: 1 !important;
 
     a {
       text-decoration: underline;

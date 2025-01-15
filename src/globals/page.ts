@@ -32,6 +32,7 @@ addEventListener('load', () => {
   document.documentElement.classList.add('page-loaded')
   updateSize()
   updateScroll()
+  dispatchEvent(new Event('resize'))
 })
 
 addEventListener('resize', updateSize)

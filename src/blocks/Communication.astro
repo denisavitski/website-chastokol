@@ -141,7 +141,7 @@ const {
   .communication__column__link {
     position: relative;
 
-    color: var(--color-primary-100);
+    color: var(--color-grayscale-600);
 
     @media (hover: hover) {
       &::after {
@@ -154,18 +154,20 @@ const {
         display: block;
 
         width: 100%;
-        height: 1px;
+        height: 2px;
 
         background-color: var(--color-primary-100);
 
-        opacity: 0;
-        transition-property: opacity;
+        transition-property: transform;
         transition-duration: var(--duration-button);
         transition-timing-function: ease;
+        transform-origin: right;
+        transform: scaleX(0);
       }
 
       &:hover::after {
-        opacity: 1;
+        transform-origin: left;
+        transform: scaleX(1);
       }
     }
   }

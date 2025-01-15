@@ -416,6 +416,8 @@ const {
 
       width: 100%;
 
+      border-top: 1px solid var(--color-grayscale-300);
+
       .menu-button__name {
         width: 100%;
       }
@@ -429,6 +431,7 @@ const {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        transform: unset !important;
       }
 
       .menu-button__icon {
@@ -437,6 +440,7 @@ const {
 
       &.opened {
         background-color: unset;
+        border-color: var(--color-grayscale-300);
 
         .menu-button__name {
           color: var(--color-font);
