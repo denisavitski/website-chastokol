@@ -1,0 +1,91 @@
+---
+export interface MapZoneData {
+  lng: number
+  lat: number
+  radius: number
+  stroke: string
+  fill: string
+}
+
+export interface Props extends Partial<MapZoneData> {
+  class?: string
+}
+
+const {
+  lng = 37.588144,
+  lat = 55.733842,
+  stroke = '#006efc',
+  fill = '#006efc',
+  radius = 1500,
+  class: className,
+  ...rest
+} = Astro.props
+---
+
+<!-- 
+  Если не указывать lng и lat, то значения будут браться указанные в атрибутах lng и lat самой карты.
+  radius указывается в километрах.
+-->
+<e-map-zone
+  {...rest}
+  {lng}
+  {lat}
+  {stroke}
+  {fill}
+  {radius}
+>
+</e-map-zone>
+
+<style is:global>
+  e-map-zone {
+    display: none;
+  }
+</style>
+
+<script>
+  export class MapZoneElement extends HTMLElement {
+    #lng: number = 0
+    #lat: number = 0
+    #radius: number = 0
+    #stroke: string = 'white'
+    #fill: string = 'white'
+
+    public get lng() {
+      return this.#lng
+    }
+
+    public get lat() {
+      return this.#lat
+    }
+
+    public get stroke() {
+      return this.#stroke
+    }
+
+    public get fill() {
+      return this.#fill
+    }
+
+    public get radius() {
+      return this.#radius
+    }
+
+    protected connectedCallback() {
+      this.#lng = parseFloat(this.getAttribute('lng') || '0')
+      this.#lat = parseFloat(this.getAttribute('lat') || '0')
+      this.#radius = parseFloat(this.getAttribute('radius') || '0')
+      this.#stroke = this.getAttribute('stroke') || ''
+      this.#fill = this.getAttribute('fill') || ''
+    }
+  }
+
+  if (!customElements.get('e-map-zone')) {
+    customElements.define('e-map-zone', MapZoneElement)
+  }
+
+  declare global {
+    interface HTMLElementTagNameMap {
+      'e-map-zone': MapZoneElement
+    }
+  }
+</script>

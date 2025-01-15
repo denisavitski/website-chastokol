@@ -9,6 +9,7 @@ import PaymentCard, {
   type Props as PaymentCardProps,
 } from '@elements/PaymentCard.astro'
 import Map from '@elements/Map.astro'
+import MapZone from '@elements/MapZone.astro'
 
 export interface Props {
   delivery?: {
@@ -137,7 +138,28 @@ const {
       </e-scroll>
 
       <div class="delivery__zones__map-wrapper">
-        <Map class="delivery__zones__map" />
+        <Map class="delivery__zones__map">
+          <MapZone
+            radius={90}
+            fill="#A8E998"
+            stroke="#7CD840"
+          />
+          <MapZone
+            radius={120}
+            fill="#FEE172"
+            stroke="#EAC756"
+          />
+          <MapZone
+            radius={140}
+            fill="#FFC88A"
+            stroke="#FAB95E"
+          />
+          <MapZone
+            radius={160}
+            fill="#F8B4AF"
+            stroke="#851100"
+          />
+        </Map>
       </div>
     </div>
     <div

@@ -27,6 +27,7 @@
     "vite": "^6.0.3"
   },
   "dependencies": {
+    "@turf/turf": "^7.2.0",
     "aptechka": "^0.51.6",
     "astro-merge-assets": "^0.1.2",
     "construct-style-sheets-polyfill": "^3.1.0"

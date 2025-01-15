@@ -1,5 +1,6 @@
 ---
 import './MapWorkMarker.astro'
+import './MapZone.astro'
 
 export interface Props {
   class?: string
@@ -45,9 +46,16 @@ const {
 </style>
 
 <script>
-  import type { YMap, YMapMarker } from '@yandex/ymaps3-types'
+  import type {
+    DrawingStyle,
+    YMap,
+    YMapFeature,
+    YMapMarker,
+  } from '@yandex/ymaps3-types'
   import { dispatchEvent } from 'aptechka/utils'
   import type { MapWorkMarkerData } from './MapWorkMarker.astro'
+  import type { MapZoneData } from './MapZone.astro'
+  import * as turf from '@turf/turf'
 
   export interface MapEvents {
     mapReady: CustomEvent
@@ -57,6 +65,7 @@ const {
     #map: YMap | null = null
     #isReady = false
     #markers: Array<YMapMarker> = []
+    #prevCircle: ReturnType<typeof turf.circle> | undefined
 
     public get map() {
       return this.#map
@@ -66,62 +75,7 @@ const {
       return this.#isReady
     }
 
-    protected async connectedCallback() {
-      if (!(window as any).ymaps3) {
-        console.warn(this, `ymaps3 не найден`)
-        return
-      }
-
-      await ymaps3.ready
-
-      const lng = parseFloat(this.getAttribute('lng') || '37.588144')
-      const lat = parseFloat(this.getAttribute('lat') || '55.733842')
-      const zoom = parseFloat(this.getAttribute('zoom') || '10')
-
-      this.#map = new ymaps3.YMap(
-        this,
-
-        {
-          location: {
-            center: [lng, lat],
-            zoom: zoom,
-          },
-        },
-      )
-
-      // Добавляем слой для отображения схематической карты
-      this.#map.addChild(new ymaps3.YMapDefaultSchemeLayer({}))
-      this.#map.addChild(new ymaps3.YMapDefaultFeaturesLayer({}))
-
-      await customElements.whenDefined('e-map-work-marker')
-
-      const workElements = this.querySelectorAll('e-map-work-marker')
-
-      workElements.forEach((element) => {
-        const marker = this.#createWorkMarker({
-          markerImage: element.markerImage,
-          image: element.image,
-          description: element.description,
-          lat: element.lat,
-          lng: element.lng,
-          name: element.name,
-        })
-
-        this.#markers.push(marker)
-
-        this.#map!.addChild(marker)
-      })
-
-      this.#isReady = true
-
-      dispatchEvent(this, 'mapReady', { custom: true })
-    }
-
-    protected disconnectedCallback() {
-      this.#map?.destroy()
-    }
-
-    #createWorkMarker(data: MapWorkMarkerData) {
+    public createWorkMarker(data: MapWorkMarkerData) {
       const markerElement = document.createElement('div')
       markerElement.className = 'work-marker'
       markerElement.innerHTML = `
@@ -135,10 +89,7 @@ const {
 
       const marker = new ymaps3.YMapMarker(
         {
-          coordinates: [
-            parseFloat(data.lng.toString()),
-            parseFloat(data.lat.toString()),
-          ],
+          coordinates: [data.lng, data.lat],
           onFastClick: () => {
             this.#markers.forEach((m) => {
               if (m === marker) {
@@ -164,6 +115,203 @@ const {
       )
 
       return marker
+    }
+
+    public createZone(data: MapZoneData) {
+      const style: DrawingStyle = {
+        simplificationRate: 0,
+        stroke: [{ color: data.stroke, width: 2, opacity: 0.7 }],
+        fill: data.fill,
+        fillOpacity: 0.7,
+      }
+
+      const circle = turf.circle([data.lng, data.lat], data.radius, {
+        units: 'kilometers',
+      })
+
+      let finalShape: any = circle
+
+      if (this.#prevCircle) {
+        const diff = turf.difference(
+          turf.featureCollection([circle, this.#prevCircle]),
+        )
+
+        finalShape = diff
+      }
+
+      this.#prevCircle = circle
+
+      const zone = new ymaps3.YMapFeature({
+        geometry: finalShape.geometry,
+        style: style,
+      })
+
+      return zone
+    }
+
+    protected async connectedCallback() {
+      if (!(window as any).ymaps3) {
+        console.warn(this, `ymaps3 не найден`)
+        return
+      }
+
+      await ymaps3.ready
+
+      const lng = parseFloat(this.getAttribute('lng') || '37.588144')
+      const lat = parseFloat(this.getAttribute('lat') || '55.733842')
+      const zoom = parseFloat(this.getAttribute('zoom') || '10')
+
+      this.#map = new ymaps3.YMap(
+        this,
+
+        {
+          location: {
+            center: [lng, lat],
+            zoom: zoom,
+          },
+        },
+      )
+
+      this.#map.addChild(new ymaps3.YMapDefaultSchemeLayer({}))
+      this.#map.addChild(new ymaps3.YMapDefaultFeaturesLayer({}))
+
+      const controls = new ymaps3.YMapControls({ position: 'left' })
+
+      const { YMapZoomControl } = await ymaps3.import(
+        '@yandex/ymaps3-controls@0.0.1',
+      )
+
+      controls.addChild(
+        new YMapZoomControl({
+          easing: 'ease-in-out',
+        }),
+      )
+
+      this.#map.addChild(controls)
+
+      const workElements = this.querySelectorAll('e-map-work-marker')
+      const zoneElements = this.querySelectorAll('e-map-zone')
+
+      if (workElements.length) {
+        await customElements.whenDefined('e-map-work-marker')
+      }
+
+      if (zoneElements.length) {
+        await customElements.whenDefined('e-map-zone')
+      }
+
+      const coordinates: Array<[number, number]> = []
+
+      workElements.forEach((element) => {
+        const marker = this.createWorkMarker({
+          markerImage: element.markerImage,
+          image: element.image,
+          description: element.description,
+          lat: element.lat || lat,
+          lng: element.lng || lng,
+          name: element.name,
+        })
+
+        this.#markers.push(marker)
+
+        this.#map!.addChild(marker)
+
+        coordinates.push([element.lng, element.lat])
+      })
+
+      const zones: Array<YMapFeature> = []
+
+      zoneElements.forEach((element) => {
+        const zone = this.createZone({
+          lat: element.lat || lat,
+          lng: element.lng || lng,
+          fill: element.fill,
+          stroke: element.stroke,
+          radius: element.radius,
+        })
+
+        zones.push(zone)
+
+        this.#map?.addChild(zone)
+
+        const center: [number, number] = [
+          element.lng || lng,
+          element.lat || lat,
+        ]
+
+        const radius = element.radius
+
+        coordinates.push(center)
+
+        this.#addZoneBounds(coordinates, center, radius)
+      })
+
+      const bounds = this.#calculateBounds(coordinates)
+
+      if (bounds) {
+        this.#map?.update({
+          location: {
+            bounds: bounds,
+          },
+        })
+      }
+
+      this.#isReady = true
+
+      dispatchEvent(this, 'mapReady', { custom: true })
+    }
+
+    protected disconnectedCallback() {
+      this.#map?.destroy()
+    }
+
+    #calculateBounds(
+      coordinates: Array<[number, number]>,
+    ): [[number, number], [number, number]] | null {
+      if (coordinates.length === 0) {
+        return null
+      }
+
+      let minLat = Infinity
+      let minLng = Infinity
+      let maxLat = -Infinity
+      let maxLng = -Infinity
+
+      coordinates.forEach(([lng, lat]) => {
+        if (lat < minLat) minLat = lat
+        if (lng < minLng) minLng = lng
+        if (lat > maxLat) maxLat = lat
+        if (lng > maxLng) maxLng = lng
+      })
+
+      return [
+        [minLng, minLat],
+        [maxLng, maxLat],
+      ]
+    }
+
+    #addZoneBounds(
+      coordinates: Array<[number, number]>,
+      center: [number, number],
+      radius: number,
+    ) {
+      const earthRadius = 6371
+
+      const lat = center[1]
+      const lng = center[0]
+
+      const angularRadius = radius / earthRadius
+
+      const minLat = lat - (angularRadius * 180) / Math.PI
+      const maxLat = lat + (angularRadius * 180) / Math.PI
+
+      const minLng =
+        lng - (angularRadius * 180) / Math.PI / Math.cos((lat * Math.PI) / 180)
+      const maxLng =
+        lng + (angularRadius * 180) / Math.PI / Math.cos((lat * Math.PI) / 180)
+
+      coordinates.push([minLng, minLat])
+      coordinates.push([maxLng, maxLat])
     }
   }
 

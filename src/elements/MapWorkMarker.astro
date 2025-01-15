@@ -4,8 +4,8 @@ export interface MapWorkMarkerData {
   image: string
   name: string
   description: string
-  lng: number | string
-  lat: number | string
+  lng: number
+  lat: number
 }
 
 export interface Props extends Partial<MapWorkMarkerData> {
@@ -176,8 +176,8 @@ const {
     #image: string = ''
     #name: string = ''
     #description: string = ''
-    #lng: string = ''
-    #lat: string = ''
+    #lng: number = 0
+    #lat: number = 0
 
     public get markerImage() {
       return this.#markerImage
@@ -207,8 +207,8 @@ const {
       this.#image = this.getAttribute('image') || ''
       this.#name = this.getAttribute('name') || ''
       this.#description = this.getAttribute('description') || ''
-      this.#lng = this.getAttribute('lng') || ''
-      this.#lat = this.getAttribute('lat') || ''
+      this.#lng = parseFloat(this.getAttribute('lng') || '0')
+      this.#lat = parseFloat(this.getAttribute('lat') || '0')
     }
   }
 
