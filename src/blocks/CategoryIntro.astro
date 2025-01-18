@@ -53,15 +53,15 @@ const {
     />
     <Button
       href="/installment"
-      class="home-intro__installment"
+      class="category-intro__installment"
       name="Рассрочка на 12 месяцев"
     />
-    <div class="home-intro__stats">
+    <div class="category-intro__stats">
       {
         stats.map((stat) => {
           return (
             <TitleValueStat
-              class="home-intro__stat"
+              class="category-intro__stat"
               {...stat}
             />
           )
@@ -147,11 +147,11 @@ const {
     }
   }
 
-  .home-intro__installment {
+  .category-intro__installment {
     width: max-content;
   }
 
-  .home-intro__stats {
+  .category-intro__stats {
     display: flex;
     gap: 9rem;
 
@@ -167,6 +167,6 @@ const {
     }
   }
 
-  .home-intro__stat {
+  .category-intro__stat {
   }
 </style>
